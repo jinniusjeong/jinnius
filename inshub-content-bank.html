@@ -1,0 +1,781 @@
+<style>
+  /* ============ INSHUB · Static Content Bank ============ */
+  :root{
+    --paper:#F2F5EE; --paper2:#E9EEE1; --ink:#16241B; --ink-soft:#33473A;
+    --muted:#68786A; --line:rgba(22,36,27,.12); --line-strong:rgba(22,36,27,.22);
+    --enzyme:#17B85A; --enzyme-deep:#0C853C; --enzyme-tint:#E4F5EA;
+    --appetite:#FF5836; --appetite-deep:#D93A1B;
+    --gold:#E5A73A; --gold-deep:#B67C15;
+    --poo:#7A5230; --poo-soft:#A9764A;
+    --night:#101A14;
+    --chrome:#F7F9F3; --card-bg:#FFFFFF;
+    --shadow:0 1px 2px rgba(22,36,27,.06), 0 14px 34px -18px rgba(22,36,27,.30);
+    --radius:18px;
+    --sans:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',system-ui,-apple-system,'Segoe UI',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0E140F; --paper2:#151E17; --ink:#EAF1E6; --ink-soft:#C3D0BE;
+      --muted:#8FA091; --line:rgba(234,241,230,.13); --line-strong:rgba(234,241,230,.24);
+      --enzyme-tint:#12281B; --chrome:#111A13; --card-bg:#16211A;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 18px 40px -20px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F2F5EE; --paper2:#E9EEE1; --ink:#16241B; --ink-soft:#33473A;
+    --muted:#68786A; --line:rgba(22,36,27,.12); --line-strong:rgba(22,36,27,.22);
+    --enzyme-tint:#E4F5EA; --chrome:#F7F9F3; --card-bg:#FFFFFF;
+    --shadow:0 1px 2px rgba(22,36,27,.06), 0 14px 34px -18px rgba(22,36,27,.30);
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E140F; --paper2:#151E17; --ink:#EAF1E6; --ink-soft:#C3D0BE;
+    --muted:#8FA091; --line:rgba(234,241,230,.13); --line-strong:rgba(234,241,230,.24);
+    --enzyme-tint:#12281B; --chrome:#111A13; --card-bg:#16211A;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 18px 40px -20px rgba(0,0,0,.7);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4vw,52px);}
+  a{color:inherit}
+  ::selection{background:var(--enzyme);color:#fff}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:clamp(40px,7vw,84px) 0 clamp(28px,4vw,44px);}
+  .eyebrow{display:inline-flex;align-items:center;gap:.55em;font-size:.74rem;font-weight:800;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--enzyme-deep);}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--enzyme);}
+  @media (prefers-color-scheme:dark){.eyebrow{color:var(--enzyme)}}
+  :root[data-theme="dark"] .eyebrow{color:var(--enzyme)}
+  h1.title{font-size:clamp(2.3rem,6.4vw,4.4rem);font-weight:900;letter-spacing:-.03em;
+    line-height:1.02;margin:.34em 0 .1em;text-wrap:balance;max-width:16ch;}
+  h1.title .en{display:block;font-size:.42em;letter-spacing:.14em;font-weight:800;
+    color:var(--muted);text-transform:uppercase;margin-top:.5em;}
+  .lede{max-width:60ch;font-size:clamp(1rem,1.6vw,1.18rem);color:var(--ink-soft);margin:1.1em 0 0;}
+  .metastrip{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.5em;}
+  .chip{font-size:.78rem;font-weight:700;padding:.5em .85em;border-radius:100px;
+    background:var(--card-bg);border:1px solid var(--line);color:var(--ink-soft);box-shadow:var(--shadow);}
+  .chip b{color:var(--enzyme-deep)}
+  @media (prefers-color-scheme:dark){.chip b{color:var(--enzyme)}}
+  :root[data-theme="dark"] .chip b{color:var(--enzyme)}
+
+  /* ---------- Pillar index ---------- */
+  nav.index{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 82%,transparent);
+    backdrop-filter:blur(10px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    margin-top:clamp(24px,4vw,40px);}
+  nav.index .row{display:flex;gap:6px;overflow-x:auto;padding:11px clamp(18px,4vw,52px);
+    scrollbar-width:none;max-width:1200px;margin:0 auto;}
+  nav.index .row::-webkit-scrollbar{display:none}
+  nav.index a{white-space:nowrap;font-size:.8rem;font-weight:700;color:var(--muted);
+    padding:.42em .78em;border-radius:100px;text-decoration:none;transition:.18s;}
+  nav.index a:hover{color:var(--ink);background:var(--paper2)}
+  nav.index a:focus-visible{outline:2px solid var(--enzyme);outline-offset:2px}
+  nav.index a b{color:var(--enzyme-deep);margin-right:.35em}
+  @media (prefers-color-scheme:dark){nav.index a b{color:var(--enzyme)}}
+  :root[data-theme="dark"] nav.index a b{color:var(--enzyme)}
+
+  /* ---------- Sections ---------- */
+  section.pillar{padding:clamp(38px,5.5vw,66px) 0 8px;scroll-margin-top:64px;}
+  .s-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5em 1em;margin-bottom:.35em;}
+  .s-num{font-size:.82rem;font-weight:900;letter-spacing:.12em;color:var(--enzyme-deep);
+    font-variant-numeric:tabular-nums;}
+  @media (prefers-color-scheme:dark){.s-num{color:var(--enzyme)}}
+  :root[data-theme="dark"] .s-num{color:var(--enzyme)}
+  h2.s-title{font-size:clamp(1.5rem,3.2vw,2.2rem);font-weight:900;letter-spacing:-.02em;margin:0;text-wrap:balance;}
+  .s-sub{color:var(--muted);font-size:.95rem;max-width:66ch;margin:.15em 0 0;}
+  .s-en{color:var(--muted);font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;}
+
+  .grid{display:grid;gap:clamp(18px,2.4vw,26px);margin-top:clamp(20px,3vw,30px);
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
+  .grid.wide{grid-template-columns:repeat(auto-fill,minmax(330px,1fr));}
+
+  /* ---------- Item = spec + frame + use ---------- */
+  figure.item{margin:0;display:flex;flex-direction:column;gap:9px;}
+  .spec{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.68rem;font-weight:700;
+    letter-spacing:.02em;color:var(--muted);}
+  .spec span{background:var(--paper2);border-radius:6px;padding:.28em .55em;}
+  .spec .ch{color:var(--enzyme-deep);background:var(--enzyme-tint);}
+  @media (prefers-color-scheme:dark){.spec .ch{color:var(--enzyme)}}
+  :root[data-theme="dark"] .spec .ch{color:var(--enzyme)}
+  .use{font-size:.8rem;color:var(--muted);line-height:1.45;}
+  .use b{color:var(--ink-soft);font-weight:700}
+
+  /* ---------- Creative frame ---------- */
+  .frame{container-type:inline-size;position:relative;border-radius:var(--radius);overflow:hidden;
+    box-shadow:var(--shadow);isolation:isolate;transition:transform .22s ease, box-shadow .22s ease;
+    display:flex;flex-direction:column;color:#fff;}
+  figure.item:hover .frame{transform:translateY(-4px);box-shadow:0 1px 2px rgba(22,36,27,.06),0 26px 50px -22px rgba(22,36,27,.4);}
+  .r45{aspect-ratio:4/5}
+  .r11{aspect-ratio:1/1}
+  .r916{aspect-ratio:9/16}
+  .r191{aspect-ratio:1.91/1}
+
+  .pad{padding:7.5cqi;flex:1;display:flex;flex-direction:column;}
+  .k{font-size:3.5cqi;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.9;}
+  .big{font-size:9.6cqi;font-weight:900;letter-spacing:-.02em;line-height:1.04;text-wrap:balance;margin:.35em 0 0;}
+  .big.sm{font-size:7.6cqi}
+  .big.xl{font-size:12cqi;line-height:.98}
+  .en{font-size:3.5cqi;font-weight:800;letter-spacing:.06em;line-height:1.3;opacity:.86;margin-top:1.1em;}
+  .body{font-size:3.9cqi;line-height:1.5;opacity:.94;margin-top:.7em;font-weight:600;}
+  .push{margin-top:auto}
+
+  /* brand lockup inside creatives */
+  .brand{display:inline-flex;align-items:center;gap:.5em;font-weight:900;font-size:3.9cqi;
+    letter-spacing:.02em;}
+  .brand .dot{width:2.6cqi;height:2.6cqi;border-radius:50%;background:currentColor;
+    box-shadow:0 0 0 1.4cqi color-mix(in srgb,currentColor 26%,transparent);flex:none;}
+  .brand .kr{font-weight:700;opacity:.72;font-size:.82em}
+  .brandbar{display:flex;align-items:center;justify-content:space-between;gap:1em;}
+  .pill{font-size:3.1cqi;font-weight:800;padding:.5em 1em;border-radius:100px;
+    border:1.6px solid currentColor;letter-spacing:.02em;}
+  .pill.solid{background:#fff;color:var(--ink);border-color:transparent;}
+
+  /* backgrounds */
+  .bg-enzyme{background:linear-gradient(155deg,#1CC865,#0C853C);}
+  .bg-appetite{background:linear-gradient(155deg,#FF6A47,#D93A1B);}
+  .bg-ink{background:linear-gradient(160deg,#1E3327,#101A14);}
+  .bg-gold{background:radial-gradient(120% 90% at 20% 0%,#F3C55E,#B67C15 70%);color:#20160a;}
+  .bg-night{background:linear-gradient(165deg,#20130c,#0d0906);}
+  .bg-poo{background:linear-gradient(155deg,#A9764A,#6b4526);}
+  .bg-cream{background:#FBF7EC;color:var(--ink);}
+  .bg-paper{background:#EDF3E7;color:#16241B;}
+  .bg-meme{background:#F6EF3B;color:#141400;}
+  .bg-membership{background:linear-gradient(135deg,#12261A 0%,#0C853C 55%,#1CC865 100%);}
+
+  /* decorative food / enzyme spots */
+  .spot{position:absolute;border-radius:50%;filter:blur(2px);opacity:.5;pointer-events:none;z-index:-1;}
+
+  /* meme layout */
+  .meme-row{display:flex;flex-direction:column;gap:2.4cqi;font-weight:900;}
+  .meme-row .l{font-size:5.2cqi;line-height:1.08;}
+  .meme-row .l .lab{display:inline-block;font-size:3.2cqi;font-weight:900;padding:.25em .6em;border-radius:6px;
+    margin-bottom:.35em;letter-spacing:.04em;}
+
+  /* result / diagnostic */
+  .result-num{font-size:20cqi;font-weight:900;line-height:.9;letter-spacing:-.04em;}
+  .result-num small{font-size:.32em;font-weight:800;letter-spacing:.02em}
+  .meter{height:2.4cqi;border-radius:100px;background:rgba(255,255,255,.22);overflow:hidden;margin-top:.6em;}
+  .meter i{display:block;height:100%;background:#fff;border-radius:100px;}
+  .kv{display:flex;justify-content:space-between;font-size:3.4cqi;font-weight:700;opacity:.92;}
+
+  /* data mini chart */
+  .bars{display:flex;flex-direction:column;gap:2.2cqi;margin-top:1em;}
+  .bars .bar{display:grid;grid-template-columns:26cqi 1fr;align-items:center;gap:2cqi;font-size:3cqi;font-weight:700;}
+  .bars .track{height:4.2cqi;background:rgba(22,36,27,.1);border-radius:5px;overflow:hidden;}
+  .bars .track i{display:block;height:100%;background:var(--enzyme);border-radius:5px;}
+  .stat-big{font-size:15cqi;font-weight:900;letter-spacing:-.03em;line-height:.95;color:var(--enzyme-deep);
+    font-variant-numeric:tabular-nums;}
+
+  /* POP tent */
+  .tent-top{border-bottom:2px dashed rgba(255,255,255,.4);padding-bottom:1.4cqi;margin-bottom:1.4cqi;
+    font-size:3cqi;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.8;text-align:center;}
+
+  /* membership card */
+  .mcard{font-variant-numeric:tabular-nums;}
+  .mcard .no{font-family:var(--sans);letter-spacing:.16em;font-size:4.2cqi;font-weight:800;opacity:.9}
+
+  /* ---------- brand-system strip ---------- */
+  .system{margin-top:clamp(30px,4vw,48px);display:grid;gap:16px;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+  .sys-card{background:var(--card-bg);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);}
+  .sys-card h4{margin:0 0 .7em;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+  .swatches{display:flex;gap:8px;flex-wrap:wrap}
+  .sw{width:34px;height:34px;border-radius:9px;box-shadow:inset 0 0 0 1px var(--line-strong)}
+  .voice{font-size:.9rem;color:var(--ink-soft);line-height:1.55;margin:0}
+  .voice b{color:var(--ink)}
+
+  /* compliance note */
+  .note{margin:clamp(34px,5vw,60px) 0 8px;background:var(--enzyme-tint);border:1px solid var(--line);
+    border-left:4px solid var(--enzyme);border-radius:12px;padding:18px 22px;}
+  .note h4{margin:0 0 .4em;font-size:.95rem;font-weight:900;color:var(--enzyme-deep);}
+  @media (prefers-color-scheme:dark){.note h4{color:var(--enzyme)}}
+  :root[data-theme="dark"] .note h4{color:var(--enzyme)}
+  .note p{margin:.3em 0 0;font-size:.88rem;color:var(--ink-soft);line-height:1.55}
+  .note code{background:var(--card-bg);padding:.1em .45em;border-radius:5px;font-size:.85em;border:1px solid var(--line)}
+
+  footer{padding:clamp(40px,6vw,72px) 0 60px;color:var(--muted);font-size:.85rem;}
+  footer .rule{height:1px;background:var(--line);margin-bottom:24px}
+  footer b{color:var(--ink-soft)}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-width:520px){.pad{padding:8cqi}}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow">Static Content Bank · 정적 콘텐츠 뱅크</span>
+    <h1 class="title">인스허브 소화효소<br>먹는 즐거움을 지키는 장 루틴
+      <span class="en">INSHUB Digestive Enzyme — Enjoy every bite</span>
+    </h1>
+    <p class="lede">전략 14축을 기반으로 만든 <b>즉시 사용 가능한 정적 크리에이티브 모음</b>입니다. SNS 피드·스토리·카드뉴스,
+      진단 공유 카드, 매장 POP, 데이터 리포트, 프로모션까지 — 화면에서 바로 스크린샷해 광고·상세페이지·공동구매에 투입하세요.
+      한국어 + English 병기.</p>
+    <div class="metastrip">
+      <span class="chip"><b>10</b> 콘텐츠 축</span>
+      <span class="chip"><b>20+</b> 완성형 크리에이티브</span>
+      <span class="chip">KO + EN</span>
+      <span class="chip">피드 4:5 · 스퀘어 1:1 · 스토리 9:16</span>
+      <span class="chip">스크린샷 → 즉시 발행</span>
+    </div>
+  </header>
+</div>
+
+<nav class="index" aria-label="콘텐츠 축">
+  <div class="row">
+    <a href="#p1"><b>01</b>K-food 여행 필수템</a>
+    <a href="#p2"><b>02</b>맛집 리뷰</a>
+    <a href="#p3"><b>03</b>밈</a>
+    <a href="#p4"><b>04</b>진단 카드</a>
+    <a href="#p5"><b>05</b>장수 사주</a>
+    <a href="#p6"><b>06</b>빌런 vs 효소</a>
+    <a href="#p7"><b>07</b>똥 마케팅</a>
+    <a href="#p8"><b>08</b>매장 POP</a>
+    <a href="#p9"><b>09</b>데이터 리포트</a>
+    <a href="#p10"><b>10</b>프로모션</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- 01 K-FOOD -->
+  <section class="pillar" id="p1">
+    <div class="s-head"><span class="s-num">01</span><h2 class="s-title">한국 여행 필수템 · K-food 소화 케어</h2></div>
+    <p class="s-sub">외국인 관광객 타겟 1순위 포지셔닝. “한국에서 꼭 사가야 할 영양제”로 심는 오프라인·온라인 공통 소재.</p>
+    <div class="grid wide">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">IG Feed</span><span>4:5</span><span>KO·EN</span></div>
+        <div class="frame r45 bg-enzyme">
+          <div class="spot" style="width:52cqi;height:52cqi;background:#7CF0A6;top:-14cqi;right:-12cqi"></div>
+          <div class="pad">
+            <span class="k">Bring home from Korea</span>
+            <div class="big">한국에서 꼭<br>사가야 할 영양제</div>
+            <p class="en">The one supplement to bring home from your Korea trip.</p>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot"></span>INSHUB<span class="kr">인스허브</span></span>
+              <span class="pill">소화효소</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 약국 입점 POP·관광 퍼널 대표 비주얼. 명동·홍대·성수 지역 타겟 광고 커버.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">IG Feed</span><span>4:5</span><span>KO·EN</span></div>
+        <div class="frame r45 bg-appetite">
+          <div class="spot" style="width:44cqi;height:44cqi;background:#FFB48F;bottom:-10cqi;left:-10cqi"></div>
+          <div class="pad">
+            <span class="k">Ate your way through Korea?</span>
+            <div class="big sm">명동교자 · 떡볶이<br>소금빵까지 먹었다면?</div>
+            <p class="body">더부룩함은 인스허브 한 포로. 맛있게 먹고, 장은 가볍게.</p>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot"></span>INSHUB</span>
+              <span class="pill">한 포 · 1 stick</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 맛집 투어 리타게팅. 구체 음식명으로 “먹은 직후 순간”에 심는 전환 소재.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">IG Story</span><span>9:16</span><span>EN</span></div>
+        <div class="frame r916 bg-ink">
+          <div class="spot" style="width:40cqi;height:40cqi;background:#1CC865;opacity:.32;top:8cqi;right:-12cqi"></div>
+          <div class="pad">
+            <span class="k" style="color:#5FE68F">Korea Food Trip Kit</span>
+            <div class="big sm" style="margin-top:.5em">Enjoy K-food.<br>Skip the bloat.</div>
+            <p class="en">Sticky rice, garlic, chili, street food — your gut isn't used to it yet.
+              One stick before the feast keeps your gut routine on track.</p>
+            <div class="push">
+              <p class="body" style="opacity:.8;font-size:3.4cqi">🧳 여행 가방에 꼭 넣는 소화효소</p>
+              <div class="brandbar" style="margin-top:1em">
+                <span class="brand"><span class="dot" style="color:#5FE68F"></span>INSHUB<span class="kr">인스허브</span></span>
+                <span class="pill solid">Tap to shop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 외국인 대상 스토리 광고. “한국 여행 준비물” 콘텐츠 스와이프업.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- 02 맛집 리뷰 -->
+  <section class="pillar" id="p2">
+    <div class="s-head"><span class="s-num">02</span><h2 class="s-title">맛집 리뷰 콘텐츠 + 마지막 컷 제품 노출</h2></div>
+    <p class="s-sub">보고 싶은 맛집 콘텐츠를 먼저, 제품은 마지막 컷에 자연스럽게. 카드뉴스·릴스 템플릿의 정지 버전.</p>
+    <div class="grid wide">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">카드뉴스</span><span>1:1</span><span>1/5 표지</span></div>
+        <div class="frame r11 bg-paper">
+          <div class="pad">
+            <span class="k" style="color:var(--appetite-deep)">Korea Street Food · TOP 5</span>
+            <div class="big" style="color:#16241B">한국 여행 와서<br>꼭 먹어야 하는<br>음식 TOP 5</div>
+            <div class="push brandbar" style="color:#16241B">
+              <span class="body" style="opacity:.7;font-weight:800">→ 밀어서 보기</span>
+              <span class="brand"><span class="dot"></span>INSHUB</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 카드뉴스 표지. 정보성 후킹으로 저장·공유 유도.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">카드뉴스</span><span>1:1</span><span>5/5 제품 컷</span></div>
+        <div class="frame r11 bg-enzyme">
+          <div class="spot" style="width:40cqi;height:40cqi;background:#7CF0A6;bottom:-12cqi;right:-8cqi"></div>
+          <div class="pad">
+            <span class="k">5 / 5 · Last frame</span>
+            <div class="big sm">이걸 다 먹으면?<br>더부룩은 예약이죠</div>
+            <p class="body">먹는 즐거움은 그대로. 장 루틴은 인스허브 한 포로 챙기기.</p>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot"></span>INSHUB<span class="kr">인스허브</span></span>
+              <span class="pill">소화효소</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 마지막 슬라이드 = 제품 각인 컷. 앞 4장은 실제 맛집 사진으로 교체.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">IG Feed</span><span>4:5</span><span>음식+제품</span></div>
+        <div class="frame r45 bg-appetite">
+          <div class="pad">
+            <span class="k">Tteokbokki combo</span>
+            <div class="big sm">떡볶이 + 튀김 + 순대<br>먹고 더부룩할 때</div>
+            <p class="en">The holy trinity of Korean snacks. Your gut deserves backup.</p>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot"></span>INSHUB</span>
+              <span class="pill">먹기 전 한 포</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 음식 사진 옆 제품 반복 노출 포맷. 조합 밈성으로 공유 확산.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- 03 밈 -->
+  <section class="pillar" id="p3">
+    <div class="s-head"><span class="s-num">03</span><h2 class="s-title">유행 밈으로 알고리즘 장악</h2></div>
+    <p class="s-sub">제품을 팔기보다 “먹고 더부룩한 상황”을 웃기게. 조회수 먼저 만들고 제품은 반복 노출로 각인.</p>
+    <div class="grid">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">Meme</span><span>1:1</span><span>KO</span></div>
+        <div class="frame r11 bg-meme">
+          <div class="pad">
+            <div class="meme-row">
+              <div class="l"><span class="lab" style="background:#141400;color:#F6EF3B">나</span><br>오늘은 조금만 먹어야지</div>
+              <div class="l"><span class="lab" style="background:var(--appetite);color:#fff">10분 뒤</span><br>떡볶이 + 튀김 + 순대 + 김밥</div>
+            </div>
+            <div class="push brandbar" style="color:#141400">
+              <span class="body" style="font-weight:800;opacity:.7;font-size:3.2cqi">…그래서 인스허브 챙김</span>
+              <span class="brand"><span class="dot"></span>INSHUB</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 릴스/쇼츠 썸네일 정지본. “먹기 전 다짐 vs 현실” 포맷.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">Meme</span><span>1:1</span><span>KO·EN</span></div>
+        <div class="frame r11 bg-ink">
+          <div class="pad">
+            <span class="k" style="color:#5FE68F">Day 1 vs Day 3</span>
+            <div class="meme-row" style="margin-top:.6em">
+              <div class="l">한국 여행 1일차 위장 😇<br><span style="font-weight:700;opacity:.7;font-size:.62em">“다 맛있어!”</span></div>
+              <div class="l">3일차 위장 💀<br><span style="font-weight:700;opacity:.7;font-size:.62em">“나 좀 쉬자…”</span></div>
+            </div>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot" style="color:#5FE68F"></span>INSHUB</span>
+              <span class="pill">소화효소</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 외국인 여행객 공감 밈. 저장·공유·태그 유도.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">Meme</span><span>1:1</span><span>KO</span></div>
+        <div class="frame r11 bg-appetite">
+          <div class="pad">
+            <span class="k">회식 다음 날</span>
+            <div class="big" style="margin-top:.3em">회식 끝난<br>내 장 표정.jpg</div>
+            <p class="body">야식·폭식·기름진 안주 풀코스 후… 오늘부터 장 루틴 리셋.</p>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot"></span>INSHUB<span class="kr">인스허브</span></span>
+              <span class="pill">한 포</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 직장인 공감 밈. 회식·야식 시즌 반복 발행용.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- 04 진단 카드 -->
+  <section class="pillar" id="p4">
+    <div class="s-head"><span class="s-num">04</span><h2 class="s-title">진단 결과 · 공유형 카드</h2></div>
+    <p class="s-sub">‘장 나이 47세’처럼 웃기거나 충격적인 결과 = 자발적 공유 트리거. Spotify Wrapped 메커니즘.</p>
+    <div class="grid">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">공유 카드</span><span>4:5</span><span>결과</span></div>
+        <div class="frame r45 bg-ink">
+          <div class="pad">
+            <span class="k" style="color:#5FE68F">내 장 나이 테스트</span>
+            <div class="push">
+              <div class="result-num">47<small>세</small></div>
+              <div class="kv" style="margin-top:.8em"><span>실제 나이</span><span>32세</span></div>
+              <div class="kv" style="opacity:.7"><span>장 나이</span><span style="color:#FF8B6E">47세 · +15</span></div>
+              <p class="body" style="font-size:3.4cqi;margin-top:1em">“야식이 부른 참사… 장 루틴이 필요해요.”</p>
+              <div class="brandbar" style="margin-top:1.2em">
+                <span class="brand"><span class="dot" style="color:#5FE68F"></span>INSHUB</span>
+                <span class="pill solid">내 결과 보기</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 진단 퀴즈 결과지. 공유 시 할인쿠폰 연동. ※재미용, 의학적 진단 아님 고지.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">공유 카드</span><span>4:5</span><span>타입</span></div>
+        <div class="frame r45 bg-appetite">
+          <div class="pad">
+            <span class="k">My Digestion Type</span>
+            <div class="big" style="margin-top:.3em">야식형<br>폭발러</div>
+            <p class="en" style="opacity:.95">Late-night Overloader — 밤이 되면 위장이 각성하는 타입.</p>
+            <div class="push">
+              <div class="kv"><span>추천 루틴</span><span>야식 전 한 포</span></div>
+              <div class="brandbar" style="margin-top:1em">
+                <span class="brand"><span class="dot"></span>INSHUB</span>
+                <span class="pill">#야식형폭발러</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 유형 밈화 → 친구 태그 챌린지. 6~8개 타입으로 세트 제작.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">공유 카드</span><span>4:5</span><span>점수</span></div>
+        <div class="frame r45 bg-enzyme">
+          <div class="pad">
+            <span class="k">Gut Routine Score</span>
+            <div class="push">
+              <div class="result-num">62<small>점</small></div>
+              <div class="meter"><i style="width:62%"></i></div>
+              <p class="body" style="margin-top:.9em">“지금 당신의 장은 휴식이 필요합니다.”</p>
+              <div class="brandbar" style="margin-top:1.1em">
+                <span class="brand"><span class="dot"></span>INSHUB<span class="kr">인스허브</span></span>
+                <span class="pill solid">처방전 받기</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 점수형 결과 → “나만의 장 처방전” 카드 발급 → 리뷰 대신 인증 유도.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- 05 장수 사주 -->
+  <section class="pillar" id="p5">
+    <div class="s-head"><span class="s-num">05</span><h2 class="s-title">장수 사주 · 체질 효소 추천</h2></div>
+    <p class="s-sub">사주명리 × 건기식 = 아무도 안 한 블루오션. 재미와 구매 전환을 동시에.</p>
+    <div class="grid">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">랜딩 커버</span><span>4:5</span><span>KO</span></div>
+        <div class="frame r45 bg-night">
+          <div class="spot" style="width:34cqi;height:34cqi;background:#F3C55E;opacity:.4;top:6cqi;right:-8cqi"></div>
+          <div class="pad">
+            <span class="k" style="color:#E5A73A">오행으로 보는 장 컨디션</span>
+            <div class="big" style="margin-top:.4em">장수<br>사주 &#9737;</div>
+            <p class="en" style="color:#E9D3A0">생년월일로 보는 나의 장 타입과 맞춤 소화 루틴.</p>
+            <div class="push brandbar" style="color:#F3C55E">
+              <span class="brand"><span class="dot"></span>INSHUB</span>
+              <span class="pill">내 사주 보기</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 진단 랜딩·광고 커버. 카톡 공유 이벤트 훅.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">공유 카드</span><span>4:5</span><span>결과</span></div>
+        <div class="frame r45 bg-gold">
+          <div class="pad">
+            <span class="k" style="opacity:.7">오행 진단 결과</span>
+            <div class="big" style="margin-top:.3em">토(土) 기운<br>소화형 체질</div>
+            <p class="body" style="font-weight:700">위장에 기운이 몰리는 타입. 과식·야식에 특히 예민해요.
+              → 식전 소화 루틴을 습관화하세요.</p>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot"></span>INSHUB<span class="kr">인스허브</span></span>
+              <span class="pill">맞춤 효소</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 오행별 5종 결과 카드 세트. 결과별 제품·루틴 추천 연결.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- 06 빌런 -->
+  <section class="pillar" id="p6">
+    <div class="s-head"><span class="s-num">06</span><h2 class="s-title">악마의 음식 × 천사의 효소</h2></div>
+    <p class="s-sub">야식 악마·회식 빌런·디저트 마녀 vs 인스허브. Duolingo식 반복 등장 캐릭터 시리즈.</p>
+    <div class="grid">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">시리즈</span><span>4:5</span><span>EP.01</span></div>
+        <div class="frame r45 bg-night">
+          <div class="spot" style="width:40cqi;height:40cqi;background:#FF5836;opacity:.4;bottom:-10cqi;left:-8cqi"></div>
+          <div class="pad">
+            <span class="k" style="color:#FF8B6E">Villain EP.01</span>
+            <div class="big" style="margin-top:.4em">야식 악마가<br>나타났다 👹</div>
+            <p class="en" style="color:#F0C9BE">The Midnight Snack Demon appears. Roll for gut defense.</p>
+            <div class="push brandbar" style="color:#FF8B6E">
+              <span class="brand"><span class="dot"></span>INSHUB</span>
+              <span class="pill">방어 한 포</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 캐릭터 시리즈 1화. 매주 새 빌런 등장 → 브랜드 마스코트 자산화.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">시리즈</span><span>4:5</span><span>EP.02</span></div>
+        <div class="frame r45 bg-appetite">
+          <div class="pad">
+            <span class="k">Villain EP.02</span>
+            <div class="big sm" style="margin-top:.3em">디저트 마녀에게<br>당한 날 🍰🧙‍♀️</div>
+            <p class="body">달콤함의 저주는 더부룩함으로… 인스허브가 장 루틴으로 반격.</p>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot"></span>INSHUB<span class="kr">인스허브</span></span>
+              <span class="pill">천사의 효소</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 디저트·회식·곱창 등 빌런별 시즌 발행. 대결 서사 마지막에 제품 노출.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- 07 똥 마케팅 -->
+  <section class="pillar" id="p7">
+    <div class="s-head"><span class="s-num">07</span><h2 class="s-title">똥 마케팅 정면돌파</h2></div>
+    <p class="s-sub">부끄러움을 브랜드 코어로. Poo-Pourri처럼 카테고리에서 제일 먼저 당당하게 말하는 브랜드가 각인된다.</p>
+    <div class="grid">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">챌린지</span><span>1:1</span><span>KO·EN</span></div>
+        <div class="frame r11 bg-poo">
+          <div class="pad">
+            <span class="k">Daily Check 💩</span>
+            <div class="big" style="margin-top:.3em">오늘 쾌변<br>인증 🚽</div>
+            <p class="en">오늘 몇 번? · How many today? — 인증샷 = 적립.</p>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot"></span>INSHUB<span class="kr">인스허브</span></span>
+              <span class="pill">#오늘쾌변</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 배변 루틴 챌린지 오프닝. 인증샷 적립 이벤트 배너.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">퀴즈</span><span>1:1</span><span>KO</span></div>
+        <div class="frame r11 bg-enzyme">
+          <div class="pad">
+            <span class="k">Today's Gut Report</span>
+            <div class="big" style="margin-top:.3em">내 장은<br>오늘 몇 점?</div>
+            <div class="push">
+              <div class="kv"><span>😩 더부룩</span><span>😐 보통</span></div>
+              <div class="kv" style="margin-top:.4em"><span>😄 쾌변</span><span style="opacity:.8">→ 탭!</span></div>
+              <div class="brandbar" style="margin-top:1em">
+                <span class="brand"><span class="dot"></span>INSHUB</span>
+                <span class="pill solid">오늘의 장 컨디션</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 스토리 투표 스티커용 정지본. 매일 참여 습관화.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- 08 매장 POP -->
+  <section class="pillar" id="p8">
+    <div class="s-head"><span class="s-num">08</span><h2 class="s-title">매장 POP · B2B 비치</h2></div>
+    <p class="s-sub">고깃집·곱창집·뷔페·치맥집·약국 계산대. 먹는 순간과 제품 필요성을 직접 연결하는 테이블 텐트/충동구매 소재.</p>
+    <div class="grid wide">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">테이블 텐트</span><span>1.91:1</span><span>고깃집</span></div>
+        <div class="frame r191 bg-appetite">
+          <div class="pad" style="padding:6cqi">
+            <div class="tent-top">INSHUB · 먹기 전 한 포</div>
+            <div class="big sm" style="text-align:center">많이 드실 예정이라면,<br>먹기 전 한 포 🥩</div>
+            <p class="en" style="text-align:center;font-size:3cqi">Big meal ahead? Take one before you dig in.</p>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 고깃집 테이블 텐트카드. 식전 샘플링 채널.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">계산대 POP</span><span>1.91:1</span><span>충동구매</span></div>
+        <div class="frame r191 bg-ink">
+          <div class="pad" style="padding:6cqi">
+            <div class="tent-top" style="color:#5FE68F">약국 · 곱창집 · 뷔페 계산대</div>
+            <div class="big sm" style="text-align:center">기름진 음식 먹는 날엔<br><span style="color:#5FE68F">인스허브</span></div>
+            <p class="en" style="text-align:center;font-size:3cqi;opacity:.8">오늘 회식, 내일 장 컨디션까지 생각한다면.</p>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 계산대 옆 충동구매 카드·미니 디스펜서 헤더. 관광지 약국 겸용.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- 09 데이터 리포트 -->
+  <section class="pillar" id="p9">
+    <div class="s-head"><span class="s-num">09</span><h2 class="s-title">데이터 리포트 = PR 무기</h2></div>
+    <p class="s-sub">진단 데이터를 익명 집계 → “한국인 장 건강 리포트 2026”. 판매자가 아니라 장 건강을 연구하는 브랜드로 보이게.</p>
+    <div class="grid wide">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">리포트 표지</span><span>4:5</span><span>PR</span></div>
+        <div class="frame r45 bg-cream">
+          <div class="pad">
+            <span class="k" style="color:var(--enzyme-deep)">INSHUB Gut Report · 2026</span>
+            <div class="big" style="color:#16241B;margin-top:.3em">한국인<br>장 건강<br>리포트<br><span style="color:var(--enzyme-deep)">2026</span></div>
+            <div class="push brandbar" style="color:#16241B">
+              <span class="body" style="font-weight:700;opacity:.6;font-size:3cqi">전국 설문 기반 · 익명 집계</span>
+              <span class="brand"><span class="dot"></span>INSHUB</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 보도자료·카드뉴스 표지. 언론이 받아쓰는 데이터 콘텐츠 포장.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">스탯 카드</span><span>4:5</span><span>데이터</span></div>
+        <div class="frame r45 bg-cream">
+          <div class="pad">
+            <span class="k" style="color:var(--muted)">Report · 01</span>
+            <div class="stat-big" style="margin-top:.2em">73%</div>
+            <p class="body" style="color:#16241B;font-weight:800;font-size:4.4cqi">직장인의 <b>73%</b>가<br>‘야식형’ 장 타입</p>
+            <div class="bars">
+              <div class="bar"><span>야식형</span><div class="track"><i style="width:73%"></i></div></div>
+              <div class="bar"><span>회식형</span><div class="track"><i style="width:54%"></i></div></div>
+              <div class="bar"><span>여행형</span><div class="track"><i style="width:38%"></i></div></div>
+            </div>
+            <div class="push brandbar" style="color:#16241B">
+              <span class="body" style="font-size:2.7cqi;opacity:.55;font-weight:700">n=2,140 · INSHUB 자체 설문</span>
+              <span class="brand"><span class="dot"></span>INSHUB</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 데이터 포인트 낱장. B2B 제안서·상세페이지·광고 재활용. 수치는 실측치로 교체.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- 10 프로모션 -->
+  <section class="pillar" id="p10">
+    <div class="s-head"><span class="s-num">10</span><h2 class="s-title">프로모션 · 이벤트</h2></div>
+    <p class="s-sub">100원 마케팅으로 진입장벽 최소화, 평생 50% 카드로 희소성 있는 멤버십처럼.</p>
+    <div class="grid wide">
+
+      <figure class="item">
+        <div class="spec"><span class="ch">전환 배너</span><span>1:1</span><span>KO·EN</span></div>
+        <div class="frame r11 bg-appetite">
+          <div class="pad">
+            <span class="k">First Stick Deal</span>
+            <div class="big xl" style="margin-top:.2em">첫 한 포<br>100원</div>
+            <p class="en">배송비만 내고 체험 · First stick just ₩100.</p>
+            <div class="push brandbar">
+              <span class="brand"><span class="dot"></span>INSHUB<span class="kr">인스허브</span></span>
+              <span class="pill solid">100원 체험</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 신규 유입 전환 배너. 100원딜 → 본품 구매 전환 퍼널 진입.</figcaption>
+      </figure>
+
+      <figure class="item">
+        <div class="spec"><span class="ch">멤버십 카드</span><span>1.91:1</span><span>희소성</span></div>
+        <div class="frame r191 bg-membership mcard">
+          <div class="spot" style="width:30cqi;height:30cqi;background:#7CF0A6;opacity:.35;top:-6cqi;right:6cqi"></div>
+          <div class="pad" style="padding:6cqi">
+            <div class="brandbar" style="align-items:flex-start">
+              <span class="brand"><span class="dot" style="color:#7CF0A6"></span>INSHUB</span>
+              <span class="k" style="opacity:.7">LIFETIME</span>
+            </div>
+            <div class="push">
+              <div class="big sm">평생 50% 할인 카드</div>
+              <div class="kv" style="margin-top:.7em"><span class="no">NO. 04217 / 10000</span><span style="opacity:.7">선착순</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="use"><b>용도</b> · 10,000명 한정 멤버십 “카드 뽑기” 이벤트. 번호 = 희소성 연출.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- Brand system -->
+  <section class="pillar" aria-label="브랜드 시스템">
+    <div class="s-head"><span class="s-num">◆</span><h2 class="s-title">브랜드 시스템 · 사용 가이드</h2></div>
+    <div class="system">
+      <div class="sys-card">
+        <h4>Palette</h4>
+        <div class="swatches">
+          <span class="sw" style="background:#17B85A" title="Enzyme #17B85A"></span>
+          <span class="sw" style="background:#FF5836" title="Appetite #FF5836"></span>
+          <span class="sw" style="background:#E5A73A" title="Gold #E5A73A"></span>
+          <span class="sw" style="background:#16241B" title="Ink #16241B"></span>
+          <span class="sw" style="background:#F2F5EE" title="Paper #F2F5EE"></span>
+        </div>
+        <p class="voice" style="margin-top:.8em;font-size:.8rem">Enzyme green(효소·신선) · Appetite(K-food·긴급) · Gold(사주·프리미엄) · Ink · Paper.</p>
+      </div>
+      <div class="sys-card">
+        <h4>Voice</h4>
+        <p class="voice"><b>발칙하고 뻔뻔하게, 그러나 건강하게.</b> 부끄러운 걸 웃기게. 명령이 아니라 공감으로. 제품은 마지막에 자연스럽게.</p>
+      </div>
+      <div class="sys-card">
+        <h4>Formats</h4>
+        <p class="voice">피드 <b>4:5</b> · 카드뉴스/밈 <b>1:1</b> · 스토리 <b>9:16</b> · POP/멤버십 <b>1.91:1</b>. 각 카드 상단 라벨 = 채널·비율·언어.</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <h4>⚠︎ 건기식 표현 가이드 (필수)</h4>
+      <p>소화효소는 건강기능식품입니다. <b>“치료·완치·질병이 낫는다”는 표현은 금지.</b>
+        모든 카피는 <code>관리</code> · <code>도움</code> · <code>루틴</code> · <code>컨디션</code> 중심으로 서술합니다.
+        진단·장나이·사주 콘텐츠에는 <b>“재미 요소이며 의학적 진단이 아님”</b>을 고지하고,
+        IBS·유당불내증 등 질병명은 광고에 직접 쓰지 말고 크리에이터의 생활 상황 표현(“우유 먹으면 속이 불편한 사람”)으로 간접 전달하세요.
+        스탯/설문 수치는 실측 데이터로 교체 후 발행합니다.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="rule"></div>
+    <p><b>인스허브 소화효소 · 정적 콘텐츠 뱅크</b> — 전략 14축 기반 즉시 사용 크리에이티브. 카드를 스크린샷하거나
+      규격에 맞춰 실제 사진·수치·CTA로 교체해 광고·상세페이지·공동구매·매장 POP에 투입하세요.
+      다음 단계 확장: 실사진 합성 버전, 릴스 스크립트, 상세페이지 진단 섹션, B2B 제안서.</p>
+  </footer>
+
+</div>
