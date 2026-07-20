@@ -1,0 +1,441 @@
+<style>
+  /* ===== INSHUB · Launch Strategy One-Pager ===== */
+  :root{
+    --paper:#F4F6F1; --card:#FFFFFF; --panel:#ECF0E8;
+    --gut:#1C3A20; --gut2:#2F5A37; --mint:#5DA576; --mint-tint:#E3F0E7;
+    --ink:#16211A; --muted:#5C6B60; --faint:#8494885a;
+    --line:rgba(28,58,32,.14); --line-2:rgba(28,58,32,.24);
+    --danger:#B23B2E; --danger-tint:#F7E7E4;
+    --warn:#9A6B12; --warn-tint:#F6EEDD;
+    --ok:#2F7D4E;
+    --shadow:0 1px 2px rgba(28,58,32,.05), 0 16px 40px -22px rgba(28,58,32,.32);
+    --radius:16px;
+    --sans:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',system-ui,-apple-system,'Segoe UI',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0C110D; --card:#141B16; --panel:#18211A;
+      --gut:#8FD3A2; --gut2:#6FBE86; --mint:#7FC99B; --mint-tint:#16281C;
+      --ink:#E9F0E9; --muted:#94A596; --line:rgba(233,240,233,.13); --line-2:rgba(233,240,233,.22);
+      --danger:#E8836F; --danger-tint:#2A1613; --warn:#DDB05A; --warn-tint:#241C0E; --ok:#6FC98C;
+      --shadow:0 1px 2px rgba(0,0,0,.5), 0 20px 44px -24px rgba(0,0,0,.75);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F4F6F1; --card:#FFFFFF; --panel:#ECF0E8; --gut:#1C3A20; --gut2:#2F5A37;
+    --mint:#5DA576; --mint-tint:#E3F0E7; --ink:#16211A; --muted:#5C6B60;
+    --line:rgba(28,58,32,.14); --line-2:rgba(28,58,32,.24);
+    --danger:#B23B2E; --danger-tint:#F7E7E4; --warn:#9A6B12; --warn-tint:#F6EEDD; --ok:#2F7D4E;
+  }
+  :root[data-theme="dark"]{
+    --paper:#0C110D; --card:#141B16; --panel:#18211A; --gut:#8FD3A2; --gut2:#6FBE86;
+    --mint:#7FC99B; --mint-tint:#16281C; --ink:#E9F0E9; --muted:#94A596;
+    --line:rgba(233,240,233,.13); --line-2:rgba(233,240,233,.22);
+    --danger:#E8836F; --danger-tint:#2A1613; --warn:#DDB05A; --warn-tint:#241C0E; --ok:#6FC98C;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(18px,4vw,48px);}
+  ::selection{background:var(--gut);color:#fff}
+  h1,h2,h3{text-wrap:balance}
+
+  /* hero band (brand-committed deep gut green) */
+  .hero{background:var(--gut);color:#EAF3EC;padding:clamp(38px,6vw,72px) 0 clamp(30px,4vw,48px);position:relative;overflow:hidden;}
+  .hero::after{content:"";position:absolute;width:60vw;height:60vw;max-width:520px;max-height:520px;border-radius:50%;
+    right:-16%;top:-40%;background:radial-gradient(circle,rgba(127,201,155,.22),transparent 70%);pointer-events:none;}
+  .hero .wrap{position:relative}
+  .logo{display:inline-flex;align-items:center;gap:.55em;font-weight:900;letter-spacing:.02em;font-size:1.05rem;color:#fff}
+  .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 5px rgba(93,165,118,.28)}
+  .logo .kr{font-weight:600;opacity:.72;font-size:.85em}
+  .hero .eyebrow{margin-top:1.6em;font-size:.74rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--mint)}
+  .hero h1{font-size:clamp(1.9rem,4.6vw,3.1rem);font-weight:900;letter-spacing:-.025em;line-height:1.05;margin:.3em 0 .1em;color:#fff;max-width:20ch}
+  .hero p{max-width:60ch;color:#CFE1D4;font-size:clamp(.98rem,1.5vw,1.12rem);margin:.7em 0 0}
+  .hero .tagline{font-style:italic;color:var(--mint);font-weight:600;margin-top:1em}
+
+  /* section tabs */
+  nav.tabs{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 85%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav.tabs .row{display:flex;gap:4px;overflow-x:auto;max-width:1120px;margin:0 auto;padding:9px clamp(18px,4vw,48px);scrollbar-width:none}
+  nav.tabs .row::-webkit-scrollbar{display:none}
+  nav.tabs a{white-space:nowrap;font-size:.82rem;font-weight:700;color:var(--muted);padding:.5em .9em;border-radius:100px;text-decoration:none;transition:.16s}
+  nav.tabs a:hover{background:var(--panel);color:var(--ink)}
+  nav.tabs a:focus-visible{outline:2px solid var(--gut2);outline-offset:2px}
+  nav.tabs a b{color:var(--gut2);margin-right:.4em;font-variant-numeric:tabular-nums}
+
+  section.block{padding:clamp(40px,6vw,68px) 0;border-bottom:1px solid var(--line);scroll-margin-top:56px}
+  .kicker{display:inline-flex;align-items:center;gap:.5em;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gut2)}
+  .kicker .n{background:var(--gut);color:#fff;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;font-size:.82em}
+  h2.h{font-size:clamp(1.5rem,3.4vw,2.15rem);font-weight:900;letter-spacing:-.02em;margin:.4em 0 .1em}
+  .sub{color:var(--muted);max-width:70ch;font-size:.98rem}
+
+  /* generic cards */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .grid2{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:26px}
+
+  /* ---- SKU spec card ---- */
+  .sku{margin-top:26px;display:grid;grid-template-columns:1.15fr .85fr;gap:0;overflow:hidden}
+  @media(max-width:760px){.sku{grid-template-columns:1fr}}
+  .sku .left{padding:clamp(22px,3vw,32px);border-right:1px solid var(--line)}
+  @media(max-width:760px){.sku .left{border-right:none;border-bottom:1px solid var(--line)}}
+  .sku .badge{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gut2);background:var(--mint-tint);padding:.4em .8em;border-radius:100px}
+  .sku h3{font-size:clamp(1.4rem,2.8vw,1.9rem);font-weight:900;letter-spacing:-.02em;margin:.5em 0 .1em}
+  .sku .en{color:var(--muted);font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase}
+  .specrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:1.3em}
+  .specrow span{font-size:.78rem;font-weight:700;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.4em .7em;color:var(--ink)}
+  .sku .right{padding:clamp(22px,3vw,32px);background:var(--panel)}
+  .sku .right h4{margin:0 0 .8em;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .ingline{display:flex;justify-content:space-between;gap:1em;padding:.55em 0;border-bottom:1px dashed var(--line);font-size:.9rem}
+  .ingline:last-child{border-bottom:none}
+  .ingline b{font-weight:700}
+  .ingline .tag{font-size:.68rem;font-weight:800;padding:.2em .5em;border-radius:5px;background:var(--gut);color:#fff;letter-spacing:.04em}
+  .ingline .tag.opt{background:var(--muted)}
+
+  /* positioning statement */
+  .posstate{margin-top:24px;padding:clamp(22px,3vw,34px);border-left:4px solid var(--gut2);background:var(--card);border-radius:0 var(--radius) var(--radius) 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .posstate p{margin:0;font-size:clamp(1.05rem,2vw,1.32rem);line-height:1.5;font-weight:600}
+  .posstate .hl{color:var(--gut2);font-weight:900}
+  .posstate .small{font-size:.85rem;color:var(--muted);font-weight:600;margin-top:1em}
+
+  /* 창끝/바닥 two-col */
+  .spear{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  @media(max-width:620px){.spear{grid-template-columns:1fr}}
+  .spear .c{padding:22px 24px;border-radius:var(--radius);border:1px solid var(--line)}
+  .spear .c.tip{background:var(--gut);color:#EAF3EC}
+  .spear .c.base{background:var(--card)}
+  .spear h4{margin:0;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+  .spear .big{font-size:1.15rem;font-weight:900;margin:.4em 0 .3em;letter-spacing:-.01em}
+  .spear ul{margin:.6em 0 0;padding-left:1.1em;font-size:.9rem;line-height:1.5}
+  .spear .tip ul{color:#CFE1D4}
+
+  /* steps */
+  .steps{counter-reset:s;display:grid;gap:12px;margin-top:22px}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+  .step::before{counter-increment:s;content:counter(s);width:32px;height:32px;border-radius:50%;background:var(--gut);color:#fff;font-weight:900;display:grid;place-items:center;font-size:.95rem}
+  .step h5{margin:0 0 .2em;font-size:1rem;font-weight:800}
+  .step p{margin:0;font-size:.9rem;color:var(--muted)}
+
+  .delete{margin-top:22px;background:var(--danger-tint);border:1px solid color-mix(in srgb,var(--danger) 30%,transparent);border-radius:12px;padding:18px 22px}
+  .delete h4{margin:0 0 .5em;color:var(--danger);font-size:.95rem;font-weight:900}
+  .delete ul{margin:0;padding-left:1.1em;font-size:.9rem;line-height:1.6}
+  .delete li::marker{content:"✕  "}
+
+  /* ---- positioning map ---- */
+  .mapwrap{margin-top:28px;display:grid;grid-template-columns:1fr;gap:20px}
+  .plot{position:relative;aspect-ratio:1/1;max-width:640px;margin:0 auto;width:100%;background:
+      linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 25%,
+      linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/25% 100%,
+      var(--card);
+    border:1.5px solid var(--line-2);border-radius:14px;}
+  .quad{position:absolute;font-size:.7rem;font-weight:800;letter-spacing:.04em;color:var(--faint);text-transform:uppercase;pointer-events:none}
+  .q-tr{top:10px;right:12px;color:var(--gut2);text-align:right;opacity:.9}
+  .q-bl{bottom:10px;left:12px}
+  .q-br{bottom:10px;right:12px;text-align:right}
+  .q-tl{top:10px;left:12px}
+  .axis-x{position:absolute;bottom:-30px;width:100%;text-align:center;font-size:.78rem;font-weight:800;color:var(--muted);letter-spacing:.02em}
+  .axis-y{position:absolute;left:-30px;top:50%;transform:rotate(-90deg) translateX(50%);transform-origin:left;
+    white-space:nowrap;font-size:.78rem;font-weight:800;color:var(--muted)}
+  .axis-hint{position:absolute;font-size:.64rem;color:var(--faint);font-weight:700}
+  .dot-b{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:default}
+  .dot-b .m{width:16px;height:16px;border-radius:50%;border:2px solid var(--muted);background:transparent}
+  .dot-b.solid .m{background:var(--gut);border-color:var(--gut)}
+  .dot-b.star{z-index:5}
+  .dot-b.star .m{width:26px;height:26px;background:var(--gut2);border-color:#fff;box-shadow:0 0 0 4px var(--mint-tint),0 6px 16px -4px rgba(28,58,32,.5)}
+  .dot-b .lb{font-size:.66rem;font-weight:800;color:var(--ink);white-space:nowrap;background:color-mix(in srgb,var(--card) 78%,transparent);padding:1px 5px;border-radius:4px}
+  .dot-b.star .lb{color:var(--gut2);font-size:.74rem}
+  .legend{display:flex;flex-wrap:wrap;gap:16px 22px;justify-content:center;margin-top:44px;font-size:.82rem;font-weight:600;color:var(--muted)}
+  .legend .i{display:inline-flex;align-items:center;gap:.5em}
+  .legend .m{width:14px;height:14px;border-radius:50%}
+  .legend .m.solid{background:var(--gut)}
+  .legend .m.hollow{border:2px solid var(--muted)}
+  .legend .m.star{background:var(--gut2);box-shadow:0 0 0 3px var(--mint-tint)}
+
+  .whitespace{margin-top:26px;background:var(--gut);color:#EAF3EC;border-radius:var(--radius);padding:clamp(22px,3vw,30px)}
+  .whitespace h4{margin:0 0 .4em;color:#fff;font-size:1.05rem;font-weight:900}
+  .whitespace p{margin:0;color:#CFE1D4;font-size:.95rem;max-width:75ch}
+  .whitespace b{color:var(--mint)}
+
+  /* ---- claims table ---- */
+  .tablescroll{margin-top:26px;overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);-webkit-overflow-scrolling:touch}
+  table.claims{border-collapse:collapse;width:100%;min-width:820px;font-size:.86rem}
+  table.claims th,table.claims td{text-align:left;padding:14px 16px;vertical-align:top;border-bottom:1px solid var(--line)}
+  table.claims thead th{position:sticky;top:0;background:var(--panel);font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);z-index:2}
+  table.claims thead th.kr{color:var(--gut2)}
+  table.claims thead th.us{color:var(--gut2)}
+  table.claims thead th.no{color:var(--danger)}
+  table.claims tbody tr:hover{background:var(--panel)}
+  table.claims .item{font-weight:800;color:var(--ink);min-width:150px}
+  table.claims .item .role{display:block;font-weight:600;font-size:.72rem;color:var(--muted);margin-top:.2em}
+  table.claims td.c-kr{background:color-mix(in srgb,var(--mint-tint) 40%,transparent)}
+  table.claims td.c-no{color:var(--danger);font-weight:600}
+  table.claims .warn{color:var(--warn);font-weight:800}
+  table.claims code{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:.05em .4em;font-size:.92em}
+
+  .disclaimer{margin-top:24px;background:var(--warn-tint);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent);border-radius:12px;padding:16px 20px;font-size:.85rem;color:var(--ink)}
+  .disclaimer b{color:var(--warn)}
+
+  footer{padding:clamp(36px,5vw,60px) 0;color:var(--muted);font-size:.85rem}
+  footer b{color:var(--ink)}
+  .onething{background:var(--gut);color:#EAF3EC;border-radius:var(--radius);padding:clamp(24px,4vw,40px);margin:8px 0 26px}
+  .onething .k{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mint)}
+  .onething p{margin:.5em 0 0;font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:700;line-height:1.45;color:#fff;max-width:60ch}
+  .onething b{color:var(--mint)}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="logo"><span class="dot"></span>INSHUB<span class="kr">인스허브</span></span>
+    <div class="eyebrow">Launch Strategy · 전략 원페이저</div>
+    <h1>예민한 장을 위한 슈퍼푸드 FODMAP 효소</h1>
+    <p>히어로 SKU 확정 · 경쟁 포지셔닝 맵 · 2단 클레임 매핑 — 런칭 전 3대 의사결정을 한 장으로.
+      IM8의 과학을 바닥에, Gruns의 즐거움을 창끝에.</p>
+    <p class="tagline">Inspire Your Hub — Your gut is the hub of everything.</p>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="row">
+    <a href="#s1"><b>01</b>히어로 SKU · 포지셔닝</a>
+    <a href="#s2"><b>02</b>경쟁 포지셔닝 맵</a>
+    <a href="#s3"><b>03</b>2단 클레임 매핑</a>
+  </div>
+</nav>
+
+<!-- ============ SECTION 1 ============ -->
+<section class="block" id="s1">
+  <div class="wrap">
+    <span class="kicker"><span class="n">1</span> Hero SKU & Positioning</span>
+    <h2 class="h">런칭은 한 발로. 멜팅 스틱 하나에 전부 건다.</h2>
+    <p class="sub">SKU 3종 동시 런칭 = 집중 위반. 가장 차별적·시연친화적·K다운 <b>멜팅 스틱 1종</b>으로 쐐기를 박고,
+      Sprinkle·캡슐은 검증 후 Phase 2. 아래가 그 히어로의 확정 스펙과 포지셔닝입니다.</p>
+
+    <div class="card sku">
+      <div class="left">
+        <span class="badge">Hero SKU · Phase 1</span>
+        <h3>INSHUB Daily FODMAP Enzyme</h3>
+        <div class="en">Melting Stick · 사과+청포도 · 3g · 당 0g</div>
+        <div class="specrow">
+          <span>효소식품(일반식품)</span><span>물 없이 녹는 멜팅 제형</span><span>컬리케일 발효물 10%+</span>
+          <span>당 0g</span><span>비건 · Non-GMO</span><span>글루텐프리 · 유당프리</span><span>1포 3g</span>
+        </div>
+        <p class="sub" style="margin-top:1.4em">
+          <b style="color:var(--gut2)">왜 이 제형인가:</b> 캡슐·정제는 시연이 안 됩니다. 카메라 앞에서 입에 털어 넣고 녹는
+          멜팅 스틱 = <b>즉효 시연 콘텐츠의 물리적 조건</b>. 맛(사과청포도)은 Gruns식 '즐거운 장 관리'의 진입 무기.
+        </p>
+      </div>
+      <div class="right">
+        <h4>핵심 배합 아키텍처</h4>
+        <div class="ingline"><b>프럭탄 하이드롤라제</b><span class="tag">HERO</span></div>
+        <div class="ingline"><b>α-갈락토시다아제</b><span class="tag">HERO</span></div>
+        <div class="ingline"><b>락타아제</b><span class="tag opt">FOCUS</span></div>
+        <div class="ingline"><b>자일로스(이소머라제)</b><span class="tag opt">FODMAP</span></div>
+        <div class="ingline"><b>아밀라아제 · 프로테아제</b><span class="tag opt">BASE</span></div>
+        <div class="ingline"><b>유기농 컬리케일 발효물</b><span class="tag">USP</span></div>
+        <p class="sub" style="margin-top:1.1em;font-size:.8rem">
+          창끝은 <b>FODMAP 3축(GOS·프럭탄·유당) 정밀 분해</b>. 아밀·프로테아제 역가는 위생요인일 뿐,
+          <b>절대 '초고역가'를 창끝으로 내세우지 않음</b>(역가전쟁=커모디티 함정).
+        </p>
+      </div>
+    </div>
+
+    <div class="posstate">
+      <p><span class="hl">마늘·콩·유제품이 부담스러운 예민한 장</span>을 가졌지만 K·아시아 음식을 포기하기 싫은 사람에게,
+        INSHUB은 <span class="hl">그 끼니에서 바로 작동하는(즉효)</span> 슈퍼푸드 FODMAP 소화효소입니다.
+        몇 주 걸리는 프로바이오틱과 달리, 불편의 원인인 FODMAP(GOS·프럭탄·유당)을 <span class="hl">직접 분해</span>하기 때문입니다.</p>
+      <p class="small">For sensitive guts overwhelmed by garlic, beans & dairy — enjoy the Asian diet without the gas & bloat. It works this meal, not in 8 weeks.</p>
+    </div>
+
+    <div class="spear">
+      <div class="c tip">
+        <h4>창끝 (Spearhead) · Gruns 에너지</h4>
+        <div class="big">즐겁고 쉬운 장 관리 + 즉효 체감</div>
+        <ul>
+          <li>멜팅·사과청포도 = 챙기고 싶은 루틴</li>
+          <li>"그 끼니에서 바로" 와우모먼트</li>
+          <li>시연·UGC로 퍼지는 포맷</li>
+        </ul>
+      </div>
+      <div class="c base">
+        <h4>바닥 (Substrate) · IM8 에너지</h4>
+        <div class="big">FODMAP 정밀 과학 + 클린라벨</div>
+        <ul>
+          <li>3축 FODMAP 효소 · Monash 인증 경로</li>
+          <li>6대 클린라벨 · 저FODMAP 근거</li>
+          <li>전문가 권위로 신뢰 담보</li>
+        </ul>
+      </div>
+    </div>
+    <p class="sub" style="margin-top:14px;font-size:.85rem"><b style="color:var(--gut2)">규칙:</b> 창끝과 바닥을 50:50으로 섞지 말 것.
+      전면(광고·패키지·콘텐츠 후킹)=Gruns 즐거움, 후면(상세·근거·인증)=IM8 과학. 에너지가 찢어지면 "임상적이지도 즐겁지도 않은" 브랜드가 됨.</p>
+
+    <h3 style="margin-top:38px;font-size:1.15rem;font-weight:900">엔진 ①  즉효 시연 루프 — "The Trigger Test" (당신의 Gruns UGC 엔진)</h3>
+    <div class="steps">
+      <div class="step"><div><h5>트리거를 먹는다</h5><p>크리에이터가 카메라 앞에서 마늘빵·콩요리·라떼·떡볶이 등 '터지는 음식'을 먹는다.</p></div></div>
+      <div class="step"><div><h5>INSHUB 한 포</h5><p>물 없이 입에서 녹는 멜팅 스틱 — 이 '녹는 순간'이 브랜드 시그니처 컷.</p></div></div>
+      <div class="step"><div><h5>같은 영상에서 '안 더부룩'</h5><p>몇 시간 뒤 컨디션을 같은 영상에 담아 <b>못 조작하는·스크린샷되는 증명</b>으로. Seed가 절대 못 만드는 콘텐츠 자산.</p></div></div>
+    </div>
+
+    <h3 style="margin-top:34px;font-size:1.15rem;font-weight:900">엔진 ②  빌려온 권위 로드맵 (당신의 휴버먼 + 신뢰 도장)</h3>
+    <div class="steps">
+      <div class="step"><div><h5>저FODMAP 전문가를 페이스로</h5><p>장 건강 의사·한의사·저FODMAP 전문 영양사와 자문/공동 콘텐츠. 일반식품이라 라벨이 침묵하는 만큼, 효익은 '사람의 권위'로 전달.</p></div></div>
+      <div class="step"><div><h5>Monash Low FODMAP Certification</h5><p>아마존·아이허브에서 FODZYME·FODAWAY가 먹고 있는 <b>글로벌 신뢰 도장</b>. 취득 경로를 지금 착수 = K-브랜드 신뢰 장벽 붕괴.</p></div></div>
+      <div class="step"><div><h5>체감 데이터 확보</h5><p>소비자 테스트로 '가스·팽만 감소 %' 자체 데이터화 → The Nue Co.식 체감 근거 + PR·상세 재활용.</p></div></div>
+    </div>
+
+    <div class="delete">
+      <h4>지금 삭제 (Musk · Ruthless Focus)</h4>
+      <ul>
+        <li>런칭 SKU 3종 → <b>멜팅 스틱 1종만</b>. Sprinkle·캡슐은 Phase 2</li>
+        <li>"초고역가" 창끝 → 역가는 위생요인으로 후면 배치</li>
+        <li>일반식품 패키지의 모든 기능성 뉘앙스(섹션 3 준수)</li>
+        <li>프리미엄-임상과 펀-캔디 에너지 50:50 혼합</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 ============ -->
+<section class="block" id="s2">
+  <div class="wrap">
+    <span class="kicker"><span class="n">2</span> Competitive Positioning Map</span>
+    <h2 class="h">역가 축을 버려라. 승부는 '즉효 × FODMAP 정밀' 사분면에서.</h2>
+    <p class="sub">세로=FODMAP 타겟 정밀도, 가로=즉효 체감. 그리고 결정적 <b>제3의 축</b>을 마커로 인코딩했습니다 —
+      ●채움 = 맛·멜팅제형(즐거움) 있음 / ○비움 = 클리니컬·무미. INSHUB은 우상단이면서 유일하게 '채움'입니다.</p>
+
+    <div class="mapwrap">
+      <div style="position:relative;padding:0 34px 46px">
+        <div class="plot" role="img" aria-label="즉효 대 FODMAP 정밀도 경쟁 포지셔닝 맵. INSHUB은 우상단(고즉효·고정밀)에 유일하게 맛·제형이 있는 브랜드로 위치.">
+          <span class="quad q-tr">FODMAP 정밀 × 즉효<br>(승부처)</span>
+          <span class="quad q-bl">느린 균·전신</span>
+          <span class="quad q-br">범용효소 · 역가전쟁</span>
+          <span class="quad q-tl">정밀하나 느림</span>
+
+          <!-- dots: left% = 즉효, top% = 100 - 정밀도 -->
+          <div class="dot-b" style="left:15%;top:82%"><span class="m"></span><span class="lb">SEED</span></div>
+          <div class="dot-b" style="left:21%;top:88%"><span class="m"></span><span class="lb">Ritual</span></div>
+          <div class="dot-b" style="left:47%;top:70%"><span class="m"></span><span class="lb">Physician's Choice</span></div>
+          <div class="dot-b" style="left:44%;top:76%"><span class="m"></span><span class="lb">Zenwise</span></div>
+          <div class="dot-b" style="left:58%;top:56%"><span class="m"></span><span class="lb">The Nue Co.</span></div>
+          <div class="dot-b" style="left:56%;top:91%"><span class="m"></span><span class="lb">카무트효소</span></div>
+          <div class="dot-b" style="left:82%;top:16%"><span class="m"></span><span class="lb">FODZYME</span></div>
+          <div class="dot-b" style="left:72%;top:21%"><span class="m"></span><span class="lb">FODAWAY</span></div>
+          <div class="dot-b solid star" style="left:85%;top:14%"><span class="m"></span><span class="lb">INSHUB</span></div>
+
+          <span class="axis-hint" style="left:6px;bottom:-22px">낮음</span>
+          <span class="axis-hint" style="right:6px;bottom:-22px">즉효 높음</span>
+        </div>
+        <div class="axis-x">즉효 체감 (Immediate Wow) →</div>
+        <div class="axis-y">FODMAP 타겟 정밀도 →</div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span class="i"><span class="m solid"></span> 채움 = 맛·멜팅제형(즐거움) 있음</span>
+      <span class="i"><span class="m hollow"></span> 비움 = 클리니컬·무미</span>
+      <span class="i"><span class="m star"></span> INSHUB = 우상단 + 채움 (유일)</span>
+    </div>
+
+    <div class="whitespace">
+      <h4>화이트 스페이스의 진실</h4>
+      <p>우상단(고즉효·고정밀)은 <b>비어 있지 않습니다</b> — FODZYME·FODAWAY가 이미 있습니다. 하지만 그들은 전부
+        <b>클리니컬·무미의 서구 처방(○)</b>입니다. INSHUB의 진짜 빈 공간은 좌표가 아니라 <b>제3의 축</b> —
+        <b>맛·멜팅제형 × K-아시아 식단(마늘·김치·콩) × 컬리케일 슈퍼푸드</b>. "FODZYME의 기능을, Gruns의 즐거움과 K의 서사로."
+        역가 전쟁(우하단, 카무트효소·Zenwise)에는 절대 내려가지 마십시오 — 거기서는 이깁니다가 아니라 집니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 ============ -->
+<section class="block" id="s3">
+  <div class="wrap">
+    <span class="kicker"><span class="n">3</span> 2-Tier Claims Map</span>
+    <h2 class="h">라벨이 벙어리인 나라, 말할 수 있는 나라 — 원료별로 갈라라.</h2>
+    <p class="sub">국내는 <b>효소식품(일반식품)</b>이라 기능성 문구가 금지 → 효익은 콘텐츠·권위로만.
+      수출(미국)은 DSHEA 구조·기능 표현이 면책문구와 함께 가능. 원료마다 "할 수 있는 말"이 다릅니다.</p>
+
+    <div class="tablescroll">
+      <table class="claims">
+        <thead>
+          <tr>
+            <th class="item">원료 / 항목</th>
+            <th class="kr">🇰🇷 국내 일반식품 — 가능</th>
+            <th class="us">🇺🇸 US DSHEA — 가능 (+면책문구)</th>
+            <th class="no">🚫 공통 절대 금지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="item">제품 전체<span class="role">효소식품 · 멜팅 스틱</span></td>
+            <td class="c-kr">"소화효소식품", "물 없이 녹는 멜팅 스틱", "K-슈퍼푸드 효소", 원료·함량 사실 표시</td>
+            <td>"Digestive enzyme for the garlic-onion (Asian) diet", "supports digestion, helps reduce <b>occasional</b> gas &amp; bloating"</td>
+            <td class="c-no">"IBS·과민성대장 치료/개선", "면역력 강화", "질병 예방", 치료 前後 오인 연출</td>
+          </tr>
+          <tr>
+            <td class="item">컬리케일 발효물<span class="role">USP · 컨셉 스킨</span></td>
+            <td class="c-kr">"유기농 컬리케일 발효물 10%+ 함유", "채소의 여왕 케일"(원료 스토리)</td>
+            <td>"made with fermented curly kale", "whole-food superfood greens"</td>
+            <td class="c-no">"디톡스·해독", "항산화·면역 효능", "detoxifies", "boosts immunity"</td>
+          </tr>
+          <tr>
+            <td class="item">α-갈락토시다아제<span class="role">HERO</span></td>
+            <td class="c-kr">"α-갈락토시다아제 함유", 함량 표기 <span class="warn">(효능 뉘앙스 X)</span></td>
+            <td>"helps break down GOS in <b>beans, legumes, garlic &amp; onions</b>" (Beano식 구조·기능)</td>
+            <td class="c-no">"가스를 없앤다/치료", "cures gas", 질병 연계</td>
+          </tr>
+          <tr>
+            <td class="item">프럭탄 하이드롤라제<span class="role">HERO</span></td>
+            <td class="c-kr">"프럭탄 분해효소 함유", 함량 표기</td>
+            <td>"helps break down <b>fructans</b> in wheat, garlic &amp; onion"</td>
+            <td class="c-no"><span class="warn">⚠️ 셀리악·글루텐 안전 암시 금지</span> — "safe for celiac/gluten"(프럭탄효소는 글루텐분해가 아님)</td>
+          </tr>
+          <tr>
+            <td class="item">락타아제<span class="role">FOCUS</span></td>
+            <td class="c-kr"><span class="warn">⚠️ "유당분해" 표현 제약</span> → "락타아제 함유"만</td>
+            <td>"helps <b>digest lactose</b> in dairy", "for those sensitive to dairy"</td>
+            <td class="c-no">"유당불내증 치료/개선", "cures lactose intolerance"(질병)</td>
+          </tr>
+          <tr>
+            <td class="item">아밀라아제 · 프로테아제<span class="role">BASE</span></td>
+            <td class="c-kr">역가·함량 표기 (위생요인 근거)</td>
+            <td>"supports digestion of carbs &amp; protein", "aids nutrient absorption"</td>
+            <td class="c-no">"소화불량을 치료", 질병 표현</td>
+          </tr>
+          <tr>
+            <td class="item">클린라벨<span class="role">비건·Non-GMO·당0·GF</span></td>
+            <td class="c-kr">사실 표시 가능 (비건/Non-GMO/당0/글루텐프리 — <span class="warn">기준 충족·표시규정·알러젠 표기 정확</span>)</td>
+            <td>"Vegan, Non-GMO, Gluten-Free, Zero Sugar, Soy/Dairy/Egg-Free, Kosher"(입증 시)</td>
+            <td class="c-no">미검증 '프리' 표기, "알러지를 치료"</td>
+          </tr>
+          <tr>
+            <td class="item">저FODMAP<span class="role">포지셔닝</span></td>
+            <td class="c-kr"><span class="warn">⚠️ 개념·교육형만</span> — 질병(과민성대장) 치료·기능성 오인 금지</td>
+            <td>"Low FODMAP" / <b>Monash Certified 로고</b>(취득 시)</td>
+            <td class="c-no">"treats IBS", 저FODMAP=질병치료 연계</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="disclaimer">
+      <b>⚠︎ 규제 면책:</b> 본 표는 마케팅 방향 가이드이며 법률 자문이 아닙니다. 국내는 <b>식품표시광고법·부당광고 심의</b>,
+      수출은 <b>FDA DSHEA(구조·기능 표현 시 "This statement has not been evaluated by the FDA…" 면책문구 필수)</b> 및 현지 규제를 따릅니다.
+      최종 카피·라벨은 <b>식약처 자료 + 표시광고 사전심의 + 법률 검토(예: 김앤장 자문)</b>로 확정하십시오.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="onething">
+      <div class="k">The One Thing</div>
+      <p>제품은 준비됐습니다. 없는 건 <b>즉효를 증명하는 권위 + 크리에이터 엔진</b>입니다.
+        일반식품이라 라벨이 벙어리인 이상, 이 엔진이 없으면 좋은 제품이 아무도 모르게 조용히 죽습니다.
+        멜팅 스틱 1종 → Trigger Test 시연 포맷 → 저FODMAP 권위 + Monash 인증. 이 순서로 쐐기를 박으십시오.</p>
+    </div>
+    <p><b>INSHUB · 런칭 전략 원페이저</b> — 3대 의사결정(히어로 SKU · 포지셔닝 맵 · 클레임 매핑)을 한 장으로.
+      다음 확장: 상세페이지 골격, Trigger Test 크리에이터 브리프, Monash 인증 실행 체크리스트, 구독 유닛 이코노믹스.</p>
+  </div>
+</footer>
