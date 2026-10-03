@@ -5,27 +5,27 @@
 ■ 한 문장 콘셉트
 무광 코발트 블록 위에, 빛을 받는 건 골드 로고 하나뿐. 썸네일에서는 "파란 블록 + 로고 실루엣"으로, 손에 들고 기울이면 "로고를 훑는 빛 한 줄"로 인식되게 한다.
 
-■ 핵심 규칙 10
+■ 핵심 규칙 12
 01. 로고만 유광, 나머지 전부 무광
     단상자·용기 공통. 워드마크 + 심볼 = 유광 골드 평박(형압 없음). 제품명·수치·본문은 화이트 무광. (캡 새틴은 예외, 오너 서면 승인 필요)
 02. 컬러는 코발트 1색 + 골드 1색 + 화이트
     코발트 2728C 또는 2935C(샘플로 확정) / 메탈 871C 단일 / 텍스트 화이트. 그 외 색 추가 금지.
-03. 전면 70% 이상 코발트 단색
-    그라데이션·사진·패턴 없이 평평한 색면. SKU 전부 같은 코발트, 윗면·내부 트레이도 코발트.
-04. 전면 요소는 4개
-    골드 로고 · 제품명(국문 + 영문, 라인명·번호) · 영문 제품 유형(예: Face Serum, 미국 필수) · 용량(50 mL / 1.69 fl oz 병기, 하단 30% 안, 미국 필수). 심볼은 선택. 그 외 카피는 측면·후면으로.
+03. 정면 배경은 코발트 단색
+    RoC 구조를 따르되 배경은 흰색이 아니라 코발트. 그라데이션·패턴 금지. 사진은 제품 렌더 1개만 허용. SKU 전부 같은 코발트, 윗면·내부 트레이도 코발트.
+04. 정면 구성 = RoC 정면 구조
+    위에서부터: 골드 로고(유광 평박) → 태그 1줄(실증된 문구만, 예: CLINICALLY TESTED) → 제품 렌더(하단 50~60%) → 렌더에 겹치는 제품명 밴드(영문 크게·국문, 영문 제품 유형 예: Firming Serum) → 용량 맨 아래(50 mL / 1.69 fl oz). 그 외 카피는 측면·후면으로.
 05. 로고는 상단 1/3
     릴스·틱톡 하단 캡션(약 25%)과 우측 아이콘(약 15%)에 가리지 않게. 손에 들었을 때 엄지에도 안 가림.
 06. 로고 크기·획 기준
     단상자 캡하이트 10mm 목표(최소 SKU 다이라인에서 먼저 확인), 용기는 평면 스탬핑 가능 폭 기준 별도. 포일 최소 선폭 0.3mm·간격 0.4mm, 큰 면적 베타 박 금지(기포·얼룩)(업체 확인).
-07. 정면 우측면 = USP(RoC 구조), 좌측면 = 제품 이미지
-    우측면 = 큰 수치(패널 높이 25% 이상) + 흰 박스(패널 면적 30% 이하) + 클레임 1줄. 초도 B버전 = 성분명 대형 타이포 + 메커니즘 도식 1개 + 클레임 1줄.
+07. 정면 우측면 = USP 증거면(RoC 측면 구조)
+    위에서부터: 원형 배지(실증된 문구만) → 큰 수치(패널 높이 20~25%) + 국·영문 클레임 2줄 → "무보정 / UNRETOUCHED" 라벨 → 비포/애프터 세로 2컷(얇은 흰 테두리, 부위 표시 원, 캡션 BEFORE / AFTER 4 WEEKS) → 하단 시험 조건 소자. 정면과 3/4 각도로 한 컷에 같이 찍히는 짝으로 설계.
 08. 골드는 871C 단일
     872C~876C(구리·브론즈 기운)·877C(실버)·로즈골드·코퍼 금지. 캡은 헤어라인 + 새틴, 완전 무광 도장 금지.
 09. 유광 요소 추가 금지
     부분 UV, 유광 제품명, 홀로그램 포일, 유광 바디 모두 금지 → 로고 반사가 분산됨.
 10. AB 고유 요소는 하나도 쓰지 않음
-    원형 외곽 심볼, 동심 곡선·물결, 로열블루 병, 구리 캡 전부 금지. 심볼은 직선·각 기반(사선 분할·광선 모티프 등).
+    원형 외곽 브랜드 심볼(USP면 인증 배지는 별개), 동심 곡선·물결, 로열블루 병, 구리 캡 전부 금지. 심볼은 직선·각 기반(사선 분할·광선 모티프 등).
 11. SKU 구분은 글자로만
     제품명 아래 화이트 무광 라인명 + 번호. 색·톤 변주 없음 (페이싱 2~3개로 색 블록 형성).
 12. 레드 라인은 색만 교체
@@ -50,7 +50,7 @@
 - 평평한 무광 코발트 면을 넓게
 - 로고는 상단 1/3, 평박은 획을 굵게 → 기울이면 빛이 잡히게
 - 제품명·라인명은 화이트 산세리프, 6pt 이하 반전 글자는 굵은 서체
-- 측면 큰 수치는 크게, 흰 박스는 작게
+- USP면은 큰 수치 + 비포/애프터 세로 2컷, 무보정 라벨
 - 시안마다 블루 A/B, 블루/레드 동시 제시
 
 ■ Don't
@@ -64,9 +64,9 @@
 ================================================
 ■ 칼선 기준 면별 배치
 - 면 | 들어갈 내용 | 필수·규칙
-- 정면 | 브랜드 로고(유광 평박) + 제품명 국문/영문 + 영문 제품 유형 + 용량 | 로고 상단 1/3. 용량은 미터법+미국 단위 병기, 하단 30% 안(미국 PDP). 코발트 70% 이상
-- 정면 우측면 | USP 이미지: 큰 수치 + 비포/애프터(흰 박스) + 클레임 1줄 | 수치 옆 시험 조건(n·기간·기관) 소자 표기. 실증 없으면 인쇄 금지. 국가별 교체 가능하게 설계
-- 좌측면 | 제품 이미지(용기 실사 또는 일러스트) | 실물과 같은 형태·색. 하단 25~30%는 무코팅 밝은 스티커 존(수입국 현지어 라벨용)
+- 정면 | 로고(상단, 유광 평박) + 태그 1줄 + 제품 렌더(하단 50~60%) + 제품명 밴드(영문·국문·제품 유형) + 용량(맨 아래) | RoC 정면과 같은 위→아래 순서. 배경 코발트. 용량은 미터법+미국 단위, 하단 30% 안(미국 PDP). 제품 렌더는 실물과 같은 형태·색
+- 정면 우측면 | USP 증거면: 배지 → 큰 수치 + 클레임 → 무보정 라벨 → 비포/애프터 세로 2컷 → 시험 조건 | 왼손으로 들었을 때 정면과 함께 보이는 면. 수치·사진은 실증 없으면 인쇄 금지. 국가별 교체 가능하게 설계
+- 좌측면 | 성분 스토리(핵심 성분 1~2개 + 짧은 설명, 국·영문) | 하단 25~30%는 무코팅 밝은 스티커 존(수입국 현지어 라벨용). 제품 이미지는 정면으로 이동(RoC 기준)
 - 후면 | 한글·영문 전성분, 사용법, 주의사항, 책임판매업자 상호·주소, Made in Korea, 미국 Distributor·MoCRA 연락처, EU/UK RP(해당 시), PAO 기호, QR, 재질·분리배출 표시 | 전성분은 함량 순, INCI 명칭 통일(Water/Aqua 등). 흰 박스 위 검정 소자. 공간 부족 시 바코드는 바닥 또는 측면으로
 - 상단(윗면) | 브랜드 영문 TERNOVA | 정면에서 내려다볼 때 바로 읽히게(글자 아래쪽이 정면 쪽). 칼선 위에서는 180° 뒤집혀 배치
 - 바닥 | 제조번호(LOT) + 사용기한(EXP) 코딩 | 라벨 "LOT / EXP"만 인쇄, 값은 코딩. 약 40×15mm 무코팅 밝은 창(코발트 위 검정 코딩은 판독 불가). 바코드 이동 시 함께 배치
@@ -160,20 +160,20 @@ Luxury skincare packaging for the brand "TERNOVA" (exact spelling, 7 capital let
 embossing, debossing, raised logo, rose gold, copper, bronze, orange gold, silver, glossy carton, glossy body, satin sheen on box, lacquer, specular highlights on body, shiny plastic, velvet, gradient, wave pattern, concentric circles, circular emblem, repeated logo pattern, holographic foil, ultramarine, navy, purple tint, violet, extra text, misspelled logo, cluttered layout
 
 [샷 1 · 단상자 + 용기 히어로]
-목적: [공통 블록 붙임] 전면 70% 코발트, 로고 위치·반사
-Front view of a tall rectangular carton standing next to the bottle with gold cap, on a light grey seamless background, soft studio light from upper left creating one bright highlight on the gold foil logo while the matte surfaces show no reflections.
+목적: [공통 블록 붙임] RoC 정면 순서, 로고 위치·반사
+Front view of a tall slim rectangular carton standing next to the bottle with gold cap. Carton front, top to bottom: gold foil TERNOVA logo, one small white tag line, a large realistic render of the bottle filling the lower half, a white product-name band overlapping the render, net quantity at the very bottom, on a light grey seamless background, soft studio light from upper left creating one bright highlight on the gold foil logo while the matte surfaces show no reflections.
 
 [샷 2 · 기울인 반사 컷]
 목적: [공통 블록 붙임] 30~45° 기울였을 때 로고만 빛나는지
 Close-up macro of the carton front tilted at 40 degrees, raking light skimming the surface, the flat mirror-gold "TERNOVA" foil logo glows with a sharp specular highlight while the surrounding matte blue stays deep and flat. Shallow depth of field.
 
-[샷 3 · 측면 증거 패널 (단독)]
-목적: [공통 블록 붙이지 않음] 큰 수치 + 작은 흰 박스. 94%는 더미
-Straight-on flat view of the side panel of a matte cobalt blue skincare carton, flat uncoated-paper matte finish, no logo, no foil, no metallic elements. Top quarter: very large bold white sans-serif "94%". Below: one short line of small white text. Lower part: a compact white rectangle (under one third of the panel) containing two small side-by-side before/after skin close-up photos. Even diffuse lighting, no reflections, packaging dieline mockup style.
+[샷 3 · USP 증거면 (단독, RoC 측면 구조)]
+목적: [공통 블록 붙이지 않음] 배지 → 큰 수치 → 무보정 라벨 → 비포/애프터 세로 2컷. 94%는 더미
+Straight-on flat view of the narrow side panel of a tall matte cobalt blue skincare carton, flat uncoated-paper matte finish, no foil. Top to bottom: a small white circular outline badge with tiny text; a very large white sans-serif "94%" with two short lines of white text beside it; a tiny label "UNRETOUCHED IMAGES"; two stacked close-up skin photos with thin white borders and a thin white circle highlighting the same area, captioned "BEFORE" and "AFTER 4 WEEKS"; a line of tiny white test-condition text at the bottom. Even diffuse lighting, no reflections, packaging mockup style.
 
-[샷 4 · 폰으로 찍은 손샷 (SNS)]
-목적: [공통 블록 붙임] 블루가 보라로 안 가는지. 판정은 릴스 UI 오버레이 얹고
-Casual iPhone photo of a hand holding the carton at chest height in a pharmacy aisle, white and beige shelves blurred behind, cool white store lighting, the gold foil logo in the upper third catches the ceiling light and stays clear of the hand. Natural phone-camera look, slight noise, no studio retouching.
+[샷 4 · 손샷 3/4 각도 (레퍼런스 사진 재현)]
+목적: [공통 블록 붙임] 정면 + USP 증거면이 한 컷에. 판정은 릴스 UI 오버레이 얹고
+Casual iPhone photo in a pharmacy aisle: a left hand holds the tall slim carton at chest height, turned at a three-quarter angle so both the front (gold logo, bottle render, product name band) and the right side panel (large white "94%", two stacked before/after skin photos) are visible together. Shelves of skincare boxes blurred behind, cool white store lighting, the gold foil logo catches the ceiling light. Natural phone-camera look, slight noise, no retouching.
 
 [샷 5 · 매대 페이싱]
 목적: [공통 블록 붙임] 1.5m에서 색 블록 + 로고 실루엣
@@ -205,7 +205,7 @@ Unboxing moment: hands lifting the lid of the carton, revealing a matte cobalt i
 - 반사 | 로고 외 부위가 번쩍임 / 기울여도 로고에 빛이 안 잡힘
 - 썸네일 | 피드 그리드 크기에서 브랜드 식별 안 됨
 - 색 | 블루가 보라·남색으로 보임 / 골드가 구리·실버로 보임
-- 전면 | 요소 4개 초과 / 코발트 70% 미만 / 패턴 있음 / 로고가 상단 1/3 밖
+- 정면 | RoC 순서(로고→태그→렌더→제품명 밴드→용량)와 다름 / 패턴 있음 / 로고가 상단 1/3 밖
 - AB 거리 | 원형·곡선 심볼 / 블라인드 테스트 5명 중 2명 이상 AB로 인식
 - 로고 | 철자 오류 / 1.5m 매대 컷에서 안 읽힘
 - 확장 | 레드로 바꿨을 때 명절 선물세트 느낌
