@@ -1,5 +1,5 @@
-터노바 패키지 디자인 규칙 v2
-디자이너 커뮤니케이션 + 힉스필드 시안 생성 공용 · 2026년 10월 3일 · @Jin · 지니어스 디자인팀 검토 반영(브랜드·생산·프롬프트·SNS)
+터노바 패키지 디자인 규칙 v3
+디자이너 커뮤니케이션 + 힉스필드 시안 생성 공용 · 2026년 10월 3일 · @Jin · 지니어스 디자인팀 검토 반영(브랜드·생산·프롬프트·SNS·칼선·화장품 수출)
 ================================================
 
 ■ 한 문장 콘셉트
@@ -7,19 +7,19 @@
 
 ■ 핵심 규칙 10
 01. 로고만 유광, 나머지 전부 무광
-    단상자·용기 공통. 워드마크 + 심볼 = 유광 골드 포일 + 방향성 베벨 형압. 제품명·수치·본문은 화이트 무광. (캡 새틴은 예외, 오너 서면 승인 필요)
+    단상자·용기 공통. 워드마크 + 심볼 = 유광 골드 평박(형압 없음). 제품명·수치·본문은 화이트 무광. (캡 새틴은 예외, 오너 서면 승인 필요)
 02. 컬러는 코발트 1색 + 골드 1색 + 화이트
     코발트 2728C 또는 2935C(샘플로 확정) / 메탈 871C 단일 / 텍스트 화이트. 그 외 색 추가 금지.
 03. 전면 70% 이상 코발트 단색
     그라데이션·사진·패턴 없이 평평한 색면. SKU 전부 같은 코발트, 윗면·내부 트레이도 코발트.
 04. 전면 요소는 4개
-    골드 로고 · 심볼 1개 · 제품명(+라인명·번호) · 용량. 그 외 카피는 측면·후면으로.
+    골드 로고 · 제품명(국문 + 영문, 라인명·번호) · 영문 제품 유형(예: Face Serum, 미국 필수) · 용량(50 mL / 1.69 fl oz 병기, 하단 30% 안, 미국 필수). 심볼은 선택. 그 외 카피는 측면·후면으로.
 05. 로고는 상단 1/3
     릴스·틱톡 하단 캡션(약 25%)과 우측 아이콘(약 15%)에 가리지 않게. 손에 들었을 때 엄지에도 안 가림.
 06. 로고 크기·획 기준
-    단상자 캡하이트 10mm 목표(최소 SKU 다이라인에서 먼저 확인), 용기는 평면 스탬핑 가능 폭 기준 별도. 포일+형압 최소 선폭 약 0.3mm(업체 확인).
-07. 앞은 럭셔리, 옆은 증거(RoC 구조)
-    측면 = 큰 수치(패널 높이 25% 이상) + 흰 박스(패널 면적 30% 이하) + 클레임 1줄. 초도 B버전 = 성분명 대형 타이포 + 메커니즘 도식 1개 + 클레임 1줄.
+    단상자 캡하이트 10mm 목표(최소 SKU 다이라인에서 먼저 확인), 용기는 평면 스탬핑 가능 폭 기준 별도. 포일 최소 선폭 0.3mm·간격 0.4mm, 큰 면적 베타 박 금지(기포·얼룩)(업체 확인).
+07. 정면 우측면 = USP(RoC 구조), 좌측면 = 제품 이미지
+    우측면 = 큰 수치(패널 높이 25% 이상) + 흰 박스(패널 면적 30% 이하) + 클레임 1줄. 초도 B버전 = 성분명 대형 타이포 + 메커니즘 도식 1개 + 클레임 1줄.
 08. 골드는 871C 단일
     872C~876C(구리·브론즈 기운)·877C(실버)·로즈골드·코퍼 금지. 캡은 헤어라인 + 새틴, 완전 무광 도장 금지.
 09. 유광 요소 추가 금지
@@ -41,14 +41,14 @@
 
 ■ 부위별 한눈에
 - 부위 | 색 | 마감 | 로고
-- 단상자 | 코발트 단색 (윗면·트레이 포함) | 스커프 방지 무광 필름 또는 무광 코팅액 | 유광 골드 포일 + 베벨 형압
+- 단상자 | 코발트 단색 (윗면·트레이 포함) | 스커프 방지 무광 필름 또는 무광 코팅액 | 유광 골드 평박 (형압 없음)
 - 용기 | 코발트 불투명 | 무광 AF UV (스탬핑 가능 등급) | 유광 골드 핫스탬핑, 오른손 파지 시 정면
 - 뚜껑 | 골드 메탈 871C 대조 | 헤어라인 + 새틴 (오너 승인 필요) | — (로고보다 튀면 반려)
 - 바코드 | 흰 박스 위 검정 | — | 여백(quiet zone) 확보, 배율 80% 이상
 
 ■ Do
 - 평평한 무광 코발트 면을 넓게
-- 로고는 상단 1/3, 베벨 형압으로 기울이면 빛이 훑고 지나가게
+- 로고는 상단 1/3, 평박은 획을 굵게 → 기울이면 빛이 잡히게
 - 제품명·라인명은 화이트 산세리프, 6pt 이하 반전 글자는 굵은 서체
 - 측면 큰 수치는 크게, 흰 박스는 작게
 - 시안마다 블루 A/B, 블루/레드 동시 제시
@@ -61,6 +61,57 @@
 - SKU별 다른 블루 톤
 - 실증 없는 수치·비포/애프터 인쇄 (시안의 94%는 더미)
 
+================================================
+■ 칼선 기준 면별 배치
+- 면 | 들어갈 내용 | 필수·규칙
+- 정면 | 브랜드 로고(유광 평박) + 제품명 국문/영문 + 영문 제품 유형 + 용량 | 로고 상단 1/3. 용량은 미터법+미국 단위 병기, 하단 30% 안(미국 PDP). 코발트 70% 이상
+- 정면 우측면 | USP 이미지: 큰 수치 + 비포/애프터(흰 박스) + 클레임 1줄 | 수치 옆 시험 조건(n·기간·기관) 소자 표기. 실증 없으면 인쇄 금지. 국가별 교체 가능하게 설계
+- 좌측면 | 제품 이미지(용기 실사 또는 일러스트) | 실물과 같은 형태·색. 하단 25~30%는 무코팅 밝은 스티커 존(수입국 현지어 라벨용)
+- 후면 | 한글·영문 전성분, 사용법, 주의사항, 책임판매업자 상호·주소, Made in Korea, 미국 Distributor·MoCRA 연락처, EU/UK RP(해당 시), PAO 기호, QR, 재질·분리배출 표시 | 전성분은 함량 순, INCI 명칭 통일(Water/Aqua 등). 흰 박스 위 검정 소자. 공간 부족 시 바코드는 바닥 또는 측면으로
+- 상단(윗면) | 브랜드 영문 TERNOVA | 정면에서 내려다볼 때 바로 읽히게(글자 아래쪽이 정면 쪽). 칼선 위에서는 180° 뒤집혀 배치
+- 바닥 | 제조번호(LOT) + 사용기한(EXP) 코딩 | 라벨 "LOT / EXP"만 인쇄, 값은 코딩. 약 40×15mm 무코팅 밝은 창(코발트 위 검정 코딩은 판독 불가). 바코드 이동 시 함께 배치
+- 바코드·QR | EAN-13(GS1 Korea 880) / QR | 바코드 배율 80% 이상(약 30×21mm), 흰 바탕 검정, 여백 확보, 접선에서 5mm 이상. QR 15mm 이상, 여백 4모듈, 흑백, 동적 URL
+
+■ 칼선 규칙
+- 구조: 스트레이트 턱(STE, 상·하 턱 모두 뒷면에 연결) 추천. 크래시락 바닥 금지(바닥 코딩 면이 없어짐). 충전 라인 사양 따라 RTE 가능(업체 확인)
+- 펼친 순서(바깥면): [후면] [좌측면] [정면] [우측면] [접착날개] → 이음선은 후면·우측면 모서리 한 곳뿐, 정면·이미지면·USP면은 끊기지 않음
+- 접착날개 12~15mm, 끝 15° 테이퍼. 바깥면 잉크·UV·OP 녹아웃 + 1~2mm 여유. 필름 라미는 부분 제거가 어려워 전용 접착제 필요(업체 확인)
+- 도련 3mm(턱·방진날개·접착날개까지 코발트 연장). 텍스트·로고는 재단선·접선에서 3mm 이상, 박·바코드·QR·6pt 이하 글자는 5mm 이상
+- 방진날개에는 필수 정보 금지, 본체보다 1~1.5mm 짧게
+- 코발트 전면 인쇄는 접선 갈라짐 위험 → 아이보리(SBS) 원지, 괘선 폭을 판지 두께에 맞춤, 본생산 전 접힘 시험. 가는 선·글자는 접선 위에 두지 않음
+- 윗면 글자 방향과 바닥 코딩창 위치는 칼선 위에 표시
+
+■ 디자이너 납품 체크리스트
+[ ] 업체 칼선 원본을 1:1 실척으로 사용
+[ ] 레이어 분리: DIELINE(인쇄 안 함) / ART / FOIL(100% 단색 벡터, 이름 FOIL_GOLD) / WHITE(없으면 "백색 없음" 표기) / COATING_KO(접착부·코딩창·스티커 존) / CODING(위치 표시만)
+[ ] 별색 이름은 PANTONE 2728 C 또는 2935 C 하나로 통일
+[ ] 텍스트 아웃라인, 이미지 300dpi 이상
+[ ] 박은 오버프린트 끄고, 박 아래 인쇄 녹아웃 여부 업체 확인
+[ ] 바코드는 벡터로 넣고 실물 스캔 테스트
+[ ] PDF/X-4 + AI 원본 함께 납품
+
+================================================
+■ 화장품 수출 표시 기준 (법률정보 수준, 최종은 현지 RA 검토)
+- 한국: 제조번호 + (사용기한) 또는 (개봉 후 사용기간 + 제조연월일). 용기(1차 포장)에도 필수 → 용기 코딩 공정 별도
+- EU: 최소 내구기간 30개월 이하면 "Best before end" 또는 모래시계 기호 + 날짜, 초과면 PAO 기호(예: 12M). Batch 필수. EU/UK RP 이름·주소, 원산지
+- 미국: 정면에 영문 제품 유형 + 용량(미터법·미국 단위). Distributed by + MoCRA 이상사례 연락처. 유통기한은 의무 아님, LOT 권장
+- 원산지 "Made in Korea": EU 필수, 미국 CBP 요구
+- 중국·일본·ASEAN: 수입자가 현지어 스티커 부착이 일반적 → 좌측면 스티커 존 확보
+- QR은 다국어 정보 보조 수단일 뿐, 필수 기재사항을 대신하지 못함
+- 기능성화장품(주름개선 등)은 심사·보고 완료 전 "기능성" 문구·효능 표기 불가
+- 한국 최소 글자 크기(5pt로 알려짐, 확인 필요)·미국 최소 1/16인치 → 후면 공간 부족 위험. 영문 INCI 한 세트로 미국·EU 공용
+- 합성수지 용기는 분리배출 표시 의무. 종이 단상자 의무 여부·라미 필름의 재활용 등급 영향은 확인 필요 → 수성 코팅 대안 검토
+- 최종 표시안은 국가별 현지 RA 검토 필수
+
+■ USP면 클레임 국가별 리스크
+- 한국: % 문구는 인체적용시험 실증 + 시험 조건 병기. "재생·치료·콜라겐 생성"은 의약품 오인 금지. "주름개선·미백"은 기능성 완료 후
+- 미국: "looks firmer" 같은 외관 표현은 OK, "boosts collagen·repairs"는 의약품 클레임. FTC 과학적 근거 필요
+- EU: Reg 655/2013 공통기준. 보정된 비포/애프터는 오인 표시
+- 중국: 효능 클레임은 功效宣称 평가 필요(주름·탄력은 인체시험, 근거 요약 공개)
+- 일본: 56개 효능 범위 안에서만. 비포/애프터 제한(확인 필요)
+- → USP면은 국가별 교체 가능한 판·슬리브로 설계하거나 최소공통 문구로
+
+================================================
 ■ SNS·승인 테스트
 - 조명: 약국 백색광(4,000~5,000K) / 클리닉 웜조명(3,000K) / 창가 자연광 / 링라이트
 - 폰: 아이폰·갤럭시 × HDR ON/OFF × 야간 모드 × 인물 모드 × 전면 카메라 × 플래시 1컷
@@ -74,10 +125,16 @@
 - 용기 AF 무광 UV 위 핫스탬핑 밀착 테스트(크로스컷·알코올 러빙) → 컬러 승인보다 먼저
 - 단상자: 스커프 방지 무광 필름, 접힘선 갈라짐(흰 섬유 노출)·마찰 테스트 필수
 - 색 허용치: 용기 코팅 ΔE2000 3 이하(기준 = 승인된 무광 단상자 칩) + D50·3000K 육안 승인. 캡은 별도 허용치
-- 포일+형압 콤비 금형 제작 2~3주를 일정에 반영
+- 형압 없음 → 콤비 금형 불필요(리드타임 1~2주 단축, 박·형압 어긋남 위험 제거). 박 동판만 제작
 - 후면 6pt 반전 글자는 굵은 서체. 법정 최소 글자 크기는 RA 확인
 
 ■ 브랜드 오너 확인 필요
+- 1차 타깃 국가와 국내 판매 여부 (수출 전용이면 수입국 기준 적용 가능 여부 확인 필요)
+- 기능성(주름개선 등) 심사·보고 진행 여부
+- 사용기한 방식(사용기한 vs 개봉 후 사용기간)과 안정성상 30개월 초과 여부
+- 미국 Distributor·MoCRA 연락처, EU/UK RP 지정
+- 라미 필름 vs 수성/OP 코팅 (접착부·코딩·재활용·접선 갈라짐 모두 영향, 칼선 확정 전 결정)
+- 코딩 방식(잉크젯 vs 레이저), GS1 가입·UPC 필요 여부
 - 캡 새틴 마감 = "뚜껑 무광" 확정안의 예외 → 11/30까지 서면 승인
 - 일정: 컬러 승인 후 약 9~10주에 설 연휴 겹침 → 캡·용기 금형 10월 즉시 발주, 블루 확정 11월 중순으로 당기는 안 검토. 업체별 리드타임 서면 수령
 - 측면 초도 B버전 확정 → 론칭 UGC에 94%는 안 나옴. B에도 큰 수치 1개(성분 함량 등) 넣을지
@@ -97,18 +154,18 @@
 - 로고 글자가 깨지면(특히 샷 5) 디자이너가 합성. 시안은 방향 확인용, 색 확정은 인쇄 샘플로
 
 [공통 블록 — 샷 3·7 제외 모든 샷 앞에 붙임]
-Luxury skincare packaging for the brand "TERNOVA" (exact spelling, 7 capital letters). Carton and opaque cylindrical bottle in flat [BLUE], not ultramarine, not navy, not purple. All surfaces flat matte like uncoated laminated paper, light-absorbing, diffuse, zero sheen. The single reflective element: the "TERNOVA" wordmark and one small angular geometric symbol in mirror-polished yellow-gold foil with a directional bevel emboss, catching one crisp highlight, placed in the upper third of the front. Small white matte sans-serif product name. Cap: brushed satin yellow-gold aluminum, low sheen, duller than the logo. Large empty blue area. Photorealistic product photography, true-to-life color.
+Luxury skincare packaging for the brand "TERNOVA" (exact spelling, 7 capital letters). Carton and opaque cylindrical bottle in flat [BLUE], not ultramarine, not navy, not purple. All surfaces flat matte like uncoated laminated paper, light-absorbing, diffuse, zero sheen. The single reflective element: the "TERNOVA" wordmark and one small angular geometric symbol in mirror-polished yellow-gold flat hot foil (no embossing, bold strokes), catching one crisp highlight, placed in the upper third of the front. Small white matte sans-serif product name. Cap: brushed satin yellow-gold aluminum, low sheen, duller than the logo. Large empty blue area. Photorealistic product photography, true-to-life color.
 
 [네거티브 — 지원 모델이면 넣음]
-rose gold, copper, bronze, orange gold, silver, glossy carton, glossy body, satin sheen on box, lacquer, specular highlights on body, shiny plastic, velvet, gradient, wave pattern, concentric circles, circular emblem, repeated logo pattern, holographic foil, ultramarine, navy, purple tint, violet, extra text, misspelled logo, cluttered layout
+embossing, debossing, raised logo, rose gold, copper, bronze, orange gold, silver, glossy carton, glossy body, satin sheen on box, lacquer, specular highlights on body, shiny plastic, velvet, gradient, wave pattern, concentric circles, circular emblem, repeated logo pattern, holographic foil, ultramarine, navy, purple tint, violet, extra text, misspelled logo, cluttered layout
 
 [샷 1 · 단상자 + 용기 히어로]
 목적: [공통 블록 붙임] 전면 70% 코발트, 로고 위치·반사
-Front view of a tall rectangular carton standing next to the bottle with gold cap, on a light grey seamless background, soft studio light from upper left creating one bright highlight on the embossed gold foil logo while the matte surfaces show no reflections.
+Front view of a tall rectangular carton standing next to the bottle with gold cap, on a light grey seamless background, soft studio light from upper left creating one bright highlight on the gold foil logo while the matte surfaces show no reflections.
 
 [샷 2 · 기울인 반사 컷]
 목적: [공통 블록 붙임] 30~45° 기울였을 때 로고만 빛나는지
-Close-up macro of the carton front tilted at 40 degrees, raking light skimming the surface, the bevel-embossed mirror-gold "TERNOVA" foil logo glows with a sharp specular highlight while the surrounding matte blue stays deep and flat. Shallow depth of field.
+Close-up macro of the carton front tilted at 40 degrees, raking light skimming the surface, the flat mirror-gold "TERNOVA" foil logo glows with a sharp specular highlight while the surrounding matte blue stays deep and flat. Shallow depth of field.
 
 [샷 3 · 측면 증거 패널 (단독)]
 목적: [공통 블록 붙이지 않음] 큰 수치 + 작은 흰 박스. 94%는 더미
@@ -128,11 +185,11 @@ Carton and bottle on a walnut reception counter in a dermatology clinic, warm 30
 
 [샷 7 · 블루/레드 라인 (단독)]
 목적: [공통 블록 붙이지 않음] 같은 메탈·레이아웃에 200C 레드
-Two identical skincare sets side by side on a clean light grey background: LEFT carton and bottle in flat matte bright cobalt blue, RIGHT carton and bottle in flat matte deep crimson red. Same layout, same yellow-gold mirror-foil bevel-embossed "TERNOVA" logo in the upper third, same brushed satin yellow-gold caps. Flat matte bodies with no sheen, only the logos reflect. Soft even studio light, symmetrical composition.
+Two identical skincare sets side by side on a clean light grey background: LEFT carton and bottle in flat matte bright cobalt blue, RIGHT carton and bottle in flat matte deep crimson red. Same layout, same yellow-gold flat mirror-foil "TERNOVA" logo in the upper third, same brushed satin yellow-gold caps. Flat matte bodies with no sheen, only the logos reflect. Soft even studio light, symmetrical composition.
 
 [샷 8 · 틸트 스윕 (영상용)]
 목적: [공통 블록 붙임] 기울이는 1~2초 동안 빛이 워드마크를 가로로 훑는 시그니처 무브. 힉스필드 영상 생성에 사용
-A hand slowly tilts the carton toward camera over two seconds; a single band of light sweeps horizontally across the bevel-embossed gold "TERNOVA" wordmark while the matte blue surface stays flat and non-reflective. Close-up, dark neutral background.
+A hand slowly tilts the carton toward camera over two seconds; a single band of light sweeps horizontally across the flat gold foil "TERNOVA" wordmark while the matte blue surface stays flat and non-reflective. Close-up, dark neutral background.
 
 [샷 9 · 탑다운 플랫레이]
 목적: [공통 블록 붙임] 위에서 찍을 때 포일이 검게 죽지 않는지
