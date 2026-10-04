@@ -1,0 +1,799 @@
+<title>터노바 벤치마크 리포트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  /* Layout: report column (max 1080px) — midnight hero, sticky brand index, one dossier block per brand, then a synthesis section for TURNOVA. */
+  :root{
+    --paper:#F3F5F9; --card:#FFFFFF; --panel:#E9EDF5;
+    --night:#14244A; --night-2:#24396B; --gold:#9C7426; --gold-tint:#F4ECDC;
+    --ink:#101A2E; --muted:#56627A; --line:rgba(20,36,74,.13); --line-2:rgba(20,36,74,.24);
+    --ok:#2D7A50; --ok-tint:#E2F1E8; --warn:#9A6512; --warn-tint:#F7EEDC; --bad:#B03A2E; --bad-tint:#F8E6E3;
+    --hero-ink:#EEF2FA; --hero-muted:#AFBBD6; --hero-gold:#D9B66A;
+    --display:'Gowun Batang','Nanum Myeongjo','AppleMyungjo',serif;
+    --sans:'Noto Sans KR','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+    --radius:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#0A1020; --card:#111A2F; --panel:#16213A;
+      --night:#0E1A36; --night-2:#9FB4E6; --gold:#D9B66A; --gold-tint:#2A2414;
+      --ink:#E7ECF6; --muted:#97A3BD; --line:rgba(231,236,246,.12); --line-2:rgba(231,236,246,.22);
+      --ok:#6CC594; --ok-tint:#14281D; --warn:#E0B062; --warn-tint:#2A2010; --bad:#EE8A7C; --bad-tint:#2E1714;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0A1020; --card:#111A2F; --panel:#16213A;
+    --night:#0E1A36; --night-2:#9FB4E6; --gold:#D9B66A; --gold-tint:#2A2414;
+    --ink:#E7ECF6; --muted:#97A3BD; --line:rgba(231,236,246,.12); --line-2:rgba(231,236,246,.22);
+    --ok:#6CC594; --ok-tint:#14281D; --warn:#E0B062; --warn-tint:#2A2010; --bad:#EE8A7C; --bad-tint:#2E1714;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,44px)}
+  h1,h2,h3,h4{text-wrap:balance;margin:0}
+  p{margin:0}
+  a{color:var(--night-2)}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* hero */
+  .hero{background:var(--night);color:var(--hero-ink);padding-block:clamp(40px,6vw,72px) clamp(32px,4vw,52px)}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--hero-gold)}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-top:.5em;letter-spacing:-.01em}
+  .hero h1 em{font-style:normal;color:var(--hero-gold)}
+  .hero .lede{max-width:62ch;color:var(--hero-muted);font-size:clamp(.98rem,1.5vw,1.08rem);margin-top:1em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:1.6em;font-size:.8rem;color:var(--hero-muted)}
+  .meta b{color:var(--hero-ink);font-weight:500}
+
+  /* sticky index */
+  nav.idx{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav.idx .row{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+  nav.idx .row::-webkit-scrollbar{display:none}
+  nav.idx a{white-space:nowrap;font-size:.8rem;font-weight:700;color:var(--muted);text-decoration:none;padding:.45em .85em;border-radius:100px}
+  nav.idx a:hover{background:var(--panel);color:var(--ink)}
+  nav.idx a.t{color:var(--gold)}
+
+  section{padding-block:clamp(36px,5vw,60px) 0}
+  .sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+  .sec-head .k{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .sec-head h2{font-family:var(--display);font-size:clamp(1.45rem,3vw,2rem);font-weight:700}
+  .sec-head p{color:var(--muted);max-width:68ch}
+
+  /* key findings */
+  .findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+  .finding{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .finding h3{font-size:1rem;font-weight:700}
+  .finding p{color:var(--muted);font-size:.92rem}
+
+  /* tables */
+  .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:.86rem}
+  th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+  thead th{background:var(--panel);font-size:.74rem;letter-spacing:.06em;color:var(--muted);font-weight:700;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:0}
+  td.b{font-weight:700;white-space:nowrap}
+  td.b small{display:block;font-weight:400;color:var(--muted);font-size:.76rem}
+  tr.tn td{background:var(--gold-tint)}
+
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:.15em .6em;border-radius:100px;white-space:nowrap}
+  .p-ok{background:var(--ok-tint);color:var(--ok)}
+  .p-warn{background:var(--warn-tint);color:var(--warn)}
+  .p-bad{background:var(--bad-tint);color:var(--bad)}
+
+  /* brand dossier */
+  .brand{border-top:1px solid var(--line-2);padding-block:clamp(32px,4vw,48px) 0}
+  .brand-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:6px}
+  .brand-top h2{font-family:var(--display);font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:700}
+  .brand-top .en{font-size:.82rem;color:var(--muted);letter-spacing:.06em}
+  .facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.8rem;color:var(--muted);margin-bottom:18px}
+  .facts span b{color:var(--ink);font-weight:500}
+  .one{font-size:1.02rem;max-width:70ch;margin-bottom:22px}
+  .one b{color:var(--gold)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  @media (max-width:760px){.grid{grid-template-columns:1fr}}
+  .cell{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;min-width:0}
+  .cell h4{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+  .cell ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px;font-size:.9rem}
+  .cell li::marker{color:var(--line-2)}
+  .cell p{font-size:.9rem}
+  .cell.wide{grid-column:1/-1}
+  .persona{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+  .persona > div{border-left:2px solid var(--gold);padding:2px 0 2px 12px;font-size:.88rem}
+  .persona b{display:block;font-size:.92rem}
+  .ev{display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+  .ev .r{display:flex;gap:10px;align-items:baseline}
+  .ev .tag{flex:none;font-size:.66rem;font-weight:700;letter-spacing:.06em;padding:.1em .5em;border-radius:4px;background:var(--panel);color:var(--muted)}
+  .ev .tag.i{background:var(--ok-tint);color:var(--ok)}
+  .ev .tag.s{background:var(--warn-tint);color:var(--warn)}
+  .ev .tag.v{background:var(--panel);color:var(--muted)}
+  .caveat{margin-top:8px;font-size:.84rem;color:var(--bad)}
+  .take{margin-top:12px;background:var(--gold-tint);border-radius:var(--radius);padding:14px 18px;font-size:.92rem}
+  .take b{color:var(--gold)}
+
+  /* substitution spectrum */
+  .spectrum{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  @media (max-width:860px){.spectrum{grid-template-columns:1fr}}
+  .lane{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .lane h4{font-size:.9rem}
+  .lane .who{font-size:.8rem;color:var(--muted)}
+  .lane p{font-size:.84rem}
+  .lane.tn{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+  .lane.tn h4{color:var(--gold)}
+
+  /* recommendations */
+  .recs{display:flex;flex-direction:column;gap:12px}
+  .rec{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px}
+  @media (max-width:640px){.rec{grid-template-columns:1fr;gap:6px}}
+  .rec .area{font-size:.76rem;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;padding-top:2px}
+  .rec h3{font-size:1rem;margin-bottom:6px}
+  .rec p,.rec li{font-size:.9rem;color:var(--muted)}
+  .rec ul{margin:6px 0 0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+
+  .note{font-size:.8rem;color:var(--muted);margin-top:12px}
+  .sources{columns:2 300px;column-gap:28px;font-size:.78rem;color:var(--muted);padding-left:1.1em;margin:0}
+  .sources li{break-inside:avoid;margin-bottom:6px}
+  footer{padding-block:48px 64px;color:var(--muted);font-size:.78rem}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">TURNOVA · Competitive Dossier · 2026.10</div>
+    <h1>6개 브랜드는 누구에게,<br>무엇을 <em>대신해서</em> 파는가</h1>
+    <p class="lede">아우구스티누스 바더, 두아, 빅토리아 베컴, 엠마 루이샴, 기수, 랑콤을 같은 기준으로 해부했습니다. 메인 타깃, 페인포인트, 페르소나, 마케팅 방법, 임상 근거, 그리고 고객이 무엇 대신 이 제품을 사는지. 마지막 장은 터노바에 바로 옮길 수 있는 것만 정리했습니다.</p>
+    <div class="meta">
+      <span>작성 <b>지니어스 팀</b></span>
+      <span>기준일 <b class="num">2026-10-04</b></span>
+      <span>출처 <b>약 80개 페이지</b> (브랜드 공식, 리테일러, 업계지, 특허, 규제기관)</span>
+    </div>
+  </div>
+</header>
+
+<nav class="idx" aria-label="목차">
+  <div class="wrap row">
+    <a href="#summary">요약</a>
+    <a href="#matrix">비교표</a>
+    <a href="#bader">바더</a>
+    <a href="#dua">두아</a>
+    <a href="#vb">빅토리아 베컴</a>
+    <a href="#emma">엠마 루이샴</a>
+    <a href="#gisou">기수</a>
+    <a href="#lancome">랑콤</a>
+    <a href="#substitute">대체재 지도</a>
+    <a href="#evidence">에비던스 기준</a>
+    <a class="t" href="#turnova">터노바 적용</a>
+    <a href="#sources">출처</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="summary">
+    <div class="sec-head">
+      <span class="k">Key findings</span>
+      <h2>먼저 알아야 할 다섯 가지</h2>
+    </div>
+    <div class="findings">
+      <div class="finding">
+        <h3>1. 시술을 정면으로 대체한다고 말하는 브랜드는 없다</h3>
+        <p>6개 모두 "시술 대체"를 직접 주장하지 않습니다. 랑콤만 "시술 후 회복(IPL 직후, CO₂ 레이저 10일 후 사용 가능)"과 "시술할 준비가 안 된 분을 위한 홈 디바이스"로 시술 옆자리를 공식적으로 차지했습니다. 터노바 시술 대응맵의 "대체재 금지, 보완재" 원칙이 업계 정답과 같습니다.</p>
+      </div>
+      <div class="finding">
+        <h3>2. 실제로 대체하는 건 대부분 '다른 제품'이다</h3>
+        <p>바더는 10단계 루틴과 라메르를, 두아는 바더 본품을, 빅토리아 베컴은 프라이머+보습제+하이라이터를, 엠마 루이샴은 하이드로퀴논과 레티놀을, 기수는 살롱 트리트먼트를 대체합니다. 터노바의 "관리실 한 번 값으로 집에서 한 달"은 에스테틱 관리를 대체하는 앵커라서 이들보다 더 구체적입니다.</p>
+      </div>
+      <div class="finding">
+        <h3>3. 업계 임상 표준은 '30명, 8주, 기기 측정+자가평가'</h3>
+        <p>바더·두아·빅토리아 베컴 모두 n=15~33, 4~12주, 비공개 자체 시험입니다. 랑콤만 n=84 같은 큰 패널과 15년, 57개 임상을 가졌습니다. 터노바가 n 40명 이상, 8주, 평균 변화량 표기로 설계하면 바더 진영보다 근거가 강해집니다.</p>
+      </div>
+      <div class="finding">
+        <h3>4. 바더 진영은 근거 부족으로 공격받고 있다</h3>
+        <p>줄기세포 생물학자 폴 노에플러는 TFC8에 대해 ClinicalTrials.gov와 PubMed 기록이 0건이라고 지적했습니다. 랑콤은 2012년 FDA 경고장, 2014년 FTC 명령을 받았습니다. '되돌린다'를 말하는 터노바에게 이 두 사례가 가장 중요한 경고입니다.</p>
+      </div>
+      <div class="finding">
+        <h3>5. 리추얼과 측정을 함께 가진 브랜드는 아직 없다</h3>
+        <p>리추얼 언어는 많지만(엠마 루이샴 "Ritual", 두아 "The Routine", 랑콤 "6주 프로토콜") 고객이 참여하고 결과를 확인하는 구조는 랑콤의 피부나이 진단(Cell BioPrint) 정도입니다. 터노바의 8시 리추얼과 28일 측정은 이 6개가 비워둔 자리입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="matrix">
+    <div class="sec-head">
+      <span class="k">At a glance</span>
+      <h2>한눈에 보는 비교표</h2>
+      <p>에비던스 강도는 패널 규모, 기기 측정 여부, 외부 검증을 기준으로 지니어스 팀이 매긴 상대 평가입니다.</p>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>브랜드</th><th>메인 타깃</th><th>핵심 페인포인트</th><th>무엇을 대체하나</th><th>대표 가격</th><th>에비던스</th></tr></thead>
+        <tbody>
+          <tr><td class="b">아우구스티누스 바더<small>2018 · 독일/영국</small></td><td>35~60세 고소득층, 미국 60%, 남성 포함</td><td>노화로 세포가 '잠든다', 복잡한 루틴이 피곤하다</td><td>다단계 루틴, 라메르 같은 럭셔리 크림</td><td class="num">$290~315 / 50ml</td><td><span class="pill p-warn">중간 · 비공개</span></td></tr>
+          <tr><td class="b">두아<small>2025.11 · 영국/프랑스</small></td><td>18~35세 엔트리 럭셔리</td><td>비행·스케줄로 인한 건조와 트러블, 손 많이 가는 루틴</td><td>바더 본품 (3.6~7배 저렴)</td><td class="num">$40~80</td><td><span class="pill p-warn">중간 · n≈30</span></td></tr>
+          <tr><td class="b">빅토리아 베컴<small>2019 · 영국</small></td><td>35세 이상 전문직, 패널 35~66세</td><td>메이크업이 피부를 망친다, 주름에 끼는 컨실러</td><td>프라이머+보습제+하이라이터, 바더 입문</td><td class="num">$68~210</td><td><span class="pill p-warn">중간 · n≈33</span></td></tr>
+          <tr><td class="b">엠마 루이샴<small>2019 · 뉴질랜드</small></td><td>30~50대 친환경 고소득층, 최근 18~25세 유입</td><td>천연이면 효과가 없다, 기미, 임신 중 안전</td><td>하이드로퀴논, 레티놀, 강한 여드름 성분</td><td class="num">NZ$78~166</td><td><span class="pill p-bad">약함 · 시험관 위주</span></td></tr>
+          <tr><td class="b">기수<small>2015 · 네덜란드</small></td><td>16~35세 Z세대·밀레니얼</td><td>푸석함, 열 손상, 윤기 부족</td><td>살롱 글로스 트리트먼트</td><td class="num">€40 / 50ml</td><td><span class="pill p-bad">약함 · 모발 다발 시험</span></td></tr>
+          <tr><td class="b">랑콤<small>로레알 럭스 · 프랑스</small></td><td>라인별 연령 사다리 (25~45 / 40~59 / 50+)</td><td>손상 회복, 처짐·탄력, 피부나이</td><td>시술 후 회복 보조, 홈 마이크로니들링</td><td class="num">$135~313</td><td><span class="pill p-ok">강함 · n=84, 15년 연구</span></td></tr>
+          <tr class="tn"><td class="b">터노바<small>2027.02 론칭 예정</small></td><td>3050 고소득 여성, 피부과·에스테틱 경험자</td><td>턴오버가 무너져 칙칙함·결·광 상실, 눈가·목</td><td>관리실 필링/엔자임 (1회 10~20만원), 시술 보완</td><td class="num">₩43,900 / 20g</td><td><span class="pill p-warn">설계 중</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ BADER ============ -->
+  <article class="brand" id="bader">
+    <div class="brand-top"><h2>아우구스티누스 바더</h2><span class="en">AUGUSTINUS BADER · 원천 기술사</span></div>
+    <div class="facts">
+      <span>론칭 <b class="num">2018.02</b> (2 SKU)</span>
+      <span>2025 순매출 <b class="num">€155M (+25%)</b></span>
+      <span>기업가치 <b class="num">$1B</b> (2022)</span>
+      <span>대표 SKU <b>더 크림, 더 리치 크림, 더 세럼</b></span>
+    </div>
+    <p class="one">줄기세포 교수의 화상 치료 기술을 크림 하나에 담았다는 서사로 <b>"이거 하나면 된다"</b>를 파는 브랜드입니다.</p>
+    <div class="grid">
+      <div class="cell">
+        <h4>메인 타깃</h4>
+        <ul>
+          <li>35~60세 고소득층(추정). 임상 패널은 40~75세</li>
+          <li>매출 비중 미국 60%, 유럽·영국 25%, 아태 10~15%. 중국은 2025년 거의 +100%</li>
+          <li>"한 제품이면 충분한" 과학 신봉 미니멀리스트. 남성도 포함</li>
+          <li>CEO: "가능한 한 넓은 고객과 이야기하고 싶다." 젊은 층은 두아로 분리</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>페인포인트</h4>
+        <ul>
+          <li>노화로 세포가 '잠든다', 이를 '다시 깨운다'</li>
+          <li>너무 많은 단계와 제품에 대한 피로. 교수: "루틴은 필요 없다"</li>
+          <li>손상된 장벽, 홍조, 여드름 흉터</li>
+          <li>"일시적으로 예뻐 보이게 하는 필러"에 대한 불신</li>
+        </ul>
+      </div>
+      <div class="cell wide">
+        <h4>페르소나 (근거 기반 가상 인물)</h4>
+        <div class="persona">
+          <div><b>클레어, 47세 · 런던 금융사 MD</b>매달 장거리 출장. 히드로 면세점에서 50ml 구매, 정기배송 가입. 보톡스는 1년에 2번, 그 사이 피부 '건강'은 크림으로 관리. 사는 이유: 과학자 창업자, 화상 치료 이야기, 지인과 셀럽의 추천.</div>
+          <div><b>메이, 34세 · 상하이 마케팅 리드</b>하이난·DFS 면세 구매. 더 크림과 두아를 함께 씀. 사는 이유: 서구 셀럽 검증, WWD "역대 최고 스킨케어" 수상, 면세 가격.</div>
+        </div>
+      </div>
+      <div class="cell">
+        <h4>마케팅 방법</h4>
+        <ul>
+          <li><b>마케팅 예산 0원 셀럽 시딩.</b> 할리우드 지인에게 샘플을 줬고, 커트니 콕스·멜라니 그리피스·카를라 브루니가 자발적으로 투자</li>
+          <li>36개월에 어워드 36개. 2021 WWD "역대 최고의 스킨케어"로 라메르를 제침</li>
+          <li>창업자 서사(30년 상처 치유 연구)를 '에비던스' 페이지로 재활용</li>
+          <li>셀럽 공동 브랜드 공장: 빅토리아 베컴, 소피아 코폴라, 두아</li>
+          <li>트래블리테일 2025년 +60%. 이커머스 고객 50%가 정기배송</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>클리닉 에비던스</h4>
+        <div class="ev">
+          <div class="r"><span class="tag i">기기</span><span>더 크림 4주, n=15: 1시간 후 수분 3.39배</span></div>
+          <div class="r"><span class="tag i">기기</span><span>더 크림 4주, n=20 (40~75세): 잔주름 -32%</span></div>
+          <div class="r"><span class="tag i">기기</span><span>리치 크림 4주, n=30: 수분 +145%, 탄력 +92%</span></div>
+          <div class="r"><span class="tag s">자가</span><span>더 크림 n=52: 92% "밝아졌다"</span></div>
+          <div class="r"><span class="tag v">특허</span><span>US11197812B2 (EPO 유래 펩타이드, 2021 등록). 브랜드가 TFC8과 공식 연결하지는 않음</span></div>
+        </div>
+        <p class="caveat">한계: 소규모·단기·비공개 자체 시험. 노에플러 교수는 "줄기세포에 좋은 작용을 한다는 근거가 매우 약하다"고 지적.</p>
+      </div>
+      <div class="cell wide">
+        <h4>무엇을 대체하나</h4>
+        <ul>
+          <li><b>다단계 루틴과 다른 럭셔리 크림.</b> 더 타임스 기사 제목: "£205짜리 크림이 욕실의 모든 제품을 대체할 수 있을까"</li>
+          <li><b>피부과 방문의 대안처럼 보이게 하는 편집.</b> "피부과에 갈 여유가 없다면 이 제품을" 기사를 공식 사이트에 재게시</li>
+          <li>화상 치료 하이드로겔("피부 이식 없이 회복")이라는 의료 기원을 안티에이징으로 옮김. 시술 대체를 직접 주장하지는 않음</li>
+        </ul>
+      </div>
+    </div>
+    <div class="take"><b>터노바 시사점</b> · 코드(TFC8) 하나로 성분 논쟁을 끝내는 구조는 그대로 옮기되, 바더가 공격받는 지점(공개 데이터 없음)은 터노바가 처음부터 막아야 합니다. 바더의 "무예산 셀럽 시딩"은 터노바에서는 피부과·에스테틱 원장 시딩으로 바꾸는 게 맞습니다.</div>
+  </article>
+
+  <!-- ============ DUA ============ -->
+  <article class="brand" id="dua">
+    <div class="brand-top"><h2>두아</h2><span class="en">DUA · POWERED BY AB SCIENCE</span></div>
+    <div class="facts">
+      <span>론칭 <b class="num">2025.11.04</b></span>
+      <span>SKU <b class="num">3개</b> ($40 / $75 / $80)</span>
+      <span>세트 <b class="num">$195</b> (할인 없음)</span>
+      <span>첫 단독 매장 <b class="num">2026.10.04</b> 파리</span>
+    </div>
+    <p class="one">바더 기술을 순하게 줄인 TFC5로 <b>"바더 과학을 $80 이하에"</b> 파는 바더의 디퓨전 라인입니다.</p>
+    <div class="grid">
+      <div class="cell">
+        <h4>메인 타깃</h4>
+        <ul>
+          <li>18~35세. TFC5는 "젊은 피부용으로 신호 강도를 낮춘" 버전. 임상 패널은 18~45세 남녀</li>
+          <li>웰니스·자기관리·진정성을 중시하는 Z세대와 젊은 밀레니얼</li>
+          <li>바더를 사고 싶지만 $285 크림은 부담스러운 엔트리 럭셔리 고객</li>
+          <li>영국·프랑스 먼저. 미국은 "핵심 시장"이지만 매장은 아직 없음</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>페인포인트</h4>
+        <ul>
+          <li>두아 리파: "장거리 비행 후 간헐적인 트러블과 건조함"</li>
+          <li>바쁜 스케줄 속 "손이 많이 가지 않는" 루틴</li>
+          <li>칙칙함, 트러블 자국, 피지, 고르지 않은 결과 톤, 약한 장벽</li>
+        </ul>
+      </div>
+      <div class="cell wide">
+        <h4>페르소나 (근거 기반 가상 인물)</h4>
+        <div class="persona">
+          <div><b>마야, 27세 · 런던 PR 매니저</b>한 달에 2~3번 출장, 비행 후 건조와 호르몬성 트러블. 바더는 선물로 한 번 샀지만 계속 쓰기엔 비쌈. 셀프리지 코너에서 3종 세트 구매.</div>
+          <div><b>클로에, 22세 · 파리 대학생</b>트러블이 잘 나는 민감 피부, 두아 리파 팬. 팔레루아얄 팝업에 줄을 섬. £32 클렌저로 시작해 글로우 컴플렉스로 넘어감.</div>
+        </div>
+      </div>
+      <div class="cell">
+        <h4>마케팅 방법</h4>
+        <ul>
+          <li><b>자사몰 단독 론칭.</b> 세포라·홀세일 없이 3 SKU만</li>
+          <li>단계적 오프라인: 셀프리지 팝업(2026.5) → 상설 코너 → 파리 바더 부티크 팝업 → 첫 단독 매장</li>
+          <li>두아 리파 본인 SNS와 미디어 Service95가 주 채널</li>
+          <li>세트 가격 = 단품 합계. 할인 없이 가격 신뢰를 지킴</li>
+          <li>리추얼 언어: "The Routine", "아침부터 자정까지"</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>클리닉 에비던스</h4>
+        <div class="ev">
+          <div class="r"><span class="tag i">기기</span><span>리뉴얼 크림 8주, n=31: 잔주름 개선 100%, 트러블 -66%</span></div>
+          <div class="r"><span class="tag i">기기</span><span>글로우 컴플렉스 8주, n=30: 홍조 -48%, 톤 불균일 -61%, 수분 2.35배</span></div>
+          <div class="r"><span class="tag s">자가</span><span>n=80~82: 97% "하루 종일 촉촉"</span></div>
+        </div>
+        <p class="caveat">한계: "100%"는 개선된 사람의 비율이지 개선 폭이 아님. TFC5 특허 번호 확인 안 됨.</p>
+      </div>
+      <div class="cell wide">
+        <h4>무엇을 대체하나</h4>
+        <ul>
+          <li><b>바더 본품.</b> 3.6~7배 저렴한 '자매 기술'</li>
+          <li>업계 비판: "$40에 바더 과학이 된다면 나는 $245를 왜 냈나" → 모브랜드 매출을 잠식할 위험</li>
+          <li>시술과 비교하는 포지션은 없음. 예방과 데일리 케어</li>
+        </ul>
+      </div>
+    </div>
+    <div class="take"><b>터노바 시사점</b> · 가격대(₩43,900)가 바더가 아니라 두아와 겹칩니다. 3 SKU 루틴, 할인 없는 세트, 팝업에서 상설로 가는 순서는 터노바 2 SKU 론칭과 그대로 맞습니다. 나중에 TNV-8 하위 버전으로 라이선스 라인을 낼 때는 두아가 겪는 자기잠식 문제를 가격 사다리로 미리 설계해야 합니다.</div>
+  </article>
+
+  <!-- ============ VB ============ -->
+  <article class="brand" id="vb">
+    <div class="brand-top"><h2>빅토리아 베컴 뷰티</h2><span class="en">VICTORIA BECKHAM BEAUTY · by AUGUSTINUS BADER</span></div>
+    <div class="facts">
+      <span>론칭 <b class="num">2019.09</b></span>
+      <span>그룹 매출 2025 <b class="num">£129.8M</b>, 첫 영업이익 <b class="num">£7.3M</b></span>
+      <span>매장 <b>약 300개, 15개국</b></span>
+      <span>대표 SKU <b>카잘 라이너, 파운데이션 드롭스, 파워 세럼</b></span>
+    </div>
+    <p class="one">"지우고 나면 피부가 더 좋아지는 메이크업." 바더의 TFC8을 빌려와 <b>메이크업과 스킨케어의 경계</b>를 판매합니다.</p>
+    <div class="grid">
+      <div class="cell">
+        <h4>메인 타깃</h4>
+        <ul>
+          <li>35세 이상. 자사 임상 패널이 35~66세로 명시</li>
+          <li>공동창업자 사라 크릴은 "40대 이상을 위한 뷰티"로 업계 상 수상</li>
+          <li>영국·미국 중심. 그룹 매출의 62%가 자사몰</li>
+          <li>시간이 부족한 전문직, 콰이어트 럭셔리 취향의 미니멀리스트</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>페인포인트</h4>
+        <ul>
+          <li>"가리면서 치료하는 메이크업"이 꿈 (빅토리아 베컴)</li>
+          <li>나이 든 피부에서 주름에 끼고 들뜨는 컨실러·파운데이션</li>
+          <li>단계가 너무 많다 → 스킨케어의 마지막이자 메이크업의 첫 단계</li>
+          <li>본인의 여드름 경험이 피부 회복 이야기의 신뢰를 만듦</li>
+        </ul>
+      </div>
+      <div class="cell wide">
+        <h4>페르소나 (근거 기반 가상 인물)</h4>
+        <div class="persona">
+          <div><b>소피, 44세 · 런던 크리에이티브 디렉터</b>아이 둘, 아침 5분 루틴: 파워 세럼, 일루미네이터, 컨실러 펜, 카잘 라이너. 파운데이션 재입고 대기자 25,000명 중 한 명. 넷플릭스 다큐를 봄.</div>
+          <div><b>제니퍼, 52세 · 댈러스 부동산 임원</b>건조한 피부, 메이크업이 주름에 낌. 노드스트롬에서 세트 구매. 사는 이유: 자기 또래 패널(35~66세)의 "임상 테스트" 숫자.</div>
+        </div>
+      </div>
+      <div class="cell">
+        <h4>마케팅 방법</h4>
+        <ul>
+          <li>창업자 인스타그램 GRWM 튜토리얼, 남편 데이비드가 '모델'</li>
+          <li>넷플릭스 다큐 (2025.10)로 매출 상승</li>
+          <li><b>품절과 대기자 명단.</b> 카잘 라이너 "30초에 1개", 파운데이션 대기자 25,000명</li>
+          <li>"by Augustinus Bader" 공동 표기 자체가 증거 역할</li>
+          <li>세포라에 입점하지 않고 럭셔리 백화점만. 메이페어 플래그십</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>클리닉 에비던스</h4>
+        <div class="ev">
+          <div class="r"><span class="tag i">기기</span><span>일루미네이터 n=33 (35~65세): 4주 잔주름 개선 100%</span></div>
+          <div class="r"><span class="tag i">기기</span><span>파워 세럼 n=33: 1회 사용 후 장벽 기능 개선 100%</span></div>
+          <div class="r"><span class="tag i">기기</span><span>파운데이션 n=33 (35~66세): 6주 탄력 개선 100% (Cutometer)</span></div>
+          <div class="r"><span class="tag s">자가</span><span>프라이밍 모이스처라이저: 즉시 94% "모공 개선"</span></div>
+        </div>
+        <p class="caveat">한계: 개선 폭 없이 '개선된 사람 비율'만 공개. 1만원대 니베아 세럼과 성분이 겹친다는 기사가 나옴.</p>
+      </div>
+      <div class="cell wide">
+        <h4>무엇을 대체하나</h4>
+        <ul>
+          <li><b>여러 제품을 하나로:</b> 프라이머+보습제+하이라이터, 파운데이션+세럼, 컨실러+아이크림</li>
+          <li><b>바더의 저가 입구:</b> 파워 세럼 $125~210 vs 바더 더 세럼 약 $395</li>
+          <li>시술 대비 포지션은 없음. "Less is more", 우아하게 나이 들기</li>
+        </ul>
+      </div>
+    </div>
+    <div class="take"><b>터노바 시사점</b> · 가장 쓸 만한 건 <b>또래 패널을 숫자로 보여주는 것</b>입니다. 3050 타깃에게 "35~66세 33명"은 강한 신호입니다. 터노바 인체적용시험 패널도 30~59세로 명시하고 상세페이지에 연령대를 적으세요. 희소성 드롭과 대기자 명단은 8월 8일 '메종의 날'과 바로 연결됩니다.</div>
+  </article>
+
+  <!-- ============ EMMA ============ -->
+  <article class="brand" id="emma">
+    <div class="brand-top"><h2>엠마 루이샴</h2><span class="en">EMMA LEWISHAM · 뉴질랜드</span></div>
+    <div class="facts">
+      <span>론칭 <b class="num">2019</b></span>
+      <span>FY24 매출 <b class="num">NZ$13M</b> (소비자가 기준, +50%)</span>
+      <span>SKU <b>약 28개 + 리필</b></span>
+      <span>대표 SKU <b>스킨 리셋 세럼 NZ$156, 크렘 리쉬 NZ$162</b></span>
+    </div>
+    <p class="one">"천연이면서 효과 있는 것"과 <b>리필 순환 모델</b>로 죄책감 없는 럭셔리를 팝니다.</p>
+    <div class="grid">
+      <div class="cell">
+        <h4>메인 타깃</h4>
+        <ul>
+          <li>30~50대 고소득 친환경 여성 (가격, 색소·노화 히어로, 임신 안전 포지션 근거)</li>
+          <li>애프터페이 도입 후 18~25세가 "크게 증가"</li>
+          <li>뉴질랜드·호주(메카 126개 매장) → 영국 → 미국</li>
+          <li>투명성을 원하고 "고고하지 않은" 브랜드를 좋아함. 마고 로비 등 셀럽 팬</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>페인포인트</h4>
+        <ul>
+          <li><b>창업 서사:</b> 어머니를 암으로 잃고 임신을 준비하던 중, 의사가 기미용 하이드로퀴논을 끊으라고 함. 검증된 천연 대안이 없어 3년간 연구</li>
+          <li>천연 vs 효과의 양자택일</li>
+          <li>기미, 색소, 고르지 않은 톤 / 임신·수유 중 안전 / 순한 여드름 케어 / 포장 쓰레기</li>
+        </ul>
+      </div>
+      <div class="cell wide">
+        <h4>페르소나 (근거 기반 가상 인물)</h4>
+        <div class="persona">
+          <div><b>소피, 36세 · 시드니 브랜드 매니저</b>둘째 준비 중, 출산 후 기미. 주치의 권고로 하이드로퀴논·레티놀 중단. 메카에서 애프터페이로 구매. 리필 팟이 가격 죄책감을 줄여줌.</div>
+          <div><b>샬롯, 44세 · 런던 변호사</b>스페이스NK·넷어포터 고객, B Corp 가치를 중시. 주사 없이 탄력을 원해 비탈레 엘릭서와 페이스 오일(레티놀 대안) 구매.</div>
+        </div>
+      </div>
+      <div class="cell">
+        <h4>마케팅 방법</h4>
+        <ul>
+          <li><b>뷰티 서클 리필(2021~).</b> 빈 용기 무료 회수, 리필 팟 판매. 리필 누적 12만 개. 탄소 최대 74% 감소 주장</li>
+          <li>"세계 최초 탄소 포지티브 뷰티 브랜드", B Corp, 제인 구달 지지</li>
+          <li>순환 모델을 오픈소스로 공개해 업계 리더 이미지 확보</li>
+          <li>선명한 보라 패키지, 성분을 과학명과 쉬운 말로 이중 표기</li>
+          <li>메카·스페이스NK·해로즈·크레도. 미니(NZ$38~60)와 고민별 듀오로 체험 유도</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>클리닉 에비던스</h4>
+        <div class="ev">
+          <div class="r"><span class="tag v">시험관</span><span>스킨 리셋: 24시간 멜라닌 생성 -26.1%</span></div>
+          <div class="r"><span class="tag s">자가</span><span>스킨 리셋 n=39: 90% "색소가 줄었다"</span></div>
+          <div class="r"><span class="tag i">평가자</span><span>블레미시 세럼 n=98, 28일: 여드름 보유자 -79% (특허 프로바이오틱)</span></div>
+          <div class="r"><span class="tag v">시험관</span><span>페이스 오일: 1% 레티놀 대비 섬유아세포 증식 +32%</span></div>
+        </div>
+        <p class="caveat">한계: 히어로인 스킨 리셋에 사람 대상 기기 측정 색소 데이터가 없고, 하이드로퀴논과 직접 비교한 시험도 없음.</p>
+      </div>
+      <div class="cell wide">
+        <h4>무엇을 대체하나</h4>
+        <ul>
+          <li><b>하이드로퀴논</b>(임신 중에도 안전한 대안, 공식 동등성 주장은 하지 않음) / <b>레티놀</b>(바쿠치올) / 강한 여드름 성분</li>
+          <li>비탈레 엘릭서: "시술 대신 자연스러운 대안" 뉘앙스 (주사 시술 암시)</li>
+          <li>탄소 포지티브 주장은 상쇄(offset) 기반이라 규제 리스크가 커지는 영역</li>
+        </ul>
+      </div>
+    </div>
+    <div class="take"><b>터노바 시사점</b> · 28일 티켓북을 <b>리필 팟</b>으로 만들면 재구매와 ESG를 한 번에 잡습니다(용기 소싱 시트와 연결). 창업 서사가 '의사가 끊으라고 한 성분'에서 출발한 점은 터노바의 "시술 전 2주, 시술 후 1주" 이야기를 의사 권고와 연결할 때 참고할 구조입니다. 단, SKU 28개는 반면교사입니다.</div>
+  </article>
+
+  <!-- ============ GISOU ============ -->
+  <article class="brand" id="gisou">
+    <div class="brand-top"><h2>기수</h2><span class="en">GISOU · 네덜란드</span></div>
+    <div class="facts">
+      <span>론칭 <b class="num">2015</b></span>
+      <span>2024 매출 <b class="num">$50~75M</b> (Glossy 추정)</span>
+      <span>투자 <b>Eurazeo 시리즈B</b> (2022)</span>
+      <span>SKU <b>약 62개</b> (번들 26개 포함)</span>
+    </div>
+    <p class="one">6대째 양봉 가문의 꿀이라는 <b>한 가지 원리</b>에서 모든 제품과 미감, 이벤트가 나옵니다.</p>
+    <div class="grid">
+      <div class="cell">
+        <h4>메인 타깃</h4>
+        <ul>
+          <li>16~35세 Z세대·밀레니얼 여성. 틱톡 팔로워 1위 럭셔리 헤어 브랜드</li>
+          <li>2020년 기준 유럽 60%, 북미 40%. 30개국 이상</li>
+          <li>미감 중심("that girl", 꿀빛 소프트 글램), 선물과 수집을 즐김</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>페인포인트</h4>
+        <ul>
+          <li>건조하고 푸석한 모발, 열 손상, 잔머리, 입술 건조</li>
+          <li><b>기원 서사:</b> 양봉 가문, 미용을 배우던 어머니가 만든 꿀 오일</li>
+          <li>"벌을 지키는 미션에서 태어난 브랜드"</li>
+        </ul>
+      </div>
+      <div class="cell wide">
+        <h4>페르소나 (근거 기반 가상 인물)</h4>
+        <div class="persona">
+          <div><b>미아, 22세 · 암스테르담 마케팅 전공생</b>탈색한 웨이브 머리. 틱톡 "걸 프리지" 영상을 보고 틴티드 립오일을 산 뒤 미니 헤어오일로 넘어감. 사는 이유: 미감, 향, 선물.</div>
+          <div><b>재스민, 31세 · 뉴욕 PR 담당</b>주 3회 드라이, 부스스함. 열 스타일링 전 헤어오일, 헤어 퍼퓸 사용. 세포라 포인트로 구매.</div>
+        </div>
+      </div>
+      <div class="cell">
+        <h4>마케팅 방법</h4>
+        <ul>
+          <li>창업자 본인 팔로워 수백만 명이 출발점</li>
+          <li><b>"걸 프리지" 캠페인(2024):</b> 틴티드 립오일 3일 만에 품절, 11일간 언드 미디어 가치 $8.8M, 팔로워 14만 명 증가</li>
+          <li>2024년 틱톡 팔로워 +133%, 참여율 +565%</li>
+          <li><b>장소형 이벤트:</b> 꿀벌 정원 팝업, LA 립오일 커스터마이징, 꿀벌 정원 커뮤니티 이벤트</li>
+          <li>시즌 한정 맛 드롭, 미니, 번들. 매출은 홀세일과 자사몰이 50:50</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>클리닉 에비던스</h4>
+        <div class="ev">
+          <div class="r"><span class="tag v">모발</span><span>헤어오일: 즉시 광택 +143%, 230°C 열 보호 (모발 다발 기기 시험)</span></div>
+          <div class="r"><span class="tag s">리뷰</span><span>평점 4.8 / 약 1,673개 리뷰</span></div>
+        </div>
+        <p class="caveat">한계: 사람 대상 패널, 인원, 기간이 공개되지 않음. 대학·과학자 협업도 없음.</p>
+      </div>
+      <div class="cell wide">
+        <h4>무엇을 대체하나</h4>
+        <ul>
+          <li>살롱 글로스 트리트먼트와 오일 세럼</li>
+          <li><b>주의:</b> 헤어오일 성분 앞쪽이 실리콘(사이클로펜타실록세인, 디메치콘)이라 사실상 꿀이 들어간 실리콘 세럼. 저가 듀프 비판이 따라다님</li>
+          <li>10대 초반 고객 유입("세포라 키즈") 논란에 노출</li>
+        </ul>
+      </div>
+    </div>
+    <div class="take"><b>터노바 시사점</b> · 브랜드북은 창업자 서사를 일부러 뺐습니다. 기수에게서 가져올 것은 사람이 아니라 <b>장소</b>입니다. 꿀벌 정원처럼 "밤 8시"를 눈에 보이는 장면(조명, 공간, 소리)으로 만들어 오프라인 리추얼 이벤트를 여세요. 반대로 "성분 앞쪽이 실리콘" 같은 전성분 비판은 TNV-8 코드 전략에도 똑같이 올 수 있으니 전성분 투명성으로 막아야 합니다.</div>
+  </article>
+
+  <!-- ============ LANCOME ============ -->
+  <article class="brand" id="lancome">
+    <div class="brand-top"><h2>랑콤</h2><span class="en">LANCÔME · L'ORÉAL LUXE</span></div>
+    <div class="facts">
+      <span>제니피끄 누적 <b class="num">3,500만 병+</b> (2009~)</span>
+      <span>로레알 럭스 2025 <b class="num">약 €16B</b></span>
+      <span>대표 라인 <b>제니피끄, 레네르지, 압솔뤼, 롱제비티 MD</b></span>
+    </div>
+    <p class="one">연령별 라인 사다리와 대규모 임상으로 <b>"시술 옆자리"</b>를 공식적으로 차지한 메종입니다.</p>
+    <div class="grid">
+      <div class="cell">
+        <h4>메인 타깃 (라인별 사다리)</h4>
+        <ul>
+          <li><b>제니피끄:</b> "모든 연령", 실제 중심 25~45세. 면세 1위 히어로</li>
+          <li><b>레네르지:</b> 40~59세 (임상 패널 연령으로 명시)</li>
+          <li><b>압솔뤼:</b> 50세 이상 럭셔리</li>
+          <li><b>압솔뤼 롱제비티 MD (2026):</b> 생애 단계별 3종 (35세 미만 / 중년 / 성숙 피부)</li>
+          <li>중국과 트래블리테일이 핵심. 한국은 백화점·신라면세점·공식몰</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>페인포인트</h4>
+        <ul>
+          <li>제니피끄 얼티밋: "1주 만에 피부 손상 회복". 홍조, 장벽, 시술 후 회복</li>
+          <li>레네르지: 처짐, 탄력 저하, 주름, 기미, 목 처짐</li>
+          <li>롱제비티 MD: "피부의 생물학적 나이를 되돌린다"</li>
+          <li>한국 2026: "슬로우에이징", "집에서 받는 전문가 솔루션"</li>
+        </ul>
+      </div>
+      <div class="cell wide">
+        <h4>페르소나 (근거 기반 가상 인물)</h4>
+        <div class="persona">
+          <div><b>지원, 34세 · 서울 컨설턴트</b>분기마다 레이저 토닝이나 IPL. 시술 후 붉어짐. 랑콤이 "IPL 직후, CO₂ 프락셔널 10일 후 사용 가능"이라고 해서 면세점에서 제니피끄 얼티밋 구매. "프렌치 럭셔리이면서 시술과 맞는다"고 인식.</div>
+          <div><b>카렌, 52세 · 시카고 학교 행정직</b>보톡스를 한 번 맞았지만 유지 관리가 싫음. 레네르지 크림과 트리플 세럼 사용, "집에서 하는 마이크로니들링"인 나노 리서페이서 구매 고민. 데미 무어 광고에 끌림.</div>
+        </div>
+      </div>
+      <div class="cell">
+        <h4>마케팅 방법</h4>
+        <ul>
+          <li>앰버서더: 줄리아 로버츠, 올리비아 로드리고, 조 샐다나, 데미 무어(롱제비티 MD). 한국은 정호연, 신민아</li>
+          <li>제니피끄 얼티밋 "A Star Reborn" 캠페인(AKQA), CGI 필름과 엠마 체임벌린 소셜 시리즈</li>
+          <li><b>피부과 의사 채널(2026):</b> 미국피부과학회(AAD)에서 롱제비티 MD 공개, 의사 자문단 구성</li>
+          <li><b>피부나이 진단 Cell BioPrint:</b> 무료 진단으로 고객 데이터를 모음</li>
+          <li>사은품·세트·리필·면세. 나노 리서페이서는 "6주 프로토콜" 스타터 팩</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>클리닉 에비던스</h4>
+        <div class="ev">
+          <div class="r"><span class="tag i">기기</span><span>레네르지 H.P.N. n=84 (40~59세), 8주: 리프팅 +27%, 탄력 +38%, 주름 -21%, 기미 -22%</span></div>
+          <div class="r"><span class="tag i">평가자</span><span>제니피끄 얼티밋 8주: 홍조 -33% (n=75), 잔주름 -28% (n=50)</span></div>
+          <div class="r"><span class="tag v">연구</span><span>마이크로바이옴 15년, 외부 전문가 23명, 임상 57건, 4,000명, 특허 5건</span></div>
+          <div class="r"><span class="tag v">기기</span><span>나노 리서페이서: 실리콘 나노칩 400팁 특허, TIME 2025 최고의 발명품</span></div>
+        </div>
+        <p class="caveat">한계: 자주 인용되는 85%, 94% 수치는 34명 자가평가. 롱제비티 MD는 패널 규모 미공개.</p>
+      </div>
+      <div class="cell wide">
+        <h4>무엇을 대체하나 · 규제 이력</h4>
+        <ul>
+          <li><b>시술 보완:</b> 제니피끄 얼티밋을 IPL·CO₂ 레이저 후 회복 세럼으로 공식 포지셔닝 (의사 상담 후 사용 조건)</li>
+          <li><b>홈 시술 대체:</b> 나노 리서페이서 "마이크로니들링에서 영감", "클리닉 시술을 받을 준비가 안 된 분을 위해"</li>
+          <li><b>암묵 경쟁:</b> 레네르지의 "리프팅 +27%, 목 탄력"은 필러·HIFU와 경쟁하지만 직접 비교는 안 함</li>
+          <li><b>규제:</b> 2012 FDA 경고장 (제니피끄·압솔뤼·레네르지 11개 제품, 의약품 같은 효능 표현) / 2014 FTC 명령 ("유전자 활성 증가", "7일 만에 젊어 보이는 피부") / 2011 영국 ASA 광고 금지</li>
+        </ul>
+      </div>
+    </div>
+    <div class="take"><b>터노바 시사점</b> · 랑콤이 증명한 건 <b>"시술 후"라는 자리가 팔린다</b>는 것입니다. 터노바는 여기에 "시술 전 2주"를 더해 시술 전후를 모두 갖는 유일한 브랜드가 될 수 있습니다. 단, "IPL 직후 사용 가능" 같은 문구는 시술 병행 안전성 시험이 있어야 쓸 수 있습니다. 그리고 랑콤이 FDA·FTC에서 지적받은 표현("젊어 보이는", "유전자")은 터노바의 "되돌린다"와 같은 계열입니다.</div>
+  </article>
+
+  <!-- ============ SUBSTITUTE MAP ============ -->
+  <section id="substitute">
+    <div class="sec-head">
+      <span class="k">Substitution map</span>
+      <h2>고객은 무엇 대신 이 제품을 사는가</h2>
+      <p>왼쪽일수록 의료 시술에 가깝고, 오른쪽일수록 다른 화장품을 대체합니다. 터노바는 두 칸에 걸쳐 있습니다.</p>
+    </div>
+    <div class="spectrum">
+      <div class="lane tn">
+        <h4>시술 보완 (전·후)</h4>
+        <span class="who">랑콤 제니피끄 얼티밋 · 터노바</span>
+        <p>랑콤은 시술 '후'만 가졌습니다. 터노바 노션의 "시술 전 2주 기초체력 + 시술 후 1주 회복"은 빈자리입니다.</p>
+      </div>
+      <div class="lane">
+        <h4>홈 시술 대체</h4>
+        <span class="who">랑콤 나노 리서페이서</span>
+        <p>디바이스로 마이크로니들링을 대신함. "시술할 준비가 안 된 분"이라는 표현으로 법적 선을 지킴.</p>
+      </div>
+      <div class="lane tn">
+        <h4>관리실·살롱 대체</h4>
+        <span class="who">기수 · 터노바</span>
+        <p>기수는 살롱 글로스를, 터노바는 에스테틱 필링·엔자임 관리(1회 10~20만원)를 대체합니다. 터노바 쪽 앵커가 더 구체적입니다.</p>
+      </div>
+      <div class="lane">
+        <h4>성분·처방 대체</h4>
+        <span class="who">엠마 루이샴</span>
+        <p>하이드로퀴논, 레티놀, 강한 여드름 성분의 천연·임신 안전 대안.</p>
+      </div>
+      <div class="lane">
+        <h4>제품 통합·대체</h4>
+        <span class="who">바더 · 빅토리아 베컴 · 두아</span>
+        <p>10단계 루틴과 라메르(바더), 2-in-1 메이크업(빅토리아 베컴), 바더 본품(두아).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVIDENCE BENCHMARK ============ -->
+  <section id="evidence">
+    <div class="sec-head">
+      <span class="k">Evidence benchmark</span>
+      <h2>임상 에비던스 비교</h2>
+      <p>각 브랜드의 대표 시험 하나씩입니다. '기기'는 Corneometer, Cutometer, 이미지 분석처럼 측정 장비로 잰 값, '자가'는 설문입니다.</p>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>브랜드 · 제품</th><th>인원</th><th>기간</th><th>방식</th><th>대표 결과</th><th>표기 방식</th><th>외부 검증</th></tr></thead>
+        <tbody>
+          <tr><td class="b">랑콤 레네르지 H.P.N.</td><td class="num">84</td><td class="num">8주</td><td>기기</td><td>리프팅 +27%, 탄력 +38%</td><td>평균 변화량</td><td><span class="pill p-ok">특허 출원, 연구 이력</span></td></tr>
+          <tr><td class="b">랑콤 제니피끄 얼티밋</td><td class="num">50~75</td><td class="num">8주</td><td>평가자</td><td>홍조 -33%, 잔주름 -28%</td><td>평균 변화량</td><td><span class="pill p-ok">특허 5건</span></td></tr>
+          <tr><td class="b">빅토리아 베컴 파운데이션</td><td class="num">33</td><td class="num">6주</td><td>기기</td><td>탄력 개선 100%</td><td>개선된 사람 비율</td><td><span class="pill p-warn">비공개</span></td></tr>
+          <tr><td class="b">두아 리뉴얼 크림</td><td class="num">31</td><td class="num">8주</td><td>기기+평가자</td><td>잔주름 개선 100%, 트러블 -66%</td><td>비율 + 변화량 혼합</td><td><span class="pill p-warn">비공개</span></td></tr>
+          <tr><td class="b">바더 더 크림</td><td class="num">20</td><td class="num">4주</td><td>기기</td><td>잔주름 -32%</td><td>평균 변화량</td><td><span class="pill p-bad">학계 비판 있음</span></td></tr>
+          <tr><td class="b">엠마 루이샴 스킨 리셋</td><td class="num">39</td><td>—</td><td>자가 + 시험관</td><td>90% "색소 감소"</td><td>동의 비율</td><td><span class="pill p-bad">사람 대상 기기 측정 없음</span></td></tr>
+          <tr><td class="b">기수 헤어오일</td><td>—</td><td>—</td><td>모발 다발</td><td>광택 +143%</td><td>변화량</td><td><span class="pill p-bad">사람 대상 없음</span></td></tr>
+          <tr class="tn"><td class="b">터노바 권고안</td><td class="num">40+</td><td class="num">8주</td><td>기기 + 자가 분리</td><td>턴오버 주기, 결, 광, 탄력, 눈가·목</td><td>평균 변화량 + 비율 병기</td><td><span class="pill p-ok">결과 요약 공개</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">"100% 개선"은 개선된 사람의 비율이라서 1%만 좋아져도 포함됩니다. 숫자가 커 보여도 랑콤처럼 평균 변화량을 쓰는 쪽이 신뢰도가 높습니다.</p>
+  </section>
+
+  <!-- ============ TURNOVA ============ -->
+  <section id="turnova">
+    <div class="sec-head">
+      <span class="k">What TURNOVA takes</span>
+      <h2>터노바에 바로 옮길 것</h2>
+      <p>브랜드북(노션 💙터노바 › 브랜드스토리)의 현재 결정과 충돌하지 않는 것만 골랐습니다.</p>
+    </div>
+    <div class="recs">
+      <div class="rec">
+        <div class="area">에비던스</div>
+        <div>
+          <h3>인체적용시험을 "8주, 40명 이상, 30~59세"로 설계</h3>
+          <p>바더 진영(n≈30)보다 크고 랑콤 레네르지(n=84, 40~59세)에 가깝게 갑니다. 8주는 터노바의 숫자 8과 실증이 한 문장에 들어가는 기간입니다.</p>
+          <ul>
+            <li>측정: 수분(Corneometer), 탄력(Cutometer), 피부결과 광(이미지 분석), 각질 턴오버 지표, 눈가·목 주름</li>
+            <li>표기: 평균 변화량(%)을 메인으로, "개선된 사람 비율"은 보조로. 자가평가는 따로 표기</li>
+            <li>시술 병행 군 추가: "레이저·필링 시술 전후 사용 안전성"을 확보해야 랑콤 같은 시술 보완 문구를 쓸 수 있음</li>
+            <li>결과 요약을 공개: 바더가 받는 "공개 데이터 0건" 비판을 처음부터 차단</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="area">포지셔닝</div>
+        <div>
+          <h3>"시술 전 2주 + 시술 후 1주"를 갖는 유일한 브랜드</h3>
+          <p>랑콤은 시술 후 회복만 가졌습니다. 시술 대응맵의 보완재 원칙을 유지한 채, 시술 '전' 피부 기초체력이라는 빈자리를 선점합니다. 광고 표현은 "시술 대체"가 아니라 "시술 전후 홈 프로토콜"로 고정합니다.</p>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="area">가격</div>
+        <div>
+          <h3>"바더의 구조, 두아의 가격"으로 문장 정리</h3>
+          <p>₩43,900은 두아($40~80)와 같은 구간입니다. 바이어와 투자자 앞에서는 바더급이라고 말하지 말고 이 문장을 씁니다. 두아처럼 세트는 단품 합계에서 크게 깎지 않아 가격 신뢰를 지킵니다(현재 3개 112,000원 설계와 같은 방향).</p>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="area">채널</div>
+        <div>
+          <h3>셀럽 대신 피부과·에스테틱 원장 시딩</h3>
+          <p>바더의 무예산 시딩을 터노바식으로 바꿉니다. 원장 자문단은 랑콤 롱제비티 MD의 의사 자문단 구조를 참고하고, 오프라인은 두아처럼 팝업에서 상설로 가는 순서를 따릅니다.</p>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="area">재구매</div>
+        <div>
+          <h3>28일 티켓북을 리필 팟으로, 8월 8일은 희소성 드롭으로</h3>
+          <ul>
+            <li>엠마 루이샴의 빈 용기 회수 + 리필 판매 = 터노바 티켓북 재구매 구조. 용기 소싱 시트에서 리필 가능 사양 확인 필요</li>
+            <li>빅토리아 베컴의 품절·대기자 명단 = 연 1회 '메종의 날' 한정 드롭</li>
+            <li>랑콤 Cell BioPrint = 터노바 피부나이 측정(브랜드북 V장). 진단을 고객 데이터 수집 장치로 사용</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="area">리스크</div>
+        <div>
+          <h3>네 가지 실패 사례를 미리 막기</h3>
+          <ul>
+            <li><b>랑콤 FDA·FTC:</b> "되돌린다", "젊어진다"는 세계관에서만, 광고는 "visibly(눈에 띄게)" 계열의 실증 표현으로</li>
+            <li><b>바더 학계 비판:</b> 코드(TNV-8) 뒤에 숨지 말고 결과 요약을 공개</li>
+            <li><b>기수 실리콘 비판:</b> 코드 전략이 "실제 성분은 흔하다"는 공격을 부르므로 전성분과 핵심 성분 역할을 투명하게</li>
+            <li><b>두아 자기잠식:</b> 나중에 하위 라이선스 라인을 내면 가격 사다리를 먼저 설계</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="sec-head">
+      <span class="k">Sources</span>
+      <h2>주요 출처</h2>
+      <p>페르소나는 공개 자료를 바탕으로 지니어스 팀이 구성한 가상 인물입니다. 일부 매출 수치는 추정치이며 본문에 표시했습니다.</p>
+    </div>
+    <ul class="sources">
+      <li><a href="https://augustinusbader.com/us/en/the-cream">Augustinus Bader · The Cream 임상</a></li>
+      <li><a href="https://augustinusbader.com/evidence/the-science-of-tfc8">Augustinus Bader · TFC8 과학</a></li>
+      <li><a href="https://en.ilsole24ore.com/art/augustinus-bader-accelerates-china-expansion-diversify-markets-AIqZAYGC">Il Sole 24 Ore · 바더 2025 실적과 중국</a></li>
+      <li><a href="https://www.glossy.co/beauty/augustinus-bader-ceo-charles-rosier-cult-beauty/">Glossy · 찰스 로지에 인터뷰</a></li>
+      <li><a href="https://www.beautymatter.com/articles/augustinus-bader-reaches-unicorn-status-with-25-million-investment">BeautyMatter · 바더 유니콘</a></li>
+      <li><a href="https://patents.google.com/patent/US11197812">Google Patents · US11197812B2</a></li>
+      <li><a href="https://ipscell.com/2022/12/wrinkles-in-pitch-of-celeb-fav-augustinus-bader-cream/">The Niche (Paul Knoepfler) · 바더 근거 비판</a></li>
+      <li><a href="https://duabyab.com/en-us/products/renewal-cream">DUA · Renewal Cream 임상</a></li>
+      <li><a href="https://duabyab.com/en-us/products/supercharged-glow-complex">DUA · Supercharged Glow Complex 임상</a></li>
+      <li><a href="https://www.wallpaper.com/fashion-beauty/skincare/dua-lipa-augustinus-bader-skincare-launch">Wallpaper · 두아 론칭</a></li>
+      <li><a href="https://theindustry.beauty/can-dua-lipa-help-augustinus-bader-scale-beyond-luxury-skincare/">TheIndustry.beauty · 두아 전략</a></li>
+      <li><a href="https://artofthebrand.substack.com/p/what-augustinus-baders-dua-launch">Art of the Brand · 두아 자기잠식 분석</a></li>
+      <li><a href="https://victoriabeckhambeauty.com/pages/skincare">Victoria Beckham Beauty · 스킨케어 임상</a></li>
+      <li><a href="https://theimpression.com/victoria-beckham-posts-first-operating-profit-as-sales-rise-15-percent/">The Impression · VB 첫 영업이익</a></li>
+      <li><a href="https://www.glossy.co/beauty/lauren-edelman-victoria-beckham-beauty-glossy-50-2025/">Glossy · 로렌 에델만 (VBB CEO)</a></li>
+      <li><a href="https://emmalewisham.com/collections/all">Emma Lewisham · 전체 상품</a></li>
+      <li><a href="https://emmalewisham.com/products/skin-reset-serum">Emma Lewisham · Skin Reset 임상</a></li>
+      <li><a href="https://www.forbes.com.au/news/entrepreneurs/emma-lewisham-beauty-brand-sales-surging/">Forbes Australia · 엠마 루이샴 매출</a></li>
+      <li><a href="https://afterpay.com/en-NZ/business/access/exploring-sustainability/emma-lewisham-interview">Afterpay · 엠마 루이샴 인터뷰</a></li>
+      <li><a href="https://gisou.com/products/honey-infused-hair-oil">Gisou · Honey Infused Hair Oil</a></li>
+      <li><a href="https://www.glossy.co/beauty/negin-mirsalehi-founder-gisou-glossy-50-2024/">Glossy · 네긴 미르살레히 (Gisou)</a></li>
+      <li><a href="https://beautymatter.com/articles/haircare-brand-gisou-raises-series-b-round-with-eurazeo-brands">BeautyMatter · 기수 시리즈B</a></li>
+      <li><a href="https://www.lancome.com.au/skincare/serums/genifique-ultimate-serum/01135-LAC.html">Lancôme AU · Génifique Ultimate</a></li>
+      <li><a href="https://www.lancome.com.sg/en_SG/h.p.n.-300-peptide-cream---refillable/3614273924061.html">Lancôme SG · Rénergie H.P.N. 300-Peptide</a></li>
+      <li><a href="https://moodiedavittreport.com/loreal-highlights-pioneering-microbiome-science-in-lancome-advanced-genifique/">Moodie Davitt · 제니피끄 마이크로바이옴</a></li>
+      <li><a href="https://www.glossy.co/beauty/wellness/lancome-takes-longevity-to-dermatologists-raising-the-bar-for-beautys-buzziest-category/">Glossy · 랑콤 롱제비티 MD</a></li>
+      <li><a href="https://loreal.com/en/articles/science-and-technology/nano-resurfacer">L'Oréal · Nano-Resurfacer</a></li>
+      <li><a href="https://www.cosmeticsdesign-europe.com/Article/2012/09/12/FDA-raps-L-Oreal-over-anti-ageing-marketing-claims">CosmeticsDesign · 2012 FDA 경고장</a></li>
+      <li><a href="https://www.ftc.gov/node/44303">FTC · 2014 로레알 명령</a></li>
+      <li><a href="https://www.cosmorning.com/news/article.html?no=52520">코스모닝 · 랑콤 코리아 제니피끄 캠페인</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap">지니어스 팀 · 터노바(TURNOVA) 내부 전략 자료 · 2026.10.04 · 광고 문구로 직접 사용 금지 (효능 표현은 실증 범위 안에서만)</footer>
