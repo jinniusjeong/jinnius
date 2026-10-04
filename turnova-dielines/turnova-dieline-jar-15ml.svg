@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="285mm" height="298mm" viewBox="0 0 285 298" font-family="Noto Sans CJK KR,Noto Sans KR,WenQuanYi Zen Hei,sans-serif">
+<rect width="100%" height="100%" fill="#fff"/>
+<g id="BLEED"><polygon points="40.0,103.0 40.0,55.0 43.0,43.0 46.0,40.0 82.0,40.0 85.0,43.0 88.0,55.0 88.0,103.0 89.0,103.0 89.0,83.0 93.0,79.0 128.0,79.0 135.0,99.0 135.0,103.0 136.0,103.0 184.0,103.0 185.0,103.0 185.0,99.0 192.0,79.0 227.0,79.0 231.0,83.0 231.0,103.0 232.0,103.0 245.0,106.5 245.0,141.5 232.0,145.0 231.0,145.0 231.0,165.0 227.0,169.0 192.0,169.0 185.0,149.0 185.0,145.0 184.0,145.0 136.0,145.0 135.0,145.0 135.0,149.0 128.0,169.0 93.0,169.0 89.0,165.0 89.0,145.0 88.0,145.0 88.0,193.0 85.0,205.0 82.0,208.0 46.0,208.0 43.0,205.0 40.0,193.0 40.0,145.0" fill="#E8EEFA" stroke="#BFD7EA" stroke-width="6" stroke-linejoin="miter"/><polygon points="40.0,103.0 40.0,55.0 43.0,43.0 46.0,40.0 82.0,40.0 85.0,43.0 88.0,55.0 88.0,103.0 89.0,103.0 89.0,83.0 93.0,79.0 128.0,79.0 135.0,99.0 135.0,103.0 136.0,103.0 184.0,103.0 185.0,103.0 185.0,99.0 192.0,79.0 227.0,79.0 231.0,83.0 231.0,103.0 232.0,103.0 245.0,106.5 245.0,141.5 232.0,145.0 231.0,145.0 231.0,165.0 227.0,169.0 192.0,169.0 185.0,149.0 185.0,145.0 184.0,145.0 136.0,145.0 135.0,145.0 135.0,149.0 128.0,169.0 93.0,169.0 89.0,165.0 89.0,145.0 88.0,145.0 88.0,193.0 85.0,205.0 82.0,208.0 46.0,208.0 43.0,205.0 40.0,193.0 40.0,145.0" fill="#1E22AA" fill-opacity="0.10"/></g>
+<rect x="43.0" y="106.0" width="42.0" height="36.0" fill="none" stroke="#22A06B" stroke-width="0.3" stroke-dasharray="1,1"/>
+<rect x="91.0" y="106.0" width="42.0" height="36.0" fill="none" stroke="#22A06B" stroke-width="0.3" stroke-dasharray="1,1"/>
+<rect x="139.0" y="106.0" width="42.0" height="36.0" fill="none" stroke="#22A06B" stroke-width="0.3" stroke-dasharray="1,1"/>
+<rect x="187.0" y="106.0" width="42.0" height="36.0" fill="none" stroke="#22A06B" stroke-width="0.3" stroke-dasharray="1,1"/>
+<defs><pattern id="etch" width="3" height="3" patternUnits="userSpaceOnUse"><path d="M0,3 L3,0" stroke="#7A5CC2" stroke-width="0.25"/></pattern></defs>
+<rect x="40" y="103" width="192" height="42" fill="url(#etch)" opacity="0.35"/>
+<rect x="145.1" y="107.0" width="29.8" height="4.5" fill="none" stroke="#C8743A" stroke-width="0.3" />
+<text x="160.0" y="110.1" font-size="2.5" fill="#C8743A" text-anchor="middle">워드마크 62% · 포일</text>
+<rect x="155.7" y="115.1" width="8.6" height="8.6" fill="none" stroke="#C8743A" stroke-width="0.3" />
+<text x="160.0" y="120.3" font-size="1.4" fill="#C8743A" text-anchor="middle">심볼18%</text>
+<rect x="140.8" y="127.4" width="38.4" height="2.5" fill="none" stroke="#333" stroke-width="0.3" />
+<text x="160.0" y="129.6" font-size="2.6" fill="#333" text-anchor="middle">제품명 · 코퍼 무광</text>
+<rect x="150.4" y="130.8" width="19.2" height="2.2" fill="none" stroke="#333" stroke-width="0.3" />
+<text x="160.0" y="132.8" font-size="1.6" fill="#333" text-anchor="middle">TRX-8™</text>
+<rect x="141.8" y="133.8" width="36.5" height="1.8" fill="none" stroke="#333" stroke-width="0.3" />
+<text x="160.0" y="135.6" font-size="2.6" fill="#333" text-anchor="middle">효능 한 줄</text>
+<rect x="148.0" y="137.6" width="24.0" height="3.2" fill="none" stroke="#333" stroke-width="0.3" />
+<text x="160.0" y="140.1" font-size="2.0" fill="#333" text-anchor="middle">용량 3.2mm↑</text>
+<rect x="188.0" y="107.0" width="40.0" height="34.0" fill="none" stroke="#333" stroke-width="0.3" />
+<text x="208.0" y="124.9" font-size="2.6" fill="#333" text-anchor="middle">우측면 USP</text>
+<rect x="92.0" y="107.0" width="40.0" height="19.4" fill="none" stroke="#333" stroke-width="0.3" />
+<text x="112.0" y="117.6" font-size="2.6" fill="#333" text-anchor="middle">좌측면 성분</text>
+<rect x="91.0" y="129.4" width="42.0" height="12.6" fill="none" stroke="#D97706" stroke-width="0.3" />
+<text x="112.0" y="136.6" font-size="2.6" fill="#D97706" text-anchor="middle">스티커 존 · 무코팅</text>
+<rect x="44.0" y="107.0" width="23.0" height="34.0" fill="none" stroke="#333" stroke-width="0.3" />
+<text x="55.5" y="124.9" font-size="1.9" fill="#333" text-anchor="middle">후면 · 전성분 등</text>
+<rect x="70.0" y="107.0" width="15.0" height="15.0" fill="none" stroke="#000" stroke-width="0.3" />
+<text x="77.5" y="115.4" font-size="1.4" fill="#000" text-anchor="middle">QR 15</text>
+<rect x="43.0" y="58.0" width="42.0" height="42.0" fill="none" stroke="#C8743A" stroke-width="0.3" />
+<text x="64.0" y="79.9" font-size="2.6" fill="#C8743A" text-anchor="middle">상단: TURNOVA (180° 회전 배치)</text>
+<rect x="49.0" y="148.0" width="30.0" height="21.0" fill="none" stroke="#000" stroke-width="0.3" />
+<text x="64.0" y="159.4" font-size="2.5" fill="#000" text-anchor="middle">바코드 (바닥 이동)</text>
+<rect x="44.0" y="171.0" width="40.0" height="12.0" fill="none" stroke="#D97706" stroke-width="0.3" />
+<text x="64.0" y="177.9" font-size="2.6" fill="#D97706" text-anchor="middle">코딩창 40×12</text>
+<rect x="232" y="106" width="12" height="36" fill="#fff" stroke="#D97706" stroke-width="0.3" stroke-dasharray="1,1"/>
+<text x="238.5" y="124.0" font-size="1.8" fill="#D97706" text-anchor="middle" transform="rotate(-90 238.5 124.0)">접착부 라미·에칭·잉크 녹아웃</text>
+<polygon id="CUT" points="40.0,103.0 40.0,55.0 43.0,43.0 46.0,40.0 82.0,40.0 85.0,43.0 88.0,55.0 88.0,103.0 89.0,103.0 89.0,83.0 93.0,79.0 128.0,79.0 135.0,99.0 135.0,103.0 136.0,103.0 184.0,103.0 185.0,103.0 185.0,99.0 192.0,79.0 227.0,79.0 231.0,83.0 231.0,103.0 232.0,103.0 245.0,106.5 245.0,141.5 232.0,145.0 231.0,145.0 231.0,165.0 227.0,169.0 192.0,169.0 185.0,149.0 185.0,145.0 184.0,145.0 136.0,145.0 135.0,145.0 135.0,149.0 128.0,169.0 93.0,169.0 89.0,165.0 89.0,145.0 88.0,145.0 88.0,193.0 85.0,205.0 82.0,208.0 46.0,208.0 43.0,205.0 40.0,193.0 40.0,145.0" fill="none" stroke="#E3001B" stroke-width="0.35"/>
+<line x1="88" y1="103" x2="88" y2="145" stroke="#0070C0" stroke-width="0.35" stroke-dasharray="2,1.2"/>
+<line x1="136" y1="103" x2="136" y2="145" stroke="#0070C0" stroke-width="0.35" stroke-dasharray="2,1.2"/>
+<line x1="184" y1="103" x2="184" y2="145" stroke="#0070C0" stroke-width="0.35" stroke-dasharray="2,1.2"/>
+<line x1="232" y1="103" x2="232" y2="145" stroke="#0070C0" stroke-width="0.35" stroke-dasharray="2,1.2"/>
+<line x1="40" y1="103" x2="232" y2="103" stroke="#0070C0" stroke-width="0.35" stroke-dasharray="2,1.2"/>
+<line x1="40" y1="145" x2="232" y2="145" stroke="#0070C0" stroke-width="0.35" stroke-dasharray="2,1.2"/>
+<line x1="40" y1="55" x2="88" y2="55" stroke="#0070C0" stroke-width="0.35" stroke-dasharray="2,1.2"/>
+<line x1="40" y1="193" x2="88" y2="193" stroke="#0070C0" stroke-width="0.35" stroke-dasharray="2,1.2"/>
+<text x="64.0" y="143.74" font-size="2.4" fill="#999" text-anchor="middle">후면</text>
+<text x="112.0" y="143.74" font-size="2.4" fill="#999" text-anchor="middle">좌측면</text>
+<text x="160.0" y="143.74" font-size="2.4" fill="#999" text-anchor="middle">정면</text>
+<text x="208.0" y="143.74" font-size="2.4" fill="#999" text-anchor="middle">우측면</text>
+<rect x="40" y="218.0" width="6" height="3" fill="#E3001B"/><text x="49" y="220.6" font-size="3" fill="#222">칼선(재단) 실선</text>
+<rect x="40" y="223.5" width="6" height="3" fill="#0070C0"/><text x="49" y="226.1" font-size="3" fill="#222">괘선(접힘) 점선</text>
+<rect x="40" y="229.0" width="6" height="3" fill="#BFD7EA"/><text x="49" y="231.6" font-size="3" fill="#222">도련 3mm</text>
+<rect x="40" y="234.5" width="6" height="3" fill="#22A06B"/><text x="49" y="237.1" font-size="3" fill="#222">안전영역 3mm(박·바코드·QR·6pt↓는 접선에서 5mm)</text>
+<rect x="40" y="240.0" width="6" height="3" fill="#C8743A"/><text x="49" y="242.6" font-size="3" fill="#222">유광 코퍼 포일 (워드마크·심볼)</text>
+<rect x="40" y="245.5" width="6" height="3" fill="#D97706"/><text x="49" y="248.1" font-size="3" fill="#222">녹아웃: 접착부·코딩창·스티커존 (라미·에칭·잉크 없음)</text>
+<rect x="40" y="251.0" width="6" height="3" fill="#7A5CC2"/><text x="49" y="253.6" font-size="3" fill="#222">에칭 UV: ∞ 톤온톤 패턴 영역 = 4면 전체, 단 글자·포일·녹아웃 주변 2mm 제외</text>
+<text x="40" y="262.5" font-size="3.2" fill="#000">TURNOVA 단상자 칼선 · jar-15ml · 내치수 W48×D48×H42 mm (가정: 자 Ø45×H38)</text>
+<text x="40" y="267.5" font-size="3.2" fill="#000">구조 STE(상·하 턱 후면 연결) · 아이보리(SBS) 350g 내외 · 무광 라미네이팅 → 에칭 UV → 코퍼 포일 순 (업체 확인)</text>
+<text x="40" y="272.5" font-size="3.2" fill="#000">※ 치수는 가정값. 용기 업체 도면 수령 후 make_dielines.py 의 SKUS 수치만 수정해 재출력. 최종 칼선은 인쇄소 칼 도면 기준</text>
+</svg>
