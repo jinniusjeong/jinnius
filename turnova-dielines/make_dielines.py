@@ -91,11 +91,11 @@ def dieline(name,W,D,H,assume):
         s.append(f'<text x="{(xs[i]+xs[i+1])/2}" y="{top+0.97*H}" font-size="2.4" fill="#999" text-anchor="middle">{lab}</text>')
     # 범례·사양
     ly=bot+D+TUCK+10
-    legend=[(CUT,'칼선(재단) 실선'),(CRE,'괘선(접힘) 점선'),(BLD,'도련 3mm'),(SAF,'안전영역 3mm(박·바코드·QR·6pt↓는 접선에서 5mm)'),(FOIL,'유광 코퍼 포일 (워드마크·심볼)'),('#D97706','녹아웃: 접착부·코딩창·스티커존 (라미·에칭·잉크 없음)'),(ETCH,'에칭 UV: ∞ 톤온톤 패턴 영역 = 4면 전체, 단 글자·포일·녹아웃 주변 2mm 제외')]
+    legend=[(CUT,'칼선(재단) 실선'),(CRE,'괘선(접힘) 점선'),(BLD,'도련 3mm'),(SAF,'안전영역 3mm(박·바코드·QR·6pt↓는 접선에서 5mm)'),(FOIL,'유광 코퍼 포일 (워드마크·심볼)'),('#D97706','녹아웃: 접착부·코딩창·스티커존 (라미·에칭·잉크 없음)'),(ETCH,'에칭 UV: 무늬 없는 균일 미세 결 = 4면 전체, 단 글자·포일·녹아웃 주변 2mm 제외 (배경 패턴 금지)')]
     for i,(c,t) in enumerate(legend):
         s.append(f'<rect x="40" y="{ly+i*5.5}" width="6" height="3" fill="{c}"/><text x="49" y="{ly+i*5.5+2.6}" font-size="3" fill="#222">{t}</text>')
     spec=[f'TURNOVA 단상자 칼선 · {name} · 내치수 W{W}×D{D}×H{H} mm (가정: {assume})',
-          '구조 STE(상·하 턱 후면 연결) · 아이보리(SBS) 350g 내외 · 무광 라미네이팅 → 에칭 UV → 코퍼 포일 순 (업체 확인)',
+          '구조 STE(상·하 턱 후면 연결) · 아이보리(SBS) 350g 내외 · 무광 라미네이팅 → 에칭 UV(무늬 없음) → 코퍼 포일 순 (업체 확인)',
           '※ 치수는 가정값. 용기 업체 도면 수령 후 make_dielines.py 의 SKUS 수치만 수정해 재출력. 최종 칼선은 인쇄소 칼 도면 기준']
     for i,t in enumerate(spec): s.append(f'<text x="40" y="{ly+len(legend)*5.5+6+i*5}" font-size="3.2" fill="#000">{t}</text>')
     s.append('</svg>')

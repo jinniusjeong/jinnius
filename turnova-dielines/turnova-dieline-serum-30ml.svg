@@ -56,8 +56,8 @@
 <rect x="40" y="298.5" width="6" height="3" fill="#22A06B"/><text x="49" y="301.1" font-size="3" fill="#222">안전영역 3mm(박·바코드·QR·6pt↓는 접선에서 5mm)</text>
 <rect x="40" y="304.0" width="6" height="3" fill="#C8743A"/><text x="49" y="306.6" font-size="3" fill="#222">유광 코퍼 포일 (워드마크·심볼)</text>
 <rect x="40" y="309.5" width="6" height="3" fill="#D97706"/><text x="49" y="312.1" font-size="3" fill="#222">녹아웃: 접착부·코딩창·스티커존 (라미·에칭·잉크 없음)</text>
-<rect x="40" y="315.0" width="6" height="3" fill="#7A5CC2"/><text x="49" y="317.6" font-size="3" fill="#222">에칭 UV: ∞ 톤온톤 패턴 영역 = 4면 전체, 단 글자·포일·녹아웃 주변 2mm 제외</text>
+<rect x="40" y="315.0" width="6" height="3" fill="#7A5CC2"/><text x="49" y="317.6" font-size="3" fill="#222">에칭 UV: 무늬 없는 균일 미세 결 = 4면 전체, 단 글자·포일·녹아웃 주변 2mm 제외 (배경 패턴 금지)</text>
 <text x="40" y="326.5" font-size="3.2" fill="#000">TURNOVA 단상자 칼선 · serum-30ml · 내치수 W36×D36×H130 mm (가정: 펌프 병 Ø33×H125)</text>
-<text x="40" y="331.5" font-size="3.2" fill="#000">구조 STE(상·하 턱 후면 연결) · 아이보리(SBS) 350g 내외 · 무광 라미네이팅 → 에칭 UV → 코퍼 포일 순 (업체 확인)</text>
+<text x="40" y="331.5" font-size="3.2" fill="#000">구조 STE(상·하 턱 후면 연결) · 아이보리(SBS) 350g 내외 · 무광 라미네이팅 → 에칭 UV(무늬 없음) → 코퍼 포일 순 (업체 확인)</text>
 <text x="40" y="336.5" font-size="3.2" fill="#000">※ 치수는 가정값. 용기 업체 도면 수령 후 make_dielines.py 의 SKUS 수치만 수정해 재출력. 최종 칼선은 인쇄소 칼 도면 기준</text>
 </svg>
