@@ -1,7 +1,7 @@
 import os,sys,json,urllib.request,concurrent.futures as cf, higgsfield_client as hc
 from shots import jobs
 os.environ['HF_KEY']=os.environ['HF_CREDENTIALS']
-OUT='/home/user/jinnius/ternova-mockups'
+OUT='/home/user/jinnius/turnova-mockups'
 sel=sys.argv[1:]
 def go(j):
     name,ar,prompt=j
