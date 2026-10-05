@@ -1,0 +1,425 @@
+<title>터노바 경쟁 전략안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  /* Layout: report column (max 1080px) — midnight hero, sticky brand index, one dossier block per brand, then a synthesis section for TURNOVA. */
+  :root{
+    --paper:#F3F5F9; --card:#FFFFFF; --panel:#E9EDF5;
+    --night:#14244A; --night-2:#24396B; --gold:#9C7426; --gold-tint:#F4ECDC;
+    --ink:#101A2E; --muted:#56627A; --line:rgba(20,36,74,.13); --line-2:rgba(20,36,74,.24);
+    --ok:#2D7A50; --ok-tint:#E2F1E8; --warn:#9A6512; --warn-tint:#F7EEDC; --bad:#B03A2E; --bad-tint:#F8E6E3;
+    --hero-ink:#EEF2FA; --hero-muted:#AFBBD6; --hero-gold:#D9B66A;
+    --display:'Gowun Batang','Nanum Myeongjo','AppleMyungjo',serif;
+    --sans:'Noto Sans KR','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+    --radius:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#0A1020; --card:#111A2F; --panel:#16213A;
+      --night:#0E1A36; --night-2:#9FB4E6; --gold:#D9B66A; --gold-tint:#2A2414;
+      --ink:#E7ECF6; --muted:#97A3BD; --line:rgba(231,236,246,.12); --line-2:rgba(231,236,246,.22);
+      --ok:#6CC594; --ok-tint:#14281D; --warn:#E0B062; --warn-tint:#2A2010; --bad:#EE8A7C; --bad-tint:#2E1714;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0A1020; --card:#111A2F; --panel:#16213A;
+    --night:#0E1A36; --night-2:#9FB4E6; --gold:#D9B66A; --gold-tint:#2A2414;
+    --ink:#E7ECF6; --muted:#97A3BD; --line:rgba(231,236,246,.12); --line-2:rgba(231,236,246,.22);
+    --ok:#6CC594; --ok-tint:#14281D; --warn:#E0B062; --warn-tint:#2A2010; --bad:#EE8A7C; --bad-tint:#2E1714;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,44px)}
+  h1,h2,h3,h4{text-wrap:balance;margin:0}
+  p{margin:0}
+  a{color:var(--night-2)}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* hero */
+  .hero{background:var(--night);color:var(--hero-ink);padding-block:clamp(40px,6vw,72px) clamp(32px,4vw,52px)}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--hero-gold)}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-top:.5em;letter-spacing:-.01em}
+  .hero h1 em{font-style:normal;color:var(--hero-gold)}
+  .hero .lede{max-width:62ch;color:var(--hero-muted);font-size:clamp(.98rem,1.5vw,1.08rem);margin-top:1em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:1.6em;font-size:.8rem;color:var(--hero-muted)}
+  .meta b{color:var(--hero-ink);font-weight:500}
+
+  /* sticky index */
+  nav.idx{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav.idx .row{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+  nav.idx .row::-webkit-scrollbar{display:none}
+  nav.idx a{white-space:nowrap;font-size:.8rem;font-weight:700;color:var(--muted);text-decoration:none;padding:.45em .85em;border-radius:100px}
+  nav.idx a:hover{background:var(--panel);color:var(--ink)}
+  nav.idx a.t{color:var(--gold)}
+
+  section{padding-block:clamp(36px,5vw,60px) 0}
+  .sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+  .sec-head .k{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .sec-head h2{font-family:var(--display);font-size:clamp(1.45rem,3vw,2rem);font-weight:700}
+  .sec-head p{color:var(--muted);max-width:68ch}
+
+  /* key findings */
+  .findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+  .finding{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .finding h3{font-size:1rem;font-weight:700}
+  .finding p{color:var(--muted);font-size:.92rem}
+
+  /* tables */
+  .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:.86rem}
+  th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+  thead th{background:var(--panel);font-size:.74rem;letter-spacing:.06em;color:var(--muted);font-weight:700;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:0}
+  td.b{font-weight:700;white-space:nowrap}
+  td.b small{display:block;font-weight:400;color:var(--muted);font-size:.76rem}
+  tr.tn td{background:var(--gold-tint)}
+
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:.15em .6em;border-radius:100px;white-space:nowrap}
+  .p-ok{background:var(--ok-tint);color:var(--ok)}
+  .p-warn{background:var(--warn-tint);color:var(--warn)}
+  .p-bad{background:var(--bad-tint);color:var(--bad)}
+
+  /* brand dossier */
+  .brand{border-top:1px solid var(--line-2);padding-block:clamp(32px,4vw,48px) 0}
+  .brand-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:6px}
+  .brand-top h2{font-family:var(--display);font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:700}
+  .brand-top .en{font-size:.82rem;color:var(--muted);letter-spacing:.06em}
+  .facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.8rem;color:var(--muted);margin-bottom:18px}
+  .facts span b{color:var(--ink);font-weight:500}
+  .one{font-size:1.02rem;max-width:70ch;margin-bottom:22px}
+  .one b{color:var(--gold)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  @media (max-width:760px){.grid{grid-template-columns:1fr}}
+  .cell{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;min-width:0}
+  .cell h4{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+  .cell ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px;font-size:.9rem}
+  .cell li::marker{color:var(--line-2)}
+  .cell p{font-size:.9rem}
+  .cell.wide{grid-column:1/-1}
+  .persona{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+  .persona > div{border-left:2px solid var(--gold);padding:2px 0 2px 12px;font-size:.88rem}
+  .persona b{display:block;font-size:.92rem}
+  .ev{display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+  .ev .r{display:flex;gap:10px;align-items:baseline}
+  .ev .tag{flex:none;font-size:.66rem;font-weight:700;letter-spacing:.06em;padding:.1em .5em;border-radius:4px;background:var(--panel);color:var(--muted)}
+  .ev .tag.i{background:var(--ok-tint);color:var(--ok)}
+  .ev .tag.s{background:var(--warn-tint);color:var(--warn)}
+  .ev .tag.v{background:var(--panel);color:var(--muted)}
+  .caveat{margin-top:8px;font-size:.84rem;color:var(--bad)}
+  .take{margin-top:12px;background:var(--gold-tint);border-radius:var(--radius);padding:14px 18px;font-size:.92rem}
+  .take b{color:var(--gold)}
+
+  /* substitution spectrum */
+  .spectrum{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  @media (max-width:860px){.spectrum{grid-template-columns:1fr}}
+  .lane{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .lane h4{font-size:.9rem}
+  .lane .who{font-size:.8rem;color:var(--muted)}
+  .lane p{font-size:.84rem}
+  .lane.tn{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+  .lane.tn h4{color:var(--gold)}
+
+  /* recommendations */
+  .recs{display:flex;flex-direction:column;gap:12px}
+  .rec{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px}
+  @media (max-width:640px){.rec{grid-template-columns:1fr;gap:6px}}
+  .rec .area{font-size:.76rem;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;padding-top:2px}
+  .rec h3{font-size:1rem;margin-bottom:6px}
+  .rec p,.rec li{font-size:.9rem;color:var(--muted)}
+  .rec ul{margin:6px 0 0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+
+  .note{font-size:.8rem;color:var(--muted);margin-top:12px}
+  .sources{columns:2 300px;column-gap:28px;font-size:.78rem;color:var(--muted);padding-left:1.1em;margin:0}
+  .sources li{break-inside:avoid;margin-bottom:6px}
+  footer{padding-block:48px 64px;color:var(--muted);font-size:.78rem}
+</style>
+<style>
+  .group-h{font-family:var(--display);font-size:1.15rem;margin:28px 0 12px}
+  .word{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  @media (max-width:700px){.word{grid-template-columns:1fr}}
+  .pos-main{background:var(--night);color:var(--hero-ink);border-radius:var(--radius);padding:22px 24px;display:flex;flex-direction:column;gap:10px}
+  .pos-main .k{font-size:.7rem;letter-spacing:.18em;font-weight:700;color:var(--hero-gold)}
+  .pos-main h3{font-family:var(--display);font-size:clamp(1.3rem,2.6vw,1.75rem)}
+  .pos-main p{color:var(--hero-muted);font-size:.94rem;max-width:74ch}
+  .layers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+  @media (max-width:820px){.layers{grid-template-columns:1fr}}
+  .layer{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+  .layer .tag{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.1em;color:var(--gold)}
+  .layer h4{font-size:1rem}
+  .layer p{font-size:.86rem;color:var(--muted)}
+  .front{border:1px solid var(--line-2);border-radius:var(--radius);background:var(--card);margin-bottom:16px;overflow:hidden}
+  .front-hd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px;padding:16px 20px;background:var(--panel);border-bottom:1px solid var(--line)}
+  .front-hd h3{font-family:var(--display);font-size:1.25rem}
+  .front-hd .sub{font-size:.8rem;color:var(--muted)}
+  .front-bd{padding:16px 20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 20px}
+  @media (max-width:760px){.front-bd{grid-template-columns:1fr}}
+  .front-bd > div{min-width:0}
+  .front-bd h4{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .front-bd ul{margin:0;padding-left:1.1em;font-size:.88rem;display:flex;flex-direction:column;gap:4px}
+  .front-bd .full{grid-column:1/-1}
+  .front-bd .play{background:var(--gold-tint);border-radius:10px;padding:12px 14px;font-size:.9rem}
+  .front-bd .play b{color:var(--gold)}
+  .rv{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+  .rv > div{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .rv .who{font-size:.72rem;letter-spacing:.14em;font-weight:700;color:var(--gold)}
+  .rv h4{font-size:1rem}
+  .rv p,.rv li{font-size:.86rem}
+  .rv ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:3px}
+  .kill{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px}
+  .kill > div{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--bad);border-radius:var(--radius);padding:14px 16px;font-size:.86rem;display:flex;flex-direction:column;gap:4px;min-width:0}
+  .kill .when{font-family:var(--mono);font-size:.78rem;color:var(--bad);font-weight:600}
+  .kill b{font-size:.95rem}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">TURNOVA · Competitive Strategy v4 · Tourist &amp; Export First · 2026.10.05</div>
+    <h1>약국에서 큐텐까지,<br>채널마다 <em>누구를 이기고 어디를 피하나</em></h1>
+    <p class="lede">목표 채널(관광지 약국 30곳, 면세점, 자사몰·바이럴·공구, 일본 큐텐, 대만 쇼피, 즉시 수출)을 기준으로 지금까지의 벤치마크 41개 브랜드와 채널 리서치를 하나의 경쟁 전략으로 합쳤습니다. 마지막 장에 지니어스 팀 검토 결과를 붙였습니다.</p>
+    <div class="meta">
+      <span>작성 <b>지니어스 팀</b></span>
+      <span>기준일 <b class="num">2026-10-05</b></span>
+      <span>이전 문서 <b>1편 · 2편 · v3</b>를 대체하지 않고 채널 전략으로 확장</span>
+    </div>
+  </div>
+</header>
+
+<nav class="idx" aria-label="목차">
+  <div class="wrap row">
+    <a href="#core">한 줄 전략</a>
+    <a href="#landscape">경쟁 지형</a>
+    <a href="#fronts">채널별 전선</a>
+    <a href="#price">가격 회랑</a>
+    <a href="#response">경쟁사 반격</a>
+    <a href="#sequence">순서·예산</a>
+    <a class="t" href="#review">지니어스 팀 검토</a>
+    <a href="#kill">킬 기준</a>
+    <a href="#sources">출처</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="core">
+    <div class="sec-head">
+      <span class="k">One-line strategy</span>
+      <h2>한 줄 전략</h2>
+    </div>
+    <div class="pos-main">
+      <span class="k">COMPETITIVE POSITION</span>
+      <h3>재생·PDRN·EGF가 싸우는 곳을 피해, '관리와 관리 사이의 밤'을 혼자 갖는다</h3>
+      <p>관광지 약국은 재생크림·PDRN·EGF의 전쟁터이고, 큐텐은 메디큐브·VT·아누아가 쿠폰으로 싸우는 곳입니다. 그런데 두 리서치 모두 같은 빈자리를 가리켰습니다. 약국에는 '밤·오버나이트'를 가진 브랜드가 없고, 큐텐 각질 케어 상위 15개는 전부 씻어내는 젤과 패드입니다. 바르고 자는 순한 나이트 필링, 그리고 관리 받은 주와 쉬는 주를 잇는 2모드 루틴은 어느 채널에도 주인이 없습니다.</p>
+    </div>
+    <div class="layers">
+      <div class="layer"><span class="tag">WHY · 브랜드</span><h4>메드스파 나이트 케어</h4><p>관리받는 피부의 밤. 2모드(Recover / Turn). 세계관은 TURN OFF → TURN OVER → NOVA.</p></div>
+      <div class="layer"><span class="tag">WHERE · 채널</span><h4>K-파머시와 해외 마켓</h4><p>관광지·클리닉가 약국, 큐텐, 쇼피. "약국 전용", "약사 추천"은 쓰지 않고 팔리는 장소로만.</p></div>
+      <div class="layer"><span class="tag">HOW · 무기</span><h4>시장마다 다른 히어로</h4><p>한국 약국은 2모드 체험 키트, 일본은 리셋 밤(유일한 바르는 나이트 필링), 대만은 리커버 크림(Dcard의 시술 후 회복 수요).</p></div>
+    </div>
+  </section>
+
+  <section id="landscape">
+    <div class="sec-head">
+      <span class="k">Landscape</span>
+      <h2>경쟁 지형: 다섯 개 진영</h2>
+      <p>1편·2편의 41개 브랜드와 이번 채널 리서치를 터노바가 실제로 마주치는 진영 기준으로 다시 묶었습니다.</p>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>진영</th><th>대표</th><th>무기</th><th>어디서 마주치나</th><th>터노바의 대응</th></tr></thead>
+        <tbody>
+          <tr><td class="b">제약사 재생·흉터<small>약국의 주인</small></td><td>동아제약(노스카나·애크논), 파마리서치(리쥬비넥스·리쥬란), 대웅(이지에프·이지듀), 동국(센텔리안24)</td><td>의약품 후광, ₩8~15k 일반의약품 + ₩35~55k 화장품, "재생크림" 검색어 1위</td><td>관광지·클리닉가 약국, 면세점, 큐텐</td><td>재생을 말하지 않음. 그들이 낮(회복)이면 터노바는 밤(정돈). 대웅의 "7일 골든타임" 구간은 피하고 그 이후를 가짐</td></tr>
+          <tr><td class="b">홈 클리닉 기기·부스터<small>수출의 주인</small></td><td>메디큐브(APR), VT 리들샷</td><td>기기 + 앰플 번들, 메가와리 물량, 크리에이터 콘텐츠</td><td>큐텐, 쇼피, 면세점(에이지알 1위)</td><td>기기 없음, 바늘 없음. "자극 대신 리듬". 메가와리 단품 할인 경쟁에 들어가지 않음</td></tr>
+          <tr><td class="b">장벽 회복 더마<small>시술 후의 기본값</small></td><td>에스트라, 토리든, 닥터지, 라로슈포제 B5, 제로이드</td><td>낮은 가격(¥2,500~3,200), 병원 채널 신뢰, Dcard 기본 추천</td><td>클리닉가 약국, 큐텐, 쇼피·코스메드</td><td>리커버 크림을 단독으로 팔지 않음. 항상 리셋 밤과 짝을 이루는 "2모드"로</td></tr>
+          <tr><td class="b">시술 연계 프리미엄<small>진료실의 주인</small></td><td>알라스틴(2026.11 국내), 스킨수티컬즈, 리쥬란 코스메틱</td><td>의사 채널, 논문, 시술사 영업망</td><td>클리닉, 면세점, 일부 약국</td><td>진료실 정면 대결 회피. "진료실 밖의 밤"</td></tr>
+          <tr><td class="b">나이트 마스크·크림<small>밤의 기존 주인</small></td><td>라네즈 슬리핑, 메디큐브 나이트 래핑, 바이오힐보 리프팅 크림, 노블 파나시아</td><td>오래된 인지도, 올리브영 PB 후광</td><td>큐텐, 면세점, 코스메드</td><td>"보습 마스크"가 아니라 "정돈하는 밤". 오버나이트 필링이라는 하위 카테고리를 새로 만듦</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="fronts">
+    <div class="sec-head">
+      <span class="k">Battlefronts</span>
+      <h2>채널별 전선</h2>
+      <p>채널마다 옆 진열대의 경쟁사, 이기는 지점, 지는 지점, 그리고 터노바의 플레이입니다.</p>
+    </div>
+
+    <div class="front">
+      <div class="front-hd"><h3>① 관광지 약국 (명동·홍대·성수·부산)</h3><span class="sub">외국인 약국 소비 2025년 1,258억 → 2026년 1~5월에만 1,101억 · 명동이 결제의 약 40%</span></div>
+      <div class="front-bd">
+        <div><h4>옆 진열대</h4><ul><li>리쥬비넥스·리쥬란 (PDRN, 약 ₩50k)</li><li>닥터리쥬올 PDRN 크림 (₩45~53k, 약사 개발 브랜드)</li><li>센텔리안24 마데카크림 (약 ₩30~40k, 누적 1조)</li><li>대웅 이지듀 EGFx 다운타임 앰플 (시술 후 "7일 골든타임")</li><li>일반의약품: 노스카나, 애크논, 판테놀 연고 (₩8~15k)</li></ul></div>
+        <div><h4>이기는 곳 / 지는 곳</h4><ul><li><b>이김:</b> '밤'을 가진 브랜드가 없음. ₩19k 체험 키트는 충동구매 구간이면서 즉시 환급 기준(₩15k 이상)을 넘음</li><li><b>짐:</b> 의약품 후광과 대표 성분(PDRN·EGF)이 없음. ₩43,900 단품은 닥터리쥬올과 같은 가격대인데 증거가 없음</li><li><b>짐:</b> 진열은 사실상 유료(팝업, 매출 연동 임대)</li></ul></div>
+        <div class="full play"><b>플레이 ·</b> 히어로는 단품이 아니라 <b>2모드 체험 키트</b>(R 3밤 + T 4밤). "7일"이라는 표현은 대웅의 골든타임과 겹치므로 쓰지 않습니다. 3개 국어 진열 카드에는 성분 코드 하나(TNV-8)와 사람들이 검색하는 익숙한 성분 하나(판테놀·세라마이드 / PHA·효소)를 함께 적습니다. 매장 1곳당 체험 키트 + 듀오 2개만 진열해 선반 비용을 줄입니다. 30곳의 3분의 1 이상은 강남·신사 클리닉가로 배정합니다.</div>
+      </div>
+    </div>
+
+    <div class="front">
+      <div class="front-hd"><h3>② 클리닉가 약국 (강남·신사·압구정)</h3><span class="sub">피부과가 외국인 의료관광 결제의 48.6% · 신사역 일대 의료 빌딩 약 20곳</span></div>
+      <div class="front-bd">
+        <div><h4>옆 진열대</h4><ul><li>이지에프 새살연고, 이지듀 다운타임 앰플(레이저·스킨부스터·써마지 후 3종)</li><li>리쥬비넥스, 리쥬란 (PN 시술 후)</li><li>에스트라 아토베리어·더마UV, 제로이드</li><li>마데카솔, 판테놀 연고</li></ul></div>
+        <div><h4>이기는 곳 / 지는 곳</h4><ul><li><b>이김:</b> 시술 직후 회복(D0~7)은 꽉 찼지만, <b>그다음 관리까지의 몇 주</b>를 가진 제품은 없음</li><li><b>짐:</b> 관광객 대상 시술 후 가이드는 "강한 각질 제거 금지"를 반복. 리셋 밤을 시술 직후 제품으로 보이게 하면 바로 신뢰를 잃음</li></ul></div>
+        <div class="full play"><b>플레이 ·</b> 시술 직후 구간은 경쟁하지 않습니다. 리커버 크림은 "관리 받은 주의 밤", 리셋 밤은 "다음 관리까지의 밤"으로 진열 카드부터 시점을 분리합니다. 진열 문구에서 "시술 후", "다운타임", "레이저 후", "재생"은 쓰지 않습니다.</div>
+      </div>
+    </div>
+
+    <div class="front">
+      <div class="front-hd"><h3>③ 면세점</h3><span class="sub">2025년 매출 12.5조(-11.9%), 2016년 이후 최저 · 4대 면세점 합산 손실 2,851억 · 평균 수수료 약 54%</span></div>
+      <div class="front-bd">
+        <div><h4>옆 진열대</h4><ul><li>메디큐브 (에이지알이 출국 구매 1위)</li><li>리쥬란, 센텔리안24</li><li>스킨수티컬즈, 현대 'Skin Lab Seoul' 더마 15개 이상</li></ul></div>
+        <div><h4>이기는 곳 / 지는 곳</h4><ul><li><b>이김:</b> 개별 관광객은 "클리닉급 홈케어" 선물 세트를 찾음</li><li><b>짐:</b> 트래픽이 줄고, 수수료가 높고, 입점에 판매 실적이 필요. 2027년 첫 채널로는 부적합</li></ul></div>
+        <div class="full play"><b>플레이 ·</b> 2단계 채널입니다. 약국과 큐텐 판매 실적을 들고 <b>판판면세점</b>(인천공항 T2, 정부 지원, 진열·외국어 안내 비용 지원, 최대 2년, 상시 모집)으로 먼저 들어갑니다. 면세 전용 "나이트 리추얼 기프트 세트"는 큐텐 히어로와 같은 SKU로 만들지 않습니다.</div>
+      </div>
+    </div>
+
+    <div class="front">
+      <div class="front-hd"><h3>④ 일본 큐텐</h3><span class="sub">일본 온라인 뷰티 점유율 30% 이상, 1위 · 2025 어워드 수상의 87%가 K-뷰티 · 메가와리 연 4회, 실구매가 정가 대비 40~60% 할인</span></div>
+      <div class="front-bd">
+        <div><h4>옆 진열대</h4><ul><li>메디큐브 나이트 래핑 마스크 ¥2,950, PDRN 앰플 ¥2,800</li><li>VT 리들샷 ¥3,989~4,340</li><li>에스트라 ¥3,200, 토리든 ¥2,561 (장벽)</li><li>바이오힐보 리프팅 크림 ¥5,490 (올리브영 PB)</li><li>라네즈 슬리핑 마스크 (팩 랭킹 1위 이력)</li></ul></div>
+        <div><h4>이기는 곳 / 지는 곳</h4><ul><li><b>이김:</b> 각질 케어 상위 15개가 전부 씻어내는 젤·패드. <b>바르고 자는 나이트 필링은 0개</b></li><li><b>이김:</b> 7-일레븐 미니 판매, 메가 데뷔 프로그램 등 신규 브랜드 진입로가 열려 있음</li><li><b>짐:</b> ¥4,800은 카테고리 히어로보다 40~70% 비쌈. 리뷰 없는 제품은 팔리지 않음</li></ul></div>
+        <div class="full play"><b>플레이 ·</b> 히어로는 <b>리셋 밤</b>입니다. "夜に塗って寝るピーリング"(바르고 자는 필링)이라는 하위 카테고리를 만듭니다. 처방은 글리콜산 3.6% 이하(초과 시 극물 지정, 확인 완료), 살리실산 0.2% 이하. 주름 표현은 의약부외품 승인까지 12~24개월이 걸려 2차로 미루고, 그전에는 시험 데이터가 있을 때만 "乾燥による小ジワを目立たなくする"를 씁니다. 메가데뷔 신청, 메가와리 4~6주 전 크리에이터 체험 제공, 할인은 세트에만. 가격은 리셋 밤 ¥4,400~4,980, 체험 키트 ¥1,980~2,200, 듀오 약 ¥7,900.</div>
+      </div>
+    </div>
+
+    <div class="front">
+      <div class="front-hd"><h3>⑤ 대만 쇼피</h3><span class="sub">2025년 한국을 찾은 대만인 환자 약 18.5만 명(외국인 환자 3위) · Dcard에서 시술 후 '修復'은 정식 콘텐츠 주제</span></div>
+      <div class="front-bd">
+        <div><h4>옆 진열대</h4><ul><li>메디큐브 PDRN 앰플 NT$468~699</li><li>에스트라 365, 라로슈포제 B5 (Dcard 시술 후 기본 추천)</li><li>토리든 NT$679~799</li><li>바이오힐보 (코스메드 600개 매장, 왓슨스 추월)</li></ul></div>
+        <div><h4>이기는 곳 / 지는 곳</h4><ul><li><b>이김:</b> 한국 시술 경험자가 많은데 사후 관리 제품은 범용 더마뿐</li><li><b>짐:</b> 2026.7.1부터 모든 화장품에 PIF 의무, 제품 등록 필수. 크로스보더 판매는 법적으로 불안정 (가오슝에서만 2025년 63건 과태료)</li></ul></div>
+        <div class="full play"><b>플레이 ·</b> 히어로는 <b>리커버 크림</b>입니다(Dcard 수요가 '회복'에 있음). 리셋 밤은 리뷰가 쌓인 뒤 교차 판매합니다. 크로스보더 회색지대 대신 처음부터 <b>대만 수입자(책임 판매)</b>를 두고 PIF·제품 등록·중문 라벨을 갖춥니다(SKU당 약 NT$3~8만, 추정). "醫美級"(클리닉급), "術後"(시술 후)는 쓰지 않습니다. 가격은 리셋 밤 NT$990~1,090, 체험 키트 NT$450~490.</div>
+      </div>
+    </div>
+
+    <div class="front">
+      <div class="front-hd"><h3>⑥ 자사몰 퍼포먼스 · 바이럴 · 공구</h3><span class="sub">국내 30~50대 + 해외 바이럴의 착지점</span></div>
+      <div class="front-bd">
+        <div><h4>역할</h4><ul><li>자사몰: 2모드 교육, 정기배송, 공개 연구 노트. 해외 SNS 유입의 브랜드 공식 근거지</li><li>바이럴: 국내는 3050 고객 크리에이터, 해외는 일본 인스타·X, 틱톡 #Koreanpharmacy, 대만 Dcard</li><li>퍼포먼스: 콜드 광고 최소, 체험 키트 구매자 리타깃팅 중심</li></ul></div>
+        <div><h4>공구의 위험</h4><ul><li>관광객과 해외 고객은 가격을 비교합니다. 공구가 캡처 한 장이 약국·면세·큐텐 가격을 동시에 무너뜨립니다</li><li>레드팀 v3 판정(공구가 하한 폐기)을 유지하되, 목표에 공구가 있으므로 조건부로만 허용</li></ul></div>
+        <div class="full play"><b>플레이 ·</b> 공구는 <b>국내 한정, 공구 전용 구성</b>(예: 듀오 + 하이드로겔 마스크 세트)으로만, 연 2~3회. 단품 가격은 어떤 채널에서도 공구로 내리지 않습니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="price">
+    <div class="sec-head">
+      <span class="k">Price corridor</span>
+      <h2>가격 회랑: 채널끼리 싸우지 않게</h2>
+      <p>리쥬란 마스크는 큐텐 ¥1,320, 신라 온라인 면세 약 ¥881로 한국이 33% 쌌습니다. 반대로 메가와리 쿠폰이 쌓이면 큐텐이 한국 정가보다 싸집니다. 둘 다 막아야 합니다.</p>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>규칙</th><th>내용</th><th>왜</th></tr></thead>
+        <tbody>
+          <tr><td class="b">1. 단품 하한</td><td>한국 약국·면세·자사몰의 단품 실판가 ≥ 일본·대만 실판가(할인 후)</td><td>관광객이 한국에서 사고 귀국 후 큐텐에서 재구매하는 흐름을 유지</td></tr>
+          <tr><td class="b">2. 할인은 세트만</td><td>메가와리·쇼피 캠페인·공구 할인은 세트·전용 구성에만</td><td>단품 가격 기준점이 무너지지 않게</td></tr>
+          <tr><td class="b">3. 채널 전용 SKU</td><td>일본 전용 JAN 코드와 용량, 대만 중문 라벨 SKU, 면세 기프트 세트, 공구 전용 세트</td><td>직접 가격 비교를 어렵게 (메디큐브·아누아·VT 방식)</td></tr>
+          <tr><td class="b">4. 회색 판매 통제</td><td>국가별 독점 유통 계약, 큐텐 브랜드 등록(공식몰), 최저 판매가 조항</td><td>VT처럼 공식몰 옆에 비공식 판매자가 붙는 것을 막기</td></tr>
+          <tr><td class="b">5. 체험 키트는 어디서나 같은 역할</td><td>한국 ₩19,000 / 일본 ¥1,980~2,200 / 대만 NT$450~490</td><td>모든 시장의 신규 유입 기본 경로</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="response">
+    <div class="sec-head">
+      <span class="k">Competitor response</span>
+      <h2>출시 후 90일, 경쟁사의 반격과 대응</h2>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>경쟁사</th><th>예상 반격</th><th>가능성</th><th>터노바의 대응</th></tr></thead>
+        <tbody>
+          <tr><td class="b">메디큐브</td><td>"필링 없이, 장벽부터" 메시지로 PDRN 리커버리 세트를 메가와리에 투입, 또는 자체 나이트 필링 출시</td><td><span class="pill p-bad">높음</span></td><td>"회복만 하면 결이 멈춘다"는 2모드 논리. 단품 할인 경쟁 회피, 리뷰 수와 완주율로 신뢰 경쟁</td></tr>
+          <tr><td class="b">대웅 이지듀</td><td>다운타임 라인을 "관리 사이" 구간까지 확장 (D8 이후 제품)</td><td><span class="pill p-warn">중간</span></td><td>"밤"과 "턴오버"는 대웅에 없는 언어. 리셋 밤이라는 형식 자체가 방어</td></tr>
+          <tr><td class="b">파마리서치 리쥬란</td><td>"턴오버" 상표·표기 이의 제기, 약국 PDRN 물량 공세</td><td><span class="pill p-warn">중간</span></td><td>상표 재검색과 변리사 의견을 먼저 확보. PDRN 가격 전쟁에는 들어가지 않음</td></tr>
+          <tr><td class="b">에스트라·토리든</td><td>장벽 크림 할인으로 리커버 크림 수요 흡수</td><td><span class="pill p-warn">중간</span></td><td>리커버 크림은 단독 경쟁하지 않음. 항상 듀오로</td></tr>
+          <tr><td class="b">VT</td><td>리들샷 나이트 버전 또는 바르고 자는 스피큘 제품</td><td><span class="pill p-ok">낮음~중간</span></td><td>"바늘 없는 밤"으로 반대 축을 차지</td></tr>
+          <tr><td class="b">알라스틴</td><td>클리닉가 약국까지 유통 확대</td><td><span class="pill p-ok">낮음</span></td><td>가격대와 채널이 달라 직접 충돌은 제한적. 진료실 밖 포지션 유지</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sequence">
+    <div class="sec-head">
+      <span class="k">Sequence &amp; budget</span>
+      <h2>순서와 예산</h2>
+      <p>여섯 채널을 동시에 열면 SKU 2개짜리 브랜드는 재고와 마케팅비가 얇게 퍼집니다. 같은 고객이 연결되는 채널끼리 묶어서 엽니다.</p>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>시점</th><th>채널</th><th>준비물</th><th>통과 기준</th></tr></thead>
+        <tbody>
+          <tr><td class="b num">지금 ~ 2027.01</td><td>수출 서류 + 처방</td><td>일본·대만 기준 처방(글리콜산 3.6% 이하, BHA 제외), 일본 제조판매업 위탁 파트너, 대만 수입자·PIF, 상표 재검색, ATG 겸업 정리, 국내 광고 자문</td><td>선결 항목 완료</td></tr>
+          <tr><td class="b num">2027.02~04</td><td>자사몰 파일럿 + 약국 10곳 (명동 5, 신사·강남 5)</td><td>3개 국어 진열 카드, 체험 키트, 바로팜 등 약국 B2B 플랫폼 등록</td><td>약국 1곳당 월 판매 목표 달성</td></tr>
+          <tr><td class="b num">2027.04~06</td><td>큐텐 공식몰 + 메가데뷔 → 6월 메가와리</td><td>리뷰 300개 이상 확보, 크리에이터 체험 제공(메가와리 4~6주 전)</td><td>분기 ¥1,000만 (메가데뷔 졸업 기준)</td></tr>
+          <tr><td class="b num">2027.07~09</td><td>약국 30곳 확대, 대만 쇼피 (수입자 경유)</td><td>대만 PIF·등록 완료, 중문 라벨</td><td>약국 재주문율, 큐텐 재구매율</td></tr>
+          <tr><td class="b num">2027.10~</td><td>판판면세점 → 일반 면세점</td><td>약국·큐텐 판매 실적, 면세 전용 기프트 세트</td><td>면세 MD 제안 통과</td></tr>
+          <tr><td class="b num">상시</td><td>자사몰 · 바이럴 · 공구(조건부)</td><td>정기배송, 연구 노트, 공구 전용 구성</td><td>90일 재구매율 25%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">예산 참고: 큐텐 첫해 마케팅·할인 비용은 약 ¥1,500만~4,000만(₩1.4억~3.7억, 리서치 추정), 메가와리 기간 GMV의 30~45%. 일본 위탁 제조판매업은 SKU당 약 ¥5만~15만 + 월 보수(추정). 대만 PIF는 SKU당 약 NT$3~8만(추정). 약국 마진·위탁 조건은 공개 자료가 없어 실제 협상으로 확인해야 합니다.</p>
+  </section>
+
+  <section id="review">
+    <div class="sec-head">
+      <span class="k">Genius team review</span>
+      <h2>지니어스 팀 검토</h2>
+      <p>REVIEW_PLACEHOLDER</p>
+    </div>
+  </section>
+
+  <section id="kill">
+    <div class="sec-head">
+      <span class="k">Kill criteria</span>
+      <h2>채널별 철수 기준</h2>
+    </div>
+    <div class="kill">
+      <div><span class="when">약국 · 입점 후 3개월</span><b>1곳당 월 판매가 목표의 50% 미만</b>해당 매장 철수, 진열 카드·히어로 재설계</div>
+      <div><span class="when">큐텐 · 두 번째 메가와리 후</span><b>분기 ¥1,000만 미달 또는 리뷰 평점 4.5 미만</b>일본 마케팅비 동결, 처방·가격 재검토</div>
+      <div><span class="when">대만 · 6개월</span><b>재구매율 15% 미만</b>쇼피 단독 유지, 오프라인(코스메드) 확장 보류</div>
+      <div><span class="when">전체 · 2027.12.31</span><b>연환산 30억 미만 또는 해외 비중 20% 미만</b>v3 킬 기준과 동일. 사업 계획 전면 재검토</div>
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="sec-head">
+      <span class="k">Sources</span>
+      <h2>채널 리서치 주요 출처</h2>
+      <p>추정치는 본문에 표시했습니다. 쇼피 대만 실시간 순위와 크로스보더 수수료, 약국 마진 조건은 확인하지 못했습니다.</p>
+    </div>
+    <ul class="sources">
+      <li><a href="https://www.heraldk.com/article/2026042818240156002">헤럴드 · 외국인 약국 소비와 피부과 결제 비중</a></li>
+      <li><a href="https://m.dailypharm.com/user/news/340546">데일리팜 · 외국인 의료 거래 중 약국 비중</a></li>
+      <li><a href="https://www.dailypharm.com/user/news/336796">데일리팜 · 명동 약국 신규 개업</a></li>
+      <li><a href="https://www.cosmorning.com/news/article.html?no=52181">코스모닝 · 관광 약국의 화장품 매출 비중</a></li>
+      <li><a href="https://economist.co.kr/article/view/ecn202609280006">이코노미스트 · 와우패스 약국 결제 데이터</a></li>
+      <li><a href="https://dailypharm.com/user/news/336178">데일리팜 · 약국 B2B 플랫폼 바로팜</a></li>
+      <li><a href="https://m.dailypharm.com/user/news/338622">데일리팜 · 대웅 이지듀 다운타임 앰플</a></li>
+      <li><a href="https://creatrip.com/en/blog/15253">Creatrip · 관광객 시술 후 관리 가이드</a></li>
+      <li><a href="https://www.dailian.co.kr/news/view/1610859/">데일리안 · 2025 면세점 매출</a></li>
+      <li><a href="https://www.ddaily.co.kr/page/view/2026073013360889436">디데일리 · 4대 면세점 손실</a></li>
+      <li><a href="https://www.venturesquare.net/955889/">벤처스퀘어 · 판판면세점</a></li>
+      <li><a href="https://view.asiae.co.kr/article/2026041412391699551">아시아경제 · 큐텐 재팬 실적과 메가데뷔</a></li>
+      <li><a href="https://netshop.impress.co.jp/n/2026/08/26/16614">Netshop Impress · 2026년 9월 메가와리</a></li>
+      <li><a href="https://ecnomikata.com/ecnews/marketing/46852/">ECのミカタ · 큐텐 K-뷰티 구매 조사</a></li>
+      <li><a href="https://www.biteki.com/1675752/">biteki · 글리콜산 3.6% 극물 지정</a></li>
+      <li><a href="https://monolith.law/corporate/ad-doctor-recommendation">Monolith Law · 일본 의사 추천 광고 금지</a></li>
+      <li><a href="https://www.moneypost.jp/1236580/3/">マネーポスト · 큐텐 vs 한국 면세 가격 차</a></li>
+      <li><a href="https://www.ctee.com.tw/news/20260424701099-430701">工商時報 · 대만인 한국 의료관광</a></li>
+      <li><a href="https://www.dcard.tw/f/makeup/p/261375930">Dcard · 시술 후 회복 추천</a></li>
+      <li><a href="https://en.reach24h.com/news/industry-news/cosmetic/taiwan-cosmetics-PIF-requirements-2026">REACH24H · 대만 PIF 의무화</a></li>
+      <li><a href="https://wantrich.chinatimes.com/news/20260209900491-420501">中時 · 대만 화장품 판매 단속</a></li>
+      <li><a href="https://www.bella.tw/articles/makeup/60013/cosmed-revenue-600-stores-olive-young-strategy">Bella · 코스메드와 올리브영 PB</a></li>
+      <li><a href="https://www.cosinkorea.com/mobile/article.html?no=57772">코스인코리아 · 전문가 추천·의약품 오인 광고 적발</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap">지니어스 팀 · 터노바(TURNOVA) 통합 경쟁 전략안 v4 · 2026.10.05 · 규제·법률 관련 내용은 전문가 자문을 대신하지 않습니다</footer>
