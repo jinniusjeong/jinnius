@@ -24,6 +24,7 @@ def blocks(a):
     out = []
     for s, e in grp:
         bl = blue[s:e + 1].any(0)
+        pan = (blue[s:e + 1] | cop[s:e + 1]).any(0)          # 글자 획도 패널의 일부로 (획이 패널을 끊지 않게)
         if bl.sum() < 100 or e - s < 10: continue          # 패널 밖·잡티 제외
         bc = np.where(bl)[0]
         # 블록 중심이 속한 연속 파란 구간 = 패널 (옆에 놓인 캡 등 제외)
@@ -31,8 +32,8 @@ def blocks(a):
         if not len(cols): continue
         cx = (cols.min() + cols.max()) // 2
         x0 = cx; x1 = cx
-        while x0 > 0 and bl[x0 - 1:x0 + 1].any(): x0 -= 1
-        while x1 < len(bl) - 1 and bl[x1:x1 + 2].any(): x1 += 1
+        while x0 > 0 and pan[x0 - 1]: x0 -= 1
+        while x1 < len(pan) - 1 and pan[x1 + 1]: x1 += 1
         cols = cols[(cols >= x0) & (cols <= x1)]
         if not len(cols): continue
         fill = cop[s:e + 1, cols.min():cols.max() + 1].mean()

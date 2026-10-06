@@ -5,7 +5,8 @@
 - **오너가 디자인 관련 의견을 말할 때마다** `turnova-guide-src/build_guide.js`의 가이드 내용을 수정·보완하고,
   `V.changelog`(변경 이력)에 날짜·오너 의견·반영 위치를 한 줄 추가한 뒤
   `turnova-design-guide-v5.docx/.txt`를 재생성해 커밋한다. 시안만 만들고 가이드를 안 고치는 것은 금지.
-- **마스터 시안** `turnova-brand-assets/turnova-master-tube.png`(+ v9_1 수정본)이 스타일·카피의 유일한 기준. 모든 시안은 이 이미지를 레퍼런스로 편집 생성하고 카피 덱(가이드 ★)을 그대로 쓴다.
+- **마스터 시안** `turnova-brand-assets/turnova-master-tube.png`이 스타일·카피 기준, **비율 기준은 `turnova-mockups/v12/`**.
+- 정면 라벨은 `turnova-qa/compose_label.py`로 코드 합성한다 (AI는 무지 용기·조명만). AI가 그린 글자로 비율을 맞추려 하지 않는다. 모든 시안은 이 이미지를 레퍼런스로 편집 생성하고 카피 덱(가이드 ★)을 그대로 쓴다.
 - 용기·단상자 전부 무광 라미네이팅, 유광은 로고(워드마크·심볼)만. 심볼은 패널 폭 12%.
 - 단상자는 플립(앞표지 개폐)형 — `turnova-dielines/make_flip_dielines.py`.
 - 심볼은 `turnova-brand-assets/turnova-symbol-8*.svg` 고정 — 꽃잎은 반드시 8장. 시안 생성 후 꽃잎 수 검수.
