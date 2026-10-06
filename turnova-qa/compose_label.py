@@ -15,7 +15,7 @@ F = '/usr/share/fonts/truetype/montserrat/Montserrat-%s.ttf'
 
 # 가이드 8장 비율 (패널 폭 W 대비)
 WM = 0.55        # 워드마크 폭 (슬림 용기 권장 55%, 상한 62%)
-SY = 0.11        # 심볼 폭 (10~12%)
+SY = 0.12        # 심볼 폭 (상한 12%)
 FOIL_MIN_MM = 0.15
 INK_MIN_MM = 1.2   # 잉크 최소 대문자 높이
 VOL_MIN_MM = 1.6   # 용량 표기 최소 높이 (US FPLA 소형 PDP 1/16 inch)
@@ -24,17 +24,17 @@ VOL_MIN_MM = 1.6   # 용량 표기 최소 높이 (US FPLA 소형 PDP 1/16 inch)
 # 2026-10-06 오너: "브랜드 로고는 무조건 커야" + 배치·비율은 샤넬 실측(워드마크 45~65%, 좁을수록 크게,
 # 로고 묶음은 위 1/3, 가운데 비움, 설명은 아래 고정, 워드마크:설명 글자 높이 ≈ 2.2:1)
 SKUS = {
- 'tube':    dict(zone=(330, 1880), mm=50, cyl=False, wm=0.69, name=['THE PEELING BALM CREAM'], vol='80 mL / 2.7 fl oz', benefit=True),
- 'ampoule': dict(zone=(720, 2170), mm=22, cyl=True, wm=0.68, name=['THE AMPOULE'],             vol='30 mL / 1.0 fl oz', benefit=True),
- 'serum':   dict(zone=(850, 2060), mm=36, cyl=True, wm=0.59, name=['THE SERUM'],               vol='30 mL / 1.0 fl oz', benefit=True),
- 'jar':     dict(zone=(760, 1450), mm=60, cyl=True, wm=0.54, sy=0.09, g=0.45, layout='stack', name=['THE CREAM'], vol='30 mL / 1.0 fl oz', benefit=False),  # 낮고 넓은 정면: 높이 기준으로 축소
- 'carton':     dict(zone=None, mm=58, cyl=False, wm=0.62, name=['THE PEELING BALM CREAM'], vol='80 mL / 2.7 fl oz', benefit=True),
+ # 10/6 오너 기준 이미지 = v10_4 스틱 (워드마크 87%, 높이 13% · 제품명 4.5% · TRX/용량 4.3% of 폭).
+ # "로고는 무조건 크게, 나머지도 너무 작아지면 안 됨" + 위치는 샤넬 비율(로고 위 12~15%, 설명 아래 80~95%)
+ 'tube':       dict(zone=(330, 1880), mm=50, cyl=False, wm=0.98, name=['THE PEELING BALM', 'CREAM'], vol='80 mL / 2.7 fl oz', benefit=True),
+ 'ampoule':    dict(zone=(720, 2170), mm=22, cyl=True,  wm=0.93, name=['THE AMPOULE'],               vol='30 mL / 1.0 fl oz', benefit=True),
+ 'serum':      dict(zone=(850, 2060), mm=36, cyl=True,  wm=0.92, name=['THE SERUM'],                 vol='30 mL / 1.0 fl oz', benefit=True),
+ 'stick':      dict(zone=(770, 1600), mm=40, cyl=True,  wm=0.94, name=['THE PEELING BALM', 'STICK'], vol='15 g / 0.53 oz', benefit=False),
+ # 낮고 넓은 정면: 한 묶음 배치, 높이에 맞춰 축소
+ 'jar':        dict(zone=(830, 1480), mm=60, cyl=True,  wm=0.62, sy=0.08, g=0.35, ts=0.62, layout='stack', name=['THE CREAM'], vol='30 mL / 1.0 fl oz', benefit=False),
+ 'carton':     dict(zone=None, mm=58, cyl=False, wm=0.90, name=['THE PEELING BALM', 'CREAM'], vol='80 mL / 2.7 fl oz', benefit=True),
  # DUA 벤치마크: 색 반전(애프리콧 코퍼 무광 보드 + 로열블루 글자), 로고는 블루 고광택 스팟 UV
- 'carton_dua': dict(zone=None, mm=58, cyl=False, wm=0.62, colorway='dua', name=['THE PEELING BALM CREAM'], vol='80 mL / 2.7 fl oz', benefit=True),
- # 비교안: DUA 스케일 워드마크(약 80%) — 오너 결정용
- 'tube_xl':       dict(zone=(330, 1880), mm=50, cyl=False, wm=0.90, name=['THE PEELING BALM CREAM'], vol='80 mL / 2.7 fl oz', benefit=True),
- 'carton_dua_xl': dict(zone=None, mm=58, cyl=False, wm=0.78, colorway='dua', name=['THE PEELING BALM CREAM'], vol='80 mL / 2.7 fl oz', benefit=True),
- 'stick':   dict(zone=(770, 1600), mm=40, cyl=True, wm=0.68, name=['THE PEELING BALM', 'STICK'], vol='15 g / 0.53 oz', benefit=False),
+ 'carton_dua': dict(zone=None, mm=58, cyl=False, wm=0.90, colorway='dua', name=['THE PEELING BALM', 'CREAM'], vol='80 mL / 2.7 fl oz', benefit=True),
 }
 
 def blue_mask(a):
@@ -116,16 +116,17 @@ def main(src, key, out):
     sy = symbol(int(W * cfg.get('sy', SY)), mmpp)
     capH = wm.height                                   # 워드마크 대문자 높이
     ink_min = INK_MIN_MM / mmpp
+    Wt = W * cfg.get('ts', 1)                          # 글자 크기 기준 폭 (낮은 자는 높이에 맞춰 축소)
     name_min = VOL_MIN_MM / mmpp                       # 위계: 제품명 ≥ 용량 (법정 최소 높이 이상)
-    names = [fit(n, 'SemiBold', 0.16 if fit(n, 'SemiBold', 0.16, capH / 2.2, W * 0.72, name_min).ok else 0.07, capH / 2.2, W * 0.72, name_min) for n in cfg['name']]
-    tx = trx(capH / 2.8, W * 0.6, ink_min)
-    ben = [fit(t, 'Medium', 0.10, capH / 3.4, W * 0.70, ink_min) for t in ['OVERNIGHT RESURFACING', 'SMOOTHER-LOOKING SKIN']] if cfg['benefit'] else []  # 2줄 조판 시 가운뎃점 생략
+    names = [fit(n, 'SemiBold', 0.10 if fit(n, 'SemiBold', 0.10, Wt * 0.050, W * 0.86, name_min).ok else 0.05, Wt * 0.050, W * 0.86, name_min) for n in cfg['name']]   # 제품명 높이 = 폭의 4.5% (기준 스틱)
+    tx = trx(Wt * 0.044, W * 0.7, ink_min)
+    ben = [fit(t, 'Medium', 0.06, Wt * 0.034, W * 0.86, ink_min) for t in ['OVERNIGHT RESURFACING', 'SMOOTHER-LOOKING SKIN']] if cfg['benefit'] else []  # 2줄 조판 시 가운뎃점 생략
     notes = []
     if ben and not all(b.ok for b in ben):
         ben = []; notes.append(f'효능 줄 생략(정면 폭에서 {INK_MIN_MM} mm 미달 → 후면 이동)')
-    vol = fit(cfg['vol'], 'Light', 0.04, capH / 3.0, W * 0.7, VOL_MIN_MM / mmpp)
+    vol = fit(cfg['vol'], 'Medium', 0.03, Wt * 0.044, W * 0.8, VOL_MIN_MM / mmpp)
     if not vol.ok:                                       # 좁은 용기: 용량 2줄로 (법정 최소 높이 유지)
-        parts = [fit(t, 'Light', 0.04, capH / 3.0, W * 0.7, VOL_MIN_MM / mmpp) for t in cfg['vol'].split(' / ')]
+        parts = [fit(t, 'Medium', 0.03, Wt * 0.044, W * 0.8, VOL_MIN_MM / mmpp) for t in cfg['vol'].split(' / ')]
         gap = int(parts[0].height * 0.45); im = Image.new('L', (max(p.width for p in parts), sum(p.height for p in parts) + gap), 0)
         im.paste(parts[0], ((im.width - parts[0].width) // 2, 0)); im.paste(parts[1], ((im.width - parts[1].width) // 2, parts[0].height + gap))
         im.ok = all(p.ok for p in parts); vol = im; notes.append('용량 2줄')
@@ -139,19 +140,20 @@ def main(src, key, out):
     if ben: stack += [('gap', int(capH * 0.75)), ('ink', ben[0]), ('gap', int(capH * 0.12)), ('ink', ben[1])]
     zone = y1 - y0
     if cfg.get('layout') != 'stack':                     # 샤넬식: 로고 묶음 위 1/3, 가운데 비움, 설명 묶음 아래 고정
-        Gs = int(capH * 0.55)
+        Gs = int(capH * 0.60)
         top_c = [('foil', wm), ('gap', Gs), ('foil', sy)]
         bot_c = []
         for n in names: bot_c += [('ink', n), ('gap', int(capH * 0.16))]
-        bot_c += [('gap', int(capH * 0.10)), ('ink', tx)]
+        bot_c += [('gap', int(capH * 0.40)), ('ink', tx)]          # 제품명↔TRX-8 숨 쉴 간격 (기준 스틱)
         if ben: bot_c += [('gap', int(capH * 0.45)), ('ink', ben[0]), ('gap', int(capH * 0.10)), ('ink', ben[1])]
-        bot_c += [('gap', int(capH * 0.9)), ('ink', vol)]
+        bot_c += [('gap', int(capH * 0.85)), ('ink', vol)]
         hb = sum(v if t == 'gap' else v.height for t, v in bot_c)
-        stack = top_c + [('gap', (y1 - hb) - (y0 + int(zone * 0.12)) - sum(v if t == 'gap' else v.height for t, v in top_c))] + bot_c
-        top = y0 + int(zone * 0.12); vol = None
+        y_end = y0 + int(zone * 0.95)                    # 설명 묶음 끝 = 95% (샤넬 79~95%)
+        stack = top_c + [('gap', (y_end - hb) - (y0 + int(zone * 0.13)) - sum(v if t == 'gap' else v.height for t, v in top_c))] + bot_c
+        top = y0 + int(zone * 0.13); vol = None          # 워드마크 윗선 = 13% (샤넬 12~15%, 기준 스틱 15%)
     else:
         total = sum(v if t == 'gap' else v.height for t, v in stack)
-        top = y0 + int((zone - total) * 0.40)           # 낮은 정면: 한 묶음, 광학 중심
+        top = y0 + int((zone - total) * 0.30)           # 낮은 정면: 한 묶음, 광학 중심
     L_foil = Image.new('L', base.size, 0); L_ink = Image.new('L', base.size, 0)
     y = top
     for t, v in stack:
