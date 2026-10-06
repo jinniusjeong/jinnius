@@ -2,13 +2,13 @@
 사용: python3 turnova-qa/measure_front.py 이미지1.png [이미지2.png ...]
   (필요: pip install numpy pillow)
 출력: 블록별 패널 폭 대비 %, 블록 간격, 기준 판정 + turnova-qa/out/thumbs.png (SNS 썸네일 160px 확인용)
-판정 기준(가이드 8장): 워드마크 ≤62%, 심볼 ≤12%, 블록 간격 편차 ≤35%
+판정 기준(가이드 8장, 10/6 샤넬 실측 개정): 워드마크 50~68% (작아도 반려), 심볼 ≤12%, 블록 간격 편차 ≤35%(한 묶음 배치일 때)
 """
 import sys, os
 import numpy as np
 from PIL import Image
 
-WM_MAX, SYM_MAX, GAP_DEV = 62, 12, 0.35
+WM_MIN, WM_MAX, SYM_MAX, GAP_DEV = 50, 68, 12, 0.35
 
 def blocks(a):
     R, G, B = a[..., 0], a[..., 1], a[..., 2]
@@ -48,7 +48,7 @@ def judge(bs):
     big = [b for b in bs if b['h'] > 40]
     wm = next((b for b in bs if b['w'] >= 30), None)          # 첫 넓은 블록 = 워드마크
     if wm:
-        msg.append(f"워드마크 {wm['w']}% {'OK' if wm['w'] <= WM_MAX else f'반려(>{WM_MAX}%)'}")
+        msg.append(f"워드마크 {wm['w']}% " + ('OK' if WM_MIN <= wm['w'] <= WM_MAX else (f'반려(<{WM_MIN}% 로고 작음)' if wm['w'] < WM_MIN else f'반려(>{WM_MAX}%)')))
         after = [b for b in bs if b['y0'] > wm['y1'] and b['h'] > wm['h'] * 0.8]
         if after:
             sy = after[0]
@@ -58,7 +58,7 @@ def judge(bs):
             if nxt:
                 g2 = nxt[0]['y0'] - sy['y1']
                 dev = abs(g1 - g2) / max(g1, g2)
-                msg.append(f"간격 워드마크↔심볼 {g1}px / 심볼↔제품명 {g2}px {'OK' if dev <= GAP_DEV else '수정(간격 불균형)'}")
+                msg.append(f"간격 워드마크↔심볼 {g1}px / 심볼↔제품명 {g2}px " + ('샤넬식 2단(가운데 비움)' if g2 > 3 * g1 else ('OK' if dev <= GAP_DEV else '수정(간격 불균형)')))
     return msg
 
 def main(paths):
