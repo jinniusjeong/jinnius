@@ -2,8 +2,8 @@ const fs=require('fs');
 const old=new Function(fs.readFileSync('data.js','utf8')+';return D;')();
 const {Document,Packer,Paragraph,TextRun,HeadingLevel,Table,TableRow,TableCell,WidthType,ShadingType,LevelFormat,BorderStyle}=require('docx');
 const V={
-title:'TURNOVA 디자인 가이드 v5.10 — Augustinus Bader 벤치마크',
-sub:'디자인·마케팅팀 정리 · 2026년 10월 6일 (v5.10: 비율 실측 검수 — 심볼·워드마크 과대 반려 규칙) · @Jin · v4까지의 "AB 거리두기" 방향을 폐기하고 다시 잡음',
+title:'TURNOVA 디자인 가이드 v6.0 — Augustinus Bader 벤치마크',
+sub:'디자인·마케팅팀 정리 · 2026년 10월 6일 (v6.0: 전문가 검수 정책 — 묻기 전에 6개 관점 자동 검수) · @Jin · v4까지의 "AB 거리두기" 방향을 폐기하고 다시 잡음',
 why:[
  '9/29 스펙의 "로즈골드·코퍼 제외"와 브랜드 검토의 "AB 요소 금지"를 그대로 따라가면서 AB에서 멀어지는 쪽으로 설계했음 → 오너가 원하는 것은 AB의 색감과 시스템',
  '블루를 2935C(하늘색 쪽)로 밀었음 → AB는 보라 쪽으로 깊은 로열블루',
@@ -96,10 +96,12 @@ changelog:[['날짜','오너 의견','가이드 반영'],
  ['10/4','AB 슬림튜브·미스트병, RoC 자·스틱, 코퍼 미니튜브 세트 레퍼런스로 추가 시안','9-0 용기 형태 레퍼런스 신설 + v10 시안 5종'],
  ['10/6','자는 띠 없이 용기 블루·뚜껑 골드(코퍼)로 구분','9-0 자 항목 수정 + v11_1'],
  ['10/6','스틱 블루로만 시안 추가','9-0 스틱 항목에 올 블루 기본안 + v11_2'],
+ ['10/6','기준을 매번 묻지 않아도 전문가가 먼저 피드백하는 정책','★ 전문가 검수 정책 신설 + turnova-review 스킬 + measure_front.py'],
  ['10/6','샤넬 관점 비율·심볼 크기·브랜드 스토리 점검 요청 (심볼 크다)','8장 실측 검수 규칙 신설, 워드마크 62% 이하 여백 규칙, 벡터 라벨 방식 전환']],
 master:['마스터 시안 (오너 지정 10/4): turnova-brand-assets/turnova-master-tube.png (80 mL 튜브 흰 배경) — 스타일·카피·위계의 유일한 기준','적용 수정: 배경 패턴 제거, 심볼 12%. 수정 반영본: turnova-mockups/v9/v9_1_tube_master.png','모든 시안은 마스터 이미지를 레퍼런스(1번)로 넣어 편집 생성. 새로 해석해서 스타일·카피가 바뀌면 반려','카피 덱(정면, 고정): TURNOVA / [8잎 심볼] / THE PEELING BALM CREAM / TRX-8™ / OVERNIGHT RESURFACING · SMOOTHER-LOOKING SKIN / 80 mL / 2.7 fl oz','카피 덱(타 SKU 가칭): THE CREAM · THE AMPOULE · THE SERUM · TRIAL · 3 mL — 같은 위계·서체'],
 flip:['구조 (오너 지정 10/4, 샬롯 틸버리식): 앞표지가 책 표지처럼 열리는 플립 단상자','닫힘: 앞표지 = 마스터 정면 배치 (워드마크·심볼·제품명·TRX-8™·효능·용량)','열림: 안쪽 정면 = 헤드라인 % 클레임 + 비포/애프터 2컷 + 체크리스트(□ TEXTURE 등) + 시험 조건 각주(*)','우측면 = % 클레임 3줄 + 비포/애프터 2컷 + 각주. 좌측면 = 성분 스토리 + 스티커 존. 후면 = 법정 표시·바코드·QR','표지 안쪽면(선택, 양면 인쇄): 사용법 · 8 PM 리추얼','칼선: turnova-dielines/turnova-flip-dieline-*.svg/pdf (펼침 순서 앞표지|좌측|후면|우측|안쪽 정면|접착), 앞표지 자유단 엄지 홈, 경첩 이중 괘선','클레임 카피 스타일은 레퍼런스처럼 % 대문자 헤드라인 + 체크리스트지만, 수치·사진은 실증 전 전부 "00%" 자리표시 (가이드 9-1)'],
 forms:['오너 지정 레퍼런스(10/4): AB 라이트크림 슬림 튜브 · RoC 크림 자 · AB 페이스미스트 병 · RoC 세럼 스틱 · 코퍼 멜더 미니튜브 세트 — 형태·구조만 차용, 상대 브랜드 로고·배치·문구·클레임은 절대 차용 금지 (트레이드드레스·광고 규정)','앰플 30 mL → 슬림 에어리스 펌프 튜브 + 상단 코퍼 밴드 (v10_1). 정면 = 마스터 전체 카피 덱','자 15/30 mL → 넓고 낮은 원형 자. 띠(코퍼 라인) 없음 — 오너 확정(10/6). 바디 = 무광 블루, 뚜껑 전체 = 브러시드 코퍼(골드 톤) 금속으로 색만으로 구분, 뚜껑 윗면 심볼 톤온톤 각인 (v11_1, v10_2 폐기). 정면 = 워드마크·심볼·제품명·TRX-8™·용량','세럼 30 mL → 원통 유리병(무광 코팅) + 브러시드 코퍼 펌프·오버캡, 캡 윗면 심볼 소형 (v10_3)','스틱(신규 제안, 미확정) → 트위스트업 스틱. 기본안 = 올 블루(바디·베이스·캡 전부 무광 블루, 코퍼 베이스 없음, 오너 요청 10/6, v11_2) / 대안 = 하단 코퍼 베이스 (v10_4). "THE PEELING BALM STICK"·15 g은 가칭·가정 — 오너 승인 전 사용 금지. 고형 제품은 순중량(g/oz) 표기','트라이얼 키트 → 3 mL 미니튜브 8개(브랜드 숫자 8) + 앞이 열린 디스플레이 단상자 (v10_5). 키트 정면 "8 × 3 mL". 미니튜브는 심볼 생략, 소용량 표시 규정은 9-1 따름','모든 형태 공통: 무광 라미/무광 코팅, 유광 코퍼는 워드마크·심볼만, 심볼 12%, 배경 패턴 없음'],
+policy:['원칙: 오너가 묻기 전에 전문가가 먼저 잡는다. 모든 시안·칼선·가이드 전달 시 6개 관점 검수 결과를 함께 보낸다 (상세: .claude/skills/turnova-review/SKILL.md)','① 럭셔리 아트디렉터 — 워드마크 ≤62%(슬림 용기 55%), 심볼 10~12%, 간격 균등, 위계 6단, SKU 간 일관성, 여백 우선','② 브랜드 전략 — 밤(블루)·별빛(코퍼)·8잎(8→NOVA)이 모든 SKU에 보이는지, 라인업 인식성, 스토리 노출 위치','③ SNS·커머스 — 160px 썸네일 가독성, 로고 포일 반사, 매대 1.5 m 가독성, PDP 첫 컷 적합성','④ 패키지 엔지니어·인쇄 — 마감 실현성, 포일 최소 선 0.15 mm·글자 2 mm, 칼선 도련·안전선·녹아웃, 가정 치수 명시','⑤ 수출 RA — 9-1 표시 의무, 지어낸 클레임·제품명·각주 0건, % 클레임은 실증 전 00%','⑥ 법무 — 레퍼런스 브랜드 요소 혼입 0건, AB 유사성 대비 차별 요소 유지, 출시 전 변호사 검토','숫자로 판정: turnova-qa/measure_front.py 실측. 기준 미달은 내부 반려 후 재작업, 2회 후에도 미달이면 숫자 그대로 보고','보고 형식: 종합 판정 → 관점별 판정·근거·조치 표 → 이미 고친 것 → 오너 결정 필요(최대 3개)'],
  owner:['스틱 SKU 추가 여부·제품명·용량, 트라이얼 키트 구성(8개) 확정','플립 표지 닫힘 방식: 마찰 / 투명 원형 씰 / 마이크로 자석','바닥 코딩 방식: 레이저 vs 라벨','실제 용기 도면(치수) 전달 → 칼선 확정','로열블루 3후보 중 1개 (실물 샘플 + 폰 촬영으로)','코퍼 톤: 피치·오렌지 쪽 확정 (샘플북에서 2~3개 칩)','3 mL 튜브 판매 방식: 단품 판매 / 세트 동봉 / 샘플(비매품) — 표시 규정이 달라짐','1차 수출국 우선순위 (표시안·클레임·스티커 설계 순서 결정)','트레이드드레스 검토 일정 (변호사)'],
 next:['① 이 가이드 확정','② 뫼비우스 심볼 3형태(입체·한 줄·8) 시안','③ 로열블루 3후보 × 코퍼 포일 실물 샘플 + 폰 촬영','④ 확정 심볼로 힉스필드 3차 시안 (정면·튜브·매대·손샷)'],
 };
@@ -112,7 +114,7 @@ const bd={style:BorderStyle.SINGLE,size:4,color:'C8CCD8'};
 const table=(rows,ratios)=>{const cw=ratios.map(r=>Math.floor(W*r));cw[cw.length-1]=W-cw.slice(0,-1).reduce((a,b)=>a+b,0);
  return new Table({width:{size:W,type:WidthType.DXA},columnWidths:cw,rows:rows.map((r,i)=>new TableRow({tableHeader:i===0,children:r.map((c,j)=>new TableCell({width:{size:cw[j],type:WidthType.DXA},borders:{top:bd,bottom:bd,left:bd,right:bd},shading:i===0?{type:ShadingType.CLEAR,fill:'E6E8F6',color:'auto'}:undefined,margins:{top:60,bottom:60,left:100,right:100},children:[new Paragraph({children:[run(c,{bold:i===0||j===0,size:19})]})]}))}))});};
 const k=[new Paragraph({children:[run(V.title,{bold:true,size:34,color:'1E22AA'})],spacing:{after:60}}),P(V.sub,{color:'5A6276',size:18}),
- H('변경 이력 — 오너 의견 반영 기록'),table(V.changelog,[.1,.45,.45]),H('★ 마스터 시안·카피 덱 (고정)'),...V.master.map(B),H('0. 왜 다시 잡나 — 지금까지 잘못 잡힌 방향'),...V.why.map(B),
+ H('변경 이력 — 오너 의견 반영 기록'),table(V.changelog,[.1,.45,.45]),H('★ 전문가 검수 정책 (모든 산출물 필수)'),...V.policy.map(B),H('★ 마스터 시안·카피 덱 (고정)'),...V.master.map(B),H('0. 왜 다시 잡나 — 지금까지 잘못 잡힌 방향'),...V.why.map(B),
  H('1. 한 줄 콘셉트'),new Paragraph({children:[run(V.concept,{bold:true})],shading:{type:ShadingType.CLEAR,fill:'FBE9DD',color:'auto'},spacing:{after:120}}),
  H('2. AB에서 가져오는 것'),table(V.abTake,[.45,.55]),H('AB에서 가져오지 않는 것',HeadingLevel.HEADING_2),...V.abNot.map(B),
  H('3. 컬러'),table(V.colors,[.17,.33,.2,.3]),H('4. 마감'),table(V.finish,[.22,.4,.38]),
@@ -129,7 +131,7 @@ const doc=new Document({styles:{default:{document:{run:{font:FONT,size:21}}}},nu
 Packer.toBuffer(doc).then(b=>fs.writeFileSync('turnova-design-guide-v5.docx',b));
 // txt
 const L=[V.title,V.sub,'='.repeat(48)];const tb=t=>t.forEach(r=>L.push('- '+r.join(' | ')));const bl=a=>a.forEach(x=>L.push('- '+x));
-L.push('','■ 변경 이력 (오너 의견 → 가이드 반영)');tb(V.changelog);L.push('','■ ★ 마스터 시안·카피 덱 (고정)');bl(V.master);L.push('','■ 0. 왜 다시 잡나');bl(V.why);L.push('','■ 1. 한 줄 콘셉트',V.concept,'','■ 2. AB에서 가져오는 것');tb(V.abTake);L.push('','[가져오지 않는 것]');bl(V.abNot);
+L.push('','■ 변경 이력 (오너 의견 → 가이드 반영)');tb(V.changelog);L.push('','■ ★ 전문가 검수 정책 (모든 산출물 필수)');bl(V.policy);L.push('','■ ★ 마스터 시안·카피 덱 (고정)');bl(V.master);L.push('','■ 0. 왜 다시 잡나');bl(V.why);L.push('','■ 1. 한 줄 콘셉트',V.concept,'','■ 2. AB에서 가져오는 것');tb(V.abTake);L.push('','[가져오지 않는 것]');bl(V.abNot);
 L.push('','■ 3. 컬러');tb(V.colors);L.push('','■ 4. 마감');tb(V.finish);L.push('','■ 5. 워드마크·타이포');bl(V.type);
 L.push('','■ 6. 심볼 — 8잎 꽃 (확정)');tb(V.symbol);bl(V.symbolRules);L.push('','■ 6-1. 메탈 추천');bl(V.metal);L.push('','■ 6-2. 배경 패턴 (폐기)');bl(V.pattern);L.push('','■ 7. 숫자 8 시스템');tb(V.eight);
 L.push('','■ 8. 단상자 정면 배치 (샤넬식 비율)');tb(V.front);L.push('','■ 9. SKU 라인업');tb(V.skus);L.push('','■ 9-0. 용기 형태 레퍼런스');bl(V.forms);L.push('','■ 9-1. 해외 수출 RA');tb(V.ra);L.push('','■ 9-2. 커머스 기준');bl(V.commerce);L.push('','■ 9-3. 인쇄소 전달 자료');bl(V.printer);L.push('','■ 9-5. 단상자 구조 — 플립형');bl(V.flip);L.push('','■ 9-4. 마감 공정·칼선');bl(V.process);L.push('','■ 10. v4에서 폐기');bl(V.killed);L.push('','[유지]');bl(V.keep);
