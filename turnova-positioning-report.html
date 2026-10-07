@@ -1,0 +1,600 @@
+<title>터노바 포지셔닝 리포트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  /* Layout: report column (max 1080px) — midnight hero, sticky brand index, one dossier block per brand, then a synthesis section for TURNOVA. */
+  :root{
+    --paper:#F3F5F9; --card:#FFFFFF; --panel:#E9EDF5;
+    --night:#14244A; --night-2:#24396B; --gold:#9C7426; --gold-tint:#F4ECDC;
+    --ink:#101A2E; --muted:#56627A; --line:rgba(20,36,74,.13); --line-2:rgba(20,36,74,.24);
+    --ok:#2D7A50; --ok-tint:#E2F1E8; --warn:#9A6512; --warn-tint:#F7EEDC; --bad:#B03A2E; --bad-tint:#F8E6E3;
+    --hero-ink:#EEF2FA; --hero-muted:#AFBBD6; --hero-gold:#D9B66A;
+    --display:'Gowun Batang','Nanum Myeongjo','AppleMyungjo',serif;
+    --sans:'Noto Sans KR','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+    --radius:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#0A1020; --card:#111A2F; --panel:#16213A;
+      --night:#0E1A36; --night-2:#9FB4E6; --gold:#D9B66A; --gold-tint:#2A2414;
+      --ink:#E7ECF6; --muted:#97A3BD; --line:rgba(231,236,246,.12); --line-2:rgba(231,236,246,.22);
+      --ok:#6CC594; --ok-tint:#14281D; --warn:#E0B062; --warn-tint:#2A2010; --bad:#EE8A7C; --bad-tint:#2E1714;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0A1020; --card:#111A2F; --panel:#16213A;
+    --night:#0E1A36; --night-2:#9FB4E6; --gold:#D9B66A; --gold-tint:#2A2414;
+    --ink:#E7ECF6; --muted:#97A3BD; --line:rgba(231,236,246,.12); --line-2:rgba(231,236,246,.22);
+    --ok:#6CC594; --ok-tint:#14281D; --warn:#E0B062; --warn-tint:#2A2010; --bad:#EE8A7C; --bad-tint:#2E1714;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,44px)}
+  h1,h2,h3,h4{text-wrap:balance;margin:0}
+  p{margin:0}
+  a{color:var(--night-2)}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* hero */
+  .hero{background:var(--night);color:var(--hero-ink);padding-block:clamp(40px,6vw,72px) clamp(32px,4vw,52px)}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--hero-gold)}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-top:.5em;letter-spacing:-.01em}
+  .hero h1 em{font-style:normal;color:var(--hero-gold)}
+  .hero .lede{max-width:62ch;color:var(--hero-muted);font-size:clamp(.98rem,1.5vw,1.08rem);margin-top:1em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:1.6em;font-size:.8rem;color:var(--hero-muted)}
+  .meta b{color:var(--hero-ink);font-weight:500}
+
+  /* sticky index */
+  nav.idx{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav.idx .row{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+  nav.idx .row::-webkit-scrollbar{display:none}
+  nav.idx a{white-space:nowrap;font-size:.8rem;font-weight:700;color:var(--muted);text-decoration:none;padding:.45em .85em;border-radius:100px}
+  nav.idx a:hover{background:var(--panel);color:var(--ink)}
+  nav.idx a.t{color:var(--gold)}
+
+  section{padding-block:clamp(36px,5vw,60px) 0}
+  .sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+  .sec-head .k{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .sec-head h2{font-family:var(--display);font-size:clamp(1.45rem,3vw,2rem);font-weight:700}
+  .sec-head p{color:var(--muted);max-width:68ch}
+
+  /* key findings */
+  .findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+  .finding{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .finding h3{font-size:1rem;font-weight:700}
+  .finding p{color:var(--muted);font-size:.92rem}
+
+  /* tables */
+  .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:.86rem}
+  th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+  thead th{background:var(--panel);font-size:.74rem;letter-spacing:.06em;color:var(--muted);font-weight:700;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:0}
+  td.b{font-weight:700;white-space:nowrap}
+  td.b small{display:block;font-weight:400;color:var(--muted);font-size:.76rem}
+  tr.tn td{background:var(--gold-tint)}
+
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:.15em .6em;border-radius:100px;white-space:nowrap}
+  .p-ok{background:var(--ok-tint);color:var(--ok)}
+  .p-warn{background:var(--warn-tint);color:var(--warn)}
+  .p-bad{background:var(--bad-tint);color:var(--bad)}
+
+  /* brand dossier */
+  .brand{border-top:1px solid var(--line-2);padding-block:clamp(32px,4vw,48px) 0}
+  .brand-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:6px}
+  .brand-top h2{font-family:var(--display);font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:700}
+  .brand-top .en{font-size:.82rem;color:var(--muted);letter-spacing:.06em}
+  .facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.8rem;color:var(--muted);margin-bottom:18px}
+  .facts span b{color:var(--ink);font-weight:500}
+  .one{font-size:1.02rem;max-width:70ch;margin-bottom:22px}
+  .one b{color:var(--gold)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  @media (max-width:760px){.grid{grid-template-columns:1fr}}
+  .cell{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;min-width:0}
+  .cell h4{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+  .cell ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px;font-size:.9rem}
+  .cell li::marker{color:var(--line-2)}
+  .cell p{font-size:.9rem}
+  .cell.wide{grid-column:1/-1}
+  .persona{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+  .persona > div{border-left:2px solid var(--gold);padding:2px 0 2px 12px;font-size:.88rem}
+  .persona b{display:block;font-size:.92rem}
+  .ev{display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+  .ev .r{display:flex;gap:10px;align-items:baseline}
+  .ev .tag{flex:none;font-size:.66rem;font-weight:700;letter-spacing:.06em;padding:.1em .5em;border-radius:4px;background:var(--panel);color:var(--muted)}
+  .ev .tag.i{background:var(--ok-tint);color:var(--ok)}
+  .ev .tag.s{background:var(--warn-tint);color:var(--warn)}
+  .ev .tag.v{background:var(--panel);color:var(--muted)}
+  .caveat{margin-top:8px;font-size:.84rem;color:var(--bad)}
+  .take{margin-top:12px;background:var(--gold-tint);border-radius:var(--radius);padding:14px 18px;font-size:.92rem}
+  .take b{color:var(--gold)}
+
+  /* substitution spectrum */
+  .spectrum{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  @media (max-width:860px){.spectrum{grid-template-columns:1fr}}
+  .lane{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .lane h4{font-size:.9rem}
+  .lane .who{font-size:.8rem;color:var(--muted)}
+  .lane p{font-size:.84rem}
+  .lane.tn{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+  .lane.tn h4{color:var(--gold)}
+
+  /* recommendations */
+  .recs{display:flex;flex-direction:column;gap:12px}
+  .rec{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px}
+  @media (max-width:640px){.rec{grid-template-columns:1fr;gap:6px}}
+  .rec .area{font-size:.76rem;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;padding-top:2px}
+  .rec h3{font-size:1rem;margin-bottom:6px}
+  .rec p,.rec li{font-size:.9rem;color:var(--muted)}
+  .rec ul{margin:6px 0 0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+
+  .note{font-size:.8rem;color:var(--muted);margin-top:12px}
+  .sources{columns:2 300px;column-gap:28px;font-size:.78rem;color:var(--muted);padding-left:1.1em;margin:0}
+  .sources li{break-inside:avoid;margin-bottom:6px}
+  footer{padding-block:48px 64px;color:var(--muted);font-size:.78rem}
+</style>
+<style>
+  .alerts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+  .alert{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+  .alert.w{border-left-color:var(--warn)}
+  .alert .lvl{font-size:.68rem;font-weight:700;letter-spacing:.14em;color:var(--bad)}
+  .alert.w .lvl{color:var(--warn)}
+  .alert h3{font-size:1rem}
+  .alert p{font-size:.88rem;color:var(--muted)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .card .hd{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+  .card h3{font-size:1.02rem}
+  .card .sub{font-size:.76rem;color:var(--muted)}
+  .card dl{margin:0;display:grid;grid-template-columns:64px minmax(0,1fr);gap:4px 10px;font-size:.84rem}
+  .card dt{color:var(--muted);font-size:.74rem;padding-top:2px}
+  .card dd{margin:0}
+  .card .lesson{font-size:.86rem;background:var(--gold-tint);border-radius:8px;padding:8px 10px}
+  .card .lesson b{color:var(--gold)}
+  .group-h{font-family:var(--display);font-size:1.15rem;margin:28px 0 12px}
+  .cal{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card)}
+  @media (max-width:820px){.cal{grid-template-columns:1fr}}
+  .cal > div{padding:14px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+  .cal > div:last-child{border-right:0}
+  @media (max-width:820px){.cal > div{border-right:0;border-bottom:1px solid var(--line)}.cal > div:last-child{border-bottom:0}}
+  .cal .d{font-family:var(--mono);font-size:.9rem;font-weight:600;color:var(--gold)}
+  .cal h4{font-size:.92rem}
+  .cal p{font-size:.82rem;color:var(--muted)}
+  .cal .stop{background:var(--bad-tint)}
+  .cal .stop .d{color:var(--bad)}
+  .pos{display:flex;flex-direction:column;gap:12px}
+  .pos-main{background:var(--night);color:var(--hero-ink);border-radius:var(--radius);padding:22px 24px;display:flex;flex-direction:column;gap:10px}
+  .pos-main .k{font-size:.7rem;letter-spacing:.18em;font-weight:700;color:var(--hero-gold)}
+  .pos-main h3{font-family:var(--display);font-size:clamp(1.3rem,2.6vw,1.7rem)}
+  .pos-main p{color:var(--hero-muted);font-size:.94rem;max-width:72ch}
+  .pos-main ul{margin:0;padding-left:1.1em;color:var(--hero-ink);font-size:.9rem;display:flex;flex-direction:column;gap:4px}
+  .dont{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px}
+  .dont > div{background:var(--bad-tint);border-radius:var(--radius);padding:12px 14px;font-size:.86rem}
+  .dont b{display:block;color:var(--bad);margin-bottom:2px}
+  .word{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  @media (max-width:700px){.word{grid-template-columns:1fr}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">TURNOVA · Positioning Dossier · Vol.2 · 2026.10</div>
+    <h1>놓치고 있는 것, 비슷한 자리의 브랜드,<br>그리고 터노바가 <em>잡아야 할 자리</em></h1>
+    <p class="lede">1편의 6개 브랜드에 이어 해외 유사 포지션 13곳, 메드스파·시술 연계 브랜드 10곳, 한국·일본 경쟁사 12곳을 추가로 조사했습니다. 결론은 하나입니다. 성분이나 '피부나이'가 아니라 <b style="color:var(--hero-ink)">시술 일정</b>을 소유하는 것이 터노바가 이길 수 있는 자리입니다.</p>
+    <div class="meta">
+      <span>작성 <b>지니어스 팀</b></span>
+      <span>기준일 <b class="num">2026-10-04</b></span>
+      <span>추가 조사 <b>35개 브랜드 · 약 120개 출처</b></span>
+    </div>
+  </div>
+</header>
+
+<nav class="idx" aria-label="목차">
+  <div class="wrap row">
+    <a href="#urgent">긴급 3건</a>
+    <a href="#missing">놓치고 있는 것</a>
+    <a href="#medspa">메드스파·시술 연계</a>
+    <a href="#similar">해외 유사 포지션</a>
+    <a href="#korea">한국·일본</a>
+    <a class="t" href="#position">추천 포지션</a>
+    <a href="#calendar">시술 캘린더</a>
+    <a href="#words">말할 것·말하지 말 것</a>
+    <a href="#next">다음 액션</a>
+    <a href="#sources">출처</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="urgent">
+    <div class="sec-head">
+      <span class="k">Act now</span>
+      <h2>지금 바로 확인해야 할 3건</h2>
+    </div>
+    <div class="alerts">
+      <div class="alert">
+        <span class="lvl">긴급 · 경쟁</span>
+        <h3>알라스틴이 한국에 들어왔습니다 <span class="pill p-warn">업데이트 10.05</span></h3>
+        <p>"시술 전후 스킨케어"의 세계 1위 브랜드(갈더마 소유)가 2026년 9월 갈더마 심포지엄에서 6개 SKU로 국내 클리닉에 먼저 공개됐습니다(최초 보도는 11월 출시·9개 SKU였으나 정정, v4.1 참고). 대만 2026.3, 일본 2026.7(병원 전용)에 이미 출시됐습니다. 터노바 론칭 3개월 전입니다. 시술 전후라는 말만으로는 차별화가 안 됩니다. 한국 시술, 가격, 나이트 리추얼 형식으로 갈라서야 합니다.</p>
+      </div>
+      <div class="alert">
+        <span class="lvl">긴급 · 이름</span>
+        <h3>리쥬란이 이미 "턴오버 앰플"을 팝니다</h3>
+        <p>파마리서치의 '리쥬란 힐러 턴오버 앰플'(₩132,000/30ml)은 PDRN 시술 후 앰플입니다. 터노바의 이름과 PDRN 앰플이 동시에 겹칩니다. 3·5류 상표 충돌 여부를 KIPRIS와 일본 J-PlatPat에서 다시 확인해야 합니다.</p>
+      </div>
+      <div class="alert">
+        <span class="lvl">긴급 · 규제</span>
+        <h3>브랜드북 핵심 표현 다수가 광고 금지 대상입니다</h3>
+        <p>2025년부터 "피부나이 -n세", "병원 전용", "의사 추천"이 금지됐고, "재생", "노화 억제", "피부 깊숙이"는 의약품 오인 표현으로 지적받고 있습니다. 식약처는 숏폼 광고를 AI로 감시합니다. 28일 챌린지의 "피부나이 측정" 결과를 광고에 쓰는 구조는 다시 설계해야 합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="missing">
+    <div class="sec-head">
+      <span class="k">Blind spots</span>
+      <h2>지금 계획에서 놓치고 있는 것</h2>
+      <p>노션 터노바 페이지의 현재 결정(라인업, 가격표, 시술 대응맵, 브랜드북)과 이번 조사를 대조했습니다.</p>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>영역</th><th>지금 계획</th><th>문제</th><th>고칠 방향</th></tr></thead>
+        <tbody>
+          <tr><td class="b">안전</td><td>필링밤을 시술 전후 케어에 포함</td><td>레이저·에너지 시술 직후 1주에는 화학 각질 제거를 권하지 않음. ZO, 알라스틴 모두 회복기에는 산 성분을 멈추게 함</td><td>시술 3일 전부터 시술 5일 후까지 필링밤 중단. 회복 1주는 Refill(장벽·진정) 단계로 고정</td></tr>
+          <tr><td class="b">라벨</td><td>필링밤 산 농도 미정</td><td>AHA 0.5% 초과 시 "자외선 차단제 사용, 패치 테스트" 문구 의무. AHA 10% 초과 또는 pH 3.5 미만이면 "전문가 상담" 문구까지 의무</td><td>pH 3.5 이상, AHA 10% 이하, PHA·효소 조합으로 설계해 "순한 나이트 필링"을 입증 가능하게</td></tr>
+          <tr><td class="b">성분</td><td>BHA 사용 여부 미정</td><td>2025.7.30부터 일반 화장품의 살리실산은 보존제로만 허용. 각질 제거 효능 표현 불가</td><td>BHA는 빼거나 기능성 경로로만</td></tr>
+          <tr><td class="b">기능성</td><td>기능성 등록 계획 없음</td><td>기능성 없이는 "주름 개선"을 말할 수 없고 "리프팅"도 주름 기능성 표현으로 해석될 위험</td><td>나이트 크림을 아데노신 또는 레티놀 고시 성분으로 주름개선 기능성 '보고'(심사보다 빠름)</td></tr>
+          <tr><td class="b">자외선</td><td>낮 SPF 제품 없음</td><td>필링 제품은 낮 자외선 차단이 필수인데, 병원 채널의 레이저 후 선크림 자리는 셀퓨전씨·에스트라가 차지</td><td>자체 SPF를 만들기보다 사용법과 키트 구성에서 "아침 SPF 필수"를 명시하고, 필요하면 제휴</td></tr>
+          <tr><td class="b">PDRN</td><td>PDRN 부스팅 앰플 ₩49,000</td><td>아래는 메디큐브 ₩31,400, 위는 리쥬란 ₩132,000. 사이에 있을 이유가 없음. PDRN 광고 적발은 2023년 7건 → 2026년 상반기 41건</td><td>히어로에서 빼고 보조 성분으로. 또는 앰플 출시 보류</td></tr>
+          <tr><td class="b">측정</td><td>28일 피부나이 측정</td><td>"피부나이 -n세" 광고 금지. 니베아가 ₩5만원대에 "2주 만에 피부나이를 되돌린다"를 이미 대중화</td><td>지표를 '턴오버 일수'와 기기 측정 수분·결로 바꾸고, 제휴 클리닉에서 D0·D28 측정</td></tr>
+          <tr><td class="b">8시</td><td>밤 8시 리추얼, 8회분 구성 검토</td><td>노블 파나시아가 "오버나이트 필링 + 생체리듬 + 8회분"을 이미 판매(£280/8회). 생체리듬상 재생 피크는 밤 11시~새벽 4시라 '8시'의 과학적 근거가 약함</td><td>8시는 과학이 아니라 "하루를 끄는 시간"이라는 생활 의식으로 설명. 생체리듬 효능은 주장하지 않기</td></tr>
+          <tr><td class="b">가격</td><td>공구가 하한 ₩34,900</td><td>올리브영 행사는 20~40% 할인을 기대. 공구가가 올리브영 가격 기준을 무너뜨릴 수 있음</td><td>올리브영 입점 여부를 먼저 정하고 공구는 세트 구성으로만</td></tr>
+          <tr><td class="b">일본</td><td>일본 진출 예정</td><td>일본은 글리콜산 3.6% 초과 시 극물 분류, 살리실산 0.2% 제한, 주름 표현은 의약부외품 승인 필요. 현지 제조판매업 파트너 필요</td><td>처음부터 일본 기준(글리콜산 3.6% 이하)으로 처방하면 한 처방으로 두 나라 대응</td></tr>
+          <tr><td class="b">디바이스</td><td>디바이스 없음</td><td>메디큐브 에이지알(누적 400만 대) + 부스터 앰플이 실제 "홈 클리닉" 대체재. 2025년 메디큐브 매출 1.4조</td><td>약점이 아니라 포지션으로: "기기 없이 바르고 붙이고 자는 2단계"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="medspa">
+    <div class="sec-head">
+      <span class="k">Med-spa &amp; procedure brands</span>
+      <h2>메드스파·시술 연계 브랜드</h2>
+      <p>시술 옆에서 돈을 버는 브랜드들입니다. 터노바의 "시술 전 2주, 후 1주"와 가장 가까운 모델이 여기에 있습니다.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="hd"><h3>알라스틴 Alastin</h3><span class="sub">2015 · 미국 · 갈더마 2021 인수</span></div>
+        <dl>
+          <dt>타깃</dt><dd>시술받는 환자. 병원 채널 30~50세, 온라인 25~45세</dd>
+          <dt>페인</dt><dd>시술 회복이 느리고 효과가 오래가지 않는다</dd>
+          <dt>방법</dt><dd>의사만 판매. 시술 강화 키트 약 $306~334(넥타·클렌저·보습·SPF). 주사 시술 브랜드와 공동 프로모션</dd>
+          <dt>근거</dt><dd>시술 2주 전부터 사용하는 설계. 논문 60편 이상. 비박피 레이저 후 반쪽 얼굴 비교 n=20: 잔주름 개선 65% vs 45%, 붓기 5일차 유의미한 감소. 장벽 n=20, 14일: 수분 손실 -80%</dd>
+          <dt>대체</dt><dd>대체하지 않음. "시술 강화"만 말함</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · 제품이 아니라 근거 설계. 작은 무작위 반쪽 얼굴 시험을 실제 시술에 붙이고 논문으로 내서 의사가 추천하게 만듦. 단, 미국 박피 레이저 중심이라 한국의 짧은 다운타임 시술(토닝, 피코, 울쎄라)에는 근거가 비어 있음</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>스킨수티컬즈 SkinCeuticals</h3><span class="sub">로레알 · 의사 채널</span></div>
+        <dl>
+          <dt>방법</dt><dd>미국 의원 5,000곳 이상. 'SkinLab' 시술+판매 매장 10곳, 연 2만 건 이상 시술. 시술 이름에 제품을 넣음(마이크로필+파이토 젤)</dd>
+          <dt>근거</dt><dd>프락셀 직후 마스크, 반쪽 얼굴 n=30: 붉은기 -20%, 불편감 -47%</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · 병원 안의 시술 단계와 집에서 쓰는 제품이 같은 이름을 쓰면 제품이 팔려 나감. "터노바 프렙 &amp; 리커버리" 프로토콜을 제휴 클리닉과 공동 설계</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>스킨메디카 SkinMedica</h3><span class="sub">앨러간·애브비</span></div>
+        <dl>
+          <dt>방법</dt><dd>보톡스·쥬비덤과 포인트를 공유하는 Allē 멤버십. 400~700점이면 제품 무료(보톡스는 1,200점)</dd>
+          <dt>근거</dt><dd>TNS 세럼 n=45, 24주. 12주차 환자 설문에서 "6살 어려 보인다"</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · 시술과 스킨케어를 묶는 포인트 장부가 해자. 터노바는 클리닉의 자체 멤버십에 들어가는 "시술 패스 키트"로 접근</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>ZO 스킨 헬스</h3><span class="sub">블랙스톤 · 기업가치 약 $2B 매각 검토</span></div>
+        <dl>
+          <dt>방법</dt><dd>백화점에서 철수하고 의사만 판매. 의사 제휴 수익 배분. 시술 후 회복 시스템</dd>
+          <dt>성과</dt><dd>클리닉 재구매율 약 40%</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · 채널을 엄격히 통제하면 가격과 의사 신뢰가 지켜지고 높은 가치로 평가받음. 회복기에는 산·레티노이드를 멈추라고 명시</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>111SKIN</h3><span class="sub">영국 · 성형외과 의사 창업</span></div>
+        <dl>
+          <dt>방법</dt><dd>수술 후 회복용으로 만든 세럼과 하이드로겔·바이오셀룰로스 마스크. 럭셔리 리테일과 호텔 스파</dd>
+          <dt>성과</dt><dd>2023 매출 약 £20.3M (추정). 마스크 5~7매 세트 $170</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · 마스크 형식은 임상 없이도 럭셔리·선물 채널로 감. 터노바 엔자임 리프팅 필름팩이 리테일 히어로가 될 수 있다는 근거</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>하이드라페이셜</h3><span class="sub">2026 SkinHealth Systems로 개명</span></div>
+        <dl>
+          <dt>방법</dt><dd>기기를 깔고 소모품(부스터)으로 반복 매출. 2025 매출 $300.8M 중 소모품 $212.7M</dd>
+          <dt>위기</dt><dd>신형 기기 결함으로 약 $65M 손실, 주가 1년간 약 60% 하락. 세포라 매장 서비스 종료</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · 하드웨어는 거의 회사를 무너뜨렸고 소모품이 살렸음. 터노바는 기기 없이 가볍게, 대신 시술실에서 쓰는 공동 브랜드 단계(필름팩)를 넣기</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>메드스파 체인 · 에스테티션 브랜드</h3><span class="sub">스킨 런드리, 헤이데이, 스킨스피릿 등</span></div>
+        <dl>
+          <dt>사실</dt><dd>스킨 런드리는 매출 약 99%가 월 $175~375 멤버십, 자체 제품은 미미. 스킨스피릿(39개 지점)은 자체 제품 대신 스킨메디카를 판매. 에버/바디는 확장하다 철수</dd>
+          <dt>시장</dt><dd>미국 메드스파 평균 매출 $1.4M, 방문당 $527, 여성 89%, 여성 환자 54%가 35~54세</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · 클리닉이 만든 자체 제품은 잘 안 큼. 클리닉이 되팔아 주는 제3자 브랜드가 되는 쪽이 기회. 고객 구성이 터노바 타깃과 거의 같음</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>비올로직 루쉐르쉬</h3><span class="sub">프랑스 · 에스테틱 전용</span></div>
+        <dl>
+          <dt>방법</dt><dd>진단 먼저. 피부를 고정 타입이 아니라 지금 상태('Skin Instant')로 보고 살롱 기기로 추적. 전문가 채널만 판매. 2024 매출 약 $100~125M 전망</dd>
+          <dt>주의</dt><dd>대표 제품 P50 원조 처방에 페놀이 들어가 자극 논란</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · "시술 2주 전 피부"와 "시술 1주 후 피부"는 다른 상태. 시술 시점별 조합을 상태 이름으로 판매</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="similar">
+    <div class="sec-head">
+      <span class="k">Similar positions</span>
+      <h2>해외 유사 포지션 브랜드</h2>
+      <p>롱제비티, 나이트 필링, 프로토콜을 파는 브랜드들입니다. 터노바와 말이 겹치는 곳을 먼저 봐야 합니다.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="hd"><h3>노블 파나시아 오버나이트 필</h3><span class="sub">영국 · 노벨상 수상자 창업</span></div>
+        <dl>
+          <dt>제품</dt><dd>£280 / 1회분 8개, 주 1회. 밤 11시~새벽 4시에 AHA·BHA를 방출한다는 생체리듬 기술. 전용 브러시</dd>
+          <dt>근거</dt><dd>n=35, 4~8주. 자가평가와 전문가 평가 혼합. "모공 -184%"처럼 신뢰하기 어려운 수치</dd>
+        </dl>
+        <p class="lesson"><b>주의</b> · <b>필링밤 크림의 가장 직접적인 경쟁자.</b> "오버나이트 필링 + 시간 + 8회분"이 이미 있음. 터노바는 매일 밤 순한 턴오버 vs 주 1회 필링, 시술 연계, 한국 홈 메드스파로 구분해야 함</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>원스킨 OneSkin</h3><span class="sub">미국 · 롱제비티</span></div>
+        <dl>
+          <dt>제품</dt><dd>OS-01 FACE $120. 자체 펩타이드로 노화 세포를 줄인다는 주장</dd>
+          <dt>방법</dt><dd>롱제비티 팟캐스트가 1위 유입 채널. 매출 3분의 2가 정기구독. 2025 매출 $40~50M 전망</dd>
+          <dt>근거</dt><dd>12주 이중맹검 반쪽 얼굴 n=22: 장벽 +18%. 60~90세 n=60 무작위 시험 논문 공개</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · "되돌린다"를 분자 수준 피부나이 측정으로 뒷받침. 휴대폰 앱 피부나이로는 이 고객에게 약해 보임. 측정 방법(기기, 알고리즘, 측정 주체)을 명시해야 함</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>블루프린트 (브라이언 존슨)</h3><span class="sub">미국 · 2025 스킨케어</span></div>
+        <dl>
+          <dt>방법</dt><dd>창업자 본인 몸이 사례. 피부나이 64세 → 37~42세(기기 측정) 주장. 프로토콜을 공개하고 그 안에서 제품 판매. 월 $333 구독</dd>
+          <dt>특징</dt><dd>바르는 제품과 시술(티셀, 소프웨이브, 스컬트라)을 함께 쓰는 루틴을 공개</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · 롱제비티 고객은 "홈케어 + 시술"을 이미 받아들임. 터노바도 시술 날이 들어간 28일 공개 프로토콜을 발행</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>메딕8 Medik8</h3><span class="sub">영국 · 2026 세포라 캐나다 전 매장</span></div>
+        <dl>
+          <dt>방법</dt><dd>"아침 비타민C+선크림, 밤 비타민A" CSA 철학. 레티날 농도 6단계 사다리</dd>
+          <dt>근거</dt><dd>CSA 루틴 n=63, 12개월. 레티날 6단계 n=33, 12주: 주름 -20%</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · <b>농도 사다리.</b> 28일 내내 같은 강도의 필링은 자극 위험. 1~2주 Reset, 3주 Refill, 4주 Reverse처럼 주차별로 바뀌면 티켓북이 반복이 아니라 진행으로 느껴짐</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>닥터 데니스 그로스</h3><span class="sub">미국 · 시세이도 2023 인수</span></div>
+        <dl>
+          <dt>제품</dt><dd>알파 베타 데일리 필 $88~94 / 30회분. 산 패드 → 중화 패드 2단계</dd>
+          <dt>방법</dt><dd>피부과 의사 창업, "5번가 병원 결과를 집에서"</dd>
+        </dl>
+        <p class="lesson"><b>배울 것</b> · "1포 = 1밤"은 이미 익숙한 형식. 티켓북을 날짜가 적힌 1회분 28개로 만들면 문자 그대로 티켓. 단, DDG는 클리닉 대체를 말함. 터노바의 "보완"을 크게 말해야 차별점이 됨</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>니베아 · 발몽 · 로레알</h3><span class="sub">에피제네틱 롱제비티 대중화</span></div>
+        <dl>
+          <dt>사실</dt><dd>니베아 에피제네틱 세럼 약 £27.50, "2주 만에 피부나이를 되돌린다", 2025년 말 30개국. 발몽은 유전자 검사 프로그램, 로레알은 생물학적 나이 검사 회사와 제휴</dd>
+        </dl>
+        <p class="lesson"><b>주의</b> · 2027년이면 "피부나이 되돌리기"는 마트 제품의 말이 됨. 프리미엄은 니베아가 따라 할 수 없는 것(클리닉 연계, 시술 시점 프로토콜, 측정 결과)에서 나와야 함</p>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>그 밖에 참고할 브랜드</h3><span class="sub">5곳 요약</span></div>
+        <dl>
+          <dt>타임라인</dt><dd>유로리틴A. 영양제 + 크림 세트로 단가 상승</dd>
+          <dt>샤니 다든</dt><dd>에스테티션 창업. 손 테크닉 콘텐츠와 대기자 5,000명</dd>
+          <dt>선데이 라일리</dt><dd>"3분 만에" 다음 날 아침 증거. 2019 FTC 가짜 리뷰 제재(확인 필요)</dd>
+          <dt>바바라 스텀</dt><dd>클리닉 전용 고가 라인이 리테일 라인에 의학적 권위를 줌</dd>
+          <dt>디유</dt><dd>$25 실리콘 아이마스크가 바이럴 첫 구매 상품</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="korea">
+    <div class="sec-head">
+      <span class="k">Korea &amp; Japan</span>
+      <h2>한국·일본에서 실제로 부딪힐 브랜드</h2>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>브랜드</th><th>대표 제품 · 가격</th><th>채널 · 방법</th><th>규모</th><th>터노바와 겹치는 지점</th></tr></thead>
+        <tbody>
+          <tr><td class="b">메디큐브<small>에이피알</small></td><td>에이지알 디바이스 + PDRN 핑크 앰플 ₩31,400</td><td>자사몰, 올리브영, 아마존, 틱톡샵, 큐텐 재팬. 기기+앰플 번들, 크리에이터 콘텐츠</td><td class="num">2025 매출 1.4조, 에이지알 400만 대+</td><td>"홈 클리닉" 리추얼의 실질적 대체재</td></tr>
+          <tr><td class="b">리쥬란 코스메틱<small>파마리서치</small></td><td>힐러 <b>턴오버</b> 앰플 ₩132,000/30ml</td><td>리쥬란 시술 신뢰를 빌림. 병원, 올리브영, 세포라</td><td class="num">2026 1분기 화장품 422억 (+51%)</td><td>이름과 PDRN 앰플이 동시에 겹침</td></tr>
+          <tr><td class="b">에스트라<small>아모레퍼시픽</small></td><td>아토베리어365 크림</td><td>병원 채널 9년 연속 1위 + 올리브영. 2025 세포라 미국 400개 매장</td><td>누적 900만 개</td><td>클리닉이 시술 후 기본으로 주는 장벽 크림</td></tr>
+          <tr><td class="b">셀퓨전씨<small>CMS랩</small></td><td>레이저 썬스크린 100</td><td>약 4,000개 병의원, 42개국</td><td>—</td><td>시술 후 SPF 자리</td></tr>
+          <tr><td class="b">CNP<small>차앤박</small></td><td>스킨 스케일링 홈필링 키트 (준비 → 필링 → 중화 → 진정)</td><td>올리브영, 피부과 출신</td><td>—</td><td>가장 비슷한 "병원 필링을 집에서" 리추얼</td></tr>
+          <tr><td class="b">VT 리들샷</td><td>리들샷 100/300 ₩32,000~43,000</td><td>일본 큐텐, 라쿠텐, 약 1.8만 개 매장</td><td class="num">일본 2024 1,500억, 2025 정체</td><td>스피큘 붐이 일본에서 꺾이는 중 = 다음 리추얼 자리</td></tr>
+          <tr><td class="b">아누아</td><td>PDRN, 레티놀 0.3 세럼</td><td>2025 큐텐 메가와리 4회 연속 1위</td><td class="num">2025 매출 7,177억 (+68%)</td><td>저가 PDRN으로 PDRN 가격대를 끌어내림</td></tr>
+          <tr><td class="b">닥터지 · 원장 브랜드</td><td>블랙 스네일 크림 등</td><td>"피부과에서 태어난" 서사, 올리브영 더마관(2026.3 오픈, 21개 SKU)</td><td class="num">닥터지 2025 2,328억</td><td>올리브영에 시술 후 케어 전용 매대가 이미 생김</td></tr>
+          <tr><td class="b">일본 현지</td><td>POLA 링클샷 ¥14,850/20g, 오바지 X ¥11,000, 알비온 닦토</td><td>의약부외품 주름 개선, 드럭스토어와 클리닉</td><td class="num">링클샷 누적 512억 엔</td><td>일본 진출 시 가격 기준선</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">일본인 의료관광: 2025년 한국을 찾은 외국인 환자 201만 명 중 일본인 60만 명(29.8%), 진료과 중 피부과가 62.9%. 강남 클리닉에서 시술받고 돌아간 일본인이 큐텐에서 재구매하는 경로가 이미 있습니다.</p>
+  </section>
+
+  <section id="position">
+    <div class="sec-head">
+      <span class="k">Recommended position</span>
+      <h2>터노바가 잡아야 할 자리</h2>
+      <p>세 갈래 조사가 같은 빈자리를 가리켰습니다. 메인 포지션 하나와 그것을 받치는 보조 포지션 넷입니다.</p>
+    </div>
+    <div class="pos">
+      <div class="pos-main">
+        <span class="k">MAIN POSITION</span>
+        <h3>"시술 일정에 맞춘 나이트 루틴" — 시술 캘린더 브랜드</h3>
+        <p>성분(PDRN), 피부나이, 오버나이트 필링은 이미 주인이 있습니다. 비어 있는 건 <b style="color:var(--hero-ink)">시간표</b>입니다. 한국 시술 이름별로 D-14부터 D+7까지 무엇을 바르고 언제 멈추는지 정해주는 브랜드는 국내외 어디에도 없습니다. 알라스틴은 미국 박피 레이저 중심의 의사 전용이고, 메디큐브는 기기를, 리쥬란은 성분을 팝니다.</p>
+        <ul>
+          <li>알라스틴과의 차이: 한국 시술(토닝, 피코, 울쎄라·슈링크, 스킨부스터, 리쥬란), 소비자 직접 구매, 가격 약 1/4, 나이트 리추얼 형식</li>
+          <li>메디큐브와의 차이: 기기 없음. 바르고 붙이고 자는 2단계</li>
+          <li>브랜드북과의 연결: 28일 티켓북 = 시술 주기(4~6주)에 맞춘 캘린더. 8시 리추얼은 "하루를 끄는 시간"으로 유지</li>
+          <li>광고 문구: "재생", "시술 대체" 대신 "시술 일정 맞춤 루틴"</li>
+        </ul>
+      </div>
+      <div class="recs">
+        <div class="rec">
+          <div class="area">보조 1</div>
+          <div>
+            <h3>3050을 위한 '순한' 나이트 필링</h3>
+            <p>지금 필링은 싸고 젊은 패드(메디필)이거나 전문가용 키트(CNP)입니다. pH 3.5 이상, AHA 10% 이하, PHA·효소로 "전문가 상담" 라벨 없이 쓰는 잠자는 필링은 비어 있습니다. 일본 글리콜산 3.6% 기준에 맞추면 한 처방으로 두 나라에 갑니다. 메딕8처럼 주차별 강도 사다리를 넣으면 28일 티켓북이 진행형이 됩니다.</p>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="area">보조 2</div>
+          <div>
+            <h3>'턴오버 일수'를 재는 브랜드</h3>
+            <p>원스킨은 분자 피부나이, 브라이언 존슨은 VISIA, 비올로직은 살롱 기기로 잽니다. 소비자에게 턴오버 자체를 재주는 브랜드는 없습니다. 제휴 클리닉 D0·D28 기기 측정과 테이프 스트립 검사로 "턴오버 주기"를 대표 지표로 삼으면, 금지된 "피부나이 -n세" 대신 쓸 수 있는 브랜드 고유 숫자가 됩니다.</p>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="area">보조 3</div>
+          <div>
+            <h3>클리닉이 되파는 제3자 브랜드 (B2B2C)</h3>
+            <p>클리닉 자체 제품은 잘 안 크고(스킨 런드리), 대형 체인은 검증된 외부 브랜드를 팝니다(스킨스피릿). 시술실에서 쓰는 터노바 필름팩 단계 + 집에 가져가는 키트 + 원장 제휴 코드로 수익 배분. 단, "병원 전용"이라는 말은 금지이므로 "시술 일정에 맞춰 설계"로만 표현합니다. 셀퓨전씨처럼 병의원 유통사 네트워크를 활용합니다.</p>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="area">보조 4</div>
+          <div>
+            <h3>일본인 시술 관광객의 귀국 후 루틴</h3>
+            <p>일본인 60만 명이 매년 한국에서 주로 피부과 시술을 받습니다. 강남 클리닉, 올리브영 명동, 면세점에서 "시술 후 1주 키트"를 주고, 리필은 큐텐·라쿠텐에서 팝니다. 리들샷이 꺾인 일본에서 "스피큘 다음 리추얼" 자리를 노릴 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+      <h3 class="group-h">하지 말아야 할 포지션</h3>
+      <div class="dont">
+        <div><b>PDRN 히어로</b>₩31,400(메디큐브)과 ₩132,000(리쥬란) 사이에 끼고, 적발 건수가 급증 중</div>
+        <div><b>"피부나이 -n세"를 내세운 롱제비티</b>한국에서 광고 금지이고, 니베아가 대중화 중</div>
+        <div><b>오버나이트 필링 + 생체리듬 + 8회분</b>노블 파나시아가 이미 소유. 8시의 과학적 근거도 약함</div>
+        <div><b>시술 대체·홈 시술</b>표시광고법 위반 위험. 그 자리는 메디큐브 기기와 랑콤 나노 리서페이서의 영역</div>
+        <div><b>회복 1주에 필링밤</b>안전 문제. 회복기는 Refill 단계로만</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="calendar">
+    <div class="sec-head">
+      <span class="k">Protocol calendar</span>
+      <h2>시술 캘린더 예시 (레이저 토닝 기준)</h2>
+      <p>기존 노션 메모("시술 전 2주 체력, 시술 후 1주 관리")를 안전 기준에 맞춰 다시 짰습니다. 실제 일수는 시술별로 의료진 확인이 필요합니다.</p>
+    </div>
+    <div class="cal">
+      <div><span class="d">D-14 ~ D-4</span><h4>Reset · 준비</h4><p>순한 필링밤으로 턴오버 정리, 엔자임 필름팩 주 2회. 아침 SPF 필수.</p></div>
+      <div class="stop"><span class="d">D-3 ~ D-1</span><h4>필링 중단</h4><p>필링밤을 멈추고 배리어 크림만. 시술 직전 자극 최소화.</p></div>
+      <div><span class="d">D-DAY</span><h4>시술</h4><p>클리닉에서 터노바 필름팩(진정형) 단계 적용 후 회복 키트 지급.</p></div>
+      <div class="stop"><span class="d">D+1 ~ D+5</span><h4>Refill · 회복</h4><p>배리어 크림, 하이드로겔 마스크. 산 성분 금지.</p></div>
+      <div><span class="d">D+6 ~ D+28</span><h4>Reverse · 유지</h4><p>필링밤 저강도로 재시작, 아이·넥 집중. D+28 측정 후 다음 시술 일정과 연결.</p></div>
+    </div>
+  </section>
+
+  <section id="words">
+    <div class="sec-head">
+      <span class="k">Claims guide</span>
+      <h2>말할 것, 말하지 말 것</h2>
+      <p>세계관(브랜드 스토리)과 광고 문구를 분리하는 원칙은 브랜드북 VIII장과 같습니다. 이번 조사로 금지 목록이 구체화됐습니다.</p>
+    </div>
+    <div class="word">
+      <div class="cell">
+        <h4>광고에서 쓸 수 있는 방향</h4>
+        <ul>
+          <li>시술 일정 맞춤 루틴, 시술 전후 홈 프로토콜</li>
+          <li>턴오버 리듬을 정돈, 피부결·광채 개선 (실증 범위 안에서)</li>
+          <li>주름 개선 (기능성 보고 완료 후에만)</li>
+          <li>"8주 사용 후 평균 ○% 개선 (n=○, 30~59세, 기기 측정)"</li>
+          <li>"의료진과 상담 후 사용하세요" 형식의 안내</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>광고에서 쓰면 안 되는 말</h4>
+        <ul>
+          <li>병원 전용, 의사 추천, 클리닉 독점</li>
+          <li>피부나이 -n세, 노화 억제, 재생, 피부 깊숙이, 염증 완화</li>
+          <li>시술 대체, 시술급, ○○ 시술 효과</li>
+          <li>리프팅 (기능성 없이), 엑소좀 등 인체 유래 성분</li>
+          <li>생체리듬으로 밤에 재생된다는 효능 주장</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">"되돌린다(REVERSE)"는 브랜드명·세계관 문장으로는 유지하되, 효능 광고 문구로는 쓰지 않는 쪽을 권합니다. 최종 판단은 화장품 전문 변호사 검토가 필요합니다.</p>
+  </section>
+
+  <section id="next">
+    <div class="sec-head">
+      <span class="k">Next actions</span>
+      <h2>다음 액션 (알라스틴 국내 출시 전후)</h2>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>시점</th><th>할 일</th><th>이유</th></tr></thead>
+        <tbody>
+          <tr><td class="b num">10월 중</td><td>TURNOVA 3·5류 상표 재검색 (리쥬란 '턴오버' 포함), 일본 J-PlatPat</td><td>이름 충돌은 다른 모든 작업보다 먼저</td></tr>
+          <tr><td class="b num">10월 중</td><td>필링밤 처방 기준 확정: pH 3.5 이상, AHA 10% 이하, 글리콜산 3.6% 이하, BHA 제외</td><td>라벨, 일본 진출, "순한 필링" 주장이 한 번에 정리됨</td></tr>
+          <tr><td class="b num">10월 중</td><td>나이트 크림 주름개선 기능성 보고 경로 결정 (아데노신 또는 레티놀)</td><td>"주름 개선"을 말할 수 있는 유일한 길</td></tr>
+          <tr><td class="b num">10~11월</td><td>제휴 클리닉 2~3곳과 시술 병행 시험 설계: 토닝·피코 대상 반쪽 얼굴 비교, n 20~40, TEWL·붉은기·턴오버 측정</td><td>알라스틴의 근거 설계를 한국 시술로 먼저 가져오기</td></tr>
+          <tr><td class="b num">11월</td><td>알라스틴 국내 가격·채널·키트 구성 확인 (2026.9 클리닉 공개 완료, 가격 미확인)</td><td>가격과 메시지 차별화 기준점</td></tr>
+          <tr><td class="b num">11~12월</td><td>시술별 캘린더 5종 문서화 + 의료진 감수. 광고 문구 변호사 검토</td><td>메인 포지션의 실체</td></tr>
+          <tr><td class="b num">12월</td><td>PDRN 앰플 출시 여부 재결정, 공구·올리브영 가격 정책 확정</td><td>가격 사다리 붕괴 방지</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="sec-head">
+      <span class="k">Sources</span>
+      <h2>주요 출처</h2>
+      <p>일부 수치는 검색 요약에서 가져왔고 원문을 직접 확인하지 못했습니다. 투자자 문서나 법률 검토에 쓸 때는 원문 확인이 필요합니다.</p>
+    </div>
+    <ul class="sources">
+      <li><a href="https://www.newswire.co.kr/newsRead.php?no=1038926">뉴스와이어 · 알라스틴 국내 출시</a></li>
+      <li><a href="https://www.americanmedspa.org/news/galderma-launches-alastin-in-japan-soon-to-singapore-south-korea/">AmSpa · 알라스틴 아시아 진출</a></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12648354/">PMC · 알라스틴 TriHex+ 시술 병행 연구</a></li>
+      <li><a href="https://www.galderma.com/news/galderma-delivers-record-2025-results">Galderma · 2025 실적</a></li>
+      <li><a href="https://www.beautyindependent.com/skinceuticals-bring-growing-med-spa-concept-skinlab-santa-monica">Beauty Independent · SkinCeuticals SkinLab</a></li>
+      <li><a href="https://www.newbeauty.com/alle-loyalty-rewards-program-benefits/">NewBeauty · Allē 멤버십</a></li>
+      <li><a href="https://fortune.com/2026/09/19/blackstone-zo-skin-health-brand-you-wont-find-at-sephora-2-billion/">Fortune · ZO Skin Health $2B</a></li>
+      <li><a href="https://www.beautyindependent.com/sephora-ends-partnership-hydrafacial/">Beauty Independent · 세포라-하이드라페이셜 종료</a></li>
+      <li><a href="https://www.americanmedspa.org/news/2024-medical-spa-state-of-the-industry-executive-report-recap/">AmSpa · 2024 메드스파 산업 보고서</a></li>
+      <li><a href="https://www.harveynichols.com/noble-panacea/the-exceptional-overnight-chronobiology-peel-8-dose-991794-175498">Harvey Nichols · Noble Panacea 오버나이트 필</a></li>
+      <li><a href="https://oneskin.co/blogs/reference-lab/oneskin-s-12-week-clinical-study-to-validate-the-effects-of-os-01-face">OneSkin · 12주 임상</a></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12127787">PMC · OneSkin 무작위 시험</a></li>
+      <li><a href="https://blueprint.bryanjohnson.com/blogs/news/my-new-skincare-protocol-2025">Blueprint · 스킨케어 프로토콜</a></li>
+      <li><a href="https://www.medik8.com/philosophy-csa.html">Medik8 · CSA 철학</a></li>
+      <li><a href="https://corp.shiseido.com/en/brands/drdennisgross/">Shiseido · Dr. Dennis Gross</a></li>
+      <li><a href="https://www.cosmeticsdesign-europe.com/Article/2025/08/13/nivea-debuts-epigenetic-serum-for-mass-market-skin-rejuvenation">CosmeticsDesign · 니베아 에피제네틱 세럼</a></li>
+      <li><a href="https://www.cosmorning.com/mobile/article.html?no=52169">코스모닝 · 메디큐브 실적</a></li>
+      <li><a href="https://cosmorning.com/mobile/article.html?no=52739">코스모닝 · 리쥬란 코스메틱 실적</a></li>
+      <li><a href="https://www.mirai-skin.com/ko/products/rejuran-healer-turnover-ampoule-30ml">리쥬란 힐러 턴오버 앰플 상품 페이지</a></li>
+      <li><a href="https://www.apgroup.com/int/ko/news/2025-12-03-2.html">아모레퍼시픽 · 에스트라</a></li>
+      <li><a href="https://www.smarttoday.co.kr/ko-kr/articles/80662">스마트투데이 · VT 리들샷 일본</a></li>
+      <li><a href="https://www.youthdaily.co.kr/news/article.html?no=221516">청년일보 · 올리브영 더마관</a></li>
+      <li><a href="https://kcia.or.kr/cid/search/ingd_view.php?no=5453">대한화장품협회 · AHA 주의 문구</a></li>
+      <li><a href="https://www.cncnews.co.kr/mobile/article.html?no=10245">CNC뉴스 · 살리실산 규정 변경</a></li>
+      <li><a href="https://www.newsseoul.co.kr/news/view/1065576619317500">뉴스서울 · 2025 광고 금지 표현</a></li>
+      <li><a href="https://www.cncnews.co.kr/news/article.html?no=10450">CNC뉴스 · 의약품 오인 표현</a></li>
+      <li><a href="https://biz.sbs.co.kr/amp/article/20000321625">SBS Biz · PDRN 광고 적발 증가</a></li>
+      <li><a href="https://www.mhlw.go.jp/file/05-Shingikai-11121000-Iyakushokuhinkyoku-Soumuka/0000116783.pdf">일본 후생노동성 · 글리콜산 기준</a></li>
+      <li><a href="https://www.biteki.com/1929667/">biteki · POLA 링클샷</a></li>
+      <li><a href="https://www.heraldk.com/article/2026042315314853513">헤럴드 · 2025 외국인 환자 통계</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap">지니어스 팀 · 터노바(TURNOVA) 내부 전략 자료 Vol.2 · 2026.10.04 · 규제 관련 내용은 법률 자문을 대신하지 않습니다</footer>
