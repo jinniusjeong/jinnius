@@ -2,13 +2,13 @@
 사용: python3 turnova-qa/measure_front.py 이미지1.png [이미지2.png ...]
   (필요: pip install numpy pillow)
 출력: 블록별 패널 폭 대비 %, 블록 간격, 기준 판정 + turnova-qa/out/thumbs.png (SNS 썸네일 160px 확인용)
-판정 기준(가이드 8장, 10/6 샤넬 실측 개정): 워드마크 75~92% (10/6 오너 기준 스틱 87%; 낮고 넓은 자는 별도), 심볼 ≤12%(측정 허용 13), 심볼 ≤12%, 블록 간격 편차 ≤35%(한 묶음 배치일 때)
+판정 기준(가이드 8장, 10/6 샤넬 실측 개정): 워드마크 75~92% (10/6 오너 기준 스틱 87%; 낮고 넓은 자는 별도), 심볼 15~24% (10/7 황금비: 워드마크/φ³ ≈ 20%), 심볼 ≤12%, 블록 간격 편차 ≤35%(한 묶음 배치일 때)
 """
 import sys, os
 import numpy as np
 from PIL import Image
 
-WM_MIN, WM_MAX, SYM_MAX, GAP_DEV = 75, 92, 13, 0.35
+WM_MIN, WM_MAX, SYM_MIN, SYM_MAX, GAP_DEV = 75, 92, 15, 24, 0.35
 
 def blocks(a):
     R, G, B = a[..., 0], a[..., 1], a[..., 2]
@@ -18,7 +18,7 @@ def blocks(a):
     if not len(rows): return []
     grp, s, p = [], rows[0], rows[0]
     for r in rows[1:]:
-        if r - p > 6: grp.append((s, p)); s = r
+        if r - p > 12: grp.append((s, p)); s = r          # 12px 이하 틈은 같은 요소(심볼 꽃잎 끝 분리 방지)
         p = r
     grp.append((s, p))
     out = []
@@ -52,13 +52,15 @@ def judge(bs):
         after = [b for b in bs if b['y0'] > wm['y1'] and b['h'] > wm['h'] * 0.45 and b['w'] < 40]   # 심볼: 워드마크 다음의 높고 좁은 블록
         if after:
             sy = after[0]
-            msg.append(f"심볼 {sy['w']}% {'OK' if sy['w'] <= SYM_MAX else f'반려(>{SYM_MAX}%)'}")
+            msg.append(f"심볼 {sy['w']}% " + ('OK' if SYM_MIN <= sy['w'] <= SYM_MAX else (f'반려(<{SYM_MIN}% 작음)' if sy['w'] < SYM_MIN else f'반려(>{SYM_MAX}%)')))
             g1 = sy['y0'] - wm['y1']
             nxt = [b for b in bs if b['y0'] > sy['y1']]
             if nxt:
                 g2 = nxt[0]['y0'] - sy['y1']
                 dev = abs(g1 - g2) / max(g1, g2)
-                msg.append(f"간격 워드마크↔심볼 {g1}px / 심볼↔제품명 {g2}px " + ('샤넬식 2단(가운데 비움)' if g2 > 3 * g1 else ('OK' if dev <= GAP_DEV else '수정(간격 불균형)')))
+                r = g2 / max(g1, 1)                                   # 황금비 1.618 (허용 1.35~1.95), 균등 1.0도 허용
+                ok = 1.35 <= r <= 1.95 or dev <= GAP_DEV
+                msg.append(f"간격 워드마크↔심볼 {g1}px / 심볼↔제품명 {g2}px = 1 : {r:.2f} " + ('OK(황금비)' if 1.35 <= r <= 1.95 else ('OK(균등)' if ok else '수정(균형 깨짐 — 황금비 1:1.618 기준)')))
     return msg
 
 def main(paths):
