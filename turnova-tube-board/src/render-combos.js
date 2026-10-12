@@ -1,6 +1,7 @@
 // Pre-renders the combo gallery (static, complete at rest) and the builder shell into combos-section.html.
 const fs = require('fs');
 require('./combos.js');
+const RULES = require('./rules.js');
 const T = globalThis.TNC;
 const D = require('./combos-data.js');
 const SYM = fs.readFileSync(require('path').join(__dirname, '..', require('fs').existsSync(__dirname + '/../mockups') ? 'mockups' : 'mock', 'sym-path.txt'), 'utf8');
@@ -31,7 +32,7 @@ function card(p, held) {
   const a = T.axes(p.b, p.m), [cls, t] = held ? ['', '8각 보류'] : TAG[p.tag];
   const boss = p.tag === 'boss' && !held;
   return `<article class="combo ${(p.tag === 'pick' || boss) && !held ? 'pick' : ''} ${boss ? 'boss' : ''}" data-tag="${held ? 'held' : (boss ? 'pick' : p.tag)}">
-  <figure>${boss ? T.trio(p.j, p.b, p.m, { aria: p.id + ' ' + p.title }) : T.pair(p.b, p.m, { aria: p.id + ' ' + p.title })}</figure>
+  <figure>${boss ? T.lineup(p.j, p.b, p.m, null, null, { aria: p.id + ' ' + p.title }) : T.pair(p.b, p.m, { aria: p.id + ' ' + p.title })}</figure>
   <div class="cb">
     <div class="ct"><span class="cid">${p.id}</span><span class="tag ${cls}">${t}</span><h3>${esc(p.title)}</h3></div>
     <p>${esc(p.idea)}</p>
@@ -44,6 +45,9 @@ function card(p, held) {
 </article>`;
 }
 const stockCards = D.stock.map(p => card(p, false)).join('\n');
+const bottleCards = D.bottles.map(v => { const [cls, t] = TAG[v.tag]; const w = T.bottleWarn('a', v.a).concat(T.bottleWarn('s', v.s));
+  return `<article class="jarc"><figure>${T.duo(v.a, v.s, { aria: v.id + ' ' + v.title })}</figure><div class="cb"><div class="ct"><span class="cid">${v.id}</span><span class="tag ${cls}">${t}</span><h3>${esc(v.title)}</h3></div><p>${esc(v.note)}</p>${w.length ? `<ul class="warn">${w.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}<button type="button" class="load" data-bid="${v.id}">빌더에서 열기</button></div></article>`; }).join('\n');
+const rulesTable = `<div class="tbl"><table><thead><tr><th>번호</th><th>영역</th><th>룰</th><th>근거</th><th>날짜</th></tr></thead><tbody>${RULES.map(x => `<tr><td class="num">${x.id}</td><td>${esc(x.area)}</td><td>${esc(x.rule)}</td><td>${esc(x.src)}</td><td class="num">${x.date}</td></tr>`).join('')}</tbody></table></div>`;
 const heldCards = D.pairs.map(p => card(p, true)).join('\n');
 const jarTag = { round: ['gold', '추천'], tall: ['warn', '대안'], blueLid: ['', '참고'], oct: ['', '8각 보류'] };
 const jars = D.jars.map(j => { const [cls, t] = jarTag[j.lid]; return `<article class="jarc"><figure>${T.jarCard(j.lid, j.title)}</figure><div class="cb"><div class="ct"><span class="tag ${cls}">${t}</span><h3>${esc(j.title)}</h3></div><p>${esc(j.lid === 'oct' ? '튜브 8각 캡과 한 가족. 금형 비용으로 보류.' : j.note)}</p></div></article>`; }).join('\n');
@@ -82,19 +86,28 @@ function jarSide(o) {
 </div>`;
 }
 const JDEF = { shape: 'low', lid: 'round', body: 'blue' };
+const ADEF = D.bottles[0].a, SDEF = D.bottles[0].s;
+function bottleSide(k, title, o) {
+  return `<div class="side" role="group" aria-labelledby="${k}-lg"><div class="lg" id="${k}-lg">${title}</div>
+  <label for="${k}-type">용기</label><select id="${k}-type" data-k="type">${opt(T.BOTTLE_TYPES, o.type)}</select>
+  <label for="${k}-finish">코퍼 마감</label><select id="${k}-finish" data-k="finish">${opt(T.FINISHES, o.finish)}</select>
+  ${k === 'a' ? `<label for="a-bulb">스포이드 벌브</label><select id="a-bulb" data-k="bulb">${opt(T.BULBS, o.bulb || 'copper')}</select>` : ''}
+  <label for="${k}-body">바디</label><select id="${k}-body" data-k="body">${opt(T.JAR_BODIES, o.body)}</select>
+</div>`;
+}
 const ALL = D.stock.concat(D.pairs);
-const p1 = D.stock[0], a1 = T.axes(p1.b, p1.m), w1 = a1.warn.concat(T.jarWarn(p1.j || JDEF));
+const p1 = D.stock[0], a1 = T.axes(p1.b, p1.m), w1 = a1.warn.concat(T.jarWarn(p1.j || JDEF), T.bottleWarn('a', ADEF), T.bottleWarn('s', SDEF));
 const builder = `<div class="builder" id="builder">
   <div class="bctl">
     <div class="brow"><label for="preset">시작 조합</label><select id="preset">${ALL.map(p => `<option value="${p.id}">${p.id} · ${esc(p.title)}</option>`).join('')}</select>
     <button type="button" id="shuffle">무작위 조합</button></div>
-    <div class="sides">${jarSide(p1.j || JDEF)}${side('b', '배리어 · 화장대', p1.b)}${side('m', '랩핑 · 화장실', p1.m)}</div>
+    <div class="sides">${jarSide(p1.j || JDEF)}${side('b', '배리어 · 화장대', p1.b)}${bottleSide('a', '앰플 30ml · 화장대', ADEF)}${bottleSide('s', '세럼 30ml · 화장대', SDEF)}${side('m', '랩핑 · 화장실', p1.m)}</div>
   </div>
   <div class="bview">
-    <figure id="bfig">${T.trio(p1.j || JDEF, p1.b, p1.m, { aria: '빌더 미리보기' })}</figure>
+    <figure id="bfig">${T.lineup(p1.j || JDEF, p1.b, p1.m, ADEF, SDEF, { aria: '빌더 미리보기' })}</figure>
     <div class="axrow" id="baxes">${chips(a1)}<b class="sc">${a1.score}/5</b></div>
     <ul class="warn" id="bwarn">${w1.length ? w1.map(w => `<li>${esc(w)}</li>`).join('') : '<li style="color:var(--ok)">걸리는 점 없음</li>'}</ul>
-    <p class="bnote">구분 축 판정은 배리어와 랩핑 두 튜브 기준이고, 자는 가이드 확정 사양(넓고 낮은 원형 자 + 코퍼 뚜껑)과 다를 때 주황 줄로 알려 줍니다. '(금형 필요)'가 붙은 8각은 비용으로 보류한 옵션입니다.</p>
+    <p class="bnote">구분 축 판정은 배리어와 랩핑 두 튜브 기준입니다. 자·앰플·세럼은 룰북(R07·R10·R11) 기준과 다를 때 주황 줄로 알려 주고, 모든 경고에 룰 번호가 붙습니다. '(금형 필요)'가 붙은 8각은 비용으로 보류한 옵션입니다.</p>
   </div>
 </div>`;
 
@@ -116,10 +129,16 @@ fs.writeFileSync(__dirname + '/combos-section.html', `<section id="combos">
     <div class="combos" id="combo-grid">
 ${stockCards}
     </div>
+    <h3 class="subh" id="bottles">앰플 30ml · 세럼 30ml · ${D.bottles.length}가지</h3>
+    <p class="lede" style="margin-bottom:14px">둘 다 화장대 제품이라 장소 코드(R08)대로 코퍼 메탈을 씁니다. A01이 대표님이 보내 주신 라인업 이미지와 가이드 SKU 표 기준입니다.</p>
+    <div class="jars bottles">${bottleCards}</div>
     <h3 class="subh">필름밤 18ml 자 · 뚜껑 4가지</h3>
     <div class="jars">${jars}</div>
     <h3 class="subh" id="builder-h">조합 빌더 · 직접 섞어 보기</h3>
     ${builder}
+    <h3 class="subh" id="rules">디자인 룰북 · 자동 적용 ${RULES.length}개</h3>
+    <p class="lede" style="margin-bottom:14px">보드의 시안과 조합 빌더는 이 표를 기준으로 그리고 경고합니다. 대표님 결정이 새로 나오면 <code>src/rules.js</code>에 한 줄을 더하고 다시 빌드하면 시안·빌더·경고에 함께 반영됩니다.</p>
+    ${rulesTable}
     <details class="held">
       <summary>8각 캡 조합 18종 (비용으로 보류, 기록용)</summary>
       <div class="combos" style="margin-top:14px">
@@ -130,4 +149,4 @@ ${heldCards}
 </section>`);
 fs.writeFileSync(__dirname + '/defs.html', defs);
 console.log('stock', D.stock.map(p => p.id + ':' + T.axes(p.b, p.m).score + '/' + T.axes(p.b, p.m).warn.length).join(' '));
-fs.writeFileSync(__dirname + '/builder.js', fs.readFileSync(__dirname + '/builder.tpl.js', 'utf8').replace('__PRESETS__', JSON.stringify(D.stock.concat(D.pairs).map(p => ({ id: p.id, j: p.j || { shape: 'low', lid: 'round', body: 'blue' }, b: p.b, m: p.m })))));
+fs.writeFileSync(__dirname + '/builder.js', fs.readFileSync(__dirname + '/builder.tpl.js', 'utf8').replace('__PRESETS__', JSON.stringify({ pairs: D.stock.concat(D.pairs).map(p => ({ id: p.id, j: p.j || { shape: 'low', lid: 'round', body: 'blue' }, b: p.b, m: p.m })), bottles: D.bottles.map(v => ({ id: v.id, a: v.a, s: v.s })) })));

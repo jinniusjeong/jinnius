@@ -67,6 +67,14 @@ module.exports = {
     { id: 'P18', tag: 'no', title: '역배치 (배리어 원터치 · 랩핑 스크류)', idea: '장소와 여는 방식을 반대로 둔 경우입니다. 구분은 되지만 젖은 손으로 스크류를 돌리고, 화장대 제품에서 메탈 무게감이 빠집니다. 비교용입니다.', from: '피지오겔(크림 원터치) · 설화수(마스크 스크류)',
       b: { shape: 'slim', body: 'blue', cap: 'octFlip', metal: 'blue' }, m: { shape: 'wide', body: 'blue', cap: 'octScrew', metal: 'copper' } }
   ],
+  bottles: [
+    { id: 'A01', tag: 'pick', title: '가이드 기준 (대표 레퍼런스 10/13)', note: '앰플은 블루 스포이드 병 + 코퍼 스포이드, 세럼은 블루 원통 병 + 브러시드 코퍼 펌프입니다. 화장대 제품이라 메탈이 모두 코퍼입니다[R08·R10·R11].', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' }, s: { type: 'pump', body: 'blue', finish: 'smooth' } },
+    { id: 'A02', tag: 'alt', title: '리브드 코퍼 (세로 홈)', note: '달바 볼륨필린 라인처럼 메탈에 세로 홈을 넣습니다. 기성 리브드 캡이 있어 금형 없이 고급감과 조명 반사를 키웁니다. 유광 면이 아니라 무광 메탈 질감이라 [R04]와 충돌하지 않습니다.', a: { type: 'dropper', body: 'blue', finish: 'ribbed', bulb: 'copper' }, s: { type: 'pump', body: 'blue', finish: 'ribbed' } },
+    { id: 'A03', tag: 'alt', title: '세럼 슬림 에어리스 + 코퍼 밴드', note: '가이드 v10_1의 슬림 에어리스 + 상단 코퍼 밴드를 세럼에 씁니다. 키가 커서 라인업 사진의 높이 리듬이 생깁니다. 원가는 펌프 병보다 높습니다(추정).', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' }, s: { type: 'airless', body: 'blue', finish: 'smooth' } },
+    { id: 'A04', tag: 'ref', title: '앰플 블루 벌브 + 코퍼 링', note: '스포이드 고무 부분을 블루로 바꿔 앰플과 세럼을 멀리서도 구분합니다. 대신 화장대 제품의 코퍼 비중이 줄어듭니다[R08].', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'blue' }, s: { type: 'pump', body: 'blue', finish: 'smooth' } },
+    { id: 'A05', tag: 'ref', title: '세럼 미스트 스프레이', note: '달바 스프레이 앰플처럼 미스트 + 리브드 오버캡입니다. 메이크업 위에 뿌리는 장면이 SNS 소재가 되지만, 처방 점도를 미스트용으로 맞춰야 합니다.', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' }, s: { type: 'spray', body: 'blue', finish: 'ribbed' } },
+    { id: 'A06', tag: 'ref', title: '색 반전 한정판', note: '세럼만 코퍼 바디 + 블루 글자로 뒤집은 한정판입니다. 상시 SKU는 블루입니다[R12].', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' }, s: { type: 'pump', body: 'copper', finish: 'smooth' } }
+  ],
   jars: [
     { lid: 'round', tag: 'pick', title: '원형 코퍼 뚜껑', note: '가이드 확정 사양(10/6). 윗면에 심볼 톤온톤.' },
     { lid: 'oct', tag: 'alt', title: '8각 코퍼 뚜껑', note: '튜브 8각 캡과 한 가족. 8 시스템 확장 승인 시.' },
