@@ -1,5 +1,31 @@
 // 이름 붙인 조합 18종 + 필름밤 자 4종. tag: pick | alt | ref | no
 module.exports = {
+  stock: [
+    { id: 'S01', tag: 'pick', title: '체형 대비 (슬림 기둥 × 통통 블루)', idea: '배리어는 35Φ로 길고 슬림하게, 키 큰 코퍼 캡을 씌웁니다. 랩핑은 45Φ로 짧고 통통하게, 블루 원터치를 답니다. 금형 없이 기성 튜브와 기성 캡으로만 구분합니다.', sns: '투샷에서 키 큰 코퍼 기둥과 통통한 블루가 한 쌍으로 읽힙니다. 160px에서도 실루엣만으로 구분됩니다.', from: 'Rhode BRC × Barrier Butter · 바더 코퍼 캡',
+      b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'none' }, m: { shape: 'fat', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'none' } },
+    { id: 'S02', tag: 'pick', title: 'S01 + 배리어 코퍼 메탈 칼라', idea: '배리어 캡 위에 코퍼 메탈 칼라를 한 줄 더해 메탈 비중을 키웁니다. 코퍼 메탈 밴드는 가이드에서 AB에서 가져오기로 한 요소이고, 앰플 상단 밴드가 선례입니다.', sns: '조명을 받으면 칼라와 캡이 한 덩어리로 빛나 화장대 쉘피에서 시선을 잡습니다.', from: '바더 앰플·세럼 코퍼 칼라 · 가이드 v10_1',
+      b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'metalCollar' }, m: { shape: 'fat', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'none' } },
+    { id: 'S03', tag: 'alt', title: '오벌 랩핑', idea: '랩핑을 기성 오벌 튜브로 바꿉니다. 국내 PE 타원 100ml 원터치 튜브가 개당 490원 수준(VAT 별도)이고, 욕실 선반에 눕혀 둘 수 있습니다.', sns: '정면이 넓어 PDP 첫 컷과 릴스 썸네일에서 로고가 가장 크게 보입니다.', from: '피지오겔 오벌 · 럭스팩 타원 원터치',
+      b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'none' }, m: { shape: 'oval', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'none' } },
+    { id: 'S04', tag: 'alt', title: '극단 대비 (30Φ 롱 × 45Φ 숏)', idea: '배리어를 30Φ로 더 가늘고 길게 만들어 차이를 최대로 벌립니다. 30Φ는 정면 폭이 좁아 제품명 최소 높이(1.2mm)를 따로 확인해야 합니다.', sns: '세로 9:16 화면에서 롱 튜브가 화면을 꽉 채워 숏폼 커버로 좋습니다.', from: 'AHC 롱 튜브 · Rhode',
+      b: { shape: 'xslim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'none' }, m: { shape: 'fat', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'none' } },
+    { id: 'S05', tag: 'alt', title: '코퍼 크림프 (끝 실링부)', idea: '두 튜브 모두 끝 실링부를 코퍼로 인쇄해 "끝이 코퍼인 튜브"를 라인 공통 신호로 만듭니다. 캡과 체형 차이는 S01 그대로입니다.', sns: '뒤집어 세워도, 눕혀도 위아래가 코퍼라 어떤 각도의 사진에서도 터노바로 묶입니다.', from: 'AHC 레드 크림프 · 닥터자르트 상단 컬러',
+      b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'crimpCu' }, m: { shape: 'fat', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'crimpCu' } },
+    { id: 'S06', tag: 'alt', title: '반투명 블루 원터치', idea: '랩핑에 래핑 마스크 카테고리 문법(투명 캡)을 터노바 블루로 가져옵니다. 기성 원형 원터치에 반투명 블루 착색만 바꿉니다.', sns: '역광에서 캡이 블루로 빛나 욕실 사진의 포인트가 됩니다.', from: '메디큐브 · 메디필 투명 캡',
+      b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'none' }, m: { shape: 'fat', body: 'blue', cap: 'clearRoundFlip', metal: 'blue', band: 'none' } },
+    { id: 'S07', tag: 'alt', title: '와이드 플랫 캡 랩핑', idea: '랩핑을 짧고 통통한 튜브에 납작하고 넓은 스크류 캡으로 만듭니다(Rhode Barrier Butter 문법). 욕실에서 젖은 손으로 돌려 열어야 하는 점이 약점입니다.', sns: '위에서 찍으면 넓은 원판 캡이 보여 플랫레이 구도에 좋습니다.', from: 'Rhode Barrier Butter',
+      b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'none' }, m: { shape: 'fat', body: 'blue', cap: 'wideFlat', metal: 'blue', band: 'none' } },
+    { id: 'S08', tag: 'ref', title: '배리어 무광 코퍼 인쇄 띠', idea: '배리어 어깨에 무광 코퍼 잉크 띠를 넣습니다. 인쇄라 추가 부자재 비용은 거의 없지만, 자를 "띠 없이" 가기로 한 결정(10/6)과 같은 판단이 필요합니다.', sns: '띠가 화면 하단에 수평선을 만들어 진열 사진이 정돈돼 보입니다.', from: '바더 앰플 상단 밴드 · 제로이드 띠',
+      b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'printCu' }, m: { shape: 'fat', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'none' } },
+    { id: 'S09', tag: 'ref', title: '배리어 유광 금박 띠', idea: '물어보신 금박 띠입니다. 반사는 가장 강하지만 "유광은 워드마크·심볼만" 규칙과 충돌하고, 로고 포일과 반사가 겹쳐 로고가 약해질 수 있습니다. 쓴다면 화장대 제품에만 씁니다.', sns: '반사는 가장 큽니다. 다만 사진에서 로고보다 띠가 먼저 보일 위험이 있습니다.', from: '닥터자르트 울트라 골드 · 달바 골드 라인',
+      b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'foilCu' }, m: { shape: 'fat', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'none' } },
+    { id: 'S10', tag: 'ref', title: '색 반전 한정판 (DUA)', idea: '가이드에서 단상자·키트·한정판 옵션으로 정해 둔 색 반전을 튜브에 씁니다. 상시 SKU가 아니라 메종의 날(8월 8일)이나 세트 한정으로 운영하는 안입니다.', sns: '블루 라인 사이에 코퍼 튜브 하나가 끼면 피드에서 가장 튀는 컷이 됩니다.', from: 'DUA by AB · 가이드 단상자 DUA판',
+      b: { shape: 'slim', body: 'copper', cap: 'tallRound', metal: 'blue', band: 'none' }, m: { shape: 'fat', body: 'blue', cap: 'roundFlip', metal: 'copper', band: 'none' } },
+    { id: 'S11', tag: 'ref', title: '디스크탑 랩핑', idea: '누르면 열리는 기성 디스크탑입니다. 한 손으로 쓰기는 가장 쉽지만 필름 젤이 홈에 남아 굳을 수 있어 처방 테스트가 필요합니다.', sns: '누르는 동작이 짧아 ASMR 소재로는 원터치보다 약합니다.', from: '타차 라이스워시',
+      b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'none' }, m: { shape: 'fat', body: 'blue', cap: 'discTop', metal: 'blue', band: 'none' } },
+    { id: 'S12', tag: 'no', title: '현상 유지 (마스터 튜브 두 개)', idea: '지금 마스터 튜브를 두 번 씁니다. 라벨을 읽어야 구분되고, 바더 튜브와 가장 닮은 형태입니다.', sns: '두 개를 같이 찍으면 같은 제품 두 개처럼 보입니다.', from: '바더 · 라메르 형제 튜브',
+      b: { shape: 'std', body: 'blue', cap: 'roundScrew', metal: 'copper', band: 'none' }, m: { shape: 'std', body: 'blue', cap: 'roundScrew', metal: 'copper', band: 'none' } }
+  ],
   pairs: [
     { id: 'P01', tag: 'pick', title: '같은 블루, 다른 8각 캡', idea: '총괄 추천안 A. 바디·라벨은 가이드 그대로 두고, 화장대는 메탈 스크류, 욕실은 PP 원터치로 나눕니다.', from: 'Rhode 비율 + Tatcha 원터치 + 샤넬 8각',
       b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'octFlip', metal: 'blue' } },

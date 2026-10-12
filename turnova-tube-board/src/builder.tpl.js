@@ -5,19 +5,20 @@
   var preset = document.getElementById('preset');
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
   function read(p){
-    var o = {}; ['shape','body','cap','metal'].forEach(function(k){ o[k] = document.getElementById(p + '-' + k).value; });
-    o.band = document.getElementById(p + '-band').checked; return o;
+    var o = {}; ['shape','body','cap','metal','band'].forEach(function(k){ o[k] = document.getElementById(p + '-' + k).value; });
+    return o;
   }
   function write(p, o){
+    var band = o.band === true ? 'printCu' : (o.band || 'none');
     ['shape','body','cap','metal'].forEach(function(k){ document.getElementById(p + '-' + k).value = o[k]; });
-    document.getElementById(p + '-band').checked = !!o.band;
+    document.getElementById(p + '-band').value = band;
   }
   function render(){
     var b = read('b'), m = read('m'), a = T.axes(b, m);
     fig.innerHTML = T.pair(b, m, { aria: '빌더 미리보기' });
     axEl.innerHTML = a.axes.map(function(r){ return '<span class="ax ' + (r[1] ? 'on' : '') + '">' + (r[1] ? '✓' : '–') + ' ' + r[0] + '</span>'; }).join('') + '<b class="sc">' + a.score + '/5</b>';
     wEl.innerHTML = a.warn.length ? a.warn.map(function(w){ return '<li>' + esc(w) + '</li>'; }).join('') : '<li style="color:var(--ok)">걸리는 점 없음</li>';
-    try { localStorage.setItem('tn-builder', JSON.stringify({ b: b, m: m })); } catch(e) {}
+    try { localStorage.setItem('tn-builder2', JSON.stringify({ b: b, m: m })); } catch(e) {}
   }
   function load(id){
     for (var i = 0; i < PRESETS.length; i++) if (PRESETS[i].id === id) { write('b', PRESETS[i].b); write('m', PRESETS[i].m); preset.value = id; render(); return; }
@@ -28,7 +29,7 @@
   preset.addEventListener('change', function(){ load(preset.value); });
   function pick(obj){ var k = Object.keys(obj); return k[Math.floor(Math.random() * k.length)]; }
   document.getElementById('shuffle').addEventListener('click', function(){
-    ['b','m'].forEach(function(p){ write(p, { shape: pick(T.SHAPES), body: Math.random() < .8 ? 'blue' : 'copper', cap: pick(T.CAPS), metal: pick(T.METALS), band: Math.random() < .2 }); });
+    ['b','m'].forEach(function(p){ write(p, { shape: pick(T.SHAPES), body: Math.random() < .8 ? 'blue' : 'copper', cap: pick(T.CAPS), metal: pick(T.METALS), band: Math.random() < .6 ? 'none' : pick(T.BANDS) }); });
     render();
   });
   document.querySelectorAll('.combo .load').forEach(function(btn){
@@ -40,5 +41,5 @@
     cards.forEach(function(card){ card.hidden = !(c === 'all' || card.dataset.tag === c); });
     cbtn.forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
   }); });
-  try { var s = JSON.parse(localStorage.getItem('tn-builder') || 'null'); if (s && s.b && s.m) { write('b', s.b); write('m', s.m); render(); } } catch(e) {}
+  try { var s = JSON.parse(localStorage.getItem('tn-builder2') || 'null'); if (s && s.b && s.m) { write('b', s.b); write('m', s.m); render(); } } catch(e) {}
 })();

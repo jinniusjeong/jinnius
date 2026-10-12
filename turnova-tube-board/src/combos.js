@@ -16,16 +16,22 @@
     column:    { label: '롱 컬럼 캡', mech: 'screw', shape: 'round', h: 98, wr: 0.5 },
     octColumn: { label: '8각 롱 컬럼', mech: 'screw', shape: 'oct', h: 98, wr: 0.54 },
     clearFlip: { label: '반투명 블루 8각 원터치', mech: 'flip', shape: 'oct', h: 40, wr: 0.78 },
-    pump:      { label: '에어리스 펌프', mech: 'pump', shape: 'round', h: 72, wr: 0.72 }
+    pump:      { label: '에어리스 펌프', mech: 'pump', shape: 'round', h: 72, wr: 0.72 },
+    tallRound: { label: '키 큰 원형 스크류', mech: 'screw', shape: 'round', h: 86, wr: 0.64 },
+    shortRound:{ label: '낮은 원형 스크류', mech: 'screw', shape: 'round', h: 34, wr: 0.76 },
+    clearRoundFlip: { label: '반투명 블루 원형 원터치', mech: 'flip', shape: 'round', h: 40, wr: 0.76 }
   };
   var SHAPES = {
     slim:  { label: '35Φ 슬림', w: 112, bodyH: 280 },
     std:   { label: '38Φ 표준', w: 132, bodyH: 262 },
     wide:  { label: '40Φ 와이드', w: 156, bodyH: 236 },
-    oval:  { label: '오벌 플랫', w: 176, bodyH: 214 }
+    oval:  { label: '오벌 플랫', w: 176, bodyH: 214 },
+    xslim: { label: '30Φ 롱', w: 98, bodyH: 300 },
+    fat:   { label: '45Φ 숏', w: 182, bodyH: 196 }
   };
   var BODIES = { blue: '로열블루', copper: '코퍼(색 반전)' };
   var METALS = { copper: '코퍼', blue: '블루', ringed: '블루 + 코퍼 링' };
+  var BANDS = { none: '없음', printCu: '무광 코퍼 인쇄 띠', foilCu: '유광 금박 띠', metalCollar: '코퍼 메탈 칼라', crimpCu: '코퍼 크림프(끝 실링부)' };
 
   function f(n) { return (+n).toFixed(1); }
 
@@ -75,11 +81,16 @@
     var s = '<ellipse cx="' + f(x) + '" cy="' + f(ground + 2) + '" rx="' + f(w * 0.62) + '" ry="8" fill="url(#sh)"/>';
     s += '<clipPath id="' + cid + '"><path d="' + p + '"/></clipPath><path d="' + p + '" fill="' + (blue ? 'url(#rb)' : 'url(#cuBody)') + '"/>';
     var labelBottom = shY;
-    if (o.band) { var bh = bodyH * 0.11; s += '<g clip-path="url(#' + cid + ')"><rect x="' + f(x - w) + '" y="' + f(shY - bh) + '" width="' + f(w * 2) + '" height="' + f(bh + 40) + '" fill="url(#cu)"/></g>'; labelBottom = shY - bh; }
-    s += '<rect x="' + f(x - w / 2 - 1.5) + '" y="' + f(yTop) + '" width="' + f(w + 3) + '" height="13" rx="1.5" fill="' + (blue ? '#18217F' : '#D98F63') + '"/>';
+    var band = o.band === true ? 'printCu' : (o.band || 'none');
+    if (band === 'printCu' || band === 'foilCu') {
+      var bh = bodyH * 0.1;
+      s += '<g clip-path="url(#' + cid + ')"><rect x="' + f(x - w) + '" y="' + f(shY - bh) + '" width="' + f(w * 2) + '" height="' + f(bh + 40) + '" fill="' + (band === 'foilCu' ? 'url(#foil)' : '#D98F63') + '"/>' + (band === 'foilCu' ? '<rect x="' + f(x - w * 0.18) + '" y="' + f(shY - bh) + '" width="' + f(w * 0.07) + '" height="' + f(bh + 40) + '" fill="rgba(255,255,255,.55)"/>' : '') + '</g>';
+      labelBottom = shY - bh;
+    }
+    s += '<rect x="' + f(x - w / 2 - 1.5) + '" y="' + f(yTop) + '" width="' + f(w + 3) + '" height="13" rx="1.5" fill="' + (band === 'crimpCu' ? 'url(#cu)' : (blue ? '#18217F' : '#D98F63')) + '"/>';
     for (var i = 1; i <= 24; i++) { var lx = x - w / 2 + (w / 25) * i; s += '<line x1="' + f(lx) + '" y1="' + f(yTop + 3) + '" x2="' + f(lx) + '" y2="' + f(yTop + 10) + '" stroke="' + (blue ? '#2836B4' : '#C27A50') + '" stroke-width=".7"/>'; }
     s += label(x, yTop + 13, labelBottom, w * 0.9, o.name, o.vol, blue ? CU_TXT : BLUE_TXT, blue ? 'url(#cu)' : BLUE_TXT, false);
-    var tone = o.cap === 'clearFlip' ? 'clear' : (o.metal === 'copper' ? 'copper' : 'blue');
+    var tone = (o.cap === 'clearFlip' || o.cap === 'clearRoundFlip') ? 'clear' : (o.metal === 'copper' ? 'copper' : 'blue');
     if (cp.mech === 'pump') {
       s += '<rect x="' + f(x - capW / 2) + '" y="' + f(capY) + '" width="' + f(capW) + '" height="' + capH + '" rx="3" fill="url(#clr)" stroke="rgba(18,28,74,.35)"/>';
       s += '<rect x="' + f(x - 13) + '" y="' + f(capY + 6) + '" width="26" height="' + (capH - 22) + '" rx="3" fill="url(#cu)"/><rect x="' + f(x - capW / 2) + '" y="' + f(capY) + '" width="' + f(capW) + '" height="2.4" fill="url(#cu)"/>';
@@ -89,7 +100,8 @@
       if (o.metal === 'ringed' && tone !== 'copper') s += '<rect x="' + f(x - capW / 2) + '" y="' + f(capY) + '" width="' + f(capW) + '" height="3" fill="url(#cu)"/>';
       var dark = tone === 'copper' ? '#6E3A18' : '#0B1048';
       if (cp.mech === 'flip') { var py = capY + capH * 0.45; s += '<path d="M' + f(x - capW / 2) + ' ' + f(py) + 'H' + f(x + capW / 2) + '" stroke="' + dark + '" stroke-width="1.3"/><path d="M' + f(x - 10) + ' ' + f(py) + 'Q' + f(x) + ' ' + f(py + 8) + ' ' + f(x + 10) + ' ' + f(py) + '" fill="' + dark + '"/>'; }
-      if (o.cap === 'clearFlip') s += '<rect x="' + f(x - 5) + '" y="' + f(capY + 6) + '" width="10" height="' + (capH - 12) + '" rx="2" fill="#1E2AA0" opacity=".55"/>';
+      if (o.cap === 'clearFlip' || o.cap === 'clearRoundFlip') s += '<rect x="' + f(x - 5) + '" y="' + f(capY + 6) + '" width="10" height="' + (capH - 12) + '" rx="2" fill="#1E2AA0" opacity=".55"/>';
+      if (band === 'metalCollar') s += '<rect x="' + f(x - capW / 2 - 2) + '" y="' + f(capY - 9) + '" width="' + f(capW + 4) + '" height="11" rx="2" fill="url(#cu)"/><rect x="' + f(x - capW / 2 - 2) + '" y="' + f(capY - 9) + '" width="' + f(capW + 4) + '" height="2" fill="rgba(255,255,255,.4)"/>';
       if (cp.mech === 'disc') { var dy = capY + capH - 9; s += '<path d="M' + f(x - capW / 2) + ' ' + f(dy) + 'H' + f(x + capW / 2) + '" stroke="' + dark + '" stroke-width="1"/><ellipse cx="' + f(x) + '" cy="' + f(dy + 4) + '" rx="' + f(capW * 0.22) + '" ry="3" fill="' + dark + '" opacity=".55"/>'; }
     }
     return s;
@@ -130,8 +142,8 @@
   }
   function capName(o) {
     var c = CAPS[o.cap];
-    if (o.cap === 'clearFlip' || c.mech === 'pump') return c.label;
-    return (METALS[o.metal] || '') + ' ' + c.label + (o.body === 'copper' ? ' · 코퍼 바디' : '') + (o.band ? ' · 코퍼 밴드' : '');
+    if (o.cap === 'clearFlip' || o.cap === 'clearRoundFlip' || c.mech === 'pump') return c.label;
+    return (METALS[o.metal] || '') + ' ' + c.label + (o.body === 'copper' ? ' · 코퍼 바디' : '') + (o.band && o.band !== 'none' ? ' · ' + BANDS[o.band === true ? 'printCu' : o.band] : '');
   }
   function jarCard(lid, caption) {
     var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200" role="img" aria-label="필름밤 자 ' + caption + '"><rect width="260" height="200" fill="#EFECE6"/><rect y="160" width="260" height="40" fill="#D9D1C4"/>';
@@ -141,7 +153,8 @@
   // 구분 축 판정: 여는 방식, 캡 높이, 캡 색, 튜브 지름, 캡 소재
   function axes(b, m) {
     var cb = CAPS[b.cap], cm = CAPS[m.cap];
-    var toneB = b.cap === 'clearFlip' ? 'clear' : b.metal, toneM = m.cap === 'clearFlip' ? 'clear' : m.metal;
+    var cl = function (o) { return o.cap === 'clearFlip' || o.cap === 'clearRoundFlip'; };
+    var toneB = cl(b) ? 'clear' : b.metal, toneM = cl(m) ? 'clear' : m.metal;
     var res = [
       ['여는 방식', cb.mech !== cm.mech],
       ['캡 높이', Math.abs(cb.h - cm.h) >= 20],
@@ -151,15 +164,19 @@
     ];
     var warn = [];
     if (b.body === 'copper' || m.body === 'copper') warn.push('코퍼 바디는 가이드의 라인 1색 원칙 밖');
-    if (cb.shape === 'oct' || cm.shape === 'oct') warn.push('8각은 8 시스템 확장 승인 필요');
+    if (cb.shape === 'oct' || cm.shape === 'oct') warn.push('8각은 신규 금형 필요(800만–2,500만 원 추정) · 비용으로 보류');
     if (cb.mech === 'pump' || cm.mech === 'pump') warn.push('에어리스는 캡슐·젤 경화 리스크로 제외 대상');
     if (toneM === 'copper' && cm.mech === 'flip') warn.push('욕실 코퍼 증착 원터치는 마모 시험 필요');
     if (cm.mech === 'screw') warn.push('욕실에서 젖은 손 스크류 개폐 불편');
     if (cm.mech === 'disc') warn.push('디스크탑은 필름 젤 잔여물 고착 위험');
-    if (b.band || m.band) warn.push('튜브 밴드는 가이드 미정(자는 띠 없음 확정)');
+    [b, m].forEach(function (o, i) {
+      var bd = o.band === true ? 'printCu' : o.band, who = i ? '랩핑' : '배리어';
+      if (bd === 'foilCu') warn.push(who + ' 유광 금박 띠: "유광은 로고만" 규칙과 충돌' + (i ? ', 욕실 습기에 박 들뜸 위험' : ''));
+      if (bd === 'printCu') warn.push(who + ' 무광 코퍼 띠: 자 "띠 없음"(10/6) 결정과 같은 판단 필요');
+    });
     if (cb.mech === 'flip') warn.push('화장대 배리어 원터치는 메탈 무게감이 약함');
     return { axes: res, score: res.filter(function (r) { return r[1]; }).length, warn: warn };
   }
 
-  root.TNC = { CAPS: CAPS, SHAPES: SHAPES, BODIES: BODIES, METALS: METALS, pair: pair, jarCard: jarCard, axes: axes };
+  root.TNC = { CAPS: CAPS, SHAPES: SHAPES, BODIES: BODIES, METALS: METALS, BANDS: BANDS, oct: oct, pair: pair, jarCard: jarCard, axes: axes };
 })(typeof window !== 'undefined' ? window : globalThis);
