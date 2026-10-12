@@ -1,0 +1,313 @@
+
+<style>
+  .s-hero h1{font-size:clamp(28px,4.6vw,48px)}
+  .route{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:18px;overflow-x:auto}
+  .route svg{display:block;width:100%;min-width:640px;height:auto}
+  .route .t1{fill:var(--ink);font-family:var(--body);font-size:14px;font-weight:600}
+  .route .t2{fill:var(--muted);font-family:var(--body);font-size:12px}
+  .route .tk{fill:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+  .route .ln{stroke:var(--line-2);stroke-width:1.5;fill:none}
+  .route .ac{stroke:var(--gold);stroke-width:2;fill:none}
+  .route .nd{fill:var(--well);stroke:var(--line-2)}
+  .route .ndB{fill:#1E2AA0}
+  .route .ndC{fill:#C47E4E}
+  .house{display:grid;gap:12px}
+  .roof{background:var(--hero);color:var(--hero-ink);border-radius:12px;padding:18px 22px}
+  .roof .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#F0A57C;text-transform:uppercase}
+  .roof p{font-family:var(--head);font-size:clamp(18px,2.4vw,23px);font-weight:700;margin-top:6px}
+  .pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .pillar{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+  .pillar h3{font-size:16px}
+  .pillar p{font-size:13.5px;color:var(--ink-2)}
+  .base{background:var(--well);border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--ink-2)}
+  .teams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .tcard{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:20px 22px;display:grid;gap:12px;align-content:start;min-width:0}
+  .tcard header{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .tcard h3{font-size:19px}
+  .tcard .goal{font-size:14.5px;font-weight:600;color:var(--ink)}
+  .tcard h4{margin:4px 0 0;font-size:12px;font-family:var(--mono);letter-spacing:.08em;color:var(--muted);text-transform:uppercase;font-weight:500}
+  .tcard ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:13.6px;color:var(--ink-2)}
+  .tcard ul.no li{color:var(--bad)}
+  .kpis{display:flex;flex-wrap:wrap;gap:6px}
+  .kpi{font-size:12px;padding:4px 9px;border-radius:6px;background:var(--well);color:var(--ink-2)}
+  .kpi b{font-family:var(--mono);color:var(--ink);font-weight:500}
+  .tbl table{min-width:760px}
+  .pair-fig{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#EFECE6}
+  .pair-fig svg{display:block;width:100%;height:auto}
+  .two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+  .quote{border-left:3px solid var(--gold);padding:4px 0 4px 14px;font-family:var(--head);font-size:17px;font-weight:700;color:var(--ink)}
+  @media (max-width:820px){ .pillars,.teams,.two{grid-template-columns:1fr} }
+</style>
+
+<header class="hero s-hero">
+  <div class="wrap">
+    <div class="eyebrow">TURNOVA · 캡 시스템 전략 · 2026-10-12 · 브랜딩 · 커머스 · 마케팅 · 비주얼</div>
+    <h1>캡이 장소를 정하고,<br>장소가 리추얼을 만듭니다.</h1>
+    <p class="lede">튜브 두 개를 구분하려고 시작한 캡 결정을, 터노바 전체 전략의 축으로 키우는 안입니다. 욕실의 블루 캡은 밤 8시 출발이고, 화장대의 코퍼 캡은 아침 도착입니다. 브랜드북 V장에 이미 있는 '왕복 인증'(밤 8시 출발, 아침 도착)을 패키지가 직접 보여주게 만듭니다.</p>
+    <div class="verdict" role="list">
+      <div role="listitem"><div class="k">🔮 단 하나의 길</div><div class="v">S2 왕복 리추얼 전략</div><div class="s">장소 코드 + 왕복 리추얼 + 8각 형태 보호를 한 묶음으로 실행</div></div>
+      <div role="listitem"><div class="k">먼저 검증할 것</div><div class="v">"랩핑은 욕실에 둔다" 가정</div><div class="s">타깃 50명 설문, 60% 미만이면 장소 코드만 재검토</div></div>
+      <div role="listitem"><div class="k">대표 결정</div><div class="v">8각을 8 시스템에 추가할지</div><div class="s">추천: 승인. 금형은 판매를 보고 결정(대안 1)</div></div>
+    </div>
+    <div class="alts">
+      <div><b>대안 1 · S1 장소 코드만</b> 캡 색 규칙(코퍼 = 화장대, 블루 = 욕실)만 라인 전체에 적용하고, 리추얼 연결은 1,000명을 모은 뒤 켭니다.</div>
+      <div><b>대안 2 · S3 8각 아이콘 선행</b> 8각 캡을 샤넬 N°5 스토퍼처럼 광고 전면에 세웁니다. 인지는 빠르지만 금형과 매체비가 먼저 나가야 합니다.</div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">01 · 핵심 그림</div>
+      <h2>하룻밤의 왕복: 욕실에서 출발해 화장대에 도착합니다</h2>
+      <p class="lede">브랜드 이름의 3막(TURN OFF → TURN OVER → NOVA)이 두 장소와 두 캡에 그대로 겹칩니다. 패키지를 보면 루틴의 순서와 놓을 곳이 함께 보입니다.</p>
+    </div>
+    <div class="route">
+      <svg viewBox="0 0 900 230" role="img" aria-label="하룻밤 왕복 경로: 밤 8시 욕실에서 랩핑마스크로 출발, 자는 동안 턴오버, 아침 욕실에서 떼어내고 화장대에서 배리어크림으로 도착">
+        <path class="ln" d="M110 120 H790"/>
+        <path class="ac" d="M110 120 H330"/>
+        <path class="ac" d="M570 120 H790"/>
+        <circle class="nd ndB" cx="110" cy="120" r="22"/>
+        <circle class="nd" cx="330" cy="120" r="16"/>
+        <circle class="nd" cx="570" cy="120" r="16"/>
+        <circle class="nd ndC" cx="790" cy="120" r="22"/>
+        <text class="tk" x="110" y="62" text-anchor="middle">8 PM · TURN OFF</text>
+        <text class="t1" x="110" y="176" text-anchor="middle">욕실 · 출발</text>
+        <text class="t2" x="110" y="196" text-anchor="middle">샤워 후 랩핑마스크</text>
+        <text class="t2" x="110" y="214" text-anchor="middle">블루 8각 원터치 · 젖은 손</text>
+        <text class="tk" x="330" y="62" text-anchor="middle">NIGHT · TURN OVER</text>
+        <text class="t1" x="330" y="176" text-anchor="middle">자는 동안</text>
+        <text class="t2" x="330" y="196" text-anchor="middle">필름이 덮고 피부가 바뀜</text>
+        <text class="tk" x="570" y="62" text-anchor="middle">MORNING</text>
+        <text class="t1" x="570" y="176" text-anchor="middle">욕실 · 떼어냄</text>
+        <text class="t2" x="570" y="196" text-anchor="middle">필름을 벗기는 순간</text>
+        <text class="tk" x="790" y="62" text-anchor="middle">NOVA · ARRIVE</text>
+        <text class="t1" x="790" y="176" text-anchor="middle">화장대 · 도착</text>
+        <text class="t2" x="790" y="196" text-anchor="middle">배리어크림</text>
+        <text class="t2" x="790" y="214" text-anchor="middle">코퍼 8각 스크류 · 마른 손</text>
+      </svg>
+    </div>
+    <div class="two" style="margin-top:18px">
+      <figure class="pair-fig">{{P01}}</figure>
+      <div style="display:grid;gap:12px">
+        <p class="quote">블루 캡은 쓰는 곳에, 코퍼 캡은 보여주는 곳에 둡니다.</p>
+        <p class="lede" style="font-size:14px">이 규칙 하나로 세 가지가 동시에 풀립니다. 매대와 썸네일에서 두 튜브가 구분되고, 고객은 어디에 둘지 바로 알며, 브랜드는 '왕복 인증' 리추얼을 설명 없이 보여줍니다. 앞으로 나올 SKU의 캡도 이 규칙으로 정할 수 있어서(넥스틱·아이크림은 화장대 → 코퍼, 바디·헤어는 욕실 → 블루), 인수자가 사는 '복제 불가능한 체계'의 한 조각이 됩니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">02 · 전략 옵션 시뮬레이션</div>
+      <h2>현상 유지를 포함한 4개 안 × 최선·기본·최악</h2>
+      <p class="lede">0순위 원칙은 하방입니다. 추천안 S2도 첫 단계는 비용이 거의 들지 않는 검증(설문, 썸네일 테스트)으로 시작해서, 가정이 틀리면 바로 되돌릴 수 있게 짰습니다.</p>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>전략</th><th>내용</th><th>최선</th><th>기본</th><th>최악</th><th>되돌림</th><th>실패 신호</th></tr></thead>
+      <tbody>
+        <tr><td><b>S0 현상 유지</b></td><td>캡은 기능 문제로만 처리하고 팀별 활용 없음</td><td>추가 비용 0</td><td>두 튜브는 구분되지만 브랜드 자산으로 쌓이지 않음</td><td>바더식 문법 안에 머물러 '아류' 인식</td><td><span class="tag ok">쉬움</span></td><td>리뷰·바이어 미팅에서 "바더 같다" 반복</td></tr>
+        <tr><td><b>S1 장소 코드</b></td><td>코퍼 = 화장대, 블루 = 욕실을 라인 전체 규칙으로</td><td>SKU가 늘어도 매대 질서가 유지됨</td><td>구분은 확실하지만 고객이 이유를 모름</td><td>장소 가정이 틀려 규칙이 어색해짐</td><td><span class="tag ok">쉬움</span></td><td>설문에서 랩핑을 욕실에 둔다 60% 미만</td></tr>
+        <tr><td><b>S2 왕복 리추얼 (추천)</b></td><td>S1 + 8 PM 왕복 인증·28일 챌린지·8주 구독을 캡으로 연결 + 8각 디자인권</td><td>패키지·세트·CRM·콘텐츠가 한 이야기로 묶여 재구매가 구조로 들어감</td><td>세트·구독 비중이 올라가고 UGC 소재가 계속 생김</td><td>리추얼 참여가 낮아 콘텐츠 축이 비어 보임</td><td><span class="tag warn">단계별 가능</span></td><td>첫 28일 챌린지 완주율 20% 미만, 8시 알림 구독 정체</td></tr>
+        <tr><td><b>S3 8각 아이콘 선행</b></td><td>8각 캡 자체를 광고 전면의 아이콘으로</td><td>'8각 = 터노바' 인지가 빠름</td><td>금형·매체비가 판매 전에 나감</td><td>8 그래픽 선점자(Eight Hour)와 비교되고 기능 메시지가 묻힘</td><td><span class="tag bad">어려움</span></td><td>광고 회상률은 높은데 PDP 전환이 낮음</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">03 · 전략 한 장</div>
+      <h2>명제 하나, 기둥 셋, 증명 지표</h2>
+    </div>
+    <div class="house">
+      <div class="roof"><div class="k">명제</div><p>터노바의 밤은 욕실에서 출발해 화장대에 도착한다. 캡이 그 길을 안내한다.</p></div>
+      <div class="pillars">
+        <div class="pillar"><span class="tag gold">기둥 1</span><h3>장소 코드</h3><p>코퍼 캡은 보여주는 곳(화장대), 블루 캡은 쓰는 곳(욕실)입니다. 신규 SKU도 '어디에 두는가'로 캡을 정합니다.</p></div>
+        <div class="pillar"><span class="tag gold">기둥 2</span><h3>왕복 리추얼</h3><p>8 PM 출발(랩핑)과 아침 도착(배리어)을 인증 2회로 만듭니다. 랩핑 80ml = 28밤 = 28일 챌린지 1회입니다.</p></div>
+        <div class="pillar"><span class="tag gold">기둥 3</span><h3>8각 형태 보호</h3><p>8각은 손에 닿는 부품(캡·뚜껑)에만 씁니다. 그래픽 패턴으로는 쓰지 않고, 디자인권으로 지킵니다.</p></div>
+      </div>
+      <div class="base">증명 지표: 2초 썸네일 구분 정답률 · 왕복 세트 구성비 · 28일 재구매율 · 8시 알림 구독자 · 오프라인 QR 전환율 (07 KPI 참고)</div>
+    </div>
+  </div>
+</section>
+
+<section id="teams">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">04 · 팀별 전략</div>
+      <h2>네 팀이 같은 명제를 각자의 언어로 실행합니다</h2>
+      <p class="lede">각 팀 카드는 목표 한 줄, 핵심 실행, 측정 지표, 하지 않을 것 순서입니다. 수치 목표는 모두 제안값이며 론칭 전 대표님 확정이 필요합니다.</p>
+    </div>
+    <div class="teams">
+      <article class="tcard">
+        <header><h3>브랜딩팀</h3><span class="tag gold">체계를 만든다</span></header>
+        <p class="goal">목표: 캡 규칙을 '8 시스템'의 다섯 번째 장치로 올리고, 인수자가 사는 체계로 문서화합니다.</p>
+        <h4>핵심 실행</h4>
+        <ul>
+          <li>8 시스템 확장: 심볼 · TRX-8™ · 8 PM · 매월 8일에 <b>8각(형태)</b>를 추가합니다. 쓰는 곳은 캡과 뚜껑으로 한정합니다.</li>
+          <li>장소 코드 규칙을 가이드 v5 9-0장에 넣습니다. 코퍼 캡은 화장대, 블루 캡은 욕실이고, 신규 SKU는 놓는 곳으로 캡을 정합니다.</li>
+          <li>왕복 서사를 브랜드북 V장(리추얼)과 IX장(티켓)에 연결합니다. 랩핑 1튜브가 28일 티켓북 1권이 됩니다.</li>
+          <li>8각 캡·뚜껑 디자인 출원(12월, 심볼 도형 상표와 함께). 원형 코퍼 캡을 쓰지 않아 바더 트레이드드레스와의 거리도 벌어집니다.</li>
+          <li>3R(Reset·Refill·Reverse)은 단상자 안쪽에만 둡니다. 겉면은 TURN OFF와 NOVA로만 말합니다.</li>
+        </ul>
+        <h4>측정</h4>
+        <div class="kpis"><span class="kpi">로고 가린 블라인드 인지 <b>≥ 50%</b></span><span class="kpi">디자인권 출원 <b>12월</b></span></div>
+        <h4>하지 않을 것</h4>
+        <ul class="no"><li>8각을 배경 패턴·프레임 그래픽으로 쓰기(가이드 금지 항목)</li><li>숫자 8을 그래픽으로 반복하기(Eight Hour와 겹침)</li></ul>
+      </article>
+
+      <article class="tcard">
+        <header><h3>커머스팀</h3><span class="tag gold">재구매를 구조로</span></header>
+        <p class="goal">목표: 두 튜브의 다른 소진 주기(28일 · 8주)를 하나의 8주 리듬으로 묶어 세트와 구독으로 팝니다.</p>
+        <h4>핵심 실행</h4>
+        <ul>
+          <li><b>8주 왕복 구독</b>: 배리어 1 + 랩핑 2 = 8주 사용량(추정)입니다. 정기배송 한 번에 두 장소가 함께 채워집니다.</li>
+          <li><b>왕복 세트</b>(배리어 + 랩핑)를 첫 구매 메인으로, 필름밤을 더한 3종을 프리미엄 루틴으로 둡니다. 가격 사다리는 기존 원칙을 지킵니다: 공구가가 절대 바닥이고, 세트 개당가는 단품 재구매가 아래·공구가 위입니다.</li>
+          <li>PDP 첫 이미지는 두 캡 투샷 + '놓을 곳' 표시입니다. 160px 썸네일에서 캡 색만으로 SKU가 구분돼야 합니다.</li>
+          <li>오프라인(올리브영)에서는 두 제품이 크림 존과 팩 존에 따로 놓일 가능성이 큽니다(추정). 그래서 세트 판매는 자사몰·온라인·메종의 날에 집중하고, 매대에서는 각자 단독으로 이기게 둡니다.</li>
+          <li>1차 기성 원형 원터치에서 2차 8각으로 넘어갈 때 바코드와 재고 소진 순서를 미리 정합니다.</li>
+        </ul>
+        <h4>측정</h4>
+        <div class="kpis"><span class="kpi">왕복 세트 구성비 <b>30%</b></span><span class="kpi">28일 재구매율 <b>35%</b></span><span class="kpi">구독 전환 <b>10%</b></span></div>
+        <h4>하지 않을 것</h4>
+        <ul class="no"><li>상시 40% 초과 할인, 채널 간 가격 중복</li><li>경쟁사를 따라 내리는 최저가 싸움</li></ul>
+      </article>
+
+      <article class="tcard">
+        <header><h3>마케팅팀</h3><span class="tag gold">왕복을 보여준다</span></header>
+        <p class="goal">목표: '밤 8시 욕실에서 출발, 아침 화장대에서 도착'을 매일 반복되는 콘텐츠와 인증으로 만듭니다.</p>
+        <h4>핵심 실행</h4>
+        <ul>
+          <li><b>딸깍</b>: 8각 원터치를 여는 소리를 8시 사운드 로고 후보로 녹음합니다. 숏폼 첫 1초 훅으로 씁니다.</li>
+          <li><b>왕복 인증</b>: 브랜드북에서 '구독자 1,000명 이후'로 미뤄 둔 기능을 패키지 덕분에 론칭부터 켤 수 있습니다. 밤에 욕실 셀피, 아침에 화장대 셀피를 찍습니다.</li>
+          <li><b>28일 챌린지 = 랩핑 1튜브</b>: 시작일과 28일째를 같은 조명으로 비교합니다. 다음 튜브 알림이 곧 재구매 알림이 됩니다.</li>
+          <li><b>티저</b>: 로고 없이 8각 캡의 그림자와 실루엣만 공개하고, 8시 알림 구독으로 유도합니다.</li>
+          <li><b>트라이얼</b>: 3ml 미니튜브 키트에도 캡 색 코드를 적용하고, 100원·배송비만 받는 체험으로 첫 진입 장벽을 낮춥니다(마케팅 방법론 3번).</li>
+        </ul>
+        <h4>측정</h4>
+        <div class="kpis"><span class="kpi">8시 알림 구독 <b>1,000명</b></span><span class="kpi">왕복 인증 참여 <b>15%</b></span><span class="kpi">챌린지 완주 <b>20%</b></span></div>
+        <h4>하지 않을 것</h4>
+        <ul class="no"><li>'시술급·시술 대체' 표현(표시광고법·약기법 66조)</li><li>실증 범위 밖 효능 문구, 브라이언 존슨 언급</li></ul>
+      </article>
+
+      <article class="tcard">
+        <header><h3>비주얼팀</h3><span class="tag gold">두 개의 무대</span></header>
+        <p class="goal">목표: 모든 비주얼을 '욕실 무대'와 '화장대 무대' 두 개로만 찍어서, 장소 코드가 사진만 보고도 읽히게 합니다.</p>
+        <h4>핵심 실행</h4>
+        <ul>
+          <li><b>촬영 세트 2종 고정</b>: 욕실은 차가운 타일, 물방울, 밤 8시의 낮은 조도입니다. 화장대는 따뜻한 스톤, 거울, 아침 빛입니다. PDP, 광고, SNS 모두 이 두 세트만 씁니다.</li>
+          <li><b>패키샷 규칙</b>: 캡을 아래로 세우고 3/4 앵글(45°)로 8각 면 두 개가 보이게 찍습니다. 정면 라벨은 compose_label.py로 합성하고, AI는 무지 용기와 조명만 만듭니다.</li>
+          <li><b>캡 컬러 규칙</b>: 코퍼는 메탈 실물 칩 하나로 대조 승인합니다. 랩핑 블루 캡은 바디와 같은 팬톤입니다.</li>
+          <li><b>장소 아이콘 2종</b>(욕실·화장대)을 단상자 안쪽, PDP, 첫 밤 키트에 같은 모양으로 씁니다. 8각 모양 아이콘은 쓰지 않습니다.</li>
+          <li>매번 160px 썸네일 시트와 measure_front.py 실측으로 검수한 뒤 전달합니다.</li>
+        </ul>
+        <h4>측정</h4>
+        <div class="kpis"><span class="kpi">2초 썸네일 구분 <b>≥ 90%</b></span><span class="kpi">워드마크 실측 <b>75–92%</b></span></div>
+        <h4>하지 않을 것</h4>
+        <ul class="no"><li>두 무대 밖의 임의 배경(핑크 스튜디오 등)</li><li>골드 톤 혼용(코퍼 1색, 핑크·브론즈는 반려)</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">05 · 팀 간 연결</div>
+      <h2>누가 무엇을 넘겨주는가</h2>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>산출물</th><th>만드는 팀</th><th>받는 팀</th><th>마감</th></tr></thead>
+      <tbody>
+        <tr><td>장소 가정 설문 결과(n=50)</td><td>마케팅</td><td>브랜딩 · 커머스</td><td class="num">10/24</td></tr>
+        <tr><td>8 시스템 확장안 + 장소 코드 규칙(가이드 v5 갱신)</td><td>브랜딩</td><td>비주얼 · 커머스</td><td class="num">10/31</td></tr>
+        <tr><td>캡 샘플·견적, 금형 발주 여부</td><td>커머스(소싱)</td><td>브랜딩 · 재무</td><td class="num">11/7</td></tr>
+        <tr><td>정식 라벨 합성 + 썸네일 테스트</td><td>비주얼</td><td>커머스 · 마케팅</td><td class="num">11/14</td></tr>
+        <tr><td>세트·구독 가격 사다리</td><td>커머스</td><td>마케팅</td><td class="num">11/21</td></tr>
+        <tr><td>딸깍 사운드·8시 알림 ICS·인증 템플릿</td><td>마케팅</td><td>비주얼 · 커머스</td><td class="num">11/30</td></tr>
+        <tr><td>두 무대 촬영(PDP·광고·티저)</td><td>비주얼</td><td>마케팅 · 커머스</td><td class="num">12/20</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">06 · 실행 로드맵</div>
+      <h2>2027년 2월 론칭과 3월 첫 챌린지 종료까지</h2>
+    </div>
+    <ol class="steps">
+      <li><span class="when">10월 중순</span><span><b>검증부터:</b> 타깃 50명에게 "랩핑을 어디에 두겠나" 설문, 30명에게 2초 썸네일 구분 테스트를 합니다. 비용이 거의 들지 않고, 결과가 나쁘면 장소 코드만 접습니다.</span></li>
+      <li><span class="when">10월 말</span><span>대표 결정(8각 승인) 후 가이드 v5를 갱신합니다. 세 팀에 같은 버전을 배포합니다.</span></li>
+      <li><span class="when">11월</span><span>금형 분기점(11월 첫째 주)을 지나고 정식 라벨 합성, 세트·구독 가격, 사운드·ICS·인증 템플릿을 준비합니다.</span></li>
+      <li><span class="when">12월</span><span>두 무대 촬영, 디자인권 출원, 티저 소재를 만듭니다.</span></li>
+      <li><span class="when">1월</span><span>8각 실루엣 티저와 8시 알림 사전 구독, 시딩을 진행합니다. 바이어 덱 첫 장은 왕복 그림입니다.</span></li>
+      <li><span class="when">2월 론칭</span><span>8시 알림을 열고 첫 왕복 인증과 첫 28일 챌린지를 시작합니다.</span></li>
+      <li><span class="when">3월</span><span>첫 챌린지가 끝나면 완주율·재구매율·세트 구성비를 보고, 2차 8각 원터치 금형 투자를 결정합니다.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">07 · KPI</div>
+      <h2>전략이 맞는지 확인하는 숫자 6개</h2>
+      <p class="lede">목표값은 모두 제안입니다. 28일 재구매율 35%만 기존 문서(Notion 가격 설계)의 목표를 그대로 썼습니다.</p>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>지표</th><th>목표(제안)</th><th>측정법</th><th>담당</th><th>밑돌면</th></tr></thead>
+      <tbody>
+        <tr><td>랩핑 욕실 보관 응답</td><td class="num">≥ 60%</td><td>타깃 50명 설문</td><td>마케팅</td><td>장소 코드 재검토. 캡 기능 차별(원터치)은 유지</td></tr>
+        <tr><td>2초 썸네일 구분 정답률</td><td class="num">≥ 90%</td><td>160px, 30명</td><td>비주얼</td><td>캡 비율·색 대비 강화(조합 P02·P04 검토)</td></tr>
+        <tr><td>왕복 세트 구성비</td><td class="num">30%</td><td>자사몰 주문 중 세트 비중</td><td>커머스</td><td>PDP 투샷·세트 가격 사다리 재설계</td></tr>
+        <tr><td>28일 재구매율</td><td class="num">35%</td><td>첫 구매 후 35일 안 재구매</td><td>커머스</td><td>28일째 알림 문구·적립금 조정</td></tr>
+        <tr><td>8시 알림 구독자</td><td class="num">1,000명</td><td>ICS 구독 수</td><td>마케팅</td><td>1,000명 이후 기능(8인의 동행 등) 앞당김 검토</td></tr>
+        <tr><td>오프라인 QR 전환율</td><td class="num">신설</td><td>단상자 안쪽 QR 스캔 ÷ 판매</td><td>커머스</td><td>첫 밤 키트 문구·위치 변경</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">08 · 가드레일</div>
+      <h2>모든 팀이 지키는 규칙</h2>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>영역</th><th>규칙</th><th>근거</th></tr></thead>
+      <tbody>
+        <tr><td>클레임</td><td>시술 대체·시술급·○○시술 효과 표현 금지. 효능 문구는 인체적용시험 범위 안에서만 씁니다.</td><td>시술 대응맵(내부 전용) · 표시광고법 · 약기법 66조</td></tr>
+        <tr><td>미국</td><td>'reverse aging'을 정면에 표기하지 않고 카피를 우회합니다.</td><td>브랜드북 VIII장(FDA drug claim)</td></tr>
+        <tr><td>8 사용</td><td>8각은 캡과 뚜껑에만 씁니다. 배경 패턴이나 워터마크로 쓰지 않습니다.</td><td>가이드 v5 금지 항목</td></tr>
+        <tr><td>컬러</td><td>로열블루 팬톤 1종, 코퍼 1색만 씁니다. 골드·로즈골드·브론즈는 반려합니다.</td><td>가이드 v5 3장</td></tr>
+        <tr><td>할인</td><td>상시 최대 40%, 채널별 가격 비중복, 큰 할인은 8월 8일 하루만 합니다.</td><td>가격 원칙 · 브랜드북 V장</td></tr>
+        <tr><td>제품명</td><td>THE BARRIER CREAM·THE WRAPPING MASK·THE FILM BALM CREAM은 가칭입니다. 승인 전 외부에 쓰지 않습니다.</td><td>가이드 검수 정책</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">출처</div><h2>근거 자료</h2></div>
+    <ul class="src-list">
+      <li>터노바 튜브 패키지 보드(레퍼런스 52종 · 시안 · 조합 18종) — 같은 세션 산출물</li>
+      <li>터노바 브랜드스토리 V장 리추얼(왕복 인증, 28일 챌린지, 8시 알림), IX장 티켓, X장 하우스 (Notion)</li>
+      <li>터노바 시술 대응맵 — 포지션 원칙과 광고 금지 표현 (Notion)</li>
+      <li>터노바 가격·쿠폰 사다리, 재구매 35% 목표 (Notion 💙터노바)</li>
+      <li>마케팅 방법론 — 100원 마케팅, 처방전 인증 (Notion)</li>
+      <li>디자인 가이드 v5 · 검수 정책 (jinnius 저장소 PR #1 브랜치)</li>
+      <li>얼굴 크림 1회 사용량 — lesliebaumannmd.com · PMC7357171 (소진 주기 추정 근거)</li>
+    </ul>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">TURNOVA · 주식회사 리버스에이징 내부 전략 문서 · 목표 수치는 모두 제안값 · 소진 주기와 매대 배치는 추정</div></footer>

@@ -1,0 +1,516 @@
+<title>터노바 왕복 리추얼 전략</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Noto+Serif+KR:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: 리뷰 보드 — 결론 띠 → 레퍼런스 월 → 시안 3장 → 시뮬레이션 표 → 팀 검토. 터노바 가이드 v5: 로열블루 + 코퍼. */
+  :root{
+    --ground:#F2F3F7; --sheet:#FFFFFF; --well:#E8EAF2;
+    --ink:#161D63; --ink-2:#3B4270; --muted:#6A7092;
+    --gold:#A3582B; --gold-soft:#F3DCCB; --gold-line:rgba(184,115,51,.5);
+    --line:rgba(18,28,74,.12); --line-2:rgba(18,28,74,.22);
+    --ok:#2C6E4F; --ok-tint:#E2F0E8; --warn:#8F6512; --warn-tint:#F5ECD8; --bad:#A33A2E; --bad-tint:#F6E4E1;
+    --hero:#17208A; --hero-ink:#F6EDE6;
+    --display:'Montserrat','Helvetica Neue',Arial,sans-serif;
+    --head:'Noto Serif KR','Apple SD Gothic Neo',serif;
+    --body:'IBM Plex Sans KR','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0A0F27; --sheet:#121937; --well:#18204A;
+      --ink:#E9EAF4; --ink-2:#C1C5DC; --muted:#8E94B4;
+      --gold:#EFA27A; --gold-soft:#3A2418; --gold-line:rgba(239,162,122,.45);
+      --line:rgba(233,234,244,.12); --line-2:rgba(233,234,244,.22);
+      --ok:#7CCBA2; --ok-tint:#15291F; --warn:#E2B866; --warn-tint:#2B2312; --bad:#EE8A7B; --bad-tint:#2E1714;
+      --hero:#0E1458; --hero-ink:#F6EDE6; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0A0F27; --sheet:#121937; --well:#18204A;
+    --ink:#E9EAF4; --ink-2:#C1C5DC; --muted:#8E94B4;
+    --gold:#EFA27A; --gold-soft:#3A2418; --gold-line:rgba(239,162,122,.45);
+    --line:rgba(233,234,244,.12); --line-2:rgba(233,234,244,.22);
+    --ok:#7CCBA2; --ok-tint:#15291F; --warn:#E2B866; --warn-tint:#2B2312; --bad:#EE8A7B; --bad-tint:#2E1714;
+    --hero:#0E1458; --hero-ink:#F6EDE6; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+  h1,h2,h3{text-wrap:balance;margin:0}
+  h2{font-family:var(--head);font-size:clamp(21px,2.6vw,27px);font-weight:700;letter-spacing:-.01em}
+  h3{font-family:var(--head);font-size:17px;font-weight:700}
+  p{margin:0}
+  a{color:inherit;text-decoration-color:var(--gold-line);text-underline-offset:3px}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .lede{color:var(--ink-2);max-width:68ch}
+  .tag{display:inline-flex;align-items:center;gap:.35em;font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2);white-space:nowrap}
+  .tag.gold{border-color:var(--gold-line);color:var(--gold)}
+  .tag.ok{background:var(--ok-tint);border-color:transparent;color:var(--ok)}
+  .tag.warn{background:var(--warn-tint);border-color:transparent;color:var(--warn)}
+  .tag.bad{background:var(--bad-tint);border-color:transparent;color:var(--bad)}
+
+  /* hero */
+  .hero{background:var(--hero);color:var(--hero-ink);padding-block:clamp(36px,6vw,64px) clamp(28px,4vw,44px)}
+  .hero .eyebrow{color:#F0A57C}
+  .hero h1{font-family:var(--head);font-weight:700;font-size:clamp(28px,4.4vw,46px);line-height:1.22;margin-top:14px;letter-spacing:-.015em}
+  .hero h1 .oct{font-family:var(--display);font-weight:700;color:#F0A57C}
+  .hero .lede{color:#D3D5EE;margin-top:14px}
+  .verdict{margin-top:26px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(240,165,124,.4);border:1px solid rgba(240,165,124,.4)}
+  .verdict > div{background:var(--hero);padding:16px 18px;min-width:0}
+  .verdict .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#F0A57C;text-transform:uppercase}
+  .verdict .v{font-weight:600;margin-top:6px;font-size:15.5px}
+  .verdict .s{color:#B3B7DE;font-size:13px;margin-top:4px}
+  .alts{margin-top:18px;display:grid;gap:6px;color:#D3D5EE;font-size:14px}
+  .alts b{color:#F6EDE6;font-weight:600}
+
+  section{padding-block:clamp(36px,5vw,56px);border-bottom:1px solid var(--line)}
+  .sec-head{display:grid;gap:8px;margin-bottom:22px}
+
+  /* tables */
+  .tbl{overflow-x:auto;border:1px solid var(--line);background:var(--sheet);border-radius:10px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--well)}
+  tr:last-child td{border-bottom:0}
+  td.num{font-family:var(--mono);white-space:nowrap}
+
+  /* reference wall */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .filters button{font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--sheet);color:var(--ink-2);cursor:pointer}
+  .filters button[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+  .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+  .ref{background:var(--sheet);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+  .ref .img{aspect-ratio:1/1;background:#fff;display:grid;place-items:center;overflow:hidden}
+  .ref .img img{width:100%;height:100%;object-fit:contain}
+  .ref .img.none{background:var(--well);color:var(--muted);font-size:12px;padding:12px;text-align:center}
+  .ref .meta{padding:12px 14px 14px;display:grid;gap:6px;min-width:0}
+  .ref .brand{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .ref .name{font-weight:600;font-size:14px;line-height:1.4}
+  .ref .tags{display:flex;flex-wrap:wrap;gap:5px}
+  .ref .why{font-size:12.8px;color:var(--ink-2);line-height:1.55}
+  .ref .src{font-size:11.5px;color:var(--muted);word-break:break-all}
+
+  /* concepts */
+  .concepts{display:grid;gap:22px}
+  .concept{background:var(--sheet);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+  .concept.pick{border-color:var(--gold-line);box-shadow:0 0 0 1px var(--gold-line)}
+  .concept figure{margin:0;background:#EEEAE2;min-width:0}
+  .concept figure svg{display:block;width:100%;height:auto}
+  .concept .body{padding:20px 22px;display:grid;gap:12px;align-content:start;min-width:0}
+  .concept .title{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .concept dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0;font-size:13.5px}
+  .concept dt{color:var(--muted);font-size:12.5px;white-space:nowrap}
+  .concept dd{margin:0;min-width:0}
+  .score{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .score div{border-top:2px solid var(--line-2);padding-top:6px;font-size:12px;color:var(--muted)}
+  .score b{display:block;font-family:var(--mono);font-size:16px;color:var(--ink);font-weight:500}
+  .detail{margin-top:22px;background:var(--sheet);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .detail svg{display:block;width:100%;height:auto}
+
+  /* axes */
+  .axes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .axis{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+  .axis .n{font-family:var(--display);font-weight:700;font-size:24px;color:var(--gold);line-height:1}
+  .axis p{font-size:13.5px;color:var(--ink-2)}
+  .axis .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12.5px}
+  .axis .pair div{background:var(--well);border-radius:6px;padding:8px 10px}
+  .axis .pair b{display:block;font-size:11px;font-family:var(--mono);letter-spacing:.06em;color:var(--muted);font-weight:500;text-transform:uppercase}
+
+  /* team */
+  .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .seat{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+  .seat .role{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .seat .role b{font-size:14.5px}
+  .seat p{font-size:13.5px;color:var(--ink-2)}
+  .seat .ask{font-size:12.8px;border-top:1px dashed var(--line-2);padding-top:8px;color:var(--ink)}
+  .chief{margin-top:20px;background:var(--hero);color:var(--hero-ink);border-radius:12px;padding:clamp(20px,3vw,30px);display:grid;gap:14px}
+  .chief .eyebrow{color:#F0A57C}
+  .chief h3{font-size:20px}
+  .chief ol{margin:0;padding-left:20px;display:grid;gap:8px;color:#DADCF0;font-size:14.5px}
+  .chief .veto{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .chief .veto div{border:1px solid rgba(240,165,124,.45);border-radius:8px;padding:12px 14px;font-size:14px;color:#DADCF0}
+  .chief .veto b{color:#F6EDE6;display:block;margin-bottom:4px}
+
+  .steps{display:grid;gap:0;counter-reset:s;border:1px solid var(--line);border-radius:10px;background:var(--sheet);overflow:hidden}
+  .steps li{list-style:none;display:grid;grid-template-columns:110px 1fr;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:14px}
+  .steps li:last-child{border-bottom:0}
+  .steps .when{font-family:var(--mono);font-size:12px;color:var(--gold);padding-top:2px}
+  .src-list{columns:2 320px;font-size:12.5px;color:var(--muted);padding-left:18px}
+  .src-list li{break-inside:avoid;margin-bottom:4px;word-break:break-all}
+  footer{padding-block:28px 48px;color:var(--muted);font-size:12.5px}
+
+
+  /* combos */
+  .combos{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+  .combo,.jarc{background:var(--sheet);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+  .combo.pick{border-color:var(--gold-line);box-shadow:0 0 0 1px var(--gold-line)}
+  .combo figure,.jarc figure,.bview figure{margin:0;background:#EFECE6}
+  .combo svg,.jarc svg,.bview svg{display:block;width:100%;height:auto}
+  .cb{padding:14px 16px 16px;display:grid;gap:8px;align-content:start;min-width:0}
+  .ct{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .ct h3{font-size:15.5px}
+  .cid{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .cb p{font-size:13.3px;color:var(--ink-2)}
+  .axrow{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .ax{font-size:11.5px;padding:2px 7px;border-radius:5px;background:var(--well);color:var(--muted)}
+  .ax.on{background:var(--ok-tint);color:var(--ok)}
+  .sc{font-family:var(--mono);font-size:13px;margin-left:auto;color:var(--ink)}
+  .warn{margin:0;padding-left:16px;font-size:12.3px;color:var(--warn);display:grid;gap:2px}
+  .from{font-size:12px;color:var(--muted)}
+  .load{justify-self:start;font:inherit;font-size:12.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--ink);cursor:pointer}
+  .load:hover{border-color:var(--gold);color:var(--gold)}
+  .subh{margin:34px 0 14px;font-size:19px}
+  .jars{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+  .builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:18px;background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:18px;align-items:start}
+  .bctl{display:grid;gap:14px;min-width:0}
+  .brow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .brow label{font-size:12.5px;color:var(--muted)}
+  .builder select,.brow button{font:inherit;font-size:13px;padding:6px 8px;border-radius:7px;border:1px solid var(--line-2);background:var(--ground);color:var(--ink);max-width:100%}
+  .brow button{cursor:pointer;padding:6px 12px}
+  .sides{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .side{border:1px solid var(--line);border-radius:10px;padding:10px 12px 12px;margin:0;display:grid;gap:4px;min-width:0}
+  .side legend{font-weight:600;font-size:13.5px;padding:0 4px}
+  .side label{font-size:11.5px;color:var(--muted);margin-top:4px}
+  .side select{width:100%}
+  .side .chk{display:flex;gap:6px;align-items:center;color:var(--ink-2);font-size:12.5px;margin-top:8px}
+  .bview{display:grid;gap:10px;min-width:0}
+  .bview figure{border-radius:10px;overflow:hidden}
+  .bnote{font-size:12px;color:var(--muted)}
+  @media (max-width:820px){ .builder{grid-template-columns:1fr} .sides{grid-template-columns:1fr} .combos{grid-template-columns:1fr} }
+  @media (max-width:820px){
+    .concept{grid-template-columns:1fr}
+    .verdict{grid-template-columns:1fr}
+    .score{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .steps li{grid-template-columns:1fr;gap:2px}
+  }
+  @media (prefers-reduced-motion:no-preference){ .ref{transition:transform .18s ease} .ref:hover{transform:translateY(-2px)} }
+</style>
+<svg id="tn-defs" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<linearGradient id="cu" x1="0" x2="1"><stop offset="0" stop-color="#9C5A2A"/><stop offset=".22" stop-color="#E9A57A"/><stop offset=".45" stop-color="#C47E4E"/><stop offset=".7" stop-color="#F4C2A0"/><stop offset="1" stop-color="#A5622F"/></linearGradient>
+<linearGradient id="cuL" x1="0" x2="1"><stop offset="0" stop-color="#7E4520"/><stop offset="1" stop-color="#B9733F"/></linearGradient>
+<linearGradient id="cuR" x1="0" x2="1"><stop offset="0" stop-color="#D99A6E"/><stop offset="1" stop-color="#7E4520"/></linearGradient>
+<linearGradient id="rb" x1="0" x2="1"><stop offset="0" stop-color="#121A6E"/><stop offset=".3" stop-color="#2533B0"/><stop offset=".62" stop-color="#1E2AA0"/><stop offset="1" stop-color="#111865"/></linearGradient>
+<linearGradient id="rbF" x1="0" x2="1"><stop offset="0" stop-color="#1A2590"/><stop offset=".5" stop-color="#2836B4"/><stop offset="1" stop-color="#18228A"/></linearGradient>
+<linearGradient id="rbL" x1="0" x2="1"><stop offset="0" stop-color="#0D1352"/><stop offset="1" stop-color="#1B2694"/></linearGradient>
+<linearGradient id="rbR" x1="0" x2="1"><stop offset="0" stop-color="#2230A6"/><stop offset="1" stop-color="#0D1352"/></linearGradient>
+<linearGradient id="clr" x1="0" x2="1"><stop offset="0" stop-color="#5865C8" stop-opacity=".75"/><stop offset=".45" stop-color="#B7BFF0" stop-opacity=".8"/><stop offset="1" stop-color="#4C59C0" stop-opacity=".75"/></linearGradient>
+<linearGradient id="clrL" x1="0" x2="1"><stop offset="0" stop-color="#3A46A8" stop-opacity=".8"/><stop offset="1" stop-color="#6C78D2" stop-opacity=".75"/></linearGradient>
+<linearGradient id="clrR" x1="0" x2="1"><stop offset="0" stop-color="#7A86DA" stop-opacity=".75"/><stop offset="1" stop-color="#3A46A8" stop-opacity=".8"/></linearGradient>
+<linearGradient id="cuBody" x1="0" x2="1"><stop offset="0" stop-color="#C98157"/><stop offset=".32" stop-color="#F2B48D"/><stop offset=".62" stop-color="#E7A177"/><stop offset="1" stop-color="#BE774E"/></linearGradient>
+<radialGradient id="sh"><stop offset="0" stop-color="#000" stop-opacity=".26"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<symbol id="tn8" viewBox="0 0 1000 1000"><path d="M940,500 L940,502 L940,505 L939,507 L938,509 L937,511 L936,514 L935,516 L933,518 L932,520 L930,523 L928,525 L925,527 L923,529 L920,531 L917,533 L914,535 L911,537 L907,538 L904,540 L900,542 L896,544 L892,545 L887,547 L883,548 L878,550 L873,551 L868,552 L863,554 L857,555 L852,556 L846,557 L840,558 L834,558 L828,559 L822,560 L815,560 L808,561 L802,561 L795,561 L788,561 L781,561 L774,561 L766,561 L759,561 L751,560 L744,560 L736,559 L728,559 L720,558 L712,557 L704,556 L696,555 L688,554 L680,552 L672,551 L663,549 L655,548 L646,546 L638,544 L629,542 L621,540 L612,538 L604,535 L595,533 L586,531 L578,528 L569,525 L560,522 L552,519 L543,516 L534,513 L526,510 L517,507 L509,503 L500,500 L492,496 L483,493 L475,489 L466,485 L458,481 L450,477 L442,473 L433,469 L425,465 L417,461 L410,456 L402,452 L394,447 L386,443 L379,438 L371,434 L364,429 L357,424 L350,419 L343,415 L336,410 L329,405 L322,400 L316,395 L309,390 L303,385 L297,380 L291,375 L285,370 L279,365 L274,360 L268,355 L263,350 L258,345 L253,340 L248,335 L244,330 L239,325 L235,320 L231,315 L226,310 L223,305 L219,300 L215,295 L212,291 L209,286 L206,281 L203,277 L200,272 L198,268 L195,264 L193,259 L191,255 L189,251 L188,247 L186,243 L185,239 L184,235 L183,232 L182,228 L181,225 L181,221 L180,218 L180,215 L180,212 L180,209 L181,206 L181,204 L182,201 L183,199 L184,197 L185,194 L186,192 L187,191 L189,189 L191,187 L192,186 L194,185 L197,184 L199,183 L201,182 L204,181 L206,181 L209,180 L212,180 L215,180 L218,180 L221,181 L225,181 L228,182 L232,183 L235,184 L239,185 L243,186 L247,188 L251,189 L255,191 L259,193 L264,195 L268,198 L272,200 L277,203 L281,206 L286,209 L291,212 L295,215 L300,219 L305,223 L310,226 L315,231 L320,235 L325,239 L330,244 L335,248 L340,253 L345,258 L350,263 L355,268 L360,274 L365,279 L370,285 L375,291 L380,297 L385,303 L390,309 L395,316 L400,322 L405,329 L410,336 L415,343 L419,350 L424,357 L429,364 L434,371 L438,379 L443,386 L447,394 L452,402 L456,410 L461,417 L465,425 L469,433 L473,442 L477,450 L481,458 L485,466 L489,475 L493,483 L496,492 L500,500 L503,509 L507,517 L510,526 L513,534 L516,543 L519,552 L522,560 L525,569 L528,578 L531,586 L533,595 L535,604 L538,612 L540,621 L542,629 L544,638 L546,646 L548,655 L549,663 L551,672 L552,680 L554,688 L555,696 L556,704 L557,712 L558,720 L559,728 L559,736 L560,744 L560,751 L561,759 L561,766 L561,774 L561,781 L561,788 L561,795 L561,802 L561,808 L560,815 L560,822 L559,828 L558,834 L558,840 L557,846 L556,852 L555,857 L554,863 L552,868 L551,873 L550,878 L548,883 L547,887 L545,892 L544,896 L542,900 L540,904 L538,907 L537,911 L535,914 L533,917 L531,920 L529,923 L527,925 L525,928 L523,930 L520,932 L518,933 L516,935 L514,936 L511,937 L509,938 L507,939 L505,940 L502,940 L500,940 L498,940 L495,940 L493,939 L491,938 L489,937 L486,936 L484,935 L482,933 L480,932 L477,930 L475,928 L473,925 L471,923 L469,920 L467,917 L465,914 L463,911 L462,907 L460,904 L458,900 L456,896 L455,892 L453,887 L452,883 L450,878 L449,873 L448,868 L446,863 L445,857 L444,852 L443,846 L442,840 L442,834 L441,828 L440,822 L440,815 L439,808 L439,802 L439,795 L439,788 L439,781 L439,774 L439,766 L439,759 L440,751 L440,744 L441,736 L441,728 L442,720 L443,712 L444,704 L445,696 L446,688 L448,680 L449,672 L451,663 L452,655 L454,646 L456,638 L458,629 L460,621 L462,612 L465,604 L467,595 L469,586 L472,578 L475,569 L478,560 L481,552 L484,543 L487,534 L490,526 L493,517 L497,509 L500,500 L504,492 L507,483 L511,475 L515,466 L519,458 L523,450 L527,442 L531,433 L535,425 L539,417 L544,410 L548,402 L553,394 L557,386 L562,379 L566,371 L571,364 L576,357 L581,350 L585,343 L590,336 L595,329 L600,322 L605,316 L610,309 L615,303 L620,297 L625,291 L630,285 L635,279 L640,274 L645,268 L650,263 L655,258 L660,253 L665,248 L670,244 L675,239 L680,235 L685,231 L690,226 L695,223 L700,219 L705,215 L709,212 L714,209 L719,206 L723,203 L728,200 L732,198 L736,195 L741,193 L745,191 L749,189 L753,188 L757,186 L761,185 L765,184 L768,183 L772,182 L775,181 L779,181 L782,180 L785,180 L788,180 L791,180 L794,181 L796,181 L799,182 L801,183 L803,184 L806,185 L808,186 L809,187 L811,189 L813,191 L814,192 L815,194 L816,197 L817,199 L818,201 L819,204 L819,206 L820,209 L820,212 L820,215 L820,218 L819,221 L819,225 L818,228 L817,232 L816,235 L815,239 L814,243 L812,247 L811,251 L809,255 L807,259 L805,264 L802,268 L800,272 L797,277 L794,281 L791,286 L788,291 L785,295 L781,300 L777,305 L774,310 L769,315 L765,320 L761,325 L756,330 L752,335 L747,340 L742,345 L737,350 L732,355 L726,360 L721,365 L715,370 L709,375 L703,380 L697,385 L691,390 L684,395 L678,400 L671,405 L664,410 L657,415 L650,419 L643,424 L636,429 L629,434 L621,438 L614,443 L606,447 L598,452 L590,456 L583,461 L575,465 L567,469 L558,473 L550,477 L542,481 L534,485 L525,489 L517,493 L508,496 L500,500 L491,503 L483,507 L474,510 L466,513 L457,516 L448,519 L440,522 L431,525 L422,528 L414,531 L405,533 L396,535 L388,538 L379,540 L371,542 L362,544 L354,546 L345,548 L337,549 L328,551 L320,552 L312,554 L304,555 L296,556 L288,557 L280,558 L272,559 L264,559 L256,560 L249,560 L241,561 L234,561 L226,561 L219,561 L212,561 L205,561 L198,561 L192,561 L185,560 L178,560 L172,559 L166,558 L160,558 L154,557 L148,556 L143,555 L137,554 L132,552 L127,551 L122,550 L117,548 L113,547 L108,545 L104,544 L100,542 L96,540 L93,538 L89,537 L86,535 L83,533 L80,531 L77,529 L75,527 L72,525 L70,523 L68,520 L67,518 L65,516 L64,514 L63,511 L62,509 L61,507 L60,505 L60,502 L60,500 L60,498 L60,495 L61,493 L62,491 L63,489 L64,486 L65,484 L67,482 L68,480 L70,477 L72,475 L75,473 L77,471 L80,469 L83,467 L86,465 L89,463 L93,462 L96,460 L100,458 L104,456 L108,455 L113,453 L117,452 L122,450 L127,449 L132,448 L137,446 L143,445 L148,444 L154,443 L160,442 L166,442 L172,441 L178,440 L185,440 L192,439 L198,439 L205,439 L212,439 L219,439 L226,439 L234,439 L241,439 L249,440 L256,440 L264,441 L272,441 L280,442 L288,443 L296,444 L304,445 L312,446 L320,448 L328,449 L337,451 L345,452 L354,454 L362,456 L371,458 L379,460 L388,462 L396,465 L405,467 L414,469 L422,472 L431,475 L440,478 L448,481 L457,484 L466,487 L474,490 L483,493 L491,497 L500,500 L508,504 L517,507 L525,511 L534,515 L542,519 L550,523 L558,527 L567,531 L575,535 L583,539 L590,544 L598,548 L606,553 L614,557 L621,562 L629,566 L636,571 L643,576 L650,581 L657,585 L664,590 L671,595 L678,600 L684,605 L691,610 L697,615 L703,620 L709,625 L715,630 L721,635 L726,640 L732,645 L737,650 L742,655 L747,660 L752,665 L756,670 L761,675 L765,680 L769,685 L774,690 L777,695 L781,700 L785,705 L788,709 L791,714 L794,719 L797,723 L800,728 L802,732 L805,736 L807,741 L809,745 L811,749 L812,753 L814,757 L815,761 L816,765 L817,768 L818,772 L819,775 L819,779 L820,782 L820,785 L820,788 L820,791 L819,794 L819,796 L818,799 L817,801 L816,803 L815,806 L814,808 L813,809 L811,811 L809,813 L808,814 L806,815 L803,816 L801,817 L799,818 L796,819 L794,819 L791,820 L788,820 L785,820 L782,820 L779,819 L775,819 L772,818 L768,817 L765,816 L761,815 L757,814 L753,812 L749,811 L745,809 L741,807 L736,805 L732,802 L728,800 L723,797 L719,794 L714,791 L709,788 L705,785 L700,781 L695,777 L690,774 L685,769 L680,765 L675,761 L670,756 L665,752 L660,747 L655,742 L650,737 L645,732 L640,726 L635,721 L630,715 L625,709 L620,703 L615,697 L610,691 L605,684 L600,678 L595,671 L590,664 L585,657 L581,650 L576,643 L571,636 L566,629 L562,621 L557,614 L553,606 L548,598 L544,590 L539,583 L535,575 L531,567 L527,558 L523,550 L519,542 L515,534 L511,525 L507,517 L504,508 L500,500 L497,491 L493,483 L490,474 L487,466 L484,457 L481,448 L478,440 L475,431 L472,422 L469,414 L467,405 L465,396 L462,388 L460,379 L458,371 L456,362 L454,354 L452,345 L451,337 L449,328 L448,320 L446,312 L445,304 L444,296 L443,288 L442,280 L441,272 L441,264 L440,256 L440,249 L439,241 L439,234 L439,226 L439,219 L439,212 L439,205 L439,198 L439,192 L440,185 L440,178 L441,172 L442,166 L442,160 L443,154 L444,148 L445,143 L446,137 L448,132 L449,127 L450,122 L452,117 L453,113 L455,108 L456,104 L458,100 L460,96 L462,93 L463,89 L465,86 L467,83 L469,80 L471,77 L473,75 L475,72 L477,70 L480,68 L482,67 L484,65 L486,64 L489,63 L491,62 L493,61 L495,60 L498,60 L500,60 L502,60 L505,60 L507,61 L509,62 L511,63 L514,64 L516,65 L518,67 L520,68 L523,70 L525,72 L527,75 L529,77 L531,80 L533,83 L535,86 L537,89 L538,93 L540,96 L542,100 L544,104 L545,108 L547,113 L548,117 L550,122 L551,127 L552,132 L554,137 L555,143 L556,148 L557,154 L558,160 L558,166 L559,172 L560,178 L560,185 L561,192 L561,198 L561,205 L561,212 L561,219 L561,226 L561,234 L561,241 L560,249 L560,256 L559,264 L559,272 L558,280 L557,288 L556,296 L555,304 L554,312 L552,320 L551,328 L549,337 L548,345 L546,354 L544,362 L542,371 L540,379 L538,388 L535,396 L533,405 L531,414 L528,422 L525,431 L522,440 L519,448 L516,457 L513,466 L510,474 L507,483 L503,491 L500,500 L496,508 L493,517 L489,525 L485,534 L481,542 L477,550 L473,558 L469,567 L465,575 L461,583 L456,590 L452,598 L447,606 L443,614 L438,621 L434,629 L429,636 L424,643 L419,650 L415,657 L410,664 L405,671 L400,678 L395,684 L390,691 L385,697 L380,703 L375,709 L370,715 L365,721 L360,726 L355,732 L350,737 L345,742 L340,747 L335,752 L330,756 L325,761 L320,765 L315,769 L310,774 L305,777 L300,781 L295,785 L291,788 L286,791 L281,794 L277,797 L272,800 L268,802 L264,805 L259,807 L255,809 L251,811 L247,812 L243,814 L239,815 L235,816 L232,817 L228,818 L225,819 L221,819 L218,820 L215,820 L212,820 L209,820 L206,819 L204,819 L201,818 L199,817 L197,816 L194,815 L192,814 L191,813 L189,811 L187,809 L186,808 L185,806 L184,803 L183,801 L182,799 L181,796 L181,794 L180,791 L180,788 L180,785 L180,782 L181,779 L181,775 L182,772 L183,768 L184,765 L185,761 L186,757 L188,753 L189,749 L191,745 L193,741 L195,736 L198,732 L200,728 L203,723 L206,719 L209,714 L212,709 L215,705 L219,700 L223,695 L226,690 L231,685 L235,680 L239,675 L244,670 L248,665 L253,660 L258,655 L263,650 L268,645 L274,640 L279,635 L285,630 L291,625 L297,620 L303,615 L309,610 L316,605 L322,600 L329,595 L336,590 L343,585 L350,581 L357,576 L364,571 L371,566 L379,562 L386,557 L394,553 L402,548 L410,544 L417,539 L425,535 L433,531 L442,527 L450,523 L458,519 L466,515 L475,511 L483,507 L492,504 L500,500 L509,497 L517,493 L526,490 L534,487 L543,484 L552,481 L560,478 L569,475 L578,472 L586,469 L595,467 L604,465 L612,462 L621,460 L629,458 L638,456 L646,454 L655,452 L663,451 L672,449 L680,448 L688,446 L696,445 L704,444 L712,443 L720,442 L728,441 L736,441 L744,440 L751,440 L759,439 L766,439 L774,439 L781,439 L788,439 L795,439 L802,439 L808,439 L815,440 L822,440 L828,441 L834,442 L840,442 L846,443 L852,444 L857,445 L863,446 L868,448 L873,449 L878,450 L883,452 L887,453 L892,455 L896,456 L900,458 L904,460 L907,462 L911,463 L914,465 L917,467 L920,469 L923,471 L925,473 L928,475 L930,477 L932,480 L933,482 L935,484 L936,486 L937,489 L938,491 L939,493 L940,495 L940,498Z" fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round"/></symbol>
+</defs></svg>
+<style>
+  .s-hero h1{font-size:clamp(28px,4.6vw,48px)}
+  .route{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:18px;overflow-x:auto}
+  .route svg{display:block;width:100%;min-width:640px;height:auto}
+  .route .t1{fill:var(--ink);font-family:var(--body);font-size:14px;font-weight:600}
+  .route .t2{fill:var(--muted);font-family:var(--body);font-size:12px}
+  .route .tk{fill:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+  .route .ln{stroke:var(--line-2);stroke-width:1.5;fill:none}
+  .route .ac{stroke:var(--gold);stroke-width:2;fill:none}
+  .route .nd{fill:var(--well);stroke:var(--line-2)}
+  .route .ndB{fill:#1E2AA0}
+  .route .ndC{fill:#C47E4E}
+  .house{display:grid;gap:12px}
+  .roof{background:var(--hero);color:var(--hero-ink);border-radius:12px;padding:18px 22px}
+  .roof .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#F0A57C;text-transform:uppercase}
+  .roof p{font-family:var(--head);font-size:clamp(18px,2.4vw,23px);font-weight:700;margin-top:6px}
+  .pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .pillar{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+  .pillar h3{font-size:16px}
+  .pillar p{font-size:13.5px;color:var(--ink-2)}
+  .base{background:var(--well);border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--ink-2)}
+  .teams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .tcard{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:20px 22px;display:grid;gap:12px;align-content:start;min-width:0}
+  .tcard header{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .tcard h3{font-size:19px}
+  .tcard .goal{font-size:14.5px;font-weight:600;color:var(--ink)}
+  .tcard h4{margin:4px 0 0;font-size:12px;font-family:var(--mono);letter-spacing:.08em;color:var(--muted);text-transform:uppercase;font-weight:500}
+  .tcard ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:13.6px;color:var(--ink-2)}
+  .tcard ul.no li{color:var(--bad)}
+  .kpis{display:flex;flex-wrap:wrap;gap:6px}
+  .kpi{font-size:12px;padding:4px 9px;border-radius:6px;background:var(--well);color:var(--ink-2)}
+  .kpi b{font-family:var(--mono);color:var(--ink);font-weight:500}
+  .tbl table{min-width:760px}
+  .pair-fig{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#EFECE6}
+  .pair-fig svg{display:block;width:100%;height:auto}
+  .two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+  .quote{border-left:3px solid var(--gold);padding:4px 0 4px 14px;font-family:var(--head);font-size:17px;font-weight:700;color:var(--ink)}
+  @media (max-width:820px){ .pillars,.teams,.two{grid-template-columns:1fr} }
+</style>
+
+<header class="hero s-hero">
+  <div class="wrap">
+    <div class="eyebrow">TURNOVA · 캡 시스템 전략 · 2026-10-12 · 브랜딩 · 커머스 · 마케팅 · 비주얼</div>
+    <h1>캡이 장소를 정하고,<br>장소가 리추얼을 만듭니다.</h1>
+    <p class="lede">튜브 두 개를 구분하려고 시작한 캡 결정을, 터노바 전체 전략의 축으로 키우는 안입니다. 욕실의 블루 캡은 밤 8시 출발이고, 화장대의 코퍼 캡은 아침 도착입니다. 브랜드북 V장에 이미 있는 '왕복 인증'(밤 8시 출발, 아침 도착)을 패키지가 직접 보여주게 만듭니다.</p>
+    <div class="verdict" role="list">
+      <div role="listitem"><div class="k">🔮 단 하나의 길</div><div class="v">S2 왕복 리추얼 전략</div><div class="s">장소 코드 + 왕복 리추얼 + 8각 형태 보호를 한 묶음으로 실행</div></div>
+      <div role="listitem"><div class="k">먼저 검증할 것</div><div class="v">"랩핑은 욕실에 둔다" 가정</div><div class="s">타깃 50명 설문, 60% 미만이면 장소 코드만 재검토</div></div>
+      <div role="listitem"><div class="k">대표 결정</div><div class="v">8각을 8 시스템에 추가할지</div><div class="s">추천: 승인. 금형은 판매를 보고 결정(대안 1)</div></div>
+    </div>
+    <div class="alts">
+      <div><b>대안 1 · S1 장소 코드만</b> 캡 색 규칙(코퍼 = 화장대, 블루 = 욕실)만 라인 전체에 적용하고, 리추얼 연결은 1,000명을 모은 뒤 켭니다.</div>
+      <div><b>대안 2 · S3 8각 아이콘 선행</b> 8각 캡을 샤넬 N°5 스토퍼처럼 광고 전면에 세웁니다. 인지는 빠르지만 금형과 매체비가 먼저 나가야 합니다.</div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">01 · 핵심 그림</div>
+      <h2>하룻밤의 왕복: 욕실에서 출발해 화장대에 도착합니다</h2>
+      <p class="lede">브랜드 이름의 3막(TURN OFF → TURN OVER → NOVA)이 두 장소와 두 캡에 그대로 겹칩니다. 패키지를 보면 루틴의 순서와 놓을 곳이 함께 보입니다.</p>
+    </div>
+    <div class="route">
+      <svg viewBox="0 0 900 230" role="img" aria-label="하룻밤 왕복 경로: 밤 8시 욕실에서 랩핑마스크로 출발, 자는 동안 턴오버, 아침 욕실에서 떼어내고 화장대에서 배리어크림으로 도착">
+        <path class="ln" d="M110 120 H790"/>
+        <path class="ac" d="M110 120 H330"/>
+        <path class="ac" d="M570 120 H790"/>
+        <circle class="nd ndB" cx="110" cy="120" r="22"/>
+        <circle class="nd" cx="330" cy="120" r="16"/>
+        <circle class="nd" cx="570" cy="120" r="16"/>
+        <circle class="nd ndC" cx="790" cy="120" r="22"/>
+        <text class="tk" x="110" y="62" text-anchor="middle">8 PM · TURN OFF</text>
+        <text class="t1" x="110" y="176" text-anchor="middle">욕실 · 출발</text>
+        <text class="t2" x="110" y="196" text-anchor="middle">샤워 후 랩핑마스크</text>
+        <text class="t2" x="110" y="214" text-anchor="middle">블루 8각 원터치 · 젖은 손</text>
+        <text class="tk" x="330" y="62" text-anchor="middle">NIGHT · TURN OVER</text>
+        <text class="t1" x="330" y="176" text-anchor="middle">자는 동안</text>
+        <text class="t2" x="330" y="196" text-anchor="middle">필름이 덮고 피부가 바뀜</text>
+        <text class="tk" x="570" y="62" text-anchor="middle">MORNING</text>
+        <text class="t1" x="570" y="176" text-anchor="middle">욕실 · 떼어냄</text>
+        <text class="t2" x="570" y="196" text-anchor="middle">필름을 벗기는 순간</text>
+        <text class="tk" x="790" y="62" text-anchor="middle">NOVA · ARRIVE</text>
+        <text class="t1" x="790" y="176" text-anchor="middle">화장대 · 도착</text>
+        <text class="t2" x="790" y="196" text-anchor="middle">배리어크림</text>
+        <text class="t2" x="790" y="214" text-anchor="middle">코퍼 8각 스크류 · 마른 손</text>
+      </svg>
+    </div>
+    <div class="two" style="margin-top:18px">
+      <figure class="pair-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 476" role="img" aria-label="추천 조합 P01: 화장대 배리어 코퍼 8각 스크류, 욕실 랩핑 블루 8각 원터치"><rect width="560" height="476" fill="#EFECE6"/><rect x="280" width="280" height="476" fill="#E6EAF1"/><line x1="280" y1="0" x2="280" y2="420" stroke="#D3D9E4"/><line x1="320" y1="0" x2="320" y2="420" stroke="#D3D9E4"/><line x1="360" y1="0" x2="360" y2="420" stroke="#D3D9E4"/><line x1="400" y1="0" x2="400" y2="420" stroke="#D3D9E4"/><line x1="440" y1="0" x2="440" y2="420" stroke="#D3D9E4"/><line x1="480" y1="0" x2="480" y2="420" stroke="#D3D9E4"/><line x1="520" y1="0" x2="520" y2="420" stroke="#D3D9E4"/><line x1="280" y1="0" x2="560" y2="0" stroke="#D3D9E4"/><line x1="280" y1="40" x2="560" y2="40" stroke="#D3D9E4"/><line x1="280" y1="80" x2="560" y2="80" stroke="#D3D9E4"/><line x1="280" y1="120" x2="560" y2="120" stroke="#D3D9E4"/><line x1="280" y1="160" x2="560" y2="160" stroke="#D3D9E4"/><line x1="280" y1="200" x2="560" y2="200" stroke="#D3D9E4"/><line x1="280" y1="240" x2="560" y2="240" stroke="#D3D9E4"/><line x1="280" y1="280" x2="560" y2="280" stroke="#D3D9E4"/><line x1="280" y1="320" x2="560" y2="320" stroke="#D3D9E4"/><line x1="280" y1="360" x2="560" y2="360" stroke="#D3D9E4"/><line x1="280" y1="400" x2="560" y2="400" stroke="#D3D9E4"/><rect y="420" width="280" height="56" fill="#D9D1C4"/><rect x="280" y="420" width="280" height="56" fill="#CAD2DF"/><text x="14" y="22" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-size="10.5" letter-spacing="2" fill="#7A6E5C">VANITY</text><text x="294" y="22" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-size="10.5" letter-spacing="2" fill="#5C6A82">BATH</text><ellipse cx="140.0" cy="422.0" rx="69.4" ry="8" fill="url(#sh)"/><clipPath id="caroiri"><path d="M84.0 68.0L196.0 68.0L184.8 336.0Q184.8 350.0 177.3 350.0L102.7 350.0Q95.2 350.0 95.2 336.0Z"/></clipPath><path d="M84.0 68.0L196.0 68.0L184.8 336.0Q184.8 350.0 177.3 350.0L102.7 350.0Q95.2 350.0 95.2 336.0Z" fill="url(#rb)"/><rect x="82.5" y="56.0" width="115.0" height="13" rx="1.5" fill="#18217F"/><line x1="88.5" y1="59.0" x2="88.5" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="93.0" y1="59.0" x2="93.0" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="97.4" y1="59.0" x2="97.4" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="101.9" y1="59.0" x2="101.9" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="106.4" y1="59.0" x2="106.4" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="110.9" y1="59.0" x2="110.9" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="115.4" y1="59.0" x2="115.4" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="119.8" y1="59.0" x2="119.8" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="124.3" y1="59.0" x2="124.3" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="128.8" y1="59.0" x2="128.8" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="133.3" y1="59.0" x2="133.3" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="137.8" y1="59.0" x2="137.8" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="142.2" y1="59.0" x2="142.2" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="146.7" y1="59.0" x2="146.7" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="151.2" y1="59.0" x2="151.2" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="155.7" y1="59.0" x2="155.7" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="160.2" y1="59.0" x2="160.2" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="164.6" y1="59.0" x2="164.6" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="169.1" y1="59.0" x2="169.1" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="173.6" y1="59.0" x2="173.6" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="178.1" y1="59.0" x2="178.1" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="182.6" y1="59.0" x2="182.6" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="187.0" y1="59.0" x2="187.0" y2="66.0" stroke="#2836B4" stroke-width=".7"/><line x1="191.5" y1="59.0" x2="191.5" y2="66.0" stroke="#2836B4" stroke-width=".7"/><text x="140.0" y="114.2" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="14.5" textLength="85.7" lengthAdjust="spacingAndGlyphs" fill="url(#cu)">TURNOVA</text><text x="140.0" y="285.1" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="9.0" letter-spacing=".8" fill="#E8956A">THE BARRIER</text><text x="140.0" y="295.1" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="9.0" letter-spacing=".8" fill="#E8956A">CREAM</text><text x="140.0" y="305.7" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="500" font-size="5.5" fill="#E8956A">TRX-8™</text><text x="140.0" y="317.3" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="500" font-size="5.5" fill="#E8956A">58 mL / 1.9 fl oz</text><use href="#tn8" x="130.9" y="170.9" width="18.1" height="18.1" style="color:#E8956A"/><rect x="99.7" y="350.0" width="23.6" height="70" fill="url(#cuL)"/><rect x="123.3" y="350.0" width="33.4" height="70" fill="url(#cu)"/><rect x="156.7" y="350.0" width="23.6" height="70" fill="url(#cuR)"/><path d="M123.3 350.0V420.0M156.7 350.0V420.0" stroke="rgba(0,0,0,.22)"/><rect x="99.7" y="350.0" width="80.6" height="2.4" fill="rgba(255,255,255,.3)"/><ellipse cx="420.0" cy="422.0" rx="96.7" ry="8" fill="url(#sh)"/><clipPath id="co8du46"><path d="M342.0 142.0L498.0 142.0L482.4 366.0Q482.4 380.0 477.8 380.0L362.2 380.0Q357.6 380.0 357.6 366.0Z"/></clipPath><path d="M342.0 142.0L498.0 142.0L482.4 366.0Q482.4 380.0 477.8 380.0L362.2 380.0Q357.6 380.0 357.6 366.0Z" fill="url(#rb)"/><rect x="340.5" y="130.0" width="159.0" height="13" rx="1.5" fill="#18217F"/><line x1="348.2" y1="133.0" x2="348.2" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="354.5" y1="133.0" x2="354.5" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="360.7" y1="133.0" x2="360.7" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="367.0" y1="133.0" x2="367.0" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="373.2" y1="133.0" x2="373.2" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="379.4" y1="133.0" x2="379.4" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="385.7" y1="133.0" x2="385.7" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="391.9" y1="133.0" x2="391.9" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="398.2" y1="133.0" x2="398.2" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="404.4" y1="133.0" x2="404.4" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="410.6" y1="133.0" x2="410.6" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="416.9" y1="133.0" x2="416.9" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="423.1" y1="133.0" x2="423.1" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="429.4" y1="133.0" x2="429.4" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="435.6" y1="133.0" x2="435.6" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="441.8" y1="133.0" x2="441.8" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="448.1" y1="133.0" x2="448.1" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="454.3" y1="133.0" x2="454.3" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="460.6" y1="133.0" x2="460.6" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="466.8" y1="133.0" x2="466.8" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="473.0" y1="133.0" x2="473.0" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="479.3" y1="133.0" x2="479.3" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="485.5" y1="133.0" x2="485.5" y2="140.0" stroke="#2836B4" stroke-width=".7"/><line x1="491.8" y1="133.0" x2="491.8" y2="140.0" stroke="#2836B4" stroke-width=".7"/><text x="420.0" y="186.6" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="20.2" textLength="119.3" lengthAdjust="spacingAndGlyphs" fill="url(#cu)">TURNOVA</text><text x="420.0" y="305.5" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="12.5" letter-spacing=".8" fill="#E8956A">THE WRAPPING</text><text x="420.0" y="319.5" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="12.5" letter-spacing=".8" fill="#E8956A">MASK</text><text x="420.0" y="334.2" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="500" font-size="7.7" fill="#E8956A">TRX-8™</text><text x="420.0" y="350.4" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="500" font-size="7.7" fill="#E8956A">80 mL / 2.7 fl oz</text><use href="#tn8" x="407.4" y="220.1" width="25.3" height="25.3" style="color:#E8956A"/><rect x="359.2" y="380.0" width="35.6" height="40" fill="url(#rbL)"/><rect x="394.8" y="380.0" width="50.4" height="40" fill="url(#rbF)"/><rect x="445.2" y="380.0" width="35.6" height="40" fill="url(#rbR)"/><path d="M394.8 380.0V420.0M445.2 380.0V420.0" stroke="rgba(0,0,0,.38)"/><path d="M359.2 398.0H480.8" stroke="#0B1048" stroke-width="1.3"/><path d="M410.0 398.0Q420.0 406.0 430.0 398.0" fill="#0B1048"/><text x="140" y="452" text-anchor="middle" font-family="'IBM Plex Sans KR', sans-serif" font-size="11.5" fill="#5B5040">배리어 · 35Φ 슬림 · 코퍼 8각 스크류</text><text x="420" y="452" text-anchor="middle" font-family="'IBM Plex Sans KR', sans-serif" font-size="11.5" fill="#3F4C66">랩핑 · 40Φ 와이드 · 블루 8각 원터치</text></svg></figure>
+      <div style="display:grid;gap:12px">
+        <p class="quote">블루 캡은 쓰는 곳에, 코퍼 캡은 보여주는 곳에 둡니다.</p>
+        <p class="lede" style="font-size:14px">이 규칙 하나로 세 가지가 동시에 풀립니다. 매대와 썸네일에서 두 튜브가 구분되고, 고객은 어디에 둘지 바로 알며, 브랜드는 '왕복 인증' 리추얼을 설명 없이 보여줍니다. 앞으로 나올 SKU의 캡도 이 규칙으로 정할 수 있어서(넥스틱·아이크림은 화장대 → 코퍼, 바디·헤어는 욕실 → 블루), 인수자가 사는 '복제 불가능한 체계'의 한 조각이 됩니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">02 · 전략 옵션 시뮬레이션</div>
+      <h2>현상 유지를 포함한 4개 안 × 최선·기본·최악</h2>
+      <p class="lede">0순위 원칙은 하방입니다. 추천안 S2도 첫 단계는 비용이 거의 들지 않는 검증(설문, 썸네일 테스트)으로 시작해서, 가정이 틀리면 바로 되돌릴 수 있게 짰습니다.</p>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>전략</th><th>내용</th><th>최선</th><th>기본</th><th>최악</th><th>되돌림</th><th>실패 신호</th></tr></thead>
+      <tbody>
+        <tr><td><b>S0 현상 유지</b></td><td>캡은 기능 문제로만 처리하고 팀별 활용 없음</td><td>추가 비용 0</td><td>두 튜브는 구분되지만 브랜드 자산으로 쌓이지 않음</td><td>바더식 문법 안에 머물러 '아류' 인식</td><td><span class="tag ok">쉬움</span></td><td>리뷰·바이어 미팅에서 "바더 같다" 반복</td></tr>
+        <tr><td><b>S1 장소 코드</b></td><td>코퍼 = 화장대, 블루 = 욕실을 라인 전체 규칙으로</td><td>SKU가 늘어도 매대 질서가 유지됨</td><td>구분은 확실하지만 고객이 이유를 모름</td><td>장소 가정이 틀려 규칙이 어색해짐</td><td><span class="tag ok">쉬움</span></td><td>설문에서 랩핑을 욕실에 둔다 60% 미만</td></tr>
+        <tr><td><b>S2 왕복 리추얼 (추천)</b></td><td>S1 + 8 PM 왕복 인증·28일 챌린지·8주 구독을 캡으로 연결 + 8각 디자인권</td><td>패키지·세트·CRM·콘텐츠가 한 이야기로 묶여 재구매가 구조로 들어감</td><td>세트·구독 비중이 올라가고 UGC 소재가 계속 생김</td><td>리추얼 참여가 낮아 콘텐츠 축이 비어 보임</td><td><span class="tag warn">단계별 가능</span></td><td>첫 28일 챌린지 완주율 20% 미만, 8시 알림 구독 정체</td></tr>
+        <tr><td><b>S3 8각 아이콘 선행</b></td><td>8각 캡 자체를 광고 전면의 아이콘으로</td><td>'8각 = 터노바' 인지가 빠름</td><td>금형·매체비가 판매 전에 나감</td><td>8 그래픽 선점자(Eight Hour)와 비교되고 기능 메시지가 묻힘</td><td><span class="tag bad">어려움</span></td><td>광고 회상률은 높은데 PDP 전환이 낮음</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">03 · 전략 한 장</div>
+      <h2>명제 하나, 기둥 셋, 증명 지표</h2>
+    </div>
+    <div class="house">
+      <div class="roof"><div class="k">명제</div><p>터노바의 밤은 욕실에서 출발해 화장대에 도착한다. 캡이 그 길을 안내한다.</p></div>
+      <div class="pillars">
+        <div class="pillar"><span class="tag gold">기둥 1</span><h3>장소 코드</h3><p>코퍼 캡은 보여주는 곳(화장대), 블루 캡은 쓰는 곳(욕실)입니다. 신규 SKU도 '어디에 두는가'로 캡을 정합니다.</p></div>
+        <div class="pillar"><span class="tag gold">기둥 2</span><h3>왕복 리추얼</h3><p>8 PM 출발(랩핑)과 아침 도착(배리어)을 인증 2회로 만듭니다. 랩핑 80ml = 28밤 = 28일 챌린지 1회입니다.</p></div>
+        <div class="pillar"><span class="tag gold">기둥 3</span><h3>8각 형태 보호</h3><p>8각은 손에 닿는 부품(캡·뚜껑)에만 씁니다. 그래픽 패턴으로는 쓰지 않고, 디자인권으로 지킵니다.</p></div>
+      </div>
+      <div class="base">증명 지표: 2초 썸네일 구분 정답률 · 왕복 세트 구성비 · 28일 재구매율 · 8시 알림 구독자 · 오프라인 QR 전환율 (07 KPI 참고)</div>
+    </div>
+  </div>
+</section>
+
+<section id="teams">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">04 · 팀별 전략</div>
+      <h2>네 팀이 같은 명제를 각자의 언어로 실행합니다</h2>
+      <p class="lede">각 팀 카드는 목표 한 줄, 핵심 실행, 측정 지표, 하지 않을 것 순서입니다. 수치 목표는 모두 제안값이며 론칭 전 대표님 확정이 필요합니다.</p>
+    </div>
+    <div class="teams">
+      <article class="tcard">
+        <header><h3>브랜딩팀</h3><span class="tag gold">체계를 만든다</span></header>
+        <p class="goal">목표: 캡 규칙을 '8 시스템'의 다섯 번째 장치로 올리고, 인수자가 사는 체계로 문서화합니다.</p>
+        <h4>핵심 실행</h4>
+        <ul>
+          <li>8 시스템 확장: 심볼 · TRX-8™ · 8 PM · 매월 8일에 <b>8각(형태)</b>를 추가합니다. 쓰는 곳은 캡과 뚜껑으로 한정합니다.</li>
+          <li>장소 코드 규칙을 가이드 v5 9-0장에 넣습니다. 코퍼 캡은 화장대, 블루 캡은 욕실이고, 신규 SKU는 놓는 곳으로 캡을 정합니다.</li>
+          <li>왕복 서사를 브랜드북 V장(리추얼)과 IX장(티켓)에 연결합니다. 랩핑 1튜브가 28일 티켓북 1권이 됩니다.</li>
+          <li>8각 캡·뚜껑 디자인 출원(12월, 심볼 도형 상표와 함께). 원형 코퍼 캡을 쓰지 않아 바더 트레이드드레스와의 거리도 벌어집니다.</li>
+          <li>3R(Reset·Refill·Reverse)은 단상자 안쪽에만 둡니다. 겉면은 TURN OFF와 NOVA로만 말합니다.</li>
+        </ul>
+        <h4>측정</h4>
+        <div class="kpis"><span class="kpi">로고 가린 블라인드 인지 <b>≥ 50%</b></span><span class="kpi">디자인권 출원 <b>12월</b></span></div>
+        <h4>하지 않을 것</h4>
+        <ul class="no"><li>8각을 배경 패턴·프레임 그래픽으로 쓰기(가이드 금지 항목)</li><li>숫자 8을 그래픽으로 반복하기(Eight Hour와 겹침)</li></ul>
+      </article>
+
+      <article class="tcard">
+        <header><h3>커머스팀</h3><span class="tag gold">재구매를 구조로</span></header>
+        <p class="goal">목표: 두 튜브의 다른 소진 주기(28일 · 8주)를 하나의 8주 리듬으로 묶어 세트와 구독으로 팝니다.</p>
+        <h4>핵심 실행</h4>
+        <ul>
+          <li><b>8주 왕복 구독</b>: 배리어 1 + 랩핑 2 = 8주 사용량(추정)입니다. 정기배송 한 번에 두 장소가 함께 채워집니다.</li>
+          <li><b>왕복 세트</b>(배리어 + 랩핑)를 첫 구매 메인으로, 필름밤을 더한 3종을 프리미엄 루틴으로 둡니다. 가격 사다리는 기존 원칙을 지킵니다: 공구가가 절대 바닥이고, 세트 개당가는 단품 재구매가 아래·공구가 위입니다.</li>
+          <li>PDP 첫 이미지는 두 캡 투샷 + '놓을 곳' 표시입니다. 160px 썸네일에서 캡 색만으로 SKU가 구분돼야 합니다.</li>
+          <li>오프라인(올리브영)에서는 두 제품이 크림 존과 팩 존에 따로 놓일 가능성이 큽니다(추정). 그래서 세트 판매는 자사몰·온라인·메종의 날에 집중하고, 매대에서는 각자 단독으로 이기게 둡니다.</li>
+          <li>1차 기성 원형 원터치에서 2차 8각으로 넘어갈 때 바코드와 재고 소진 순서를 미리 정합니다.</li>
+        </ul>
+        <h4>측정</h4>
+        <div class="kpis"><span class="kpi">왕복 세트 구성비 <b>30%</b></span><span class="kpi">28일 재구매율 <b>35%</b></span><span class="kpi">구독 전환 <b>10%</b></span></div>
+        <h4>하지 않을 것</h4>
+        <ul class="no"><li>상시 40% 초과 할인, 채널 간 가격 중복</li><li>경쟁사를 따라 내리는 최저가 싸움</li></ul>
+      </article>
+
+      <article class="tcard">
+        <header><h3>마케팅팀</h3><span class="tag gold">왕복을 보여준다</span></header>
+        <p class="goal">목표: '밤 8시 욕실에서 출발, 아침 화장대에서 도착'을 매일 반복되는 콘텐츠와 인증으로 만듭니다.</p>
+        <h4>핵심 실행</h4>
+        <ul>
+          <li><b>딸깍</b>: 8각 원터치를 여는 소리를 8시 사운드 로고 후보로 녹음합니다. 숏폼 첫 1초 훅으로 씁니다.</li>
+          <li><b>왕복 인증</b>: 브랜드북에서 '구독자 1,000명 이후'로 미뤄 둔 기능을 패키지 덕분에 론칭부터 켤 수 있습니다. 밤에 욕실 셀피, 아침에 화장대 셀피를 찍습니다.</li>
+          <li><b>28일 챌린지 = 랩핑 1튜브</b>: 시작일과 28일째를 같은 조명으로 비교합니다. 다음 튜브 알림이 곧 재구매 알림이 됩니다.</li>
+          <li><b>티저</b>: 로고 없이 8각 캡의 그림자와 실루엣만 공개하고, 8시 알림 구독으로 유도합니다.</li>
+          <li><b>트라이얼</b>: 3ml 미니튜브 키트에도 캡 색 코드를 적용하고, 100원·배송비만 받는 체험으로 첫 진입 장벽을 낮춥니다(마케팅 방법론 3번).</li>
+        </ul>
+        <h4>측정</h4>
+        <div class="kpis"><span class="kpi">8시 알림 구독 <b>1,000명</b></span><span class="kpi">왕복 인증 참여 <b>15%</b></span><span class="kpi">챌린지 완주 <b>20%</b></span></div>
+        <h4>하지 않을 것</h4>
+        <ul class="no"><li>'시술급·시술 대체' 표현(표시광고법·약기법 66조)</li><li>실증 범위 밖 효능 문구, 브라이언 존슨 언급</li></ul>
+      </article>
+
+      <article class="tcard">
+        <header><h3>비주얼팀</h3><span class="tag gold">두 개의 무대</span></header>
+        <p class="goal">목표: 모든 비주얼을 '욕실 무대'와 '화장대 무대' 두 개로만 찍어서, 장소 코드가 사진만 보고도 읽히게 합니다.</p>
+        <h4>핵심 실행</h4>
+        <ul>
+          <li><b>촬영 세트 2종 고정</b>: 욕실은 차가운 타일, 물방울, 밤 8시의 낮은 조도입니다. 화장대는 따뜻한 스톤, 거울, 아침 빛입니다. PDP, 광고, SNS 모두 이 두 세트만 씁니다.</li>
+          <li><b>패키샷 규칙</b>: 캡을 아래로 세우고 3/4 앵글(45°)로 8각 면 두 개가 보이게 찍습니다. 정면 라벨은 compose_label.py로 합성하고, AI는 무지 용기와 조명만 만듭니다.</li>
+          <li><b>캡 컬러 규칙</b>: 코퍼는 메탈 실물 칩 하나로 대조 승인합니다. 랩핑 블루 캡은 바디와 같은 팬톤입니다.</li>
+          <li><b>장소 아이콘 2종</b>(욕실·화장대)을 단상자 안쪽, PDP, 첫 밤 키트에 같은 모양으로 씁니다. 8각 모양 아이콘은 쓰지 않습니다.</li>
+          <li>매번 160px 썸네일 시트와 measure_front.py 실측으로 검수한 뒤 전달합니다.</li>
+        </ul>
+        <h4>측정</h4>
+        <div class="kpis"><span class="kpi">2초 썸네일 구분 <b>≥ 90%</b></span><span class="kpi">워드마크 실측 <b>75–92%</b></span></div>
+        <h4>하지 않을 것</h4>
+        <ul class="no"><li>두 무대 밖의 임의 배경(핑크 스튜디오 등)</li><li>골드 톤 혼용(코퍼 1색, 핑크·브론즈는 반려)</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">05 · 팀 간 연결</div>
+      <h2>누가 무엇을 넘겨주는가</h2>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>산출물</th><th>만드는 팀</th><th>받는 팀</th><th>마감</th></tr></thead>
+      <tbody>
+        <tr><td>장소 가정 설문 결과(n=50)</td><td>마케팅</td><td>브랜딩 · 커머스</td><td class="num">10/24</td></tr>
+        <tr><td>8 시스템 확장안 + 장소 코드 규칙(가이드 v5 갱신)</td><td>브랜딩</td><td>비주얼 · 커머스</td><td class="num">10/31</td></tr>
+        <tr><td>캡 샘플·견적, 금형 발주 여부</td><td>커머스(소싱)</td><td>브랜딩 · 재무</td><td class="num">11/7</td></tr>
+        <tr><td>정식 라벨 합성 + 썸네일 테스트</td><td>비주얼</td><td>커머스 · 마케팅</td><td class="num">11/14</td></tr>
+        <tr><td>세트·구독 가격 사다리</td><td>커머스</td><td>마케팅</td><td class="num">11/21</td></tr>
+        <tr><td>딸깍 사운드·8시 알림 ICS·인증 템플릿</td><td>마케팅</td><td>비주얼 · 커머스</td><td class="num">11/30</td></tr>
+        <tr><td>두 무대 촬영(PDP·광고·티저)</td><td>비주얼</td><td>마케팅 · 커머스</td><td class="num">12/20</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">06 · 실행 로드맵</div>
+      <h2>2027년 2월 론칭과 3월 첫 챌린지 종료까지</h2>
+    </div>
+    <ol class="steps">
+      <li><span class="when">10월 중순</span><span><b>검증부터:</b> 타깃 50명에게 "랩핑을 어디에 두겠나" 설문, 30명에게 2초 썸네일 구분 테스트를 합니다. 비용이 거의 들지 않고, 결과가 나쁘면 장소 코드만 접습니다.</span></li>
+      <li><span class="when">10월 말</span><span>대표 결정(8각 승인) 후 가이드 v5를 갱신합니다. 세 팀에 같은 버전을 배포합니다.</span></li>
+      <li><span class="when">11월</span><span>금형 분기점(11월 첫째 주)을 지나고 정식 라벨 합성, 세트·구독 가격, 사운드·ICS·인증 템플릿을 준비합니다.</span></li>
+      <li><span class="when">12월</span><span>두 무대 촬영, 디자인권 출원, 티저 소재를 만듭니다.</span></li>
+      <li><span class="when">1월</span><span>8각 실루엣 티저와 8시 알림 사전 구독, 시딩을 진행합니다. 바이어 덱 첫 장은 왕복 그림입니다.</span></li>
+      <li><span class="when">2월 론칭</span><span>8시 알림을 열고 첫 왕복 인증과 첫 28일 챌린지를 시작합니다.</span></li>
+      <li><span class="when">3월</span><span>첫 챌린지가 끝나면 완주율·재구매율·세트 구성비를 보고, 2차 8각 원터치 금형 투자를 결정합니다.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">07 · KPI</div>
+      <h2>전략이 맞는지 확인하는 숫자 6개</h2>
+      <p class="lede">목표값은 모두 제안입니다. 28일 재구매율 35%만 기존 문서(Notion 가격 설계)의 목표를 그대로 썼습니다.</p>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>지표</th><th>목표(제안)</th><th>측정법</th><th>담당</th><th>밑돌면</th></tr></thead>
+      <tbody>
+        <tr><td>랩핑 욕실 보관 응답</td><td class="num">≥ 60%</td><td>타깃 50명 설문</td><td>마케팅</td><td>장소 코드 재검토. 캡 기능 차별(원터치)은 유지</td></tr>
+        <tr><td>2초 썸네일 구분 정답률</td><td class="num">≥ 90%</td><td>160px, 30명</td><td>비주얼</td><td>캡 비율·색 대비 강화(조합 P02·P04 검토)</td></tr>
+        <tr><td>왕복 세트 구성비</td><td class="num">30%</td><td>자사몰 주문 중 세트 비중</td><td>커머스</td><td>PDP 투샷·세트 가격 사다리 재설계</td></tr>
+        <tr><td>28일 재구매율</td><td class="num">35%</td><td>첫 구매 후 35일 안 재구매</td><td>커머스</td><td>28일째 알림 문구·적립금 조정</td></tr>
+        <tr><td>8시 알림 구독자</td><td class="num">1,000명</td><td>ICS 구독 수</td><td>마케팅</td><td>1,000명 이후 기능(8인의 동행 등) 앞당김 검토</td></tr>
+        <tr><td>오프라인 QR 전환율</td><td class="num">신설</td><td>단상자 안쪽 QR 스캔 ÷ 판매</td><td>커머스</td><td>첫 밤 키트 문구·위치 변경</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">08 · 가드레일</div>
+      <h2>모든 팀이 지키는 규칙</h2>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>영역</th><th>규칙</th><th>근거</th></tr></thead>
+      <tbody>
+        <tr><td>클레임</td><td>시술 대체·시술급·○○시술 효과 표현 금지. 효능 문구는 인체적용시험 범위 안에서만 씁니다.</td><td>시술 대응맵(내부 전용) · 표시광고법 · 약기법 66조</td></tr>
+        <tr><td>미국</td><td>'reverse aging'을 정면에 표기하지 않고 카피를 우회합니다.</td><td>브랜드북 VIII장(FDA drug claim)</td></tr>
+        <tr><td>8 사용</td><td>8각은 캡과 뚜껑에만 씁니다. 배경 패턴이나 워터마크로 쓰지 않습니다.</td><td>가이드 v5 금지 항목</td></tr>
+        <tr><td>컬러</td><td>로열블루 팬톤 1종, 코퍼 1색만 씁니다. 골드·로즈골드·브론즈는 반려합니다.</td><td>가이드 v5 3장</td></tr>
+        <tr><td>할인</td><td>상시 최대 40%, 채널별 가격 비중복, 큰 할인은 8월 8일 하루만 합니다.</td><td>가격 원칙 · 브랜드북 V장</td></tr>
+        <tr><td>제품명</td><td>THE BARRIER CREAM·THE WRAPPING MASK·THE FILM BALM CREAM은 가칭입니다. 승인 전 외부에 쓰지 않습니다.</td><td>가이드 검수 정책</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">출처</div><h2>근거 자료</h2></div>
+    <ul class="src-list">
+      <li>터노바 튜브 패키지 보드(레퍼런스 52종 · 시안 · 조합 18종) — 같은 세션 산출물</li>
+      <li>터노바 브랜드스토리 V장 리추얼(왕복 인증, 28일 챌린지, 8시 알림), IX장 티켓, X장 하우스 (Notion)</li>
+      <li>터노바 시술 대응맵 — 포지션 원칙과 광고 금지 표현 (Notion)</li>
+      <li>터노바 가격·쿠폰 사다리, 재구매 35% 목표 (Notion 💙터노바)</li>
+      <li>마케팅 방법론 — 100원 마케팅, 처방전 인증 (Notion)</li>
+      <li>디자인 가이드 v5 · 검수 정책 (jinnius 저장소 PR #1 브랜치)</li>
+      <li>얼굴 크림 1회 사용량 — lesliebaumannmd.com · PMC7357171 (소진 주기 추정 근거)</li>
+    </ul>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">TURNOVA · 주식회사 리버스에이징 내부 전략 문서 · 목표 수치는 모두 제안값 · 소진 주기와 매대 배치는 추정</div></footer>
