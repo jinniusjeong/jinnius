@@ -5,7 +5,7 @@ const T = globalThis.TNC;
 const D = require('./combos-data.js');
 const SYM = fs.readFileSync(require('path').join(__dirname, '..', require('fs').existsSync(__dirname + '/../mockups') ? 'mockups' : 'mock', 'sym-path.txt'), 'utf8');
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-const TAG = { pick: ['gold', '추천'], alt: ['warn', '대안'], ref: ['', '참고'], no: ['bad', '비추천'] };
+const TAG = { boss: ['gold', '대표 선택'], pick: ['gold', '추천'], alt: ['warn', '대안'], ref: ['', '참고'], no: ['bad', '비추천'] };
 
 const defs = `<svg id="tn-defs" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <linearGradient id="cu" x1="0" x2="1"><stop offset="0" stop-color="#9C5A2A"/><stop offset=".22" stop-color="#E9A57A"/><stop offset=".45" stop-color="#C47E4E"/><stop offset=".7" stop-color="#F4C2A0"/><stop offset="1" stop-color="#A5622F"/></linearGradient>
@@ -29,15 +29,16 @@ function chips(a) {
 }
 function card(p, held) {
   const a = T.axes(p.b, p.m), [cls, t] = held ? ['', '8각 보류'] : TAG[p.tag];
-  return `<article class="combo ${p.tag === 'pick' && !held ? 'pick' : ''}" data-tag="${held ? 'held' : p.tag}">
-  <figure>${T.pair(p.b, p.m, { aria: p.id + ' ' + p.title })}</figure>
+  const boss = p.tag === 'boss' && !held;
+  return `<article class="combo ${(p.tag === 'pick' || boss) && !held ? 'pick' : ''} ${boss ? 'boss' : ''}" data-tag="${held ? 'held' : (boss ? 'pick' : p.tag)}">
+  <figure>${boss ? T.trio(p.j, p.b, p.m, { aria: p.id + ' ' + p.title }) : T.pair(p.b, p.m, { aria: p.id + ' ' + p.title })}</figure>
   <div class="cb">
     <div class="ct"><span class="cid">${p.id}</span><span class="tag ${cls}">${t}</span><h3>${esc(p.title)}</h3></div>
     <p>${esc(p.idea)}</p>
     ${p.sns ? `<p class="sns"><b>SNS</b> ${esc(p.sns)}</p>` : ''}
     <div class="axrow">${chips(a)}<b class="sc">${a.score}/5</b></div>
     ${a.warn.length ? `<ul class="warn">${a.warn.map(w => `<li>${esc(w)}</li>`).join('')}</ul>` : ''}
-    <div class="from">참고: ${esc(p.from)}</div>
+    <div class="from">${boss ? '' : '참고: '}${esc(p.from)}</div>
     <button type="button" class="load" data-id="${p.id}">빌더에서 열기</button>
   </div>
 </article>`;
@@ -65,35 +66,43 @@ function bodyChart() {
 
 const opt = (obj, sel) => Object.keys(obj).map(k => `<option value="${k}"${k === sel ? ' selected' : ''}>${esc(typeof obj[k] === 'string' ? obj[k] : obj[k].label)}${obj[k].shape === 'oct' ? ' (금형 필요)' : ''}</option>`).join('');
 function side(prefix, title, o) {
-  return `<fieldset class="side"><legend>${title}</legend>
+  return `<div class="side" role="group" aria-labelledby="${prefix}-lg"><div class="lg" id="${prefix}-lg">${title}</div>
   <label for="${prefix}-shape">튜브 체형</label><select id="${prefix}-shape" data-k="shape">${opt(T.SHAPES, o.shape)}</select>
   <label for="${prefix}-body">바디</label><select id="${prefix}-body" data-k="body">${opt(T.BODIES, o.body)}</select>
   <label for="${prefix}-cap">캡</label><select id="${prefix}-cap" data-k="cap">${opt(T.CAPS, o.cap)}</select>
   <label for="${prefix}-metal">캡 색</label><select id="${prefix}-metal" data-k="metal">${opt(T.METALS, o.metal)}</select>
   <label for="${prefix}-band">띠·칼라</label><select id="${prefix}-band" data-k="band">${opt(T.BANDS, o.band || 'none')}</select>
-</fieldset>`;
+</div>`;
 }
+function jarSide(o) {
+  return `<div class="side" role="group" aria-labelledby="j-lg"><div class="lg" id="j-lg">필름밤 자 · 화장대</div>
+  <label for="j-shape">자 형태</label><select id="j-shape" data-k="shape">${opt(T.JAR_SHAPES, o.shape)}</select>
+  <label for="j-lid">뚜껑</label><select id="j-lid" data-k="lid">${opt(T.JAR_LIDS, o.lid)}</select>
+  <label for="j-body">바디</label><select id="j-body" data-k="body">${opt(T.JAR_BODIES, o.body)}</select>
+</div>`;
+}
+const JDEF = { shape: 'low', lid: 'round', body: 'blue' };
 const ALL = D.stock.concat(D.pairs);
-const p1 = D.stock[0], a1 = T.axes(p1.b, p1.m);
+const p1 = D.stock[0], a1 = T.axes(p1.b, p1.m), w1 = a1.warn.concat(T.jarWarn(p1.j || JDEF));
 const builder = `<div class="builder" id="builder">
   <div class="bctl">
     <div class="brow"><label for="preset">시작 조합</label><select id="preset">${ALL.map(p => `<option value="${p.id}">${p.id} · ${esc(p.title)}</option>`).join('')}</select>
     <button type="button" id="shuffle">무작위 조합</button></div>
-    <div class="sides">${side('b', '배리어 · 화장대', p1.b)}${side('m', '랩핑 · 화장실', p1.m)}</div>
+    <div class="sides">${jarSide(p1.j || JDEF)}${side('b', '배리어 · 화장대', p1.b)}${side('m', '랩핑 · 화장실', p1.m)}</div>
   </div>
   <div class="bview">
-    <figure id="bfig">${T.pair(p1.b, p1.m, { aria: '빌더 미리보기' })}</figure>
+    <figure id="bfig">${T.trio(p1.j || JDEF, p1.b, p1.m, { aria: '빌더 미리보기' })}</figure>
     <div class="axrow" id="baxes">${chips(a1)}<b class="sc">${a1.score}/5</b></div>
-    <ul class="warn" id="bwarn">${a1.warn.length ? a1.warn.map(w => `<li>${esc(w)}</li>`).join('') : '<li style="color:var(--ok)">걸리는 점 없음</li>'}</ul>
-    <p class="bnote">'(금형 필요)'가 붙은 8각 캡은 비용 때문에 보류한 옵션입니다. 판정은 다섯 구분 축과 가이드 규칙을 기준으로 자동 계산합니다.</p>
+    <ul class="warn" id="bwarn">${w1.length ? w1.map(w => `<li>${esc(w)}</li>`).join('') : '<li style="color:var(--ok)">걸리는 점 없음</li>'}</ul>
+    <p class="bnote">구분 축 판정은 배리어와 랩핑 두 튜브 기준이고, 자는 가이드 확정 사양(넓고 낮은 원형 자 + 코퍼 뚜껑)과 다를 때 주황 줄로 알려 줍니다. '(금형 필요)'가 붙은 8각은 비용으로 보류한 옵션입니다.</p>
   </div>
 </div>`;
 
 fs.writeFileSync(__dirname + '/combos-section.html', `<section id="combos">
   <div class="wrap">
     <div class="sec-head">
-      <div class="eyebrow">05 · 기성 부자재 조합 · 8각 없이 ${D.stock.length}종 + 체형 차트 + 자 ${D.jars.length}종</div>
-      <h2>금형 없이 체형·캡·띠로 구분하는 ${D.stock.length}가지</h2>
+      <div class="eyebrow">05 · 기성 부자재 조합 · 대표 선택안 S00 + ${D.stock.length - 1}종 + 체형 차트 + 자 ${D.jars.length}종</div>
+      <h2>금형 없이 체형·캡·칼라로 구분하는 ${D.stock.length}가지</h2>
       <p class="lede">8각은 신규 금형비(800만–2,500만 원, 추정) 때문에 보류하고, 기성 튜브와 기성 캡으로만 다시 짰습니다. 왼쪽이 배리어(화장대), 오른쪽이 랩핑(화장실)입니다. 카드마다 SNS에서 어떻게 보이는지 한 줄씩 붙였습니다. 체크 표시는 다섯 구분 축 가운데 두 튜브가 실제로 다른 축이고, 주황 줄은 가이드나 기능 면에서 걸리는 점입니다.</p>
     </div>
     <figure class="chart">${bodyChart()}<figcaption>같은 용량이어도 지름을 바꾸면 체형이 달라집니다. 길이는 35Φ 기성 규격(107mm≈60ml, 138mm≈90ml)에서 지름 비율로 환산한 추정치이며, 공급사 도면으로 확정합니다.</figcaption></figure>
@@ -121,4 +130,4 @@ ${heldCards}
 </section>`);
 fs.writeFileSync(__dirname + '/defs.html', defs);
 console.log('stock', D.stock.map(p => p.id + ':' + T.axes(p.b, p.m).score + '/' + T.axes(p.b, p.m).warn.length).join(' '));
-fs.writeFileSync(__dirname + '/builder.js', fs.readFileSync(__dirname + '/builder.tpl.js', 'utf8').replace('__PRESETS__', JSON.stringify(D.stock.concat(D.pairs).map(p => ({ id: p.id, b: p.b, m: p.m })))));
+fs.writeFileSync(__dirname + '/builder.js', fs.readFileSync(__dirname + '/builder.tpl.js', 'utf8').replace('__PRESETS__', JSON.stringify(D.stock.concat(D.pairs).map(p => ({ id: p.id, j: p.j || { shape: 'low', lid: 'round', body: 'blue' }, b: p.b, m: p.m })))));

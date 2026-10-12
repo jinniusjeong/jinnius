@@ -52,12 +52,12 @@
   }
 
   function label(x, yT, yB, W, name, vol, ink, wmInk, jar) {
-    var H = yB - yT, wmW = W * (jar ? 0.62 : 0.85), fs1 = wmW / 5.9, cap = fs1 * 0.72;
-    var wmBase = yT + (jar ? 0.18 : 0.13) * H + cap, f2 = fs1 / PHI, f3 = f2 / PHI;
+    var H = yB - yT, wmW = W * (jar ? 0.58 : 0.85), fs1 = wmW / 5.9, cap = fs1 * 0.72;
+    var wmBase = yT + (jar ? 0.12 : 0.13) * H + cap, f2 = fs1 / PHI, f3 = f2 / PHI;
     var t = '<text x="' + f(x) + '" y="' + f(wmBase) + '" text-anchor="middle" ' + WM + ' font-size="' + f(fs1) + '" textLength="' + f(wmW) + '" lengthAdjust="spacingAndGlyphs" fill="' + wmInk + '">TURNOVA</text>';
     var lines = name.split('|'), i;
     if (jar) {
-      var y = wmBase + f2 * 1.7;
+      var y = wmBase + f2 * 1.5;
       for (i = 0; i < lines.length; i++) { t += '<text x="' + f(x) + '" y="' + f(y) + '" text-anchor="middle" ' + WM + ' font-size="' + f(f2 * 0.82) + '" letter-spacing=".6" fill="' + ink + '">' + lines[i] + '</text>'; y += f2 * 1.05; }
       return t + '<text x="' + f(x) + '" y="' + f(y + f3 * 0.4) + '" text-anchor="middle" ' + SANS + ' font-size="' + f(f3) + '" fill="' + ink + '">TRX-8™ · ' + vol + '</text>';
     }
@@ -107,16 +107,29 @@
     return s;
   }
 
-  // jar: {lid: round|oct|blueLid|tall, w}
-  function jar(x, ground, o) {
-    o = o || {}; var w = 136, bodyH = 64, lidH = o.lid === 'tall' ? 44 : 30, by = ground - bodyH, ly = by - lidH, s = '';
-    s += '<ellipse cx="' + f(x) + '" cy="' + f(ground + 2) + '" rx="' + f(w * 0.62) + '" ry="7" fill="url(#sh)"/>';
-    s += '<rect x="' + f(x - w / 2 + 3) + '" y="' + f(by) + '" width="' + f(w - 6) + '" height="' + bodyH + '" rx="8" fill="url(#rb)"/>';
+  // jar: {shape: low|std|tall|dw, lid: round|tallLid|blueLid|blueAll|oct, body: blue|copper}, k = scale
+  var JAR_SHAPES = { low: { label: '넓고 낮은 자 (확정)', w: 136, bodyH: 66, lidH: 28 }, std: { label: '표준 자', w: 120, bodyH: 74, lidH: 30 }, tall: { label: '높은 자', w: 108, bodyH: 88, lidH: 30 }, dw: { label: '이중벽 두툼한 자', w: 132, bodyH: 78, lidH: 34 } };
+  var JAR_LIDS = { round: '코퍼 뚜껑 (확정)', tallLid: '높은 코퍼 뚜껑', blueLid: '블루 뚜껑 + 코퍼 링', blueAll: '올 블루 뚜껑', oct: '8각 코퍼 뚜껑 (금형 필요)' };
+  var JAR_BODIES = { blue: '로열블루', copper: '코퍼(한정판)' };
+  function jar(x, ground, o, k) {
+    o = o || {}; k = k || 1;
+    var js = JAR_SHAPES[o.shape || 'low'], w = js.w * k, bodyH = js.bodyH * k, lidH = (o.lid === 'tallLid' ? js.lidH * 1.5 : js.lidH) * k;
+    var by = ground - bodyH, ly = by - lidH, s = '', blue = o.body !== 'copper';
+    s += '<ellipse cx="' + f(x) + '" cy="' + f(ground + 2) + '" rx="' + f(w * 0.62) + '" ry="' + f(7 * k) + '" fill="url(#sh)"/>';
+    s += '<rect x="' + f(x - w / 2 + 3 * k) + '" y="' + f(by) + '" width="' + f(w - 6 * k) + '" height="' + f(bodyH) + '" rx="' + f(8 * k) + '" fill="' + (blue ? 'url(#rb)' : 'url(#cuBody)') + '"/>';
+    if (o.shape === 'dw') s += '<rect x="' + f(x - w / 2 + 3 * k) + '" y="' + f(ground - 8 * k) + '" width="' + f(w - 6 * k) + '" height="' + f(8 * k) + '" rx="' + f(4 * k) + '" fill="rgba(0,0,0,.18)"/>';
     if (o.lid === 'oct') s += oct(x, ly, w, lidH, 'copper');
-    else if (o.lid === 'blueLid') s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + w + '" height="' + lidH + '" rx="3" fill="url(#rbF)"/><rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + w + '" height="4" fill="url(#cu)"/>';
-    else s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + w + '" height="' + lidH + '" rx="3" fill="url(#cu)"/>';
-    if (o.lid !== 'blueLid') s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + w + '" height="2" fill="rgba(255,255,255,.35)"/>';
-    return s + label(x, by + 2, ground, w - 6, 'THE FILM|BALM CREAM', '18 mL', CU_TXT, 'url(#cu)', true);
+    else if (o.lid === 'blueLid' || o.lid === 'blueAll') { s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + f(w) + '" height="' + f(lidH) + '" rx="3" fill="url(#rbF)"/>'; if (o.lid === 'blueLid') s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly + lidH - 4 * k) + '" width="' + f(w) + '" height="' + f(4 * k) + '" fill="url(#cu)"/>'; }
+    else s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + f(w) + '" height="' + f(lidH) + '" rx="3" fill="url(#cu)"/><rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + f(w) + '" height="2" fill="rgba(255,255,255,.35)"/>';
+    return s + label(x, by + 2 * k, ground, w - 6 * k, 'THE FILM|BALM CREAM', '18 mL', blue ? CU_TXT : BLUE_TXT, blue ? 'url(#cu)' : BLUE_TXT, true);
+  }
+  function jarWarn(j) {
+    var w = [];
+    if (j.lid === 'oct') w.push('자 8각 뚜껑은 신규 금형 필요 · 보류');
+    if (j.lid === 'blueLid' || j.lid === 'blueAll') w.push('자 뚜껑 블루는 확정 규칙(용기 블루·뚜껑 코퍼, 10/6)과 다름');
+    if (j.body === 'copper') w.push('코퍼 바디 자는 한정판 옵션(가이드 DUA 반전)');
+    if (j.shape && j.shape !== 'low') w.push('자 형태는 가이드 확정(넓고 낮은 원형)과 다름');
+    return w;
   }
 
   function scene(W, H, split, ground) {
@@ -136,8 +149,19 @@
     var W = 560, H = 476, G = 420;
     var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || '배리어와 랩핑 조합') + '">' + scene(W, H, 280, G);
     s += tube(140, G, merge(BAR, b)) + tube(420, G, merge(MSK, m));
-    s += '<text x="140" y="' + (G + 32) + '" text-anchor="middle" ' + KR + ' font-size="11.5" fill="#5B5040">배리어 · ' + SHAPES[b.shape].label + ' · ' + capName(b) + '</text>';
-    s += '<text x="420" y="' + (G + 32) + '" text-anchor="middle" ' + KR + ' font-size="11.5" fill="#3F4C66">랩핑 · ' + SHAPES[m.shape].label + ' · ' + capName(m) + '</text>';
+    s += cap2(140, G, '배리어 · ' + SHAPES[b.shape].label, capName(b), '#5B5040') + cap2(420, G, '랩핑 · ' + SHAPES[m.shape].label, capName(m), '#3F4C66');
+    return s + '</svg>';
+  }
+  function cap2(x, G, l1, l2, col) {
+    return '<text x="' + x + '" y="' + (G + 24) + '" text-anchor="middle" ' + KR + ' font-size="11.5" font-weight="600" fill="' + col + '">' + l1 + '</text><text x="' + x + '" y="' + (G + 41) + '" text-anchor="middle" ' + KR + ' font-size="10.5" fill="' + col + '">' + l2 + '</text>';
+  }
+  function trio(j, b, m, opts) {
+    opts = opts || {};
+    var W = 800, H = 476, G = 420, split = 500;
+    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || '필름밤 자, 배리어, 랩핑 라인업') + '">' + scene(W, H, split, G);
+    s += jar(120, G, j, 0.92) + tube(355, G, merge(BAR, b)) + tube(650, G, merge(MSK, m));
+    s += cap2(120, G, '필름밤 · 18ml', (JAR_SHAPES[j.shape || 'low'].label + ' · ' + JAR_LIDS[j.lid || 'round']).replace(' (확정)', '').replace(' (확정)', ''), '#5B5040');
+    s += cap2(355, G, '배리어 · ' + SHAPES[b.shape].label, capName(b), '#5B5040') + cap2(650, G, '랩핑 · ' + SHAPES[m.shape].label, capName(m), '#3F4C66');
     return s + '</svg>';
   }
   function capName(o) {
@@ -147,7 +171,7 @@
   }
   function jarCard(lid, caption) {
     var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200" role="img" aria-label="필름밤 자 ' + caption + '"><rect width="260" height="200" fill="#EFECE6"/><rect y="160" width="260" height="40" fill="#D9D1C4"/>';
-    return s + jar(130, 160, { lid: lid }) + '</svg>';
+    return s + jar(130, 160, { lid: lid === 'tall' ? 'tallLid' : lid, shape: 'low' }) + '</svg>';
   }
 
   // 구분 축 판정: 여는 방식, 캡 높이, 캡 색, 튜브 지름, 캡 소재
@@ -175,8 +199,9 @@
       if (bd === 'printCu') warn.push(who + ' 무광 코퍼 띠: 자 "띠 없음"(10/6) 결정과 같은 판단 필요');
     });
     if (cb.mech === 'flip') warn.push('화장대 배리어 원터치는 메탈 무게감이 약함');
+    if (m.band === 'metalCollar') warn.push('욕실 코퍼 메탈 칼라: 물 얼룩·부식 시험 필요(아노다이징 실링 또는 PP 증착으로 대체 가능)');
     return { axes: res, score: res.filter(function (r) { return r[1]; }).length, warn: warn };
   }
 
-  root.TNC = { CAPS: CAPS, SHAPES: SHAPES, BODIES: BODIES, METALS: METALS, BANDS: BANDS, oct: oct, pair: pair, jarCard: jarCard, axes: axes };
+  root.TNC = { JAR_SHAPES: JAR_SHAPES, JAR_LIDS: JAR_LIDS, JAR_BODIES: JAR_BODIES, jarWarn: jarWarn, trio: trio, CAPS: CAPS, SHAPES: SHAPES, BODIES: BODIES, METALS: METALS, BANDS: BANDS, oct: oct, pair: pair, jarCard: jarCard, axes: axes };
 })(typeof window !== 'undefined' ? window : globalThis);
