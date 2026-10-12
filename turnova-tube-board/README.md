@@ -4,6 +4,7 @@
 
 - `index.html`: 보드 본문. 공개 저장소라 타사 제품 이미지는 빼고 출처 링크만 남겼습니다. 이미지가 포함된 전체판은 비공개 아티팩트에 있습니다.
 - `mockups/`: 시안 A/B/C와 캡 디테일 SVG. `node mockups/gen2.js`로 다시 생성합니다.
+- 05 조합 갤러리: 배리어×랩핑 페어 18종과 필름밤 자 4종, 직접 섞어 보는 조합 빌더. 렌더러는 `src/combos.js`, 조합 목록은 `src/combos-data.js`이며, `node src/render-combos.js` 다음 `python3 src/build.py --repo`로 다시 만듭니다.
 - `src/`: 보드 빌드 소스. `build.py`는 레퍼런스 이미지(`refs/`, 저장소 미포함)가 있어야 전체판을 만들고, `--repo` 옵션은 이미지 없는 판을 만듭니다.
 
 시안은 가이드 규칙의 설계값으로 그린 콘셉트입니다. 정식 시안은 대표님 승인 뒤 `compose_label.py` 합성과 `measure_front.py` 실측으로 다시 만듭니다. 제품명은 모두 가칭입니다.

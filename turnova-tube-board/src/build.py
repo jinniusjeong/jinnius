@@ -91,6 +91,8 @@ def svg(name):
 head = (HERE / "head.html").read_text()
 body = (HERE / "body.html").read_text()
 counts = {k: sum(1 for r in REFS if r[1]==k) for k in GROUP}
+body = body.replace("{{COMBOS}}", (HERE / "defs.html").read_text() + (HERE / "combos-section.html").read_text())
+body = body.replace("</script>\n", "</script>\n<script>\n" + (HERE / "combos.js").read_text() + "\n</script>\n<script>\n" + (HERE / "builder.js").read_text() + "\n</script>\n", 1) if "{{BUILDER_DONE}}" not in body else body
 body = body.replace("{{WALL}}", "\n".join(card(r) for r in REFS))
 body = body.replace("{{N_ALL}}", str(len(REFS))).replace("{{N_USER}}", str(counts["user"])).replace("{{N_KB}}", str(counts["kb"])).replace("{{N_GL}}", str(counts["gl"]))
 for k in ["g2-a","g2-b","g2-c","g2-details"]:

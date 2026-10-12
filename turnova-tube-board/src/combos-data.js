@@ -1,0 +1,47 @@
+// 이름 붙인 조합 18종 + 필름밤 자 4종. tag: pick | alt | ref | no
+module.exports = {
+  pairs: [
+    { id: 'P01', tag: 'pick', title: '같은 블루, 다른 8각 캡', idea: '총괄 추천안 A. 바디·라벨은 가이드 그대로 두고, 화장대는 메탈 스크류, 욕실은 PP 원터치로 나눕니다.', from: 'Rhode 비율 + Tatcha 원터치 + 샤넬 8각',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'octFlip', metal: 'blue' } },
+    { id: 'P02', tag: 'pick', title: 'P01 + 코퍼 링', idea: '랩핑 원터치 윗선에 코퍼 링 한 줄을 둘러 라인 통일감을 높입니다. 링은 증착 후 UV 코팅이고, 욕실 마모 시험이 필요합니다.', from: '닥터자르트 울트라(메탈 상단)',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'octFlip', metal: 'ringed' } },
+    { id: 'P03', tag: 'alt', title: '단계형 1차 (기성 원터치)', idea: '대안 1입니다. 랩핑은 1차에 기성 원형 원터치로 내고, 2차에 8각 금형으로 바꿉니다. 여는 방식·색·지름 차이는 1차부터 유지됩니다.', from: '아크팩 Ø40 원터치 기성',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'roundFlip', metal: 'blue' } },
+    { id: 'P04', tag: 'alt', title: '8각 롱 컬럼 배리어', idea: '배리어 캡을 키 큰 기둥으로 세워 화장대에서 향수병처럼 보이게 합니다. 캡 높이 차이가 가장 큽니다.', from: '샤넬 N°5 스토퍼 · AHC 롱 캡',
+      b: { shape: 'slim', body: 'blue', cap: 'octColumn', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'octFlip', metal: 'blue' } },
+    { id: 'P05', tag: 'alt', title: '오벌 플랫 랩핑', idea: '랩핑을 넓적한 오벌 튜브로 바꿔 욕실 선반에 눕혀도 됩니다. 정면이 넓어 매대에서 잘 보입니다(원형 대비 진열면 약 10% 넓음).', from: '피지오겔 오벌 · 바더 핸드 트리트먼트',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'oval', body: 'blue', cap: 'octFlip', metal: 'blue' } },
+    { id: 'P06', tag: 'alt', title: '반투명 블루 원터치', idea: '랩핑에 래핑 카테고리 문법(투명 캡)을 터노바 블루로 가져옵니다. 캡 안의 씰 핀이 비쳐 기능이 보입니다.', from: '메디큐브 · 메디필 투명 캡',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'clearFlip', metal: 'blue' } },
+    { id: 'P07', tag: 'alt', title: '디스크탑 랩핑', idea: '누르면 열리는 디스크탑입니다. 한 손으로 쓰기 가장 쉽지만, 필름 젤이 디스크 홈에 남아 굳을 수 있어 처방 테스트가 필요합니다.', from: '타차 라이스워시',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'discTop', metal: 'blue' } },
+    { id: 'P08', tag: 'alt', title: '와이드 플랫 캡 (Rhode식)', idea: '랩핑을 짧고 넓은 튜브에 납작하고 넓은 캡으로 만듭니다. 8각 금형 없이 비율만으로 구분하는 안입니다.', from: 'Rhode Barrier Butter',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'wideFlat', metal: 'blue' } },
+    { id: 'P09', tag: 'alt', title: 'DUA식 색 반전 (배리어 코퍼)', idea: '대안 2입니다. 배리어를 코퍼 바디로 뒤집습니다. 구분은 가장 강하지만 라인 1색 원칙을 깹니다.', from: 'DUA by AB · 바더 Eye Cream',
+      b: { shape: 'slim', body: 'copper', cap: 'octScrew', metal: 'blue' }, m: { shape: 'wide', body: 'blue', cap: 'octFlip', metal: 'copper' } },
+    { id: 'P10', tag: 'ref', title: '색 반전 (랩핑 코퍼)', idea: '반대로 랩핑을 코퍼 바디로 둡니다. 밤 제품에서 밤의 색(블루)이 빠져 스토리와 어긋납니다.', from: 'DUA by AB',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'wide', body: 'copper', cap: 'octFlip', metal: 'blue' } },
+    { id: 'P11', tag: 'ref', title: '코퍼 숄더 밴드', idea: '배리어 어깨에 코퍼 밴드를 둘러 메탈 비중을 키웁니다. 튜브 밴드는 가이드에 아직 정해진 규칙이 없습니다.', from: '바더 앰플(상단 코퍼 밴드 v10_1)',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper', band: true }, m: { shape: 'wide', body: 'blue', cap: 'octFlip', metal: 'blue' } },
+    { id: 'P12', tag: 'ref', title: '올 블루 두 개', idea: '캡을 둘 다 블루로 둡니다. 코퍼는 로고 포일에만 남고, 구분은 여는 방식과 비율이 맡습니다. 스틱 올 블루(10/6)와 같은 문법입니다.', from: '터노바 v11_2 스틱',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'blue' }, m: { shape: 'wide', body: 'blue', cap: 'octFlip', metal: 'blue' } },
+    { id: 'P13', tag: 'ref', title: '올 코퍼 두 개', idea: '캡을 둘 다 코퍼로 두고 높이와 여는 방식만 다르게 합니다. 욕실 코퍼 원터치는 마모 시험이 필요합니다.', from: '바더 라인 전체 코퍼 캡',
+      b: { shape: 'slim', body: 'blue', cap: 'octScrew', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'octFlip', metal: 'copper' } },
+    { id: 'P14', tag: 'ref', title: '롱 컬럼 원형 (8각 없이)', idea: '8각을 승인받지 못할 때의 안입니다. 원형 롱 컬럼과 원형 원터치로, 높이 차이만으로 구분합니다.', from: 'AHC 리얼 아이크림',
+      b: { shape: 'slim', body: 'blue', cap: 'column', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'roundFlip', metal: 'blue' } },
+    { id: 'P15', tag: 'no', title: '배리어 에어리스 펌프', idea: '정량·위생은 좋지만 원가가 스크류의 3–6배(추정)이고, 미세 캡슐이 밸브에서 깨질 수 있습니다. 비교용입니다.', from: 'VT 리들샷 · 바더 The Cream',
+      b: { shape: 'slim', body: 'blue', cap: 'pump', metal: 'copper' }, m: { shape: 'wide', body: 'blue', cap: 'octFlip', metal: 'blue' } },
+    { id: 'P16', tag: 'no', title: '현상 유지 (원형 코퍼 두 개)', idea: '지금 마스터 튜브를 두 번 쓰는 안입니다. 라벨을 읽어야 구분되고, 욕실에서 젖은 손으로 돌려 열어야 합니다.', from: '바더 · 라메르 형제 튜브',
+      b: { shape: 'std', body: 'blue', cap: 'roundScrew', metal: 'copper' }, m: { shape: 'std', body: 'blue', cap: 'roundScrew', metal: 'copper' } },
+    { id: 'P17', tag: 'alt', title: '오벌 + 반투명 원터치', idea: '욕실 최적화 조합입니다. 넓적한 오벌 튜브에 반투명 블루 8각 원터치를 달아 눕혀 두기 좋고, 캡 안 씰 핀이 보입니다.', from: '피지오겔 오벌 · 메디필 투명 캡',
+      b: { shape: 'slim', body: 'blue', cap: 'octColumn', metal: 'copper' }, m: { shape: 'oval', body: 'blue', cap: 'clearFlip', metal: 'blue' } },
+    { id: 'P18', tag: 'no', title: '역배치 (배리어 원터치 · 랩핑 스크류)', idea: '장소와 여는 방식을 반대로 둔 경우입니다. 구분은 되지만 젖은 손으로 스크류를 돌리고, 화장대 제품에서 메탈 무게감이 빠집니다. 비교용입니다.', from: '피지오겔(크림 원터치) · 설화수(마스크 스크류)',
+      b: { shape: 'slim', body: 'blue', cap: 'octFlip', metal: 'blue' }, m: { shape: 'wide', body: 'blue', cap: 'octScrew', metal: 'copper' } }
+  ],
+  jars: [
+    { lid: 'round', tag: 'pick', title: '원형 코퍼 뚜껑', note: '가이드 확정 사양(10/6). 윗면에 심볼 톤온톤.' },
+    { lid: 'oct', tag: 'alt', title: '8각 코퍼 뚜껑', note: '튜브 8각 캡과 한 가족. 8 시스템 확장 승인 시.' },
+    { lid: 'tall', tag: 'alt', title: '높은 원형 코퍼 뚜껑', note: '바더 Face Cream Mask처럼 뚜껑 비중을 키움.' },
+    { lid: 'blueLid', tag: 'ref', title: '블루 뚜껑 + 코퍼 링', note: '확정 규칙(뚜껑 코퍼)과 다름. 비교용.' }
+  ]
+};
