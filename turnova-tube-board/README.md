@@ -12,4 +12,6 @@
 
 - 디자인 룰북: `src/rules.js`(R01–R14)가 시안·빌더·경고의 단일 기준입니다. 작업 순서는 `CLAUDE.md`, 가이드 v5에 옮길 내용은 `guide-v5-patch.md`에 있습니다.
 - `spec.html` (10/13 통합본): 대표 견적서 엑셀 + 기성 품번 치수 + 장소 코드를 합친 발주 스펙. 라인업 4종(배리어 50ml · 랩핑 60ml · 필링 에센스 30ml · 필링밤 20g), 랩핑 3안(50Φ 60 / 50Φ 80 / 40Φ 80) 비교. 5종 기성품 치수도(같은 축척), 길이·캡 파이·캡 높이·토출구 표, 샘플 승인 체크리스트 12항목, 제조사·디자이너 전달 문안, 비주얼팀 검토. 대표 결정 10/13에 따라 튜브는 모두 기성 원터치, 배리어는 50ml입니다. 데이터는 `src/spec-data.js`, 빌드는 `node src/build-spec.js`입니다.
+- `carton.html` (10/13): 단상자 시안. 4종 닫힌 박스·펼친 STE 칼선, 면별 배치(정면 브랜드 · 좌 상품 이미지 · 후 한·영 전성분 · 우 USP), 규칙 C01–C16, 비주얼팀 검토. 데이터 `src/carton-data.js`, 빌드 `node src/build-carton.js --repo`(저장소용, 레퍼런스 사진 제외).
+- 제품명(10/13 v4): DAILY BARRIER CREAM · LIFTING WRAPPING MASK · PEELING BOOSTING ESSENCE · PEELING BALM CREAM, 성분 코드 "with TERN-8™".
 - 필링 에센스 30ml: 빌더와 05 섹션에 4가지 변형(E01–E04)이 있고, 기준은 블루 벌브 + 코퍼 PP 칼라 스포이드 병(R10)입니다. 앰플·세럼은 10/13 라인업에서 뺐습니다.

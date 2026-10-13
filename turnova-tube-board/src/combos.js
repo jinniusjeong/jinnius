@@ -24,12 +24,12 @@
   var SHAPES = {
     slim:  { label: '35Φ 슬림', w: 112, bodyH: 280 },
     std:   { label: '38Φ 표준', w: 132, bodyH: 262 },
-    wide:  { label: '40Φ 와이드 · 80ml', w: 156, bodyH: 236, vol: '80 mL / 2.7 fl oz' },
+    wide:  { label: '40Φ 와이드 · 80ml', w: 156, bodyH: 236, vol: '80 mL ℮ | 2.70 FL. OZ.' },
     oval:  { label: '오벌 플랫', w: 176, bodyH: 214 },
     xslim: { label: '30Φ 롱', w: 98, bodyH: 300 },
     fat:   { label: '45Φ 숏', w: 182, bodyH: 196 },
-    xwide: { label: '50Φ 숏 · 60ml', w: 195, bodyH: 173, vol: '60 mL / 2.0 fl oz' },
-    xwide80: { label: '50Φ · 80ml', w: 195, bodyH: 198, vol: '80 mL / 2.7 fl oz' }
+    xwide: { label: '50Φ 숏 · 60ml', w: 195, bodyH: 173, vol: '60 mL ℮ | 2.02 FL. OZ.' },
+    xwide80: { label: '50Φ · 80ml', w: 195, bodyH: 198, vol: '80 mL ℮ | 2.70 FL. OZ.' }
   };
   var BODIES = { blue: '로열블루', copper: '코퍼(색 반전)' };
   var METALS = { copper: '코퍼', blue: '블루', ringed: '블루 + 코퍼 링' };
@@ -61,12 +61,12 @@
     if (jar) {
       var y = wmBase + f2 * 1.5;
       for (i = 0; i < lines.length; i++) { t += '<text x="' + f(x) + '" y="' + f(y) + '" text-anchor="middle" ' + WM + ' font-size="' + f(f2 * 0.82) + '" letter-spacing=".6" fill="' + ink + '">' + lines[i] + '</text>'; y += f2 * 1.05; }
-      return t + '<text x="' + f(x) + '" y="' + f(y + f3 * 0.4) + '" text-anchor="middle" ' + SANS + ' font-size="' + f(f3) + '" fill="' + ink + '">TRX-8™ · ' + vol + '</text>';
+      return t + '<text x="' + f(x) + '" y="' + f(y + f3 * 0.4) + '" text-anchor="middle" ' + SANS + ' font-size="' + f(f3) + '" fill="' + ink + '">with TERN-8™ · ' + vol + '</text>';
     }
     var volBase = yB - 0.07 * H, trxBase = volBase - f3 * 2.1, nameLast = trxBase - f3 * 1.9;
     var nameFirst = nameLast - (lines.length - 1) * f2 * 1.12;
-    for (i = 0; i < lines.length; i++) t += '<text x="' + f(x) + '" y="' + f(nameFirst + i * f2 * 1.12) + '" text-anchor="middle" ' + WM + ' font-size="' + f(f2) + '" letter-spacing=".8" fill="' + ink + '">' + lines[i] + '</text>';
-    t += '<text x="' + f(x) + '" y="' + f(trxBase) + '" text-anchor="middle" ' + SANS + ' font-weight="500" font-size="' + f(f3) + '" fill="' + ink + '">TRX-8™</text>';
+    for (i = 0; i < lines.length; i++) t += '<text x="' + f(x) + '" y="' + f(nameFirst + i * f2 * 1.12) + '" text-anchor="middle" ' + WM + ' font-size="' + f(f2) + '" letter-spacing=".8"' + (lines[i].length * f2 * 0.68 > W * 0.9 ? ' textLength="' + f(W * 0.9) + '" lengthAdjust="spacingAndGlyphs"' : '') + ' fill="' + ink + '">' + lines[i] + '</text>';
+    t += '<text x="' + f(x) + '" y="' + f(trxBase) + '" text-anchor="middle" ' + SANS + ' font-weight="500" font-size="' + f(f3) + '" fill="' + ink + '">with TERN-8™</text>';
     t += '<text x="' + f(x) + '" y="' + f(volBase) + '" text-anchor="middle" ' + SANS + ' font-weight="500" font-size="' + f(f3) + '" fill="' + ink + '">' + vol + '</text>';
     var gapTop = wmBase + fs1 * 0.12, gapBot = nameFirst - f2 * 0.78, s = W * 0.18, free = (gapBot - gapTop) - s;
     var sy = gapTop + free / (1 + PHI);
@@ -123,7 +123,7 @@
     if (o.lid === 'oct') s += oct(x, ly, w, lidH, 'copper');
     else if (o.lid === 'blueLid' || o.lid === 'blueAll') { s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + f(w) + '" height="' + f(lidH) + '" rx="3" fill="url(#rbF)"/>'; if (o.lid === 'blueLid') s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly + lidH - 4 * k) + '" width="' + f(w) + '" height="' + f(4 * k) + '" fill="url(#cu)"/>'; }
     else s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + f(w) + '" height="' + f(lidH) + '" rx="3" fill="url(#cu)"/><rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + f(w) + '" height="2" fill="rgba(255,255,255,.35)"/>';
-    return s + label(x, by + 2 * k, ground, w - 6 * k, 'THE PEELING|BALM', '20 g', blue ? CU_TXT : BLUE_TXT, blue ? 'url(#cu)' : BLUE_TXT, true);
+    return s + label(x, by + 2 * k, ground, w - 6 * k, 'PEELING BALM|CREAM', '20 g ℮ | NET WT. 0.7 OZ.', blue ? CU_TXT : BLUE_TXT, blue ? 'url(#cu)' : BLUE_TXT, true);
   }
   function jarWarn(j) {
     var w = [];
@@ -142,8 +142,8 @@
     return s + (split > 0 ? '<text x="14" y="22" ' + SANS + ' font-size="10.5" letter-spacing="2" fill="#7A6E5C">VANITY</text>' : '') + '<text x="' + (split + 14) + '" y="22" ' + SANS + ' font-size="10.5" letter-spacing="2" fill="#5C6A82">BATH</text>';
   }
 
-  var BAR = { name: 'THE BARRIER|CREAM', vol: '50 mL / 1.7 fl oz' };
-  var MSK = { name: 'THE WRAPPING|MASK', vol: '60 mL / 2.0 fl oz' };
+  var BAR = { name: 'DAILY BARRIER|CREAM', vol: '50 mL ℮ | 1.69 FL. OZ.' };
+  var MSK = { name: 'LIFTING WRAPPING|MASK', vol: '60 mL ℮ | 2.02 FL. OZ.' };
   function mskFor(m) { var v = SHAPES[m.shape] && SHAPES[m.shape].vol; return v ? { name: MSK.name, vol: v } : MSK; }
   function merge(a, b) { var r = {}, k; for (k in a) r[k] = a[k]; for (k in b) r[k] = b[k]; return r; }
 
@@ -219,7 +219,7 @@
     if (o.type === 'spray' && kind === 'a') w.push('필링 에센스 미스트는 처방 점도 확인 필요');
     return w;
   }
-  var AMP = { name: 'THE PEELING|ESSENCE', vol: '30 mL / 1.0 fl oz' }, SER = { name: 'THE|SERUM', vol: '30 mL / 1.0 fl oz' };
+  var AMP = { name: 'PEELING BOOSTING|ESSENCE', vol: '30 mL ℮ | 1.01 FL. OZ.' }, SER = { name: 'THE|SERUM', vol: '30 mL / 1.0 fl oz' };
   function lineup(j, b, m, a, sv, opts) {
     opts = opts || {}; a = a || { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'blue' };
     var W = 1000, H = 476, G = 420, split = 520;
@@ -275,5 +275,5 @@
     return { axes: res, score: res.filter(function (r) { return r[1]; }).length, warn: warn };
   }
 
-  root.TNC = { solo: solo, BOTTLE_TYPES: BOTTLE_TYPES, FINISHES: FINISHES, BULBS: BULBS, bottleWarn: bottleWarn, lineup: lineup, duo: duo, JAR_SHAPES: JAR_SHAPES, JAR_LIDS: JAR_LIDS, JAR_BODIES: JAR_BODIES, jarWarn: jarWarn, trio: trio, CAPS: CAPS, SHAPES: SHAPES, BODIES: BODIES, METALS: METALS, BANDS: BANDS, oct: oct, pair: pair, jarCard: jarCard, axes: axes };
+  root.TNC = { tube: tube, bottle: bottle, jar: jar, solo: solo, BOTTLE_TYPES: BOTTLE_TYPES, FINISHES: FINISHES, BULBS: BULBS, bottleWarn: bottleWarn, lineup: lineup, duo: duo, JAR_SHAPES: JAR_SHAPES, JAR_LIDS: JAR_LIDS, JAR_BODIES: JAR_BODIES, jarWarn: jarWarn, trio: trio, CAPS: CAPS, SHAPES: SHAPES, BODIES: BODIES, METALS: METALS, BANDS: BANDS, oct: oct, pair: pair, jarCard: jarCard, axes: axes };
 })(typeof window !== 'undefined' ? window : globalThis);
