@@ -140,7 +140,7 @@
     return s + '<text x="14" y="22" ' + SANS + ' font-size="10.5" letter-spacing="2" fill="#7A6E5C">VANITY</text><text x="' + (split + 14) + '" y="22" ' + SANS + ' font-size="10.5" letter-spacing="2" fill="#5C6A82">BATH</text>';
   }
 
-  var BAR = { name: 'THE BARRIER|CREAM', vol: '58 mL / 1.9 fl oz' };
+  var BAR = { name: 'THE BARRIER|CREAM', vol: '50 mL / 1.7 fl oz' };
   var MSK = { name: 'THE WRAPPING|MASK', vol: '80 mL / 2.7 fl oz' };
   function merge(a, b) { var r = {}, k; for (k in a) r[k] = a[k]; for (k in b) r[k] = b[k]; return r; }
 
@@ -260,7 +260,8 @@
       if (bd === 'foilCu') warn.push('[R04] ' + who + ' 유광 금박 띠: "유광은 로고만" 규칙과 충돌' + (i ? ', 욕실 습기에 박 들뜸 위험' : ''));
       if (bd === 'printCu') warn.push('[R07] ' + who + ' 무광 코퍼 띠: 자 "띠 없음"(10/6) 결정과 같은 판단 필요');
     });
-    if (cb.mech === 'flip') warn.push('[R08] 화장대 제품은 코퍼 메탈 캡 · 원터치는 메탈 무게감이 약함');
+    if (cb.mech === 'flip' && b.metal !== 'copper') warn.push('[R08] 화장대 배리어는 코퍼 캡 · 블루 캡이면 장소 코드가 흐려짐');
+    if (cb.mech !== 'flip' || cm.mech !== 'flip') warn.push('[R09] 튜브는 모두 기성 원터치(대표 10/13)');
     if (m.band === 'metalCollar') warn.push('욕실 코퍼 메탈 칼라: 물 얼룩·부식 시험 필요(아노다이징 실링 또는 PP 증착으로 대체 가능)');
     return { axes: res, score: res.filter(function (r) { return r[1]; }).length, warn: warn };
   }

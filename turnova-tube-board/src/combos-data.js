@@ -1,9 +1,9 @@
 // 이름 붙인 조합 18종 + 필름밤 자 4종. tag: pick | alt | ref | no
 module.exports = {
   stock: [
-    { id: 'S00', tag: 'boss', title: '대표 선택안: 화장대는 코퍼 캡, 화장실은 블루 원터치 + 코퍼 칼라', idea: '배리어는 35Φ 슬림 튜브에 코퍼 원형 스크류 캡만 씌웁니다. 랩핑은 40Φ 와이드 튜브에 블루 원형 원터치를 달고, 캡 위에 코퍼 메탈 칼라를 둘러 블루 캡에도 코퍼 신호를 남깁니다. 전부 기성 부자재입니다.', sns: '화장대 컷은 코퍼 캡, 욕실 컷은 칼라 한 줄로 빛나서 어느 장소 사진이든 블루 + 코퍼 보색이 잡힙니다. 원터치 딸깍 소리는 숏폼 훅이 됩니다.', from: '대표님 조합 빌더 선택 (10/12)',
+    { id: 'S00', tag: 'boss', title: '대표 선택안: 둘 다 기성 원터치 · 화장대는 코퍼, 화장실은 블루 + 코퍼 띠', idea: '(10/13 수정) 배리어 50ml는 35Φ 튜브에 코퍼 원형 원터치를 씌웁니다. 랩핑은 40Φ 와이드 튜브에 블루 원형 원터치를 달고, 캡 위에 코퍼 메탈 칼라를 둘러 블루 캡에도 코퍼 신호를 남깁니다. 전부 기성 부자재입니다.', sns: '화장대 컷은 코퍼 캡, 욕실 컷은 칼라 한 줄로 빛나서 어느 장소 사진이든 블루 + 코퍼 보색이 잡힙니다. 원터치 딸깍 소리는 숏폼 훅이 됩니다.', from: '대표님 조합 빌더 선택 (10/12)',
       j: { shape: 'low', lid: 'round', body: 'blue' },
-      b: { shape: 'slim', body: 'blue', cap: 'roundScrew', metal: 'copper', band: 'none' }, m: { shape: 'wide', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'metalCollar' } },
+      b: { shape: 'slim', body: 'blue', cap: 'roundFlip', metal: 'copper', band: 'none' }, m: { shape: 'wide', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'metalCollar' } },
     { id: 'S01', tag: 'pick', title: '체형 대비 (슬림 기둥 × 통통 블루)', idea: '배리어는 35Φ로 길고 슬림하게, 키 큰 코퍼 캡을 씌웁니다. 랩핑은 45Φ로 짧고 통통하게, 블루 원터치를 답니다. 금형 없이 기성 튜브와 기성 캡으로만 구분합니다.', sns: '투샷에서 키 큰 코퍼 기둥과 통통한 블루가 한 쌍으로 읽힙니다. 160px에서도 실루엣만으로 구분됩니다.', from: 'Rhode BRC × Barrier Butter · 바더 코퍼 캡',
       b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'none' }, m: { shape: 'fat', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'none' } },
     { id: 'S02', tag: 'pick', title: 'S01 + 배리어 코퍼 메탈 칼라', idea: '배리어 캡 위에 코퍼 메탈 칼라를 한 줄 더해 메탈 비중을 키웁니다. 코퍼 메탈 밴드는 가이드에서 AB에서 가져오기로 한 요소이고, 앰플 상단 밴드가 선례입니다.', sns: '조명을 받으면 칼라와 캡이 한 덩어리로 빛나 화장대 쉘피에서 시선을 잡습니다.', from: '바더 앰플·세럼 코퍼 칼라 · 가이드 v10_1',

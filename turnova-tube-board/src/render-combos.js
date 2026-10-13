@@ -54,7 +54,7 @@ const jars = D.jars.map(j => { const [cls, t] = jarTag[j.lid]; return `<article 
 
 // 같은 80ml를 지름별로: 길이 L = (V + c·k) / (s·k), k = (Φ/35)^2, s = 0.968 ml/mm, c = 43.6 (35Φ 107mm≈60ml, 138mm≈90ml 기준, 추정)
 function bodyChart() {
-  const rows = [30, 35, 40, 45].map(D0 => { const k = (D0 / 35) ** 2; return { D0, w: Math.PI * D0 / 2, L: (80 + 43.6 * k) / (0.968 * k), L58: (58 + 43.6 * k) / (0.968 * k) }; });
+  const rows = [30, 35, 40, 45].map(D0 => { const k = (D0 / 35) ** 2; return { D0, w: Math.PI * D0 / 2, L: (80 + 43.6 * k) / (0.968 * k), L58: (50 + 43.6 * k) / (0.968 * k) }; });
   const S = 1.7, G = 362, W = 900; let s = `<svg viewBox="0 0 ${W} 430" role="img" aria-label="같은 80ml 튜브를 지름 30·35·40·45Φ로 만들 때의 길이와 폭 비교(추정)"><rect width="${W}" height="430" fill="#F1F2F6"/><line x1="40" y1="${G}" x2="${W - 40}" y2="${G}" stroke="#C9CEDD"/>`;
   rows.forEach((r, i) => {
     const cx = 130 + i * 210, w = r.w * S, h = r.L * S, capH = 22 * S, capW = Math.min(w * 0.7, 46 * S), top = G - capH - h;
@@ -63,7 +63,7 @@ function bodyChart() {
     s += `<rect x="${(cx - capW / 2).toFixed(1)}" y="${(G - capH).toFixed(1)}" width="${capW.toFixed(1)}" height="${capH.toFixed(1)}" rx="3" fill="url(#cu)"/>`;
     s += `<text x="${cx}" y="${(top + 34).toFixed(1)}" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="${Math.max(11, w * 0.15).toFixed(1)}" fill="#E8956A">TURNOVA</text>`;
     s += `<text x="${cx}" y="${G + 26}" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="13" fill="#2B3260">${r.D0}Φ × ${Math.round(r.L)}mm</text>`;
-    s += `<text x="${cx}" y="${G + 46}" text-anchor="middle" font-family="'IBM Plex Sans KR', sans-serif" font-size="11.5" fill="#6B7287">정면 폭 약 ${Math.round(r.w)}mm · 58ml면 ${Math.round(r.L58)}mm</text>`;
+    s += `<text x="${cx}" y="${G + 46}" text-anchor="middle" font-family="'IBM Plex Sans KR', sans-serif" font-size="11.5" fill="#6B7287">정면 폭 약 ${Math.round(r.w)}mm · 50ml면 ${Math.round(r.L58)}mm</text>`;
   });
   return s + `<text x="40" y="28" font-family="'IBM Plex Sans KR', sans-serif" font-size="13" fill="#2B3260">같은 80 mL · 지름만 바꾼 4가지 체형 (축척 동일, 캡 높이 22mm 가정)</text></svg>`;
 }

@@ -1,0 +1,555 @@
+<title>터노바 용기 발주 스펙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Noto+Serif+KR:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: 리뷰 보드 — 결론 띠 → 레퍼런스 월 → 시안 3장 → 시뮬레이션 표 → 팀 검토. 터노바 가이드 v5: 로열블루 + 코퍼. */
+  :root{
+    --ground:#F2F3F7; --sheet:#FFFFFF; --well:#E8EAF2;
+    --ink:#161D63; --ink-2:#3B4270; --muted:#6A7092;
+    --gold:#A3582B; --gold-soft:#F3DCCB; --gold-line:rgba(184,115,51,.5);
+    --line:rgba(18,28,74,.12); --line-2:rgba(18,28,74,.22);
+    --ok:#2C6E4F; --ok-tint:#E2F0E8; --warn:#8F6512; --warn-tint:#F5ECD8; --bad:#A33A2E; --bad-tint:#F6E4E1;
+    --hero:#17208A; --hero-ink:#F6EDE6;
+    --display:'Montserrat','Helvetica Neue',Arial,sans-serif;
+    --head:'Noto Serif KR','Apple SD Gothic Neo',serif;
+    --body:'IBM Plex Sans KR','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0A0F27; --sheet:#121937; --well:#18204A;
+      --ink:#E9EAF4; --ink-2:#C1C5DC; --muted:#8E94B4;
+      --gold:#EFA27A; --gold-soft:#3A2418; --gold-line:rgba(239,162,122,.45);
+      --line:rgba(233,234,244,.12); --line-2:rgba(233,234,244,.22);
+      --ok:#7CCBA2; --ok-tint:#15291F; --warn:#E2B866; --warn-tint:#2B2312; --bad:#EE8A7B; --bad-tint:#2E1714;
+      --hero:#0E1458; --hero-ink:#F6EDE6; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0A0F27; --sheet:#121937; --well:#18204A;
+    --ink:#E9EAF4; --ink-2:#C1C5DC; --muted:#8E94B4;
+    --gold:#EFA27A; --gold-soft:#3A2418; --gold-line:rgba(239,162,122,.45);
+    --line:rgba(233,234,244,.12); --line-2:rgba(233,234,244,.22);
+    --ok:#7CCBA2; --ok-tint:#15291F; --warn:#E2B866; --warn-tint:#2B2312; --bad:#EE8A7B; --bad-tint:#2E1714;
+    --hero:#0E1458; --hero-ink:#F6EDE6; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+  h1,h2,h3{text-wrap:balance;margin:0}
+  h2{font-family:var(--head);font-size:clamp(21px,2.6vw,27px);font-weight:700;letter-spacing:-.01em}
+  h3{font-family:var(--head);font-size:17px;font-weight:700}
+  p{margin:0}
+  a{color:inherit;text-decoration-color:var(--gold-line);text-underline-offset:3px}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .lede{color:var(--ink-2);max-width:68ch}
+  .tag{display:inline-flex;align-items:center;gap:.35em;font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2);white-space:nowrap}
+  .tag.gold{border-color:var(--gold-line);color:var(--gold)}
+  .tag.ok{background:var(--ok-tint);border-color:transparent;color:var(--ok)}
+  .tag.warn{background:var(--warn-tint);border-color:transparent;color:var(--warn)}
+  .tag.bad{background:var(--bad-tint);border-color:transparent;color:var(--bad)}
+
+  /* hero */
+  .hero{background:var(--hero);color:var(--hero-ink);padding-block:clamp(36px,6vw,64px) clamp(28px,4vw,44px)}
+  .hero .eyebrow{color:#F0A57C}
+  .hero h1{font-family:var(--head);font-weight:700;font-size:clamp(28px,4.4vw,46px);line-height:1.22;margin-top:14px;letter-spacing:-.015em}
+  .hero h1 .oct{font-family:var(--display);font-weight:700;color:#F0A57C}
+  .hero .lede{color:#D3D5EE;margin-top:14px}
+  .verdict{margin-top:26px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(240,165,124,.4);border:1px solid rgba(240,165,124,.4)}
+  .verdict > div{background:var(--hero);padding:16px 18px;min-width:0}
+  .verdict .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#F0A57C;text-transform:uppercase}
+  .verdict .v{font-weight:600;margin-top:6px;font-size:15.5px}
+  .verdict .s{color:#B3B7DE;font-size:13px;margin-top:4px}
+  .alts{margin-top:18px;display:grid;gap:6px;color:#D3D5EE;font-size:14px}
+  .alts b{color:#F6EDE6;font-weight:600}
+
+  section{padding-block:clamp(36px,5vw,56px);border-bottom:1px solid var(--line)}
+  .sec-head{display:grid;gap:8px;margin-bottom:22px}
+
+  /* tables */
+  .tbl{overflow-x:auto;border:1px solid var(--line);background:var(--sheet);border-radius:10px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--well)}
+  tr:last-child td{border-bottom:0}
+  td.num{font-family:var(--mono);white-space:nowrap}
+
+  /* reference wall */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .filters button{font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--sheet);color:var(--ink-2);cursor:pointer}
+  .filters button[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+  .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+  .ref{background:var(--sheet);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+  .ref .img{aspect-ratio:1/1;background:#fff;display:grid;place-items:center;overflow:hidden}
+  .ref .img img{width:100%;height:100%;object-fit:contain}
+  .ref .img.none{background:var(--well);color:var(--muted);font-size:12px;padding:12px;text-align:center}
+  .ref .meta{padding:12px 14px 14px;display:grid;gap:6px;min-width:0}
+  .ref .brand{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .ref .name{font-weight:600;font-size:14px;line-height:1.4}
+  .ref .tags{display:flex;flex-wrap:wrap;gap:5px}
+  .ref .why{font-size:12.8px;color:var(--ink-2);line-height:1.55}
+  .ref .src{font-size:11.5px;color:var(--muted);word-break:break-all}
+
+  /* concepts */
+  .concepts{display:grid;gap:22px}
+  .concept{background:var(--sheet);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+  .concept.pick{border-color:var(--gold-line);box-shadow:0 0 0 1px var(--gold-line)}
+  .concept figure{margin:0;background:#EEEAE2;min-width:0}
+  .concept figure svg{display:block;width:100%;height:auto}
+  .concept .body{padding:20px 22px;display:grid;gap:12px;align-content:start;min-width:0}
+  .concept .title{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .concept dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0;font-size:13.5px}
+  .concept dt{color:var(--muted);font-size:12.5px;white-space:nowrap}
+  .concept dd{margin:0;min-width:0}
+  .score{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .score div{border-top:2px solid var(--line-2);padding-top:6px;font-size:12px;color:var(--muted)}
+  .score b{display:block;font-family:var(--mono);font-size:16px;color:var(--ink);font-weight:500}
+  .detail{margin-top:22px;background:var(--sheet);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .detail svg{display:block;width:100%;height:auto}
+
+  /* axes */
+  .axes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .axis{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+  .axis .n{font-family:var(--display);font-weight:700;font-size:24px;color:var(--gold);line-height:1}
+  .axis p{font-size:13.5px;color:var(--ink-2)}
+  .axis .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12.5px}
+  .axis .pair div{background:var(--well);border-radius:6px;padding:8px 10px}
+  .axis .pair b{display:block;font-size:11px;font-family:var(--mono);letter-spacing:.06em;color:var(--muted);font-weight:500;text-transform:uppercase}
+
+  /* team */
+  .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .seat{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+  .seat .role{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .seat .role b{font-size:14.5px}
+  .seat p{font-size:13.5px;color:var(--ink-2)}
+  .seat .ask{font-size:12.8px;border-top:1px dashed var(--line-2);padding-top:8px;color:var(--ink)}
+  .chief{margin-top:20px;background:var(--hero);color:var(--hero-ink);border-radius:12px;padding:clamp(20px,3vw,30px);display:grid;gap:14px}
+  .chief .eyebrow{color:#F0A57C}
+  .chief h3{font-size:20px}
+  .chief ol{margin:0;padding-left:20px;display:grid;gap:8px;color:#DADCF0;font-size:14.5px}
+  .chief .veto{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .chief .veto div{border:1px solid rgba(240,165,124,.45);border-radius:8px;padding:12px 14px;font-size:14px;color:#DADCF0}
+  .chief .veto b{color:#F6EDE6;display:block;margin-bottom:4px}
+
+  .steps{display:grid;gap:0;counter-reset:s;border:1px solid var(--line);border-radius:10px;background:var(--sheet);overflow:hidden}
+  .steps li{list-style:none;display:grid;grid-template-columns:110px 1fr;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:14px}
+  .steps li:last-child{border-bottom:0}
+  .steps .when{font-family:var(--mono);font-size:12px;color:var(--gold);padding-top:2px}
+  .src-list{columns:2 320px;font-size:12.5px;color:var(--muted);padding-left:18px}
+  .src-list li{break-inside:avoid;margin-bottom:4px;word-break:break-all}
+  footer{padding-block:28px 48px;color:var(--muted);font-size:12.5px}
+
+
+  /* combos */
+  .combos{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+  .combo,.jarc{background:var(--sheet);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+  .combo.pick{border-color:var(--gold-line);box-shadow:0 0 0 1px var(--gold-line)}
+  .combo figure,.jarc figure,.bview figure{margin:0;background:#EFECE6}
+  .combo svg,.jarc svg,.bview svg{display:block;width:100%;height:auto}
+  .cb{padding:14px 16px 16px;display:grid;gap:8px;align-content:start;min-width:0}
+  .ct{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .ct h3{font-size:15.5px}
+  .cid{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .cb p{font-size:13.3px;color:var(--ink-2)}
+  .axrow{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .ax{font-size:11.5px;padding:2px 7px;border-radius:5px;background:var(--well);color:var(--muted)}
+  .ax.on{background:var(--ok-tint);color:var(--ok)}
+  .sc{font-family:var(--mono);font-size:13px;margin-left:auto;color:var(--ink)}
+  .warn{margin:0;padding-left:16px;font-size:12.3px;color:var(--warn);display:grid;gap:2px}
+  .from{font-size:12px;color:var(--muted)}
+  .load{justify-self:start;font:inherit;font-size:12.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--ink);cursor:pointer}
+  .load:hover{border-color:var(--gold);color:var(--gold)}
+  .subh{margin:34px 0 14px;font-size:19px}
+  .chart{margin:0 0 20px;background:var(--sheet);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .chart svg{display:block;width:100%;height:auto}
+  .chart figcaption{padding:10px 14px;font-size:12.5px;color:var(--muted)}
+  .sns{font-size:12.8px;color:var(--ink);background:var(--well);border-radius:6px;padding:6px 9px}
+  .sns b{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--gold);margin-right:4px}
+  .held{margin-top:34px;border-top:1px solid var(--line);padding-top:16px}
+  .held summary{cursor:pointer;font-weight:600;color:var(--ink-2)}
+  .jars{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+  .builder{display:grid;grid-template-columns:1fr;gap:18px;background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:18px;align-items:start}
+  .bctl{display:grid;gap:14px;min-width:0}
+  .brow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .brow label{font-size:12.5px;color:var(--muted)}
+  .builder select,.brow button{font:inherit;font-size:13px;padding:6px 8px;border-radius:7px;border:1px solid var(--line-2);background:var(--ground);color:var(--ink);max-width:100%}
+  .brow button{cursor:pointer;padding:6px 12px}
+  .sides{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:12px;align-items:start}
+  .jars.bottles{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .combo.boss{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+  .combo.boss figure{height:100%}
+  .side{border:1px solid var(--line);border-radius:10px;padding:10px 12px 12px;margin:0;display:flex;flex-direction:column;gap:4px;min-width:0}
+  .side .lg{font-weight:600;font-size:13.5px;margin-bottom:2px}
+  .side label{font-size:11.5px;color:var(--muted);margin-top:4px}
+  .side select{width:100%}
+  .side .chk{display:flex;gap:6px;align-items:center;color:var(--ink-2);font-size:12.5px;margin-top:8px}
+  .bview{display:grid;gap:10px;min-width:0}
+  .bview figure{border-radius:10px;overflow:hidden}
+  .brow select{flex:1 1 220px;min-width:0;width:100%}
+  .side{min-inline-size:0;align-content:start}
+  .side select{min-width:0}
+  .bnote{font-size:12px;color:var(--muted)}
+  @media (max-width:820px){ .builder{grid-template-columns:1fr} .sides{grid-template-columns:1fr} .combos{grid-template-columns:1fr} .combo.boss{grid-template-columns:1fr} }
+  @media (max-width:820px){
+    .concept{grid-template-columns:1fr}
+    .verdict{grid-template-columns:1fr}
+    .score{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .steps li{grid-template-columns:1fr;gap:2px}
+  }
+  @media (prefers-reduced-motion:no-preference){ .ref{transition:transform .18s ease} .ref:hover{transform:translateY(-2px)} }
+</style>
+<style>
+  .est{font-family:var(--mono);font-size:10.5px;color:var(--warn);background:var(--warn-tint);padding:0 4px;border-radius:3px;white-space:nowrap}
+  .muted{color:var(--muted);font-size:13px}
+  .skus{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;align-items:start}
+  .sku{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+  .sku header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .sku h3{font-size:15.5px;flex:1 1 auto}
+  .sid{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:.1em}
+  .dwg{margin:0;background:var(--well);border-radius:8px;overflow-x:auto;display:flex;justify-content:center;align-items:flex-end;min-height:390px;padding:8px 0}
+  .dwg svg{max-width:none;height:auto;display:block}
+  .dwg .bl{fill:#1D2795;stroke:var(--line-2);stroke-width:1}
+  .dwg .cu{fill:#B7703F;stroke:var(--line-2);stroke-width:1}
+  .dwg .bulb{fill:#1D2795;stroke:var(--line-2);stroke-width:1}
+  .dwg .pa{fill:none;stroke:#E9B48F;stroke-width:1;stroke-dasharray:3 3}
+  .dwg .seam{stroke:rgba(255,255,255,.35);stroke-width:1}
+  .dwg .pip{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:2 3}
+  .dwg .dl{stroke:var(--ink-2);stroke-width:1}
+  .dwg .ex{stroke:var(--line-2);stroke-width:1;stroke-dasharray:2 2}
+  .dwg .gr{stroke:var(--ink-2);stroke-width:1.4}
+  .dwg .dt{fill:var(--ink);font-family:var(--mono);font-size:11px}
+  .dwg .dt.in{fill:#F6EDE6}
+  #ar path{fill:var(--ink-2)}
+  .sku dl{margin:0;display:grid;gap:6px}
+  .sku dl div{display:grid;grid-template-columns:76px 1fr;gap:8px;font-size:13px}
+  .sku dt{color:var(--muted)} .sku dd{margin:0;min-width:0}
+  .sku .note{font-size:12.5px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:8px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--ink-2)}
+  .legend i{display:inline-block;width:18px;height:10px;vertical-align:-1px;margin-right:6px;border-radius:2px}
+  .checks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+  .checks li{display:flex;gap:10px;align-items:flex-start;background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0}
+  .checks input{width:18px;height:18px;margin-top:3px;accent-color:var(--gold);flex:none}
+  .checks label{display:grid;gap:3px;font-size:13.5px;cursor:pointer;min-width:0}
+  .checks .area{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--gold)}
+  .checks .test{color:var(--ink-2);font-size:12.5px}
+  .checks .who{color:var(--muted);font-size:12px}
+  .checks li:has(input:checked){background:var(--ok-tint);border-color:transparent}
+  .progress{font-family:var(--mono);font-size:13px;color:var(--ink-2)}
+  .msgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+  .msg{background:var(--sheet);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;min-width:0}
+  .msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .msg pre{margin:0;padding:14px;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;font-family:var(--body);font-size:13px;line-height:1.6;max-height:520px;overflow:auto}
+  .copy{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--gold-line);background:transparent;color:var(--gold);border-radius:999px;padding:5px 14px;cursor:pointer}
+  .copy:hover{background:var(--gold-soft)}
+  .decide{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .decide li{background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+  .decide .pick{color:var(--gold);font-weight:600}
+  .decide .muted{flex-basis:100%}
+  section{padding-block:36px}
+</style><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><marker id="ar" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L7 4 L0 7 Z"/></marker></defs></svg>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">TURNOVA · 용기 발주 스펙 · 2026-10-13 · 지니어스 비주얼팀 검토본</div>
+    <h1>튜브 2종은 기성 원터치,<br>병 2종은 같은 <span class="oct">헤비블로우 Ø36</span>.</h1>
+    <p class="lede">제조사·용기사에 넘길 치수와 마감 기준입니다. 치수는 공급사 카탈로그 값이고, <span class="est">추정</span> 표시는 카탈로그에서 직접 읽지 못한 값이라 도면을 받아 확정합니다. 모든 그림은 같은 축척(1 mm = 2.3 px)이라 크기를 그대로 비교할 수 있습니다.</p>
+    <div class="verdict" role="list">
+      <div role="listitem"><div class="k">배리어크림 · 50 mL</div><div class="v">35Φ · 길이 약 93 · 캡 Φ33.4×21 · 토출 3 mm</div><div class="s">화장대 · 코퍼 원형 원터치 · 전체 약 114 mm</div></div>
+      <div role="listitem"><div class="k">랩핑마스크 · 80 mL</div><div class="v">40Φ · 길이 약 105 · 캡 Φ38.4×29.2 · 토출 5 mm+</div><div class="s">화장실 · 블루 원터치 + 코퍼 띠 · 전체 약 134 mm</div></div>
+      <div role="listitem"><div class="k">앰플·세럼 · 30 mL</div><div class="v">헤비블로우 PET Ø36 × 63 · 넥 20Ø</div><div class="s">스포이드 101 mm / 펌프 0.25 cc 107 mm · 코퍼</div></div>
+    </div>
+    <div class="alts">
+      <div><b>대안 1</b> 랩핑을 50 mL로 줄이면 35Φ(약 93 mm) + 7 mm 토출구가 됩니다. 배리어와 지름이 같아져 캡 색으로만 구분됩니다.</div>
+      <div><b>대안 2</b> 코퍼 원터치 증착이 힌지에서 갈라지면 원료 착색 펄 PP로 바꿉니다. 고급감은 줄지만 깨질 일이 없습니다.</div>
+    </div>
+  </div>
+</header>
+<main>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">01 · 치수도</div>
+      <h2>5종 측면 치수도 (같은 축척)</h2>
+      <p class="lede">튜브는 캡을 바닥에 두고 세운 모습입니다. 길이는 캡을 뺀 실링 후 길이, 단위는 mm입니다.</p>
+    </div>
+    <div class="legend" aria-hidden="true"><span><i style="background:#1D2795"></i>블루 무광 바디</span><span><i style="background:#B7703F"></i>새틴 코퍼</span><span><i style="border:1px dashed #E9B48F"></i>인쇄 영역(추정)</span></div>
+    <div class="skus" style="margin-top:14px">
+  <article class="sku">
+    <header><span class="sid">BAR</span><h3>배리어크림 · 50 mL</h3><span class="tag gold">화장대</span></header>
+    <figure class="dwg"><svg viewBox="0 0 287 332" width="287" height="332" role="img" aria-label="배리어크림 50 mL 측면 치수도, 전체 높이 114 mm"><rect x="98.8" y="243.9" width="76.8" height="48.3" rx="3" class="cu"/><line x1="100.84" y1="273.846" x2="173.66" y2="273.846" class="seam"/><path d="M97 243.89999999999998 L74 41.5 L74 30 L200.5 30 L200.5 41.5 L177.5 243.89999999999998 Z" class="bl"/><line x1="74" y1="41.5" x2="200.5" y2="41.5" class="seam"/><rect x="91.71000000000001" y="59.9" width="91.07999999999998" height="165.59999999999997" class="pa"/><line x1="56" y1="30" x2="56" y2="292.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="165.1" text-anchor="end" class="dt">114 전체</text><line x1="202.5" y1="30" x2="222.5" y2="30" class="ex"/><line x1="177.66" y1="243.89999999999998" x2="222.5" y2="243.89999999999998" class="ex"/><line x1="177.66" y1="292.2" x2="222.5" y2="292.2" class="ex"/><line x1="218.5" y1="30" x2="218.5" y2="243.89999999999998" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="224.5" y="140.95" text-anchor="start" class="dt">93 튜브</text><line x1="218.5" y1="243.89999999999998" x2="218.5" y2="292.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="224.5" y="272.04999999999995" text-anchor="start" class="dt">21 캡</text><line x1="74" y1="18" x2="200.5" y2="18" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="137.25" y="12" text-anchor="middle" class="dt">실링 55</text><line x1="98.84" y1="308.2" x2="175.66" y2="308.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="137.25" y="302.2" text-anchor="middle" class="dt">캡 Φ33.4</text><text x="137.25" y="235.89999999999998" text-anchor="middle" class="dt in">Φ35</text><line x1="8" y1="292.2" x2="278.5" y2="292.2" class="gr"/></svg></figure>
+    <dl>
+      <div><dt>바디</dt><dd>PE 원형 튜브 35Φ (무광 로열블루)</dd></div>
+      <div><dt>캡</dt><dd>원형 원터치 35Φ · 코퍼</dd></div>
+      <div><dt>토출</dt><dd>3 mm (캡슐 통과 시험 후 5 mm 가능)</dd></div>
+      <div><dt>기성 레퍼런스</dt><dd>프리팩 원형 35Ø 원터치(880원, 최소 210개) · 대신 DS-3502(50ml) · 대지영 알원터치 35Ø DJ-RW-3501(Φ33.4×21)</dd></div>
+    </dl>
+    <p class="note">50ml는 35Φ 기준표 91–95 mm. 국내 기성은 길이 1종(150 mm)에 충진량으로 맞추는 경우가 많아, 93 mm 전후 컷 길이를 지정해야 합니다.</p>
+  </article>
+  <article class="sku">
+    <header><span class="sid">MSK</span><h3>랩핑마스크 · 80 mL (권장)</h3><span class="tag ">화장실</span></header>
+    <figure class="dwg"><svg viewBox="0 0 305 378" width="305" height="378" role="img" aria-label="랩핑마스크 80 mL (권장) 측면 치수도, 전체 높이 134 mm"><rect x="102.3" y="271.0" width="88.3" height="67.2" rx="3" class="bl"/><rect x="102.3" y="283.1" width="88.3" height="13.4" rx="0" class="cu"/><line x1="104.28999999999999" y1="312.6792" x2="188.60999999999999" y2="312.6792" class="seam"/><path d="M100.44999999999999 271.03999999999996 L74 41.03999999999999 L74 29.539999999999992 L218.89999999999998 29.539999999999992 L218.89999999999998 41.03999999999999 L192.45 271.03999999999996 Z" class="bl"/><line x1="74" y1="41.03999999999999" x2="218.89999999999998" y2="41.03999999999999" class="seam"/><rect x="94.286" y="59.43999999999999" width="104.32799999999997" height="193.2" class="pa"/><line x1="56" y1="29.539999999999992" x2="56" y2="338.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="187.87" text-anchor="end" class="dt">134 전체</text><line x1="220.89999999999998" y1="29.539999999999992" x2="240.89999999999998" y2="29.539999999999992" class="ex"/><line x1="192.60999999999999" y1="271.03999999999996" x2="240.89999999999998" y2="271.03999999999996" class="ex"/><line x1="192.60999999999999" y1="338.2" x2="240.89999999999998" y2="338.2" class="ex"/><line x1="236.89999999999998" y1="29.539999999999992" x2="236.89999999999998" y2="271.03999999999996" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="242.89999999999998" y="154.28999999999996" text-anchor="start" class="dt">105 튜브</text><line x1="236.89999999999998" y1="271.03999999999996" x2="236.89999999999998" y2="338.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="242.89999999999998" y="308.62" text-anchor="start" class="dt">29.2 캡</text><line x1="74" y1="17.539999999999992" x2="218.89999999999998" y2="17.539999999999992" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="146.45" y="11.539999999999992" text-anchor="middle" class="dt">실링 63</text><line x1="102.28999999999999" y1="354.2" x2="190.60999999999999" y2="354.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="146.45" y="348.2" text-anchor="middle" class="dt">캡 Φ38.4</text><text x="146.45" y="263.03999999999996" text-anchor="middle" class="dt in">Φ40</text><line x1="8" y1="338.2" x2="296.9" y2="338.2" class="gr"/></svg></figure>
+    <dl>
+      <div><dt>바디</dt><dd>PE 또는 PBL 원형 튜브 40Φ (무광 로열블루)</dd></div>
+      <div><dt>캡</dt><dd>원터치 40Φ · 블루 + 코퍼 띠</dd></div>
+      <div><dt>토출</dt><dd>5 mm + 씰 핀 (6–7 mm 재고 확인)</dd></div>
+      <div><dt>기성 레퍼런스</dt><dd>아크팩 ATVY4018A(Ø40 원터치, 70–160ml, 500원, MOQ 1만) · 대지영 각원터치 40Ø DJ-KW-4001M(Φ38.4×29.2)</dd></div>
+    </dl>
+    <p class="note">40Φ 기성은 70ml부터라 50ml로 가면 35Φ(약 93 mm + 7 mm 토출구)로 바뀌고, 배리어와 지름이 같아집니다. 욕실 습기에는 PBL(라미)이 PE보다 인쇄 내구에 유리합니다.</p>
+  </article>
+  <article class="sku">
+    <header><span class="sid">AMP</span><h3>앰플 · 30 mL</h3><span class="tag gold">화장대</span></header>
+    <figure class="dwg"><svg viewBox="0 0 243 302" width="243" height="302" role="img" aria-label="앰플 30 mL 측면 치수도, 전체 높이 101 mm"><path d="M74 262.29999999999995 L74 138.09999999999997 Q74 119.39999999999998 90.56 117.39999999999998 L140.24 117.39999999999998 Q156.8 119.39999999999998 156.8 138.09999999999997 L156.8 262.29999999999995 Z" class="bl"/><rect x="87.8" y="80.7" width="55.2" height="36.7" rx="2" class="cu"/><path d="M96.632 80.69199999999998 L96.632 48.76799999999999 Q115.4 25.999999999999986 134.168 48.76799999999999 L134.168 80.69199999999998 Z" class="bulb"/><line x1="115.4" y1="117.39999999999998" x2="115.4" y2="243.89999999999998" class="pip"/><rect x="85.6" y="149.3" width="59.6" height="81.1" rx="0" class="pa"/><line x1="56" y1="29.999999999999986" x2="56" y2="262.29999999999995" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="150.14999999999998" text-anchor="end" class="dt">101 전체</text><line x1="145" y1="29.999999999999986" x2="178.8" y2="29.999999999999986" class="ex"/><line x1="158.8" y1="117.39999999999998" x2="178.8" y2="117.39999999999998" class="ex"/><line x1="158.8" y1="262.29999999999995" x2="178.8" y2="262.29999999999995" class="ex"/><line x1="174.8" y1="29.999999999999986" x2="174.8" y2="117.39999999999998" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="180.8" y="77.69999999999999" text-anchor="start" class="dt">38 스포이드</text><line x1="174.8" y1="117.39999999999998" x2="174.8" y2="262.29999999999995" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="180.8" y="193.84999999999997" text-anchor="start" class="dt">63 병</text><line x1="74" y1="278.29999999999995" x2="156.8" y2="278.29999999999995" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="115.4" y="272.29999999999995" text-anchor="middle" class="dt">Φ36</text><line x1="8" y1="262.29999999999995" x2="234.8" y2="262.29999999999995" class="gr"/></svg></figure>
+    <dl>
+      <div><dt>바디</dt><dd>헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)</dd></div>
+      <div><dt>캡</dt><dd>스포이드 · 코퍼 칼라</dd></div>
+      <div><dt>토출</dt><dd>스포이드 (피펫 길이 약 55 mm, 확인)</dd></div>
+      <div><dt>기성 레퍼런스</dt><dd>럭스팩 HB CU30ml/민자 스포이드 #26776 (Ø36×101, 용기 63, 넥 20Ø, 1,270원)</dd></div>
+    </dl>
+    <p class="note">세럼과 같은 CU30 병을 써서 라인 통일과 MOQ 효율을 맞춥니다. 파손 주의 → 유리 대신 헤비블로우 PET.</p>
+  </article>
+  <article class="sku">
+    <header><span class="sid">SER</span><h3>세럼 · 30 mL</h3><span class="tag gold">화장대</span></header>
+    <figure class="dwg"><svg viewBox="0 0 243 316" width="243" height="316" role="img" aria-label="세럼 30 mL 측면 치수도, 전체 높이 107 mm"><path d="M74 276.1 L74 151.90000000000003 Q74 133.20000000000005 90.56 131.20000000000005 L140.24 131.20000000000005 Q156.8 133.20000000000005 156.8 151.90000000000003 L156.8 276.1 Z" class="bl"/><rect x="80.9" y="30.0" width="69.0" height="101.2" rx="4" class="cu"/><line x1="82.9" y1="100.84000000000005" x2="147.9" y2="100.84000000000005" class="seam"/><rect x="85.6" y="163.1" width="59.6" height="81.1" rx="0" class="pa"/><line x1="56" y1="30.000000000000057" x2="56" y2="276.1" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="157.05000000000004" text-anchor="end" class="dt">107 전체</text><line x1="151.9" y1="30.000000000000057" x2="178.8" y2="30.000000000000057" class="ex"/><line x1="158.8" y1="131.20000000000005" x2="178.8" y2="131.20000000000005" class="ex"/><line x1="158.8" y1="276.1" x2="178.8" y2="276.1" class="ex"/><line x1="174.8" y1="30.000000000000057" x2="174.8" y2="131.20000000000005" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="180.8" y="84.60000000000005" text-anchor="start" class="dt">44 펌프</text><line x1="174.8" y1="131.20000000000005" x2="174.8" y2="276.1" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="180.8" y="207.65000000000003" text-anchor="start" class="dt">63 병</text><line x1="74" y1="292.1" x2="156.8" y2="292.1" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="115.4" y="286.1" text-anchor="middle" class="dt">Φ36</text><line x1="8" y1="276.1" x2="234.8" y2="276.1" class="gr"/></svg></figure>
+    <dl>
+      <div><dt>바디</dt><dd>헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)</dd></div>
+      <div><dt>캡</dt><dd>에센스 펌프 + 오버캡 · 코퍼</dd></div>
+      <div><dt>토출</dt><dd>에센스 펌프 0.25 cc/회</dd></div>
+      <div><dt>기성 레퍼런스</dt><dd>럭스팩 HB CU30ml/에센스펌프/각진 보호캡 #30724 (Ø36×107, 넥 20Ø, 0.25cc, 1,270원)</dd></div>
+    </dl>
+    <p class="note">앰플과 병 동일. 0.2 cc 펌프는 기성 확인 못 함.</p>
+  </article>
+  <article class="sku">
+    <header><span class="sid">JAR</span><h3>필름밤 크림 · 18 mL</h3><span class="tag gold">화장대</span></header>
+    <figure class="dwg"><svg viewBox="0 0 300 153" width="300" height="153" role="img" aria-label="필름밤 크림 18 mL 측면 치수도, 전체 높이 36 mm"><rect x="76.0" y="62.2" width="136.3" height="50.6" rx="4" class="bl"/><rect x="74.0" y="30.0" width="140.3" height="32.2" rx="3" class="cu"/><rect x="80.0" y="72.3" width="128.3" height="30.4" rx="0" class="pa"/><line x1="56" y1="30.000000000000007" x2="56" y2="112.8" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="75.4" text-anchor="end" class="dt">36 전체</text><line x1="216.29999999999995" y1="30.000000000000007" x2="236.29999999999998" y2="30.000000000000007" class="ex"/><line x1="216.29999999999995" y1="62.2" x2="236.29999999999998" y2="62.2" class="ex"/><line x1="216.29999999999995" y1="112.8" x2="236.29999999999998" y2="112.8" class="ex"/><line x1="232.29999999999998" y1="30.000000000000007" x2="232.29999999999998" y2="62.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="238.29999999999998" y="50.10000000000001" text-anchor="start" class="dt">14 뚜껑</text><line x1="232.29999999999998" y1="62.2" x2="232.29999999999998" y2="112.8" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="238.29999999999998" y="91.5" text-anchor="start" class="dt">22 몸통</text><line x1="73.99999999999999" y1="128.8" x2="214.29999999999995" y2="128.8" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="144.14999999999998" y="122.80000000000001" text-anchor="middle" class="dt">Φ61</text><line x1="8" y1="112.8" x2="292.29999999999995" y2="112.8" class="gr"/></svg></figure>
+    <dl>
+      <div><dt>바디</dt><dd>PP 이중 자 (블루 무광 코팅)</dd></div>
+      <div><dt>캡</dt><dd>스크류 뚜껑 · 코퍼</dd></div>
+      <div><dt>토출</dt><dd>— (스패출러 동봉 여부 결정)</dd></div>
+      <div><dt>기성 레퍼런스</dt><dd>럭스팩 PP C20g 이중용기/2종 증착캡 #19465 (61×36, 주문생산 MOQ 1만)</dd></div>
+    </dl>
+    <p class="note">18ml 정확한 기성은 없어 20g 용기에 18ml를 충진합니다. 넓고 낮은 형태라 룰북 R07과 맞습니다.</p>
+  </article>
+  <article class="sku common">
+    <header><span class="sid">ALL</span><h3>5종 공통 마감</h3></header>
+    <dl>
+      <div><dt>바디</dt><dd>로열블루 팬톤 1종 · 무광(지문 방지 반무광 UV)</dd></div>
+      <div><dt>메탈</dt><dd>코퍼 876C · 새틴(반무광) · 완전 무광 금지</dd></div>
+      <div><dt>로고</dt><dd>워드마크·8잎 심볼만 유광 코퍼 박</dd></div>
+      <div><dt>장소 코드</dt><dd>화장대 = 코퍼 캡 · 화장실 = 블루 캡 + 코퍼 띠</dd></div>
+      <div><dt>파손</dt><dd>병은 유리 대신 헤비블로우 PET</dd></div>
+      <div><dt>튜브</dt><dd>두 종 모두 기성 원터치, 스탠드업</dd></div>
+      <div><dt>코딩</dt><dd>튜브 실링부 · 병·자 바닥</dd></div>
+    </dl>
+    <p class="note">대표 결정 10/13 · 가이드 v5 3·4장 · 룰북 R03 · R08 · R09 · R14</p>
+  </article></div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">02 · 발주 스펙 표</div>
+      <h2>제조사에 그대로 넘길 표</h2>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>제품</th><th>바디</th><th>전체 높이</th><th>튜브·병 길이</th><th>캡 파이</th><th>캡 높이</th><th>토출구</th><th>캡 마감</th><th>인쇄 영역</th></tr></thead>
+      <tbody><tr>
+  <td><b>배리어크림</b><br><span class="muted">50 mL · 화장대</span></td>
+  <td>PE 원형 튜브 35Φ (무광 로열블루)</td>
+  <td class="num">114 <span class="est">추정</span></td>
+  <td class="num">93 <span class="est">추정</span></td>
+  <td class="num">Φ33.4</td>
+  <td class="num">21</td>
+  <td>3 mm (캡슐 통과 시험 후 5 mm 가능)</td>
+  <td>코퍼 PP (원료 착색 펄 또는 몸통 UV 증착) · 새틴(반무광)</td>
+  <td>정면 약 55 × 70 mm (추정)</td></tr><tr>
+  <td><b>랩핑마스크</b><br><span class="muted">80 mL (권장) · 화장실</span></td>
+  <td>PE 또는 PBL 원형 튜브 40Φ (무광 로열블루)</td>
+  <td class="num">134 <span class="est">추정</span></td>
+  <td class="num">105 <span class="est">추정</span></td>
+  <td class="num">Φ38.4</td>
+  <td class="num">29.2</td>
+  <td>5 mm + 씰 핀 (6–7 mm 재고 확인)</td>
+  <td>블루 PP 원료 착색(튜브와 같은 팬톤) + 캡 측면 무광 코퍼 박 띠 또는 증착 링</td>
+  <td>정면 약 63 × 80 mm (추정)</td></tr><tr>
+  <td><b>앰플</b><br><span class="muted">30 mL · 화장대</span></td>
+  <td>헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)</td>
+  <td class="num">101</td>
+  <td class="num">63</td>
+  <td class="num">Φ24 <span class="est">추정</span></td>
+  <td class="num">38 <span class="est">추정</span></td>
+  <td>스포이드 (피펫 길이 약 55 mm, 확인)</td>
+  <td>알루미늄 칼라 새틴 코퍼 + 벌브(색상 지정: 블루 또는 블랙)</td>
+  <td>정면 약 36 × 45 mm (추정)</td></tr><tr>
+  <td><b>세럼</b><br><span class="muted">30 mL · 화장대</span></td>
+  <td>헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)</td>
+  <td class="num">107</td>
+  <td class="num">63</td>
+  <td class="num">Φ30 <span class="est">추정</span></td>
+  <td class="num">44 <span class="est">추정</span></td>
+  <td>에센스 펌프 0.25 cc/회</td>
+  <td>펌프 숄더·오버캡 새틴 코퍼(알루미늄 쉘 또는 증착), 오버캡 윗면 심볼 소형</td>
+  <td>정면 약 36 × 45 mm (추정)</td></tr><tr>
+  <td><b>필름밤 크림</b><br><span class="muted">18 mL · 화장대</span></td>
+  <td>PP 이중 자 (블루 무광 코팅)</td>
+  <td class="num">36</td>
+  <td class="num">22 <span class="est">추정</span></td>
+  <td class="num">Φ61</td>
+  <td class="num">14 <span class="est">추정</span></td>
+  <td>— (스패출러 동봉 여부 결정)</td>
+  <td>증착 코퍼 뚜껑(새틴), 윗면 심볼 톤온톤</td>
+  <td>몸통 둘레 띠 약 20 mm 높이 (추정)</td></tr></tbody>
+    </table></div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">03 · 샘플 승인 체크리스트</div>
+      <h2>샘플이 오면 이 12개를 확인합니다</h2>
+      <p class="lede">대표님이 말씀하신 항목(블루 무광, 캡 코퍼, 로고 유광, 지문 방지, 파손 주의, 헤비블로우)을 검사 방법과 담당까지 붙여 정리했습니다. 체크 표시는 이 브라우저에만 저장됩니다.</p>
+      <p class="progress" id="prog" aria-live="polite">0 / 12 확인</p>
+    </div>
+    <ul class="checks">
+  <li><input type="checkbox" id="ck0" data-k="0"><label for="ck0"><span class="area">컬러</span><b>로열블루 팬톤 1종 확정(2728C / 2736C / Reflex Blue 중) 후 튜브·캡·병 코팅·자 모두 같은 칩으로 대조</b><span class="test">검사 · 소재별 드로다운 승인, ΔE ≤ 2.0(제안), 폰 촬영 시 보라로 뜨지 않는지 확인</span><span class="who">디자이너 · 용기사</span></label></li>
+  <li><input type="checkbox" id="ck1" data-k="1"><label for="ck1"><span class="area">바디 마감</span><b>무광. 튜브 = 무광 라미(PBL) 또는 무광 바니시, 병·자 = 무광 코팅</b><span class="test">검사 · 60° 광택 10 GU 이하(제안), 소재 간 광택 차이 육안 비교</span><span class="who">용기사</span></label></li>
+  <li><input type="checkbox" id="ck2" data-k="2"><label for="ck2"><span class="area">지문</span><b>지문·손기름 자국이 남지 않는 무광(안티핑거프린트). 소프트터치는 오일 내용물에 약하면 반무광 UV로 대체</b><span class="test">검사 · 손 기름 터치 후 육안, 젖은 천으로 닦임성, 내용물(오일) 러빙 20회</span><span class="who">용기사 · 제조사</span></label></li>
+  <li><input type="checkbox" id="ck3" data-k="3"><label for="ck3"><span class="area">캡 메탈</span><b>코퍼 Pantone 876C(피치 톤) 1색. 새틴(반무광) 질감, 완전 무광 도장 금지. 핑크(로즈골드)·갈색(브론즈)·노랑(골드)은 반려</b><span class="test">검사 · 코퍼 마스터 칩 1개로 튜브 캡·스포이드·펌프·자 뚜껑 4종을 나란히 대조, 증착 크로스컷 박리 시험</span><span class="who">디자이너 · 캡사</span></label></li>
+  <li><input type="checkbox" id="ck4" data-k="4"><label for="ck4"><span class="area">로고</span><b>워드마크·8잎 심볼만 유광 코퍼 포일. 나머지는 코퍼 무광 잉크</b><span class="test">검사 · 포일 선 ≥ 0.15 mm, 잉크 글자 ≥ 1.2 mm, 용량 ≥ 1.6 mm, 박 들뜸·번짐 없음</span><span class="who">디자이너 · 인쇄</span></label></li>
+  <li><input type="checkbox" id="ck5" data-k="5"><label for="ck5"><span class="area">파손</span><b>앰플·세럼은 헤비블로우 PET(유리 대신). 스포이드·펌프 체결부 누액 없음</b><span class="test">검사 · 1.2 m 낙하(제안), 체결 토크, 45°C 거꾸로 보관 누액</span><span class="who">용기사 · 제조사</span></label></li>
+  <li><input type="checkbox" id="ck6" data-k="6"><label for="ck6"><span class="area">원터치</span><b>두 튜브 모두 기성 원터치. 거꾸로 세울 수 있는 평평한 캡(스탠드업)</b><span class="test">검사 · 개폐 500회 힌지 파손 없음(제안), 거꾸로 세운 상태 누액 없음, 한 손 개폐</span><span class="who">캡사</span></label></li>
+  <li><input type="checkbox" id="ck7" data-k="7"><label for="ck7"><span class="area">토출구</span><b>배리어 3 mm(캡슐 통과), 랩핑 5–7 mm + 씰 핀(필름 젤 경화 방지)</b><span class="test">검사 · 내용물 충진 후 토출 시험, 입구 경화 7일 관찰</span><span class="who">제조사</span></label></li>
+  <li><input type="checkbox" id="ck8" data-k="8"><label for="ck8"><span class="area">욕실 내구</span><b>랩핑 튜브·캡·코퍼 띠가 습기에서 변색·박리되지 않음</b><span class="test">검사 · 40°C/90%RH 72시간 후 크로스컷 테이프, 젖은 계면활성제 러빙</span><span class="who">용기사</span></label></li>
+  <li><input type="checkbox" id="ck9" data-k="9"><label for="ck9"><span class="area">상용성</span><b>처방과 용기(PE/PBL/PET/PP) 상용성</b><span class="test">검사 · 45°C 4주: 무게 감소, 변색, 변형, 냄새</span><span class="who">제조사</span></label></li>
+  <li><input type="checkbox" id="ck10" data-k="10"><label for="ck10"><span class="area">표시</span><b>제조번호·사용기한 코딩(튜브 실링부, 병·자 바닥), ℮ 숫자 높이(50 mL 초과 3 mm, 이하 2 mm), 분리배출·재질 표시</b><span class="test">검사 · 코딩 위치 시안 확인, 각인 판독성</span><span class="who">디자이너 · 제조사</span></label></li>
+  <li><input type="checkbox" id="ck11" data-k="11"><label for="ck11"><span class="area">수량·납기</span><b>MOQ(대부분 1만, 프리팩 튜브 210개~), 리드타임(약 4주), 단가</b><span class="test">검사 · 견적서·샘플 일정 회신</span><span class="who">용기사</span></label></li></ul>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">04 · 전달 문안</div>
+      <h2>제조사 · 디자이너에게 보낼 내용</h2>
+      <p class="lede">복사해서 카톡이나 메일로 바로 보내면 됩니다. 치수와 체크리스트는 위 표와 같은 데이터에서 만들어집니다.</p>
+    </div>
+    <div class="msgs">
+      <article class="msg"><header><h3>제조사 · 용기사 견적 요청</h3><button class="copy" type="button" data-t="rfq">복사</button></header><pre id="rfq">[터노바 TURNOVA] 용기 기성품 견적·샘플 요청 (2026-10-13)
+
+안녕하세요. 터노바 5종 용기를 기성품으로 진행하려고 합니다. 아래 스펙 기준으로 가능한 기성 품번, 도면(PDF/DWG), 샘플, 단가·MOQ·리드타임을 회신 부탁드립니다. 치수 중 '추정'은 카탈로그 기준값이라 귀사 도면으로 확정하겠습니다.
+
+1. 품목별 스펙
+- 배리어크림 50 mL (화장대): PE 원형 튜브 35Φ (무광 로열블루) / 길이 93mm(추정) / 캡 Φ33.4×H21 / 전체 114mm / 토출 3 mm (캡슐 통과 시험 후 5 mm 가능) / 캡 코퍼 PP (원료 착색 펄 또는 몸통 UV 증착) · 새틴(반무광) / 참고 프리팩 원형 35Ø 원터치(880원, 최소 210개) · 대신 DS-3502(50ml) · 대지영 알원터치 35Ø DJ-RW-3501(Φ33.4×21)
+- 랩핑마스크 80 mL (권장) (화장실): PE 또는 PBL 원형 튜브 40Φ (무광 로열블루) / 길이 105mm(추정) / 캡 Φ38.4×H29.2 / 전체 134mm / 토출 5 mm + 씰 핀 (6–7 mm 재고 확인) / 캡 블루 PP 원료 착색(튜브와 같은 팬톤) + 캡 측면 무광 코퍼 박 띠 또는 증착 링 / 참고 아크팩 ATVY4018A(Ø40 원터치, 70–160ml, 500원, MOQ 1만) · 대지영 각원터치 40Ø DJ-KW-4001M(Φ38.4×29.2)
+- 앰플 30 mL (화장대): 헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅) / 길이 63mm / 캡 Φ24×H38(추정) / 전체 101mm / 토출 스포이드 (피펫 길이 약 55 mm, 확인) / 캡 알루미늄 칼라 새틴 코퍼 + 벌브(색상 지정: 블루 또는 블랙) / 참고 럭스팩 HB CU30ml/민자 스포이드 #26776 (Ø36×101, 용기 63, 넥 20Ø, 1,270원)
+- 세럼 30 mL (화장대): 헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅) / 길이 63mm / 캡 Φ30×H44(추정) / 전체 107mm / 토출 에센스 펌프 0.25 cc/회 / 캡 펌프 숄더·오버캡 새틴 코퍼(알루미늄 쉘 또는 증착), 오버캡 윗면 심볼 소형 / 참고 럭스팩 HB CU30ml/에센스펌프/각진 보호캡 #30724 (Ø36×107, 넥 20Ø, 0.25cc, 1,270원)
+- 필름밤 크림 18 mL (화장대): PP 이중 자 (블루 무광 코팅) / 길이 22mm(추정) / 캡 Φ61×H14(추정) / 전체 36mm / 토출 — (스패출러 동봉 여부 결정) / 캡 증착 코퍼 뚜껑(새틴), 윗면 심볼 톤온톤 / 참고 럭스팩 PP C20g 이중용기/2종 증착캡 #19465 (61×36, 주문생산 MOQ 1만)
+
+2. 공통 조건
+- 튜브는 두 종 모두 기성 원터치 캡입니다. 거꾸로 세울 수 있는 평평한 캡이 필요합니다.
+- 바디 컬러: 로열블루 팬톤 1종(확정 후 전달), 무광. 소재가 달라도 같은 칩에 맞춰 주세요.
+- 메탈 컬러: 코퍼 Pantone 876C(피치 톤), 새틴(반무광). 완전 무광 도장, 골드·로즈골드·브론즈 톤은 불가합니다.
+- 로고(워드마크·심볼)만 유광 코퍼 박, 나머지 인쇄는 무광 잉크입니다.
+- 지문·손기름 자국이 남지 않는 마감이 필요합니다(안티핑거프린트 무광 또는 반무광 UV).
+- 앰플·세럼 병은 파손 방지를 위해 헤비블로우 PET로 진행합니다.
+
+3. 회신 요청 사항
+① 배리어 35Φ 50ml 컷 길이(약 93mm) 가능 여부와 기성 길이표
+② 랩핑 40Φ 80ml 길이(약 105mm), 5mm 이상 토출구 + 씰 핀 원터치 재고(6–7mm 가능 여부)
+③ 원터치 캡 코퍼 구현 방법별 견적: (a) 원료 착색 펄 PP (b) 캡 몸통 UV 증착(힌지 제외) (c) 알루미늄 쉘 원터치
+④ 랩핑 캡 측면 코퍼 띠: 박 또는 증착 링 가능 여부, 욕실 습기(40°C/90%RH 72시간) 박리 시험 데이터
+⑤ 스포이드 피펫 길이(약 55mm 희망), 칼라 외경·높이, 벌브 색상 옵션
+⑥ 에센스 펌프 0.25cc 토출량 공차, 오버캡 외경·높이
+⑦ 튜브 PE / PBL 단가 차이, 무광 라미 가능 여부
+⑧ 품목별 MOQ, 단가, 샘플 가능일, 양산 리드타임
+
+4. 품질 체크리스트(샘플 승인 기준)
+1) [컬러] 로열블루 팬톤 1종 확정(2728C / 2736C / Reflex Blue 중) 후 튜브·캡·병 코팅·자 모두 같은 칩으로 대조 — 검사: 소재별 드로다운 승인, ΔE ≤ 2.0(제안), 폰 촬영 시 보라로 뜨지 않는지 확인
+2) [바디 마감] 무광. 튜브 = 무광 라미(PBL) 또는 무광 바니시, 병·자 = 무광 코팅 — 검사: 60° 광택 10 GU 이하(제안), 소재 간 광택 차이 육안 비교
+3) [지문] 지문·손기름 자국이 남지 않는 무광(안티핑거프린트). 소프트터치는 오일 내용물에 약하면 반무광 UV로 대체 — 검사: 손 기름 터치 후 육안, 젖은 천으로 닦임성, 내용물(오일) 러빙 20회
+4) [캡 메탈] 코퍼 Pantone 876C(피치 톤) 1색. 새틴(반무광) 질감, 완전 무광 도장 금지. 핑크(로즈골드)·갈색(브론즈)·노랑(골드)은 반려 — 검사: 코퍼 마스터 칩 1개로 튜브 캡·스포이드·펌프·자 뚜껑 4종을 나란히 대조, 증착 크로스컷 박리 시험
+5) [로고] 워드마크·8잎 심볼만 유광 코퍼 포일. 나머지는 코퍼 무광 잉크 — 검사: 포일 선 ≥ 0.15 mm, 잉크 글자 ≥ 1.2 mm, 용량 ≥ 1.6 mm, 박 들뜸·번짐 없음
+6) [파손] 앰플·세럼은 헤비블로우 PET(유리 대신). 스포이드·펌프 체결부 누액 없음 — 검사: 1.2 m 낙하(제안), 체결 토크, 45°C 거꾸로 보관 누액
+7) [원터치] 두 튜브 모두 기성 원터치. 거꾸로 세울 수 있는 평평한 캡(스탠드업) — 검사: 개폐 500회 힌지 파손 없음(제안), 거꾸로 세운 상태 누액 없음, 한 손 개폐
+8) [토출구] 배리어 3 mm(캡슐 통과), 랩핑 5–7 mm + 씰 핀(필름 젤 경화 방지) — 검사: 내용물 충진 후 토출 시험, 입구 경화 7일 관찰
+9) [욕실 내구] 랩핑 튜브·캡·코퍼 띠가 습기에서 변색·박리되지 않음 — 검사: 40°C/90%RH 72시간 후 크로스컷 테이프, 젖은 계면활성제 러빙
+10) [상용성] 처방과 용기(PE/PBL/PET/PP) 상용성 — 검사: 45°C 4주: 무게 감소, 변색, 변형, 냄새
+11) [표시] 제조번호·사용기한 코딩(튜브 실링부, 병·자 바닥), ℮ 숫자 높이(50 mL 초과 3 mm, 이하 2 mm), 분리배출·재질 표시 — 검사: 코딩 위치 시안 확인, 각인 판독성
+12) [수량·납기] MOQ(대부분 1만, 프리팩 튜브 210개~), 리드타임(약 4주), 단가 — 검사: 견적서·샘플 일정 회신
+
+샘플은 컬러 칩, 코퍼 마스터 칩과 함께 나란히 비교해 승인하겠습니다. 감사합니다.
+터노바 드림</pre></article>
+      <article class="msg"><header><h3>디자이너 작업 요청</h3><button class="copy" type="button" data-t="brief">복사</button></header><pre id="brief">[터노바 TURNOVA] 용기 디자인 작업 요청 (2026-10-13)
+
+안녕하세요. 용기가 기성품 기준으로 정해져서, 아래 치수로 라벨·인쇄 시안을 부탁드립니다. 치수 중 '추정'은 용기사 도면이 오면 바로 업데이트해서 드리겠습니다.
+
+1. 인쇄 영역
+- 배리어크림 50 mL: 정면 약 55 × 70 mm (추정) · 바디 PE 원형 튜브 35Φ (무광 로열블루)
+- 랩핑마스크 80 mL (권장): 정면 약 63 × 80 mm (추정) · 바디 PE 또는 PBL 원형 튜브 40Φ (무광 로열블루)
+- 앰플 30 mL: 정면 약 36 × 45 mm (추정) · 바디 헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)
+- 세럼 30 mL: 정면 약 36 × 45 mm (추정) · 바디 헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)
+- 필름밤 크림 18 mL: 몸통 둘레 띠 약 20 mm 높이 (추정) · 바디 PP 이중 자 (블루 무광 코팅)
+
+2. 꼭 지켜 주실 규칙 (가이드 v5 + 대표 결정 10/13)
+- 컬러: 로열블루 팬톤 1종 + 코퍼 Pantone 876C. 골드·로즈골드·브론즈 금지.
+- 마감: 바디 무광, 로고(워드마크·8잎 심볼)만 유광 코퍼 박. 메탈은 새틴(반무광)이며 완전 무광 금지.
+- 레이아웃: 샤넬식 2단. 워드마크 폭은 패널의 75–92%, 심볼은 15–24%, 비율은 황금비 1:1.618.
+- 최소 크기: 잉크 글자 1.2mm, 용량 표기 1.6mm, 박 선 0.15mm.
+- 장소 코드: 화장대 제품은 코퍼 캡, 화장실(랩핑)은 블루 캡 + 코퍼 띠.
+- 표시: 제조번호·사용기한은 튜브 실링부, 병·자는 바닥. ℮ 숫자 높이는 50mL 초과 3mm, 50mL 이하 2mm.
+- 자(필름밤)는 띠 없음. 색 반전(DUA)은 단상자·키트·한정판에만 씁니다.
+
+3. 납품 파일
+- 품목별 인쇄 칼선(AI), 별색 분판(블루 / 코퍼 잉크 / 코퍼 박), 박 동판용 선 데이터
+- 폰 촬영 기준 목업 1장씩(정면, 45°, 인스타 4:5 썸네일)
+
+4. 확인 부탁
+- 35Φ 실링 폭 약 55mm에서 워드마크 1.2mm 규칙이 지켜지는지
+- Ø36 원통 병 곡면에서 워드마크가 휘어 보이지 않는 최대 폭
+- 4가지 코퍼(PP 캡·증착·알루미늄·박)가 한 사진에서 같은 색으로 보이도록 색 지정 방법
+
+감사합니다.
+터노바 드림</pre></article>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">05 · 지니어스 비주얼팀 검토</div>
+      <h2>사진에서 먼저 티 나는 순서로 정리했습니다</h2>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>심각도</th><th>이슈</th><th>대응</th></tr></thead>
+      <tbody><tr><td><span class="tag bad">높음</span></td><td><b>코퍼가 4가지 공정으로 나뉩니다</b><br><span class="muted">PP 원터치 캡, 증착 자 뚜껑, 알루미늄 스포이드·펌프, 박 로고는 같은 876C라도 색이 다르게 나옵니다. 라인업 사진에서 가장 먼저 티가 납니다.</span></td><td>코퍼 마스터 칩 1개를 정하고, 4종 샘플을 같은 조명에서 나란히 찍어 승인합니다.</td></tr><tr><td><span class="tag bad">높음</span></td><td><b>"무광 코퍼"가 그대로 전달되면 안 됩니다</b><br><span class="muted">가이드 v5는 완전 무광 도장을 금지합니다. 용기사에 "무광"으로 적으면 회색빛 흙색 코퍼가 나올 수 있습니다(추정).</span></td><td>발주서에는 "새틴(반무광) 코퍼"로 통일해서 적습니다.</td></tr><tr><td><span class="tag bad">높음</span></td><td><b>원터치 배리어는 메탈 무게감이 줄어듭니다</b><br><span class="muted">스크류 메탈 캡에서 PP 원터치로 바꾸면 손에 쥐었을 때 가볍고, 가까이 찍으면 플라스틱으로 보입니다.</span></td><td>증착 + 새틴 마감이 1순위, 알루미늄 쉘 원터치 견적을 함께 받습니다. 증착은 힌지에서 갈라질 수 있어 힌지를 빼고 칠합니다.</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>블루가 4가지 소재로 나뉩니다</b><br><span class="muted">PE·PBL 튜브, PET 병 코팅, PP 캡, PP 자는 같은 팬톤이어도 톤이 다르게 나옵니다.</span></td><td>팬톤 1종을 먼저 정하고 소재별 드로다운을 승인합니다(ΔE 2.0 이하, 제안).</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>폰 카메라에서 로열블루가 보라로 뜹니다</b><br><span class="muted">진한 로열블루는 아이폰·갤럭시 자동 보정에서 보라 쪽으로 뜨는 경우가 많습니다(추정). SNS 노출이 핵심이라 실물보다 사진이 기준입니다.</span></td><td>샘플 승인 때 폰 2종으로 찍어 확인하는 단계를 넣습니다.</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>지문 방지와 오일 내성이 부딪힙니다</b><br><span class="muted">소프트터치는 지문에 강하지만 오일 내용물에 끈적이거나 벗겨질 수 있습니다.</span></td><td>반무광 UV 안티핑거프린트를 기본으로, 내용물 러빙 20회 시험을 붙입니다.</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>헤비블로우 PET는 긁힘에 약합니다</b><br><span class="muted">유리처럼 보이고 깨지지 않지만 표면이 쉽게 긁힙니다.</span></td><td>무광 코팅으로 긁힘을 가리고, 출고 때 개별 슬리브를 씁니다.</td></tr><tr><td><span class="tag ok">낮음</span></td><td><b>두 튜브의 SNS 구분은 유지됩니다</b><br><span class="muted">35Φ 코퍼 캡과 40Φ 블루 캡 + 코퍼 띠는 4:5 썸네일에서도 구분됩니다. 랩핑을 50ml로 줄이면 지름이 같아져 캡 색만 남습니다.</span></td><td>랩핑 80ml 40Φ를 권장합니다.</td></tr></tbody>
+    </table></div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">06 · 대표 결정 필요</div>
+      <h2>발주 전에 정할 6가지</h2>
+    </div>
+    <ol class="decide"><li><b>1. 랩핑마스크 용량</b> → <span class="pick">80ml · 40Φ (권장)</span><span class="muted">40Φ 기성은 70ml부터라 50ml로 가면 35Φ가 되고 배리어와 지름이 같아집니다.</span></li><li><b>2. 배리어 코퍼 원터치 방식</b> → <span class="pick">캡 몸통 증착 + 새틴 (권장)</span><span class="muted">원료 착색 펄 PP는 내구성이 좋지만 고급감이 떨어지고, 알루미늄 쉘은 견적이 오면 비교합니다.</span></li><li><b>3. 랩핑 튜브 재질</b> → <span class="pick">PBL 무광 라미 (권장)</span><span class="muted">욕실 습기에서 인쇄가 덜 벗겨집니다. PE보다 단가가 오릅니다(추정).</span></li><li><b>4. 스포이드 벌브 색</b> → <span class="pick">블루 (권장)</span><span class="muted">블랙은 무거워 보이고, 코퍼 벌브는 실리콘이라 금속 코퍼와 색이 맞기 어렵습니다.</span></li><li><b>5. 로열블루 팬톤</b> → <span class="pick">2736C 계열 (추정 권장)</span><span class="muted">2728C는 밝아 보라로 덜 뜨고, Reflex Blue는 진하지만 폰에서 보라로 뜨기 쉽습니다. 칩 3개를 폰으로 찍어 비교한 뒤 정합니다.</span></li><li><b>6. 필름밤 18ml</b> → <span class="pick">20g 기성 이중 자에 18ml 충진 (권장)</span><span class="muted">18ml 딱 맞는 기성은 없습니다.</span></li></ol>
+    <p class="lede" style="margin-top:18px">출처: 럭스팩·프리팩·아크팩·대지영 공개 카탈로그, 해외 튜브 용량·길이 기준표(Viva, IOO). 단가·MOQ는 카탈로그 게시값이며 견적으로 확정합니다.</p>
+  </div>
+</section>
+</main>
+<script>
+(function(){
+  var KEY='tn-spec-check', st={};
+  try{ st=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){}
+  var boxes=document.querySelectorAll('.checks input'), prog=document.getElementById('prog');
+  function upd(){ var n=0; boxes.forEach(function(b){ if(b.checked) n++; }); prog.textContent=n+' / '+boxes.length+' 확인'; }
+  boxes.forEach(function(b){ b.checked=!!st[b.dataset.k]; b.addEventListener('change',function(){ st[b.dataset.k]=b.checked; try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} upd(); }); });
+  upd();
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.dataset.t), txt=el.textContent;
+      function done(m){ btn.textContent=m; setTimeout(function(){ btn.textContent='복사'; },1800); }
+      function sel(){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); done('선택됨 · Ctrl+C'); }
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){ done('복사됨'); },sel); } else sel();
+    });
+  });
+})();
+</script>
