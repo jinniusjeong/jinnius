@@ -177,7 +177,7 @@
   .builder select,.brow button{font:inherit;font-size:13px;padding:6px 8px;border-radius:7px;border:1px solid var(--line-2);background:var(--ground);color:var(--ink);max-width:100%}
   .brow button{cursor:pointer;padding:6px 12px}
   .sides{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:12px;align-items:start}
-  .jars.bottles{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .jars.bottles{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
   .combo.boss{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
   .combo.boss figure{height:100%}
   .side{border:1px solid var(--line);border-radius:10px;padding:10px 12px 12px;margin:0;display:flex;flex-direction:column;gap:4px;min-width:0}
@@ -225,6 +225,8 @@
   .sku dl{margin:0;display:grid;gap:6px}
   .sku dl div{display:grid;grid-template-columns:76px 1fr;gap:8px;font-size:13px}
   .sku dt{color:var(--muted)} .sku dd{margin:0;min-width:0}
+  .sku.common{grid-column:1/-1}
+  .sku.common dl{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:8px 18px}
   .sku .note{font-size:12.5px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:8px}
   .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--ink-2)}
   .legend i{display:inline-block;width:18px;height:10px;vertical-align:-1px;margin-right:6px;border-radius:2px}
@@ -251,17 +253,17 @@
 </style><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><marker id="ar" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L7 4 L0 7 Z"/></marker></defs></svg>
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow">TURNOVA · 용기 발주 스펙 · 2026-10-13 · 지니어스 비주얼팀 검토본</div>
-    <h1>튜브 2종은 기성 원터치,<br>병 2종은 같은 <span class="oct">헤비블로우 Ø36</span>.</h1>
-    <p class="lede">제조사·용기사에 넘길 치수와 마감 기준입니다. 치수는 공급사 카탈로그 값이고, <span class="est">추정</span> 표시는 카탈로그에서 직접 읽지 못한 값이라 도면을 받아 확정합니다. 모든 그림은 같은 축척(1 mm = 2.3 px)이라 크기를 그대로 비교할 수 있습니다.</p>
+    <div class="eyebrow">TURNOVA · 용기 발주 스펙 통합본 · 2026-10-13 · 견적서 엑셀 + 기성 품번 + 지니어스 비주얼팀</div>
+    <h1>4종 모두 기성품,<br>화장대는 <span class="oct">코퍼 캡</span>, 욕실은 블루 톱 + 코퍼 띠.</h1>
+    <p class="lede">대표님 견적서 엑셀과 공급사 카탈로그 품번 치수, 장소 코드 결정을 하나로 합쳤습니다. 엑셀의 허용 범위·만액·회신 칸은 그대로 두고, 기성 품번에서 확인된 값은 옆에 적었습니다. <span class="est">추정</span> 값은 회신 도면(10/24)으로 확정합니다. 그림은 모두 같은 축척(1 mm = 2.3 px)입니다.</p>
     <div class="verdict" role="list">
-      <div role="listitem"><div class="k">배리어크림 · 50 mL</div><div class="v">35Φ · 길이 약 93 · 캡 Φ33.4×21 · 토출 3 mm</div><div class="s">화장대 · 코퍼 원형 원터치 · 전체 약 114 mm</div></div>
-      <div role="listitem"><div class="k">랩핑마스크 · 80 mL</div><div class="v">40Φ · 길이 약 105 · 캡 Φ38.4×29.2 · 토출 5 mm+</div><div class="s">화장실 · 블루 원터치 + 코퍼 띠 · 전체 약 134 mm</div></div>
-      <div role="listitem"><div class="k">앰플·세럼 · 30 mL</div><div class="v">헤비블로우 PET Ø36 × 63 · 넥 20Ø</div><div class="s">스포이드 101 mm / 펌프 0.25 cc 107 mm · 코퍼</div></div>
+      <div role="listitem"><div class="k">배리어 크림 · 50 mL · 화장대</div><div class="v">35Φ PBL · 길이 95 (90–100) · 원터치 Φ35×20 · 토출 Φ4</div><div class="s">무광 코퍼 PP 착색 캡 · 전체 약 115 mm</div></div>
+      <div role="listitem"><div class="k">랩핑 마스크 · 60 mL · 욕실 (기준안 A)</div><div class="v">50Φ PBL 역인쇄 · 길이 77 (73–82) · 로우 원터치 Φ48–50×22 · Φ5 + 씰 핀</div><div class="s">블루 캡 + 코퍼 띠(착색·박) · 비교: 50Φ 80 mL / 40Φ 80 mL</div></div>
+      <div role="listitem"><div class="k">필링 에센스 30 mL · 필링밤 20 g</div><div class="v">헤비블로우 PETG Ø33×74 스포이드 · PETG 자 Ø52×38</div><div class="s">욕실 = 블루 벌브 + 코퍼 PP 칼라 · 화장대 = 알루미늄 쉘 코퍼 뚜껑</div></div>
     </div>
     <div class="alts">
-      <div><b>대안 1</b> 랩핑을 50 mL로 줄이면 35Φ(약 93 mm) + 7 mm 토출구가 됩니다. 배리어와 지름이 같아져 캡 색으로만 구분됩니다.</div>
-      <div><b>대안 2</b> 코퍼 원터치 증착이 힌지에서 갈라지면 원료 착색 펄 PP로 바꿉니다. 고급감은 줄지만 깨질 일이 없습니다.</div>
+      <div><b>대안 1</b> 50Φ 기성 튜브나 충전기 길이가 안 맞으면 랩핑을 40Φ 80 mL(아크팩 ATVY4018A)로 내립니다. 품번은 확인돼 있지만 배리어와 체형 차이가 작아집니다.</div>
+      <div><b>대안 2</b> 배리어 PP 착색 캡이 사진에서 플라스틱처럼 보이면 캡 몸통 증착이나 알루미늄 쉘로 올립니다. 화장대 제품이라 가능합니다.</div>
     </div>
   </div>
 </header>
@@ -270,78 +272,96 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow">01 · 치수도</div>
-      <h2>5종 측면 치수도 (같은 축척)</h2>
+      <h2>측면 치수도 (같은 축척 · 랩핑 3안 비교)</h2>
       <p class="lede">튜브는 캡을 바닥에 두고 세운 모습입니다. 길이는 캡을 뺀 실링 후 길이, 단위는 mm입니다.</p>
     </div>
     <div class="legend" aria-hidden="true"><span><i style="background:#1D2795"></i>블루 무광 바디</span><span><i style="background:#B7703F"></i>새틴 코퍼</span><span><i style="border:1px dashed #E9B48F"></i>인쇄 영역(추정)</span></div>
     <div class="skus" style="margin-top:14px">
   <article class="sku">
-    <header><span class="sid">BAR</span><h3>배리어크림 · 50 mL</h3><span class="tag gold">화장대</span></header>
-    <figure class="dwg"><svg viewBox="0 0 287 332" width="287" height="332" role="img" aria-label="배리어크림 50 mL 측면 치수도, 전체 높이 114 mm"><rect x="98.8" y="243.9" width="76.8" height="48.3" rx="3" class="cu"/><line x1="100.84" y1="273.846" x2="173.66" y2="273.846" class="seam"/><path d="M97 243.89999999999998 L74 41.5 L74 30 L200.5 30 L200.5 41.5 L177.5 243.89999999999998 Z" class="bl"/><line x1="74" y1="41.5" x2="200.5" y2="41.5" class="seam"/><rect x="91.71000000000001" y="59.9" width="91.07999999999998" height="165.59999999999997" class="pa"/><line x1="56" y1="30" x2="56" y2="292.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="165.1" text-anchor="end" class="dt">114 전체</text><line x1="202.5" y1="30" x2="222.5" y2="30" class="ex"/><line x1="177.66" y1="243.89999999999998" x2="222.5" y2="243.89999999999998" class="ex"/><line x1="177.66" y1="292.2" x2="222.5" y2="292.2" class="ex"/><line x1="218.5" y1="30" x2="218.5" y2="243.89999999999998" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="224.5" y="140.95" text-anchor="start" class="dt">93 튜브</text><line x1="218.5" y1="243.89999999999998" x2="218.5" y2="292.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="224.5" y="272.04999999999995" text-anchor="start" class="dt">21 캡</text><line x1="74" y1="18" x2="200.5" y2="18" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="137.25" y="12" text-anchor="middle" class="dt">실링 55</text><line x1="98.84" y1="308.2" x2="175.66" y2="308.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="137.25" y="302.2" text-anchor="middle" class="dt">캡 Φ33.4</text><text x="137.25" y="235.89999999999998" text-anchor="middle" class="dt in">Φ35</text><line x1="8" y1="292.2" x2="278.5" y2="292.2" class="gr"/></svg></figure>
+    <header><span class="sid">BAR</span><h3>배리어 크림 · 50 mL</h3><span class="tag ok">확정</span><span class="tag">화장대</span></header>
+    <figure class="dwg"><svg viewBox="0 0 287 335" width="287" height="335" role="img" aria-label="배리어 크림 50 mL 측면 치수도, 전체 높이 115 mm"><rect x="97.0" y="248.5" width="80.5" height="46.0" rx="3" class="cu"/><line x1="99" y1="277.02" x2="175.5" y2="277.02" class="seam"/><path d="M97 248.5 L74 41.50000000000003 L74 30.00000000000003 L200.5 30.00000000000003 L200.5 41.50000000000003 L177.5 248.5 Z" class="bl"/><line x1="74" y1="41.50000000000003" x2="200.5" y2="41.50000000000003" class="seam"/><rect x="91.71000000000001" y="59.90000000000003" width="91.07999999999998" height="170.2" class="pa"/><line x1="56" y1="30.00000000000003" x2="56" y2="294.5" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="166.25" text-anchor="end" class="dt">115 전체</text><line x1="202.5" y1="30.00000000000003" x2="222.5" y2="30.00000000000003" class="ex"/><line x1="179.5" y1="248.5" x2="222.5" y2="248.5" class="ex"/><line x1="179.5" y1="294.5" x2="222.5" y2="294.5" class="ex"/><line x1="218.5" y1="30.00000000000003" x2="218.5" y2="248.5" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="224.5" y="143.25" text-anchor="start" class="dt">95 튜브</text><line x1="218.5" y1="248.5" x2="218.5" y2="294.5" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="224.5" y="275.5" text-anchor="start" class="dt">20 캡</text><line x1="74" y1="18.00000000000003" x2="200.5" y2="18.00000000000003" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="137.25" y="12.000000000000028" text-anchor="middle" class="dt">실링 55</text><line x1="97" y1="310.5" x2="177.5" y2="310.5" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="137.25" y="304.5" text-anchor="middle" class="dt">캡 Φ35</text><text x="137.25" y="240.5" text-anchor="middle" class="dt in">Φ35</text><line x1="8" y1="294.5" x2="278.5" y2="294.5" class="gr"/></svg></figure>
     <dl>
-      <div><dt>바디</dt><dd>PE 원형 튜브 35Φ (무광 로열블루)</dd></div>
-      <div><dt>캡</dt><dd>원형 원터치 35Φ · 코퍼</dd></div>
-      <div><dt>토출</dt><dd>3 mm (캡슐 통과 시험 후 5 mm 가능)</dd></div>
-      <div><dt>기성 레퍼런스</dt><dd>프리팩 원형 35Ø 원터치(880원, 최소 210개) · 대신 DS-3502(50ml) · 대지영 알원터치 35Ø DJ-RW-3501(Φ33.4×21)</dd></div>
+      <div><dt>바디</dt><dd>35Φ 튜브 · 라미네이트(PBL) · 블루 무광 AF</dd></div>
+      <div><dt>사용</dt><dd>매일 · 리브온 · 만액 55–57 mL</dd></div>
+      <div><dt>캡</dt><dd>기성 원형 원터치 · 코퍼 · 무광 코퍼 PP 원료 착색(기본) · 견적 비교: 캡 몸통 증착(힌지 제외), 알루미늄 쉘</dd></div>
+      <div><dt>토출</dt><dd>Φ4 (기성이 3/5뿐이면 5) + 씰 핀 권장 · 캡슐 통과 시험</dd></div>
+      <div><dt>기성 품번</dt><dd>대지영 알원터치 35Ø DJ-RW-3501(Φ33.4×21, 토출 1.5/3/5/7) · 프리팩 원형 35Ø 원터치(880원, 최소 210개) · 대신 DS-3502(50ml)</dd></div>
     </dl>
-    <p class="note">50ml는 35Φ 기준표 91–95 mm. 국내 기성은 길이 1종(150 mm)에 충진량으로 맞추는 경우가 많아, 93 mm 전후 컷 길이를 지정해야 합니다.</p>
+    <p class="note">엑셀(95)과 해외 기준표(91–95)가 같은 범위입니다. 국내 기성은 길이 1종(150 mm)이 많아 컷 길이를 지정해야 합니다. 화장대 제품이라 증착도 쓸 수 있지만, 기본은 엑셀대로 PP 착색입니다.</p>
   </article>
   <article class="sku">
-    <header><span class="sid">MSK</span><h3>랩핑마스크 · 80 mL (권장)</h3><span class="tag ">화장실</span></header>
-    <figure class="dwg"><svg viewBox="0 0 305 378" width="305" height="378" role="img" aria-label="랩핑마스크 80 mL (권장) 측면 치수도, 전체 높이 134 mm"><rect x="102.3" y="271.0" width="88.3" height="67.2" rx="3" class="bl"/><rect x="102.3" y="283.1" width="88.3" height="13.4" rx="0" class="cu"/><line x1="104.28999999999999" y1="312.6792" x2="188.60999999999999" y2="312.6792" class="seam"/><path d="M100.44999999999999 271.03999999999996 L74 41.03999999999999 L74 29.539999999999992 L218.89999999999998 29.539999999999992 L218.89999999999998 41.03999999999999 L192.45 271.03999999999996 Z" class="bl"/><line x1="74" y1="41.03999999999999" x2="218.89999999999998" y2="41.03999999999999" class="seam"/><rect x="94.286" y="59.43999999999999" width="104.32799999999997" height="193.2" class="pa"/><line x1="56" y1="29.539999999999992" x2="56" y2="338.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="187.87" text-anchor="end" class="dt">134 전체</text><line x1="220.89999999999998" y1="29.539999999999992" x2="240.89999999999998" y2="29.539999999999992" class="ex"/><line x1="192.60999999999999" y1="271.03999999999996" x2="240.89999999999998" y2="271.03999999999996" class="ex"/><line x1="192.60999999999999" y1="338.2" x2="240.89999999999998" y2="338.2" class="ex"/><line x1="236.89999999999998" y1="29.539999999999992" x2="236.89999999999998" y2="271.03999999999996" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="242.89999999999998" y="154.28999999999996" text-anchor="start" class="dt">105 튜브</text><line x1="236.89999999999998" y1="271.03999999999996" x2="236.89999999999998" y2="338.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="242.89999999999998" y="308.62" text-anchor="start" class="dt">29.2 캡</text><line x1="74" y1="17.539999999999992" x2="218.89999999999998" y2="17.539999999999992" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="146.45" y="11.539999999999992" text-anchor="middle" class="dt">실링 63</text><line x1="102.28999999999999" y1="354.2" x2="190.60999999999999" y2="354.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="146.45" y="348.2" text-anchor="middle" class="dt">캡 Φ38.4</text><text x="146.45" y="263.03999999999996" text-anchor="middle" class="dt in">Φ40</text><line x1="8" y1="338.2" x2="296.9" y2="338.2" class="gr"/></svg></figure>
+    <header><span class="sid">M60</span><h3>랩핑 마스크 · 60 mL</h3><span class="tag gold">기준안 A</span><span class="tag">욕실</span></header>
+    <figure class="dwg"><svg viewBox="0 0 342 298" width="342" height="298" role="img" aria-label="랩핑 마스크 60 mL 측면 치수도, 전체 높이 99 mm"><rect x="109.7" y="207.1" width="110.4" height="50.6" rx="3" class="bl"/><rect x="109.7" y="216.2" width="110.4" height="10.1" rx="0" class="cu"/><line x1="111.65" y1="238.47199999999998" x2="218.04999999999998" y2="238.47199999999998" class="seam"/><path d="M107.35 207.1 L74 41.5 L74 30 L255.7 30 L255.7 41.5 L222.35 207.1 Z" class="bl"/><line x1="74" y1="41.5" x2="255.7" y2="41.5" class="seam"/><rect x="99.438" y="59.9" width="130.82399999999998" height="128.8" class="pa"/><line x1="56" y1="30" x2="56" y2="257.7" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="147.85" text-anchor="end" class="dt">99 전체</text><line x1="257.7" y1="30" x2="277.7" y2="30" class="ex"/><line x1="222.04999999999998" y1="207.1" x2="277.7" y2="207.1" class="ex"/><line x1="222.04999999999998" y1="257.7" x2="277.7" y2="257.7" class="ex"/><line x1="273.7" y1="30" x2="273.7" y2="207.1" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="279.7" y="122.55" text-anchor="start" class="dt">77 튜브</text><line x1="273.7" y1="207.1" x2="273.7" y2="257.7" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="279.7" y="236.39999999999998" text-anchor="start" class="dt">22 캡</text><line x1="74" y1="18" x2="255.7" y2="18" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="164.85" y="12" text-anchor="middle" class="dt">실링 79</text><line x1="109.65" y1="273.7" x2="220.04999999999998" y2="273.7" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="164.85" y="267.7" text-anchor="middle" class="dt">캡 Φ48</text><text x="164.85" y="199.1" text-anchor="middle" class="dt in">Φ50</text><line x1="8" y1="257.7" x2="333.7" y2="257.7" class="gr"/></svg></figure>
     <dl>
-      <div><dt>바디</dt><dd>PE 또는 PBL 원형 튜브 40Φ (무광 로열블루)</dd></div>
-      <div><dt>캡</dt><dd>원터치 40Φ · 블루 + 코퍼 띠</dd></div>
-      <div><dt>토출</dt><dd>5 mm + 씰 핀 (6–7 mm 재고 확인)</dd></div>
-      <div><dt>기성 레퍼런스</dt><dd>아크팩 ATVY4018A(Ø40 원터치, 70–160ml, 500원, MOQ 1만) · 대지영 각원터치 40Ø DJ-KW-4001M(Φ38.4×29.2)</dd></div>
+      <div><dt>바디</dt><dd>50Φ 숏 튜브 · 라미네이트(PBL) 역인쇄 · 블루 무광 AF</dd></div>
+      <div><dt>사용</dt><dd>주 2–3회 · 10분 뒤 씻어 냄 · 만액 67 mL</dd></div>
+      <div><dt>캡</dt><dd>기성 원터치 로우 · 블루 + 코퍼 띠 · 블루 PP 원료 착색(튜브와 같은 칩) + 캡 측면 코퍼 띠: PP 착색 링 또는 핫스탬핑 박 · 증착·메탈 금지</dd></div>
+      <div><dt>토출</dt><dd>Φ5 + 씰 핀 필수 (젤 경화 방지)</dd></div>
+      <div><dt>기성 품번</dt><dd>대지영 원터치 50Ø(Φ48×25.5, 토출 확인 필요) · 50Φ 튜브 기성 품번은 회신으로 확정</dd></div>
     </dl>
-    <p class="note">40Φ 기성은 70ml부터라 50ml로 가면 35Φ(약 93 mm + 7 mm 토출구)로 바뀌고, 배리어와 지름이 같아집니다. 욕실 습기에는 PBL(라미)이 PE보다 인쇄 내구에 유리합니다.</p>
+    <p class="note">배리어(35Φ)와 지름이 15 mm 차이 나서 SNS 썸네일에서도 체형이 확실히 갈립니다. 길이 77 mm는 짧은 편이라 충전기 최소 길이를 확인해야 합니다.</p>
   </article>
   <article class="sku">
-    <header><span class="sid">AMP</span><h3>앰플 · 30 mL</h3><span class="tag gold">화장대</span></header>
-    <figure class="dwg"><svg viewBox="0 0 243 302" width="243" height="302" role="img" aria-label="앰플 30 mL 측면 치수도, 전체 높이 101 mm"><path d="M74 262.29999999999995 L74 138.09999999999997 Q74 119.39999999999998 90.56 117.39999999999998 L140.24 117.39999999999998 Q156.8 119.39999999999998 156.8 138.09999999999997 L156.8 262.29999999999995 Z" class="bl"/><rect x="87.8" y="80.7" width="55.2" height="36.7" rx="2" class="cu"/><path d="M96.632 80.69199999999998 L96.632 48.76799999999999 Q115.4 25.999999999999986 134.168 48.76799999999999 L134.168 80.69199999999998 Z" class="bulb"/><line x1="115.4" y1="117.39999999999998" x2="115.4" y2="243.89999999999998" class="pip"/><rect x="85.6" y="149.3" width="59.6" height="81.1" rx="0" class="pa"/><line x1="56" y1="29.999999999999986" x2="56" y2="262.29999999999995" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="150.14999999999998" text-anchor="end" class="dt">101 전체</text><line x1="145" y1="29.999999999999986" x2="178.8" y2="29.999999999999986" class="ex"/><line x1="158.8" y1="117.39999999999998" x2="178.8" y2="117.39999999999998" class="ex"/><line x1="158.8" y1="262.29999999999995" x2="178.8" y2="262.29999999999995" class="ex"/><line x1="174.8" y1="29.999999999999986" x2="174.8" y2="117.39999999999998" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="180.8" y="77.69999999999999" text-anchor="start" class="dt">38 스포이드</text><line x1="174.8" y1="117.39999999999998" x2="174.8" y2="262.29999999999995" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="180.8" y="193.84999999999997" text-anchor="start" class="dt">63 병</text><line x1="74" y1="278.29999999999995" x2="156.8" y2="278.29999999999995" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="115.4" y="272.29999999999995" text-anchor="middle" class="dt">Φ36</text><line x1="8" y1="262.29999999999995" x2="234.8" y2="262.29999999999995" class="gr"/></svg></figure>
+    <header><span class="sid">M80</span><h3>랩핑 마스크 · 80 mL</h3><span class="tag ">비교안 B</span><span class="tag">욕실</span></header>
+    <figure class="dwg"><svg viewBox="0 0 342 328" width="342" height="328" role="img" aria-label="랩핑 마스크 80 mL 측면 치수도, 전체 높이 112 mm"><rect x="109.7" y="237.0" width="110.4" height="50.6" rx="3" class="bl"/><rect x="109.7" y="246.1" width="110.4" height="10.1" rx="0" class="cu"/><line x1="111.65" y1="268.37199999999996" x2="218.04999999999998" y2="268.37199999999996" class="seam"/><path d="M107.35 236.99999999999997 L74 46.099999999999994 L74 34.599999999999994 L255.7 34.599999999999994 L255.7 46.099999999999994 L222.35 236.99999999999997 Z" class="bl"/><line x1="74" y1="46.099999999999994" x2="255.7" y2="46.099999999999994" class="seam"/><rect x="99.438" y="64.5" width="130.82399999999998" height="154.09999999999997" class="pa"/><line x1="56" y1="34.599999999999994" x2="56" y2="287.59999999999997" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="165.09999999999997" text-anchor="end" class="dt">112 전체</text><line x1="257.7" y1="34.599999999999994" x2="277.7" y2="34.599999999999994" class="ex"/><line x1="222.04999999999998" y1="236.99999999999997" x2="277.7" y2="236.99999999999997" class="ex"/><line x1="222.04999999999998" y1="287.59999999999997" x2="277.7" y2="287.59999999999997" class="ex"/><line x1="273.7" y1="34.599999999999994" x2="273.7" y2="236.99999999999997" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="279.7" y="139.79999999999998" text-anchor="start" class="dt">88 튜브</text><line x1="273.7" y1="236.99999999999997" x2="273.7" y2="287.59999999999997" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="279.7" y="266.29999999999995" text-anchor="start" class="dt">22 캡</text><line x1="74" y1="22.599999999999994" x2="255.7" y2="22.599999999999994" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="164.85" y="16.599999999999994" text-anchor="middle" class="dt">실링 79</text><line x1="109.65" y1="303.59999999999997" x2="220.04999999999998" y2="303.59999999999997" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="164.85" y="297.59999999999997" text-anchor="middle" class="dt">캡 Φ48</text><text x="164.85" y="228.99999999999997" text-anchor="middle" class="dt in">Φ50</text><line x1="8" y1="287.59999999999997" x2="333.7" y2="287.59999999999997" class="gr"/></svg></figure>
     <dl>
-      <div><dt>바디</dt><dd>헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)</dd></div>
-      <div><dt>캡</dt><dd>스포이드 · 코퍼 칼라</dd></div>
-      <div><dt>토출</dt><dd>스포이드 (피펫 길이 약 55 mm, 확인)</dd></div>
-      <div><dt>기성 레퍼런스</dt><dd>럭스팩 HB CU30ml/민자 스포이드 #26776 (Ø36×101, 용기 63, 넥 20Ø, 1,270원)</dd></div>
+      <div><dt>바디</dt><dd>50Φ 튜브 · 라미네이트(PBL) 역인쇄 · 블루 무광 AF</dd></div>
+      <div><dt>사용</dt><dd>주 2–3회 · 10분 뒤 씻어 냄 · 만액 89 mL</dd></div>
+      <div><dt>캡</dt><dd>A와 같은 캡 · A와 같음</dd></div>
+      <div><dt>토출</dt><dd>Φ5 + 씰 핀 필수</dd></div>
+      <div><dt>기성 품번</dt><dd>A와 같은 캡 · 50Φ 튜브 기성 품번은 회신으로 확정</dd></div>
     </dl>
-    <p class="note">세럼과 같은 CU30 병을 써서 라인 통일과 MOQ 효율을 맞춥니다. 파손 주의 → 유리 대신 헤비블로우 PET.</p>
+    <p class="note">캡·지름이 A와 같아 60/80 mL를 튜브 길이만 바꿔 운영할 수 있습니다.</p>
   </article>
   <article class="sku">
-    <header><span class="sid">SER</span><h3>세럼 · 30 mL</h3><span class="tag gold">화장대</span></header>
-    <figure class="dwg"><svg viewBox="0 0 243 316" width="243" height="316" role="img" aria-label="세럼 30 mL 측면 치수도, 전체 높이 107 mm"><path d="M74 276.1 L74 151.90000000000003 Q74 133.20000000000005 90.56 131.20000000000005 L140.24 131.20000000000005 Q156.8 133.20000000000005 156.8 151.90000000000003 L156.8 276.1 Z" class="bl"/><rect x="80.9" y="30.0" width="69.0" height="101.2" rx="4" class="cu"/><line x1="82.9" y1="100.84000000000005" x2="147.9" y2="100.84000000000005" class="seam"/><rect x="85.6" y="163.1" width="59.6" height="81.1" rx="0" class="pa"/><line x1="56" y1="30.000000000000057" x2="56" y2="276.1" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="157.05000000000004" text-anchor="end" class="dt">107 전체</text><line x1="151.9" y1="30.000000000000057" x2="178.8" y2="30.000000000000057" class="ex"/><line x1="158.8" y1="131.20000000000005" x2="178.8" y2="131.20000000000005" class="ex"/><line x1="158.8" y1="276.1" x2="178.8" y2="276.1" class="ex"/><line x1="174.8" y1="30.000000000000057" x2="174.8" y2="131.20000000000005" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="180.8" y="84.60000000000005" text-anchor="start" class="dt">44 펌프</text><line x1="174.8" y1="131.20000000000005" x2="174.8" y2="276.1" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="180.8" y="207.65000000000003" text-anchor="start" class="dt">63 병</text><line x1="74" y1="292.1" x2="156.8" y2="292.1" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="115.4" y="286.1" text-anchor="middle" class="dt">Φ36</text><line x1="8" y1="276.1" x2="234.8" y2="276.1" class="gr"/></svg></figure>
+    <header><span class="sid">M40</span><h3>랩핑 마스크 · 80 mL</h3><span class="tag ">비교안 C</span><span class="tag">욕실</span></header>
+    <figure class="dwg"><svg viewBox="0 0 305 378" width="305" height="378" role="img" aria-label="랩핑 마스크 80 mL 측면 치수도, 전체 높이 134 mm"><rect x="102.3" y="271.0" width="88.3" height="67.2" rx="3" class="bl"/><rect x="102.3" y="283.1" width="88.3" height="13.4" rx="0" class="cu"/><line x1="104.28999999999999" y1="312.6792" x2="188.60999999999999" y2="312.6792" class="seam"/><path d="M100.44999999999999 271.03999999999996 L74 41.03999999999999 L74 29.539999999999992 L218.89999999999998 29.539999999999992 L218.89999999999998 41.03999999999999 L192.45 271.03999999999996 Z" class="bl"/><line x1="74" y1="41.03999999999999" x2="218.89999999999998" y2="41.03999999999999" class="seam"/><rect x="94.286" y="59.43999999999999" width="104.32799999999997" height="193.2" class="pa"/><line x1="56" y1="29.539999999999992" x2="56" y2="338.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="187.87" text-anchor="end" class="dt">134 전체</text><line x1="220.89999999999998" y1="29.539999999999992" x2="240.89999999999998" y2="29.539999999999992" class="ex"/><line x1="192.60999999999999" y1="271.03999999999996" x2="240.89999999999998" y2="271.03999999999996" class="ex"/><line x1="192.60999999999999" y1="338.2" x2="240.89999999999998" y2="338.2" class="ex"/><line x1="236.89999999999998" y1="29.539999999999992" x2="236.89999999999998" y2="271.03999999999996" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="242.89999999999998" y="154.28999999999996" text-anchor="start" class="dt">105 튜브</text><line x1="236.89999999999998" y1="271.03999999999996" x2="236.89999999999998" y2="338.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="242.89999999999998" y="308.62" text-anchor="start" class="dt">29.2 캡</text><line x1="74" y1="17.539999999999992" x2="218.89999999999998" y2="17.539999999999992" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="146.45" y="11.539999999999992" text-anchor="middle" class="dt">실링 63</text><line x1="102.28999999999999" y1="354.2" x2="190.60999999999999" y2="354.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="146.45" y="348.2" text-anchor="middle" class="dt">캡 Φ38.4</text><text x="146.45" y="263.03999999999996" text-anchor="middle" class="dt in">Φ40</text><line x1="8" y1="338.2" x2="296.9" y2="338.2" class="gr"/></svg></figure>
     <dl>
-      <div><dt>바디</dt><dd>헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)</dd></div>
-      <div><dt>캡</dt><dd>에센스 펌프 + 오버캡 · 코퍼</dd></div>
-      <div><dt>토출</dt><dd>에센스 펌프 0.25 cc/회</dd></div>
-      <div><dt>기성 레퍼런스</dt><dd>럭스팩 HB CU30ml/에센스펌프/각진 보호캡 #30724 (Ø36×107, 넥 20Ø, 0.25cc, 1,270원)</dd></div>
+      <div><dt>바디</dt><dd>40Φ 튜브 · PBL 또는 PE · 블루 무광 AF</dd></div>
+      <div><dt>사용</dt><dd>주 2–3회 · 10분 뒤 씻어 냄 · 만액 약 89 mL</dd></div>
+      <div><dt>캡</dt><dd>기성 원터치 40Φ · 블루 + 코퍼 띠 · A와 같은 방식</dd></div>
+      <div><dt>토출</dt><dd>Φ5 + 씰 핀 (6–7 mm 재고 확인)</dd></div>
+      <div><dt>기성 품번</dt><dd>아크팩 ATVY4018A(Ø40 원터치, 70–160ml, 500원, MOQ 1만) · 대지영 각원터치 40Ø DJ-KW-4001M(Φ38.4×29.2, 토출 1.5/3/5)</dd></div>
     </dl>
-    <p class="note">앰플과 병 동일. 0.2 cc 펌프는 기성 확인 못 함.</p>
+    <p class="note">기성 품번이 가장 확실한 안입니다. 대신 배리어와 지름 차이가 5 mm라 실루엣이 비슷해지고, 캡이 29 mm로 높아 둔해 보입니다.</p>
   </article>
   <article class="sku">
-    <header><span class="sid">JAR</span><h3>필름밤 크림 · 18 mL</h3><span class="tag gold">화장대</span></header>
-    <figure class="dwg"><svg viewBox="0 0 300 153" width="300" height="153" role="img" aria-label="필름밤 크림 18 mL 측면 치수도, 전체 높이 36 mm"><rect x="76.0" y="62.2" width="136.3" height="50.6" rx="4" class="bl"/><rect x="74.0" y="30.0" width="140.3" height="32.2" rx="3" class="cu"/><rect x="80.0" y="72.3" width="128.3" height="30.4" rx="0" class="pa"/><line x1="56" y1="30.000000000000007" x2="56" y2="112.8" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="75.4" text-anchor="end" class="dt">36 전체</text><line x1="216.29999999999995" y1="30.000000000000007" x2="236.29999999999998" y2="30.000000000000007" class="ex"/><line x1="216.29999999999995" y1="62.2" x2="236.29999999999998" y2="62.2" class="ex"/><line x1="216.29999999999995" y1="112.8" x2="236.29999999999998" y2="112.8" class="ex"/><line x1="232.29999999999998" y1="30.000000000000007" x2="232.29999999999998" y2="62.2" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="238.29999999999998" y="50.10000000000001" text-anchor="start" class="dt">14 뚜껑</text><line x1="232.29999999999998" y1="62.2" x2="232.29999999999998" y2="112.8" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="238.29999999999998" y="91.5" text-anchor="start" class="dt">22 몸통</text><line x1="73.99999999999999" y1="128.8" x2="214.29999999999995" y2="128.8" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="144.14999999999998" y="122.80000000000001" text-anchor="middle" class="dt">Φ61</text><line x1="8" y1="112.8" x2="292.29999999999995" y2="112.8" class="gr"/></svg></figure>
+    <header><span class="sid">ESS</span><h3>필링 에센스 · 30 mL</h3><span class="tag ok">확정</span><span class="tag">욕실</span></header>
+    <figure class="dwg"><svg viewBox="0 0 236 318" width="236" height="318" role="img" aria-label="필링 에센스 30 mL 측면 치수도, 전체 높이 108 mm"><path d="M74 278.4 L74 128.89999999999998 Q74 110.19999999999999 89.17999999999999 108.19999999999999 L134.71999999999997 108.19999999999999 Q149.89999999999998 110.19999999999999 149.89999999999998 128.89999999999998 L149.89999999999998 278.4 Z" class="bl"/><rect x="85.5" y="75.4" width="52.9" height="32.8" rx="2" class="cu"/><path d="M93.96399999999998 75.356 L93.96399999999998 47.986000000000004 Q111.94999999999999 26 129.93599999999998 47.986000000000004 L129.93599999999998 75.356 Z" class="bulb"/><line x1="111.94999999999999" y1="108.19999999999999" x2="111.94999999999999" y2="234.7" class="pip"/><rect x="84.6" y="145.6" width="54.6" height="95.3" rx="0" class="pa"/><line x1="56" y1="30" x2="56" y2="278.4" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="158.2" text-anchor="end" class="dt">108 전체</text><line x1="140.39999999999998" y1="30" x2="171.89999999999998" y2="30" class="ex"/><line x1="151.89999999999998" y1="108.19999999999999" x2="171.89999999999998" y2="108.19999999999999" class="ex"/><line x1="151.89999999999998" y1="278.4" x2="171.89999999999998" y2="278.4" class="ex"/><line x1="167.89999999999998" y1="30" x2="167.89999999999998" y2="108.19999999999999" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="173.89999999999998" y="73.1" text-anchor="start" class="dt">34 스포이드</text><line x1="167.89999999999998" y1="108.19999999999999" x2="167.89999999999998" y2="278.4" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="173.89999999999998" y="197.29999999999998" text-anchor="start" class="dt">74 병</text><line x1="74" y1="294.4" x2="149.89999999999998" y2="294.4" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="111.94999999999999" y="288.4" text-anchor="middle" class="dt">Φ33</text><line x1="8" y1="278.4" x2="227.89999999999998" y2="278.4" class="gr"/></svg></figure>
     <dl>
-      <div><dt>바디</dt><dd>PP 이중 자 (블루 무광 코팅)</dd></div>
-      <div><dt>캡</dt><dd>스크류 뚜껑 · 코퍼</dd></div>
-      <div><dt>토출</dt><dd>— (스패출러 동봉 여부 결정)</dd></div>
-      <div><dt>기성 레퍼런스</dt><dd>럭스팩 PP C20g 이중용기/2종 증착캡 #19465 (61×36, 주문생산 MOQ 1만)</dd></div>
+      <div><dt>바디</dt><dd>원형 스포이드 병 · 헤비블로우 PETG/PCTG · 블루 원료 착색 + 무광 AF 코팅</dd></div>
+      <div><dt>사용</dt><dd>매일 또는 주 2–3회 · 1–3분 뒤 씻어 냄 · 30 mL</dd></div>
+      <div><dt>캡</dt><dd>스포이드 · 블루 벌브 + 코퍼 칼라 · 무광 코퍼 PP 원료 착색 칼라 · 메탈 금지(욕실)</dd></div>
+      <div><dt>토출</dt><dd>피펫 (넥 18 mm) · 벌브 내산성</dd></div>
+      <div><dt>기성 품번</dt><dd>Ø33 헤비블로우 기성 품번은 회신으로 확정 · 가장 가까운 확인 품번: 럭스팩 HB CU30ml 스포이드 #26776(Ø36×101, 용기 63, 넥 20Ø, 1,270원)</dd></div>
     </dl>
-    <p class="note">18ml 정확한 기성은 없어 20g 용기에 18ml를 충진합니다. 넓고 낮은 형태라 룰북 R07과 맞습니다.</p>
+    <p class="note">욕실 제품이라 장소 코드대로 블루 톱 + 코퍼 띠(칼라)입니다. 각질 제거 처방이라 벌브·피펫 내산성 시험이 필요합니다.</p>
+  </article>
+  <article class="sku">
+    <header><span class="sid">BLM</span><h3>필링밤 · 20 g</h3><span class="tag ok">확정</span><span class="tag">화장대</span></header>
+    <figure class="dwg"><svg viewBox="0 0 280 157" width="280" height="157" role="img" aria-label="필링밤 20 g 측면 치수도, 전체 높이 38 mm"><rect x="76.0" y="57.6" width="115.6" height="59.8" rx="4" class="bl"/><rect x="74.0" y="30.0" width="119.6" height="27.6" rx="3" class="cu"/><rect x="80.0" y="69.6" width="107.6" height="35.9" rx="0" class="pa"/><line x1="56" y1="29.999999999999996" x2="56" y2="117.39999999999999" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="50" y="77.69999999999999" text-anchor="end" class="dt">38 전체</text><line x1="195.60000000000002" y1="29.999999999999996" x2="215.6" y2="29.999999999999996" class="ex"/><line x1="195.60000000000002" y1="57.599999999999994" x2="215.6" y2="57.599999999999994" class="ex"/><line x1="195.60000000000002" y1="117.39999999999999" x2="215.6" y2="117.39999999999999" class="ex"/><line x1="211.6" y1="29.999999999999996" x2="211.6" y2="57.599999999999994" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="217.6" y="47.8" text-anchor="start" class="dt">12 뚜껑</text><line x1="211.6" y1="57.599999999999994" x2="211.6" y2="117.39999999999999" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="217.6" y="91.5" text-anchor="start" class="dt">26 몸통</text><line x1="74.00000000000001" y1="133.39999999999998" x2="193.60000000000002" y2="133.39999999999998" class="dl" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="133.8" y="127.39999999999998" text-anchor="middle" class="dt">Φ52</text><line x1="8" y1="117.39999999999999" x2="271.6" y2="117.39999999999999" class="gr"/></svg></figure>
+    <dl>
+      <div><dt>바디</dt><dd>넓고 낮은 원형 자 · 헤비블로우 PETG · 블루 원료 착색 + 무광 AF 코팅</dd></div>
+      <div><dt>사용</dt><dd>주 2–3회 · 리브온 · 20 g</dd></div>
+      <div><dt>캡</dt><dd>스크류 뚜껑 · 코퍼 · 새틴 코퍼 알루미늄 쉘 + PP 내캡 · 윗면 심볼 톤온톤</dd></div>
+      <div><dt>토출</dt><dd>— · 내부 디스크, 스패출러 별도 견적</dd></div>
+      <div><dt>기성 품번</dt><dd>헤비블로우 PETG 20g 자 기성 품번은 회신으로 확정 · 참고: 럭스팩 PP C20g 이중용기 #19465(61×36, MOQ 1만)</dd></div>
+    </dl>
+    <p class="note">화장대 제품이라 알루미늄 쉘을 씁니다. g 표기 제품이라 ℮ 높이와 표기 공간을 따로 확인합니다.</p>
   </article>
   <article class="sku common">
-    <header><span class="sid">ALL</span><h3>5종 공통 마감</h3></header>
+    <header><span class="sid">ALL</span><h3>전 SKU 공통 마감</h3></header>
     <dl>
-      <div><dt>바디</dt><dd>로열블루 팬톤 1종 · 무광(지문 방지 반무광 UV)</dd></div>
-      <div><dt>메탈</dt><dd>코퍼 876C · 새틴(반무광) · 완전 무광 금지</dd></div>
+      <div><dt>바디</dt><dd>로열블루 팬톤 1종 · 무광 AF(안티핑거프린트)</dd></div>
+      <div><dt>코퍼</dt><dd>876C 마스터 칩 1개 · 골드·로즈골드·브론즈 반려</dd></div>
       <div><dt>로고</dt><dd>워드마크·8잎 심볼만 유광 코퍼 박</dd></div>
-      <div><dt>장소 코드</dt><dd>화장대 = 코퍼 캡 · 화장실 = 블루 캡 + 코퍼 띠</dd></div>
-      <div><dt>파손</dt><dd>병은 유리 대신 헤비블로우 PET</dd></div>
-      <div><dt>튜브</dt><dd>두 종 모두 기성 원터치, 스탠드업</dd></div>
+      <div><dt>장소 코드</dt><dd>화장대 = 코퍼 캡 · 욕실 = 블루 톱 + 코퍼 띠</dd></div>
+      <div><dt>욕실 코퍼</dt><dd>PP 착색 또는 박만 · 증착·메탈 금지</dd></div>
+      <div><dt>파손</dt><dd>병·자는 헤비블로우 PETG/PCTG · 유리 금지</dd></div>
+      <div><dt>튜브</dt><dd>기성 원터치 · 신규 금형 없음 · 캡으로 세움</dd></div>
       <div><dt>코딩</dt><dd>튜브 실링부 · 병·자 바닥</dd></div>
     </dl>
-    <p class="note">대표 결정 10/13 · 가이드 v5 3·4장 · 룰북 R03 · R08 · R09 · R14</p>
+    <p class="note">대표 결정 10/13 · 견적서 엑셀 10/13 · 가이드 v5 3·4장 · 룰북 R02 · R03 · R08 · R09 · R10 · R14</p>
   </article></div>
   </div>
 </section>
@@ -352,53 +372,62 @@
       <h2>제조사에 그대로 넘길 표</h2>
     </div>
     <div class="tbl"><table>
-      <thead><tr><th>제품</th><th>바디</th><th>전체 높이</th><th>튜브·병 길이</th><th>캡 파이</th><th>캡 높이</th><th>토출구</th><th>캡 마감</th><th>인쇄 영역</th></tr></thead>
+      <thead><tr><th>제품</th><th>바디</th><th>전체 높이</th><th>튜브·병 길이 (허용)</th><th>캡 파이</th><th>캡 높이</th><th>토출구</th><th>캡 마감</th><th>인쇄 영역</th></tr></thead>
       <tbody><tr>
-  <td><b>배리어크림</b><br><span class="muted">50 mL · 화장대</span></td>
-  <td>PE 원형 튜브 35Φ (무광 로열블루)</td>
-  <td class="num">114 <span class="est">추정</span></td>
-  <td class="num">93 <span class="est">추정</span></td>
-  <td class="num">Φ33.4</td>
-  <td class="num">21</td>
-  <td>3 mm (캡슐 통과 시험 후 5 mm 가능)</td>
-  <td>코퍼 PP (원료 착색 펄 또는 몸통 UV 증착) · 새틴(반무광)</td>
+  <td><b>배리어 크림 50 mL</b><br><span class="muted">확정 · 화장대 · 만액 55–57 mL</span></td>
+  <td>35Φ 튜브 · 라미네이트(PBL) · 블루 무광 AF</td>
+  <td class="num">115 <span class="est">추정</span></td>
+  <td class="num">95 <span class="est">추정</span><br><span class="muted">길이 90–100</span></td>
+  <td class="num">Φ35<br><span class="muted">플러시 35 희망 · 기성 Φ33.4</span></td>
+  <td class="num">20<br><span class="muted">기성 21</span></td>
+  <td>Φ4 (기성이 3/5뿐이면 5) + 씰 핀 권장 · 캡슐 통과 시험</td>
+  <td>무광 코퍼 PP 원료 착색(기본) · 견적 비교: 캡 몸통 증착(힌지 제외), 알루미늄 쉘</td>
   <td>정면 약 55 × 70 mm (추정)</td></tr><tr>
-  <td><b>랩핑마스크</b><br><span class="muted">80 mL (권장) · 화장실</span></td>
-  <td>PE 또는 PBL 원형 튜브 40Φ (무광 로열블루)</td>
+  <td><b>랩핑 마스크 60 mL</b><br><span class="muted">기준안 A · 욕실 · 만액 67 mL</span></td>
+  <td>50Φ 숏 튜브 · 라미네이트(PBL) 역인쇄 · 블루 무광 AF</td>
+  <td class="num">99 <span class="est">추정</span></td>
+  <td class="num">77 <span class="est">추정</span><br><span class="muted">길이 73–82</span></td>
+  <td class="num">Φ48<br><span class="muted">48–50 플러시</span></td>
+  <td class="num">22<br><span class="muted">≤22, 최대 26</span></td>
+  <td>Φ5 + 씰 핀 필수 (젤 경화 방지)</td>
+  <td>블루 PP 원료 착색(튜브와 같은 칩) + 캡 측면 코퍼 띠: PP 착색 링 또는 핫스탬핑 박 · 증착·메탈 금지</td>
+  <td>정면 약 79 × 55 mm (추정, 둥근 숄더)</td></tr><tr>
+  <td><b>랩핑 마스크 80 mL</b><br><span class="muted">비교안 B · 욕실 · 만액 89 mL</span></td>
+  <td>50Φ 튜브 · 라미네이트(PBL) 역인쇄 · 블루 무광 AF</td>
+  <td class="num">112 <span class="est">추정</span></td>
+  <td class="num">88 <span class="est">추정</span><br><span class="muted">길이 84–93</span></td>
+  <td class="num">Φ48<br><span class="muted">48–50 · A와 같은 캡</span></td>
+  <td class="num">22<br><span class="muted">≤22, 최대 26</span></td>
+  <td>Φ5 + 씰 핀 필수</td>
+  <td>A와 같음</td>
+  <td>정면 약 79 × 66 mm (추정)</td></tr><tr>
+  <td><b>랩핑 마스크 80 mL</b><br><span class="muted">비교안 C · 욕실 · 만액 약 89 mL</span></td>
+  <td>40Φ 튜브 · PBL 또는 PE · 블루 무광 AF</td>
   <td class="num">134 <span class="est">추정</span></td>
-  <td class="num">105 <span class="est">추정</span></td>
+  <td class="num">105 <span class="est">추정</span><br><span class="muted">길이 100–110</span></td>
   <td class="num">Φ38.4</td>
   <td class="num">29.2</td>
-  <td>5 mm + 씰 핀 (6–7 mm 재고 확인)</td>
-  <td>블루 PP 원료 착색(튜브와 같은 팬톤) + 캡 측면 무광 코퍼 박 띠 또는 증착 링</td>
+  <td>Φ5 + 씰 핀 (6–7 mm 재고 확인)</td>
+  <td>A와 같은 방식</td>
   <td>정면 약 63 × 80 mm (추정)</td></tr><tr>
-  <td><b>앰플</b><br><span class="muted">30 mL · 화장대</span></td>
-  <td>헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)</td>
-  <td class="num">101</td>
-  <td class="num">63</td>
-  <td class="num">Φ24 <span class="est">추정</span></td>
-  <td class="num">38 <span class="est">추정</span></td>
-  <td>스포이드 (피펫 길이 약 55 mm, 확인)</td>
-  <td>알루미늄 칼라 새틴 코퍼 + 벌브(색상 지정: 블루 또는 블랙)</td>
-  <td>정면 약 36 × 45 mm (추정)</td></tr><tr>
-  <td><b>세럼</b><br><span class="muted">30 mL · 화장대</span></td>
-  <td>헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)</td>
-  <td class="num">107</td>
-  <td class="num">63</td>
-  <td class="num">Φ30 <span class="est">추정</span></td>
-  <td class="num">44 <span class="est">추정</span></td>
-  <td>에센스 펌프 0.25 cc/회</td>
-  <td>펌프 숄더·오버캡 새틴 코퍼(알루미늄 쉘 또는 증착), 오버캡 윗면 심볼 소형</td>
-  <td>정면 약 36 × 45 mm (추정)</td></tr><tr>
-  <td><b>필름밤 크림</b><br><span class="muted">18 mL · 화장대</span></td>
-  <td>PP 이중 자 (블루 무광 코팅)</td>
-  <td class="num">36</td>
-  <td class="num">22 <span class="est">추정</span></td>
-  <td class="num">Φ61</td>
-  <td class="num">14 <span class="est">추정</span></td>
-  <td>— (스패출러 동봉 여부 결정)</td>
-  <td>증착 코퍼 뚜껑(새틴), 윗면 심볼 톤온톤</td>
-  <td>몸통 둘레 띠 약 20 mm 높이 (추정)</td></tr></tbody>
+  <td><b>필링 에센스 30 mL</b><br><span class="muted">확정 · 욕실 · 30 mL</span></td>
+  <td>원형 스포이드 병 · 헤비블로우 PETG/PCTG · 블루 원료 착색 + 무광 AF 코팅</td>
+  <td class="num">108 <span class="est">추정</span></td>
+  <td class="num">74<br><span class="muted">Ø32–34 × H70–78</span></td>
+  <td class="num">Φ23<br><span class="muted">칼라 Ø22–24</span></td>
+  <td class="num">34<br><span class="muted">32–36</span></td>
+  <td>피펫 (넥 18 mm) · 벌브 내산성</td>
+  <td>무광 코퍼 PP 원료 착색 칼라 · 메탈 금지(욕실)</td>
+  <td>정면 약 33 × 45 mm (추정, 곡면)</td></tr><tr>
+  <td><b>필링밤 20 g</b><br><span class="muted">확정 · 화장대 · 20 g</span></td>
+  <td>넓고 낮은 원형 자 · 헤비블로우 PETG · 블루 원료 착색 + 무광 AF 코팅</td>
+  <td class="num">38</td>
+  <td class="num">26 <span class="est">추정</span><br><span class="muted">Ø50–54 × H36–40 (뚜껑 포함)</span></td>
+  <td class="num">Φ52</td>
+  <td class="num">12<br><span class="muted">약 12</span></td>
+  <td>— · 내부 디스크, 스패출러 별도 견적</td>
+  <td>새틴 코퍼 알루미늄 쉘 + PP 내캡 · 윗면 심볼 톤온톤</td>
+  <td>몸통 띠 없음 · 표시는 바닥 (가이드 R07)</td></tr></tbody>
     </table></div>
   </div>
 </section>
@@ -406,23 +435,24 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow">03 · 샘플 승인 체크리스트</div>
-      <h2>샘플이 오면 이 12개를 확인합니다</h2>
-      <p class="lede">대표님이 말씀하신 항목(블루 무광, 캡 코퍼, 로고 유광, 지문 방지, 파손 주의, 헤비블로우)을 검사 방법과 담당까지 붙여 정리했습니다. 체크 표시는 이 브라우저에만 저장됩니다.</p>
-      <p class="progress" id="prog" aria-live="polite">0 / 12 확인</p>
+      <h2>샘플이 오면 이 13개를 확인합니다</h2>
+      <p class="lede">엑셀 체크리스트 13항목에 폰 촬영 색 확인, 원터치 개폐 500회, 코퍼 4종 대조, 벌브 내산성을 합쳤습니다. 체크 표시는 이 브라우저에만 저장됩니다.</p>
+      <p class="progress" id="prog" aria-live="polite">0 / 13 확인</p>
     </div>
     <ul class="checks">
-  <li><input type="checkbox" id="ck0" data-k="0"><label for="ck0"><span class="area">컬러</span><b>로열블루 팬톤 1종 확정(2728C / 2736C / Reflex Blue 중) 후 튜브·캡·병 코팅·자 모두 같은 칩으로 대조</b><span class="test">검사 · 소재별 드로다운 승인, ΔE ≤ 2.0(제안), 폰 촬영 시 보라로 뜨지 않는지 확인</span><span class="who">디자이너 · 용기사</span></label></li>
-  <li><input type="checkbox" id="ck1" data-k="1"><label for="ck1"><span class="area">바디 마감</span><b>무광. 튜브 = 무광 라미(PBL) 또는 무광 바니시, 병·자 = 무광 코팅</b><span class="test">검사 · 60° 광택 10 GU 이하(제안), 소재 간 광택 차이 육안 비교</span><span class="who">용기사</span></label></li>
-  <li><input type="checkbox" id="ck2" data-k="2"><label for="ck2"><span class="area">지문</span><b>지문·손기름 자국이 남지 않는 무광(안티핑거프린트). 소프트터치는 오일 내용물에 약하면 반무광 UV로 대체</b><span class="test">검사 · 손 기름 터치 후 육안, 젖은 천으로 닦임성, 내용물(오일) 러빙 20회</span><span class="who">용기사 · 제조사</span></label></li>
-  <li><input type="checkbox" id="ck3" data-k="3"><label for="ck3"><span class="area">캡 메탈</span><b>코퍼 Pantone 876C(피치 톤) 1색. 새틴(반무광) 질감, 완전 무광 도장 금지. 핑크(로즈골드)·갈색(브론즈)·노랑(골드)은 반려</b><span class="test">검사 · 코퍼 마스터 칩 1개로 튜브 캡·스포이드·펌프·자 뚜껑 4종을 나란히 대조, 증착 크로스컷 박리 시험</span><span class="who">디자이너 · 캡사</span></label></li>
-  <li><input type="checkbox" id="ck4" data-k="4"><label for="ck4"><span class="area">로고</span><b>워드마크·8잎 심볼만 유광 코퍼 포일. 나머지는 코퍼 무광 잉크</b><span class="test">검사 · 포일 선 ≥ 0.15 mm, 잉크 글자 ≥ 1.2 mm, 용량 ≥ 1.6 mm, 박 들뜸·번짐 없음</span><span class="who">디자이너 · 인쇄</span></label></li>
-  <li><input type="checkbox" id="ck5" data-k="5"><label for="ck5"><span class="area">파손</span><b>앰플·세럼은 헤비블로우 PET(유리 대신). 스포이드·펌프 체결부 누액 없음</b><span class="test">검사 · 1.2 m 낙하(제안), 체결 토크, 45°C 거꾸로 보관 누액</span><span class="who">용기사 · 제조사</span></label></li>
-  <li><input type="checkbox" id="ck6" data-k="6"><label for="ck6"><span class="area">원터치</span><b>두 튜브 모두 기성 원터치. 거꾸로 세울 수 있는 평평한 캡(스탠드업)</b><span class="test">검사 · 개폐 500회 힌지 파손 없음(제안), 거꾸로 세운 상태 누액 없음, 한 손 개폐</span><span class="who">캡사</span></label></li>
-  <li><input type="checkbox" id="ck7" data-k="7"><label for="ck7"><span class="area">토출구</span><b>배리어 3 mm(캡슐 통과), 랩핑 5–7 mm + 씰 핀(필름 젤 경화 방지)</b><span class="test">검사 · 내용물 충진 후 토출 시험, 입구 경화 7일 관찰</span><span class="who">제조사</span></label></li>
-  <li><input type="checkbox" id="ck8" data-k="8"><label for="ck8"><span class="area">욕실 내구</span><b>랩핑 튜브·캡·코퍼 띠가 습기에서 변색·박리되지 않음</b><span class="test">검사 · 40°C/90%RH 72시간 후 크로스컷 테이프, 젖은 계면활성제 러빙</span><span class="who">용기사</span></label></li>
-  <li><input type="checkbox" id="ck9" data-k="9"><label for="ck9"><span class="area">상용성</span><b>처방과 용기(PE/PBL/PET/PP) 상용성</b><span class="test">검사 · 45°C 4주: 무게 감소, 변색, 변형, 냄새</span><span class="who">제조사</span></label></li>
-  <li><input type="checkbox" id="ck10" data-k="10"><label for="ck10"><span class="area">표시</span><b>제조번호·사용기한 코딩(튜브 실링부, 병·자 바닥), ℮ 숫자 높이(50 mL 초과 3 mm, 이하 2 mm), 분리배출·재질 표시</b><span class="test">검사 · 코딩 위치 시안 확인, 각인 판독성</span><span class="who">디자이너 · 제조사</span></label></li>
-  <li><input type="checkbox" id="ck11" data-k="11"><label for="ck11"><span class="area">수량·납기</span><b>MOQ(대부분 1만, 프리팩 튜브 210개~), 리드타임(약 4주), 단가</b><span class="test">검사 · 견적서·샘플 일정 회신</span><span class="who">용기사</span></label></li></ul>
+  <li><input type="checkbox" id="ck0" data-k="0"><label for="ck0"><span class="area">바디 블루 무광 · 전 SKU</span><b>로열블루 팬톤 1종(샘플로 확정), 부품 간 ΔE 2 이하</b><span class="test">검사 · 같은 칩으로 튜브·병·자 대조, D50·3000K 육안 + 아이폰·갤럭시 촬영 시 보라로 뜨지 않는지</span><span class="who">디자이너 · 용기사</span></label></li>
+  <li><input type="checkbox" id="ck1" data-k="1"><label for="ck1"><span class="area">캡 코퍼 · 전 SKU</span><b>코퍼 마스터 칩 1개(Pantone 876C, 피치 톤). 욕실 제품은 PP 사출 착색·박만, 증착·메탈 금지. 골드·로즈골드·브론즈 톤 반려</b><span class="test">검사 · 배리어 캡·랩핑 띠·에센스 칼라·자 뚜껑 4종을 같은 조명에서 나란히 촬영해 승인</span><span class="who">디자이너 · 캡사</span></label></li>
+  <li><input type="checkbox" id="ck2" data-k="2"><label for="ck2"><span class="area">로고만 유광 · 전 SKU</span><b>워드마크·8잎 심볼 외 유광 면 없음. 박 선 0.15 mm 이상, 잉크 글자 1.2 mm 이상</b><span class="test">검사 · 무광 표면 위 로고 크로스컷 밀착, 박 들뜸·번짐</span><span class="who">디자이너 · 인쇄</span></label></li>
+  <li><input type="checkbox" id="ck3" data-k="3"><label for="ck3"><span class="area">지문 안 묻어남 · 전 SKU</span><b>AF 무광 라미 / AF 코팅 / AF 클리어. 소프트터치는 오일에 약하면 반무광 UV로</b><span class="test">검사 · 핸드크림 바른 손으로 10회 쥔 뒤 사진 비교 + 내용물 러빙 20회</span><span class="who">용기사</span></label></li>
+  <li><input type="checkbox" id="ck4" data-k="4"><label for="ck4"><span class="area">파손 방지 · 에센스 · 자</span><b>헤비블로우 PETG/PCTG, 유리 사용 안 함</b><span class="test">검사 · 충전 상태 1.2 m 타일 낙하</span><span class="who">용기사 · 제조사</span></label></li>
+  <li><input type="checkbox" id="ck5" data-k="5"><label for="ck5"><span class="area">튜브 원터치 기성 · 배리어 · 랩핑</span><b>신규 금형 없음, 캡 지름 ≈ 튜브 지름(플러시), 캡으로 세움</b><span class="test">검사 · 세움 안정성, 개폐 500회 힌지 파손 없음, 한 손 개폐</span><span class="who">캡사</span></label></li>
+  <li><input type="checkbox" id="ck6" data-k="6"><label for="ck6"><span class="area">토출구 · 씰 핀 · 튜브</span><b>배리어 Φ4–5, 랩핑 Φ5 + 씰 핀</b><span class="test">검사 · 캡슐 통과 시험, 젤 토출구 경화 7일 관찰</span><span class="who">제조사</span></label></li>
+  <li><input type="checkbox" id="ck7" data-k="7"><label for="ck7"><span class="area">욕실 내구 · 랩핑 · 에센스</span><b>인쇄·로고·코퍼 띠 박리·변색 없음</b><span class="test">검사 · 40°C/90%RH 72시간 후 크로스컷 테이프 + 젖은 계면활성제 러빙</span><span class="who">용기사</span></label></li>
+  <li><input type="checkbox" id="ck8" data-k="8"><label for="ck8"><span class="area">내용물 적합성 · 전 SKU</span><b>변색·팽윤·크랙·감량 없음. 에센스 벌브·피펫은 내산성</b><span class="test">검사 · 처방 충전 45°C 4주 보관</span><span class="who">제조사</span></label></li>
+  <li><input type="checkbox" id="ck9" data-k="9"><label for="ck9"><span class="area">누액 · 밀폐 · 전 SKU</span><b>누액 없음</b><span class="test">검사 · 거꾸로 24시간(45°C 포함), 스포이드·뚜껑 체결 토크</span><span class="who">제조사</span></label></li>
+  <li><input type="checkbox" id="ck10" data-k="10"><label for="ck10"><span class="area">충전 · 코딩 · 전 SKU</span><b>충전기 최소 튜브 길이(50Φ 60 mL = 77 mm) 통과, 코딩 위치(튜브 실링부, 병·자 바닥)</b><span class="test">검사 · 충전 공장 시험 충전</span><span class="who">제조사</span></label></li>
+  <li><input type="checkbox" id="ck11" data-k="11"><label for="ck11"><span class="area">표기 공간 · 전 SKU</span><b>제조번호·사용기한, 분리배출·재질, ℮ 숫자 높이(50 mL 초과 3 mm, 이하 2 mm), 필링밤 g 표기</b><span class="test">검사 · 칼선·라벨 시안 확인</span><span class="who">디자이너 · 제조사</span></label></li>
+  <li><input type="checkbox" id="ck12" data-k="12"><label for="ck12"><span class="area">견적 조건 · 구매</span><b>MOQ, 공정별 단가(착색·증착·박·알루미늄), 샘플, 리드타임</b><span class="test">검사 · 2027년 1월 입고 가능 여부, 회신 10/24, 샘플 10월 말</span><span class="who">용기사</span></label></li></ul>
   </div>
 </section>
 <section>
@@ -435,77 +465,84 @@
     <div class="msgs">
       <article class="msg"><header><h3>제조사 · 용기사 견적 요청</h3><button class="copy" type="button" data-t="rfq">복사</button></header><pre id="rfq">[터노바 TURNOVA] 용기 기성품 견적·샘플 요청 (2026-10-13)
 
-안녕하세요. 터노바 5종 용기를 기성품으로 진행하려고 합니다. 아래 스펙 기준으로 가능한 기성 품번, 도면(PDF/DWG), 샘플, 단가·MOQ·리드타임을 회신 부탁드립니다. 치수 중 '추정'은 카탈로그 기준값이라 귀사 도면으로 확정하겠습니다.
+안녕하세요. 터노바 4종 용기를 기성품으로 진행하려고 합니다. 아래 스펙에 가장 가까운 기성 품번과 도면(mm, PDF/DWG), 샘플, 단가·MOQ·리드타임을 첨부 엑셀의 회신 칸(노란 칸)에 적어 10/24까지 보내 주세요. 샘플은 10월 말, 입고는 2027년 1월을 희망합니다. 튜브 길이는 계산값이라 가장 가까운 기성 규격으로 회신해 주시면 됩니다.
 
-1. 품목별 스펙
-- 배리어크림 50 mL (화장대): PE 원형 튜브 35Φ (무광 로열블루) / 길이 93mm(추정) / 캡 Φ33.4×H21 / 전체 114mm / 토출 3 mm (캡슐 통과 시험 후 5 mm 가능) / 캡 코퍼 PP (원료 착색 펄 또는 몸통 UV 증착) · 새틴(반무광) / 참고 프리팩 원형 35Ø 원터치(880원, 최소 210개) · 대신 DS-3502(50ml) · 대지영 알원터치 35Ø DJ-RW-3501(Φ33.4×21)
-- 랩핑마스크 80 mL (권장) (화장실): PE 또는 PBL 원형 튜브 40Φ (무광 로열블루) / 길이 105mm(추정) / 캡 Φ38.4×H29.2 / 전체 134mm / 토출 5 mm + 씰 핀 (6–7 mm 재고 확인) / 캡 블루 PP 원료 착색(튜브와 같은 팬톤) + 캡 측면 무광 코퍼 박 띠 또는 증착 링 / 참고 아크팩 ATVY4018A(Ø40 원터치, 70–160ml, 500원, MOQ 1만) · 대지영 각원터치 40Ø DJ-KW-4001M(Φ38.4×29.2)
-- 앰플 30 mL (화장대): 헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅) / 길이 63mm / 캡 Φ24×H38(추정) / 전체 101mm / 토출 스포이드 (피펫 길이 약 55 mm, 확인) / 캡 알루미늄 칼라 새틴 코퍼 + 벌브(색상 지정: 블루 또는 블랙) / 참고 럭스팩 HB CU30ml/민자 스포이드 #26776 (Ø36×101, 용기 63, 넥 20Ø, 1,270원)
-- 세럼 30 mL (화장대): 헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅) / 길이 63mm / 캡 Φ30×H44(추정) / 전체 107mm / 토출 에센스 펌프 0.25 cc/회 / 캡 펌프 숄더·오버캡 새틴 코퍼(알루미늄 쉘 또는 증착), 오버캡 윗면 심볼 소형 / 참고 럭스팩 HB CU30ml/에센스펌프/각진 보호캡 #30724 (Ø36×107, 넥 20Ø, 0.25cc, 1,270원)
-- 필름밤 크림 18 mL (화장대): PP 이중 자 (블루 무광 코팅) / 길이 22mm(추정) / 캡 Φ61×H14(추정) / 전체 36mm / 토출 — (스패출러 동봉 여부 결정) / 캡 증착 코퍼 뚜껑(새틴), 윗면 심볼 톤온톤 / 참고 럭스팩 PP C20g 이중용기/2종 증착캡 #19465 (61×36, 주문생산 MOQ 1만)
+1. 품목별 스펙 (랩핑은 A가 기준안, B·C는 비교 견적)
+- 배리어 크림 50 mL [확정] (화장대 · 매일 · 리브온): 35Φ 튜브 · 라미네이트(PBL) · 블루 무광 AF / 만액 55–57 mL / 길이 95mm(길이 90–100) / 캡 Φ35(플러시 35 희망 · 기성 Φ33.4) × H20(기성 21) / 전체 약 115mm / 토출 Φ4 (기성이 3/5뿐이면 5) + 씰 핀 권장 · 캡슐 통과 시험 / 캡 기성 원형 원터치 · 코퍼, 무광 코퍼 PP 원료 착색(기본) · 견적 비교: 캡 몸통 증착(힌지 제외), 알루미늄 쉘 / 참고 대지영 알원터치 35Ø DJ-RW-3501(Φ33.4×21, 토출 1.5/3/5/7) · 프리팩 원형 35Ø 원터치(880원, 최소 210개) · 대신 DS-3502(50ml)
+- 랩핑 마스크 60 mL [기준안 A] (욕실 · 주 2–3회 · 10분 뒤 씻어 냄): 50Φ 숏 튜브 · 라미네이트(PBL) 역인쇄 · 블루 무광 AF / 만액 67 mL / 길이 77mm(길이 73–82) / 캡 Φ48(48–50 플러시) × H22(≤22, 최대 26) / 전체 약 99mm / 토출 Φ5 + 씰 핀 필수 (젤 경화 방지) / 캡 기성 원터치 로우 · 블루 + 코퍼 띠, 블루 PP 원료 착색(튜브와 같은 칩) + 캡 측면 코퍼 띠: PP 착색 링 또는 핫스탬핑 박 · 증착·메탈 금지 / 참고 대지영 원터치 50Ø(Φ48×25.5, 토출 확인 필요) · 50Φ 튜브 기성 품번은 회신으로 확정
+- 랩핑 마스크 80 mL [비교안 B] (욕실 · 주 2–3회 · 10분 뒤 씻어 냄): 50Φ 튜브 · 라미네이트(PBL) 역인쇄 · 블루 무광 AF / 만액 89 mL / 길이 88mm(길이 84–93) / 캡 Φ48(48–50 · A와 같은 캡) × H22(≤22, 최대 26) / 전체 약 112mm / 토출 Φ5 + 씰 핀 필수 / 캡 A와 같은 캡, A와 같음 / 참고 A와 같은 캡 · 50Φ 튜브 기성 품번은 회신으로 확정
+- 랩핑 마스크 80 mL [비교안 C] (욕실 · 주 2–3회 · 10분 뒤 씻어 냄): 40Φ 튜브 · PBL 또는 PE · 블루 무광 AF / 만액 약 89 mL / 길이 105mm(길이 100–110) / 캡 Φ38.4 × H29.2 / 전체 약 134mm / 토출 Φ5 + 씰 핀 (6–7 mm 재고 확인) / 캡 기성 원터치 40Φ · 블루 + 코퍼 띠, A와 같은 방식 / 참고 아크팩 ATVY4018A(Ø40 원터치, 70–160ml, 500원, MOQ 1만) · 대지영 각원터치 40Ø DJ-KW-4001M(Φ38.4×29.2, 토출 1.5/3/5)
+- 필링 에센스 30 mL [확정] (욕실 · 매일 또는 주 2–3회 · 1–3분 뒤 씻어 냄): 원형 스포이드 병 · 헤비블로우 PETG/PCTG · 블루 원료 착색 + 무광 AF 코팅 / 30 mL / 길이 74mm(Ø32–34 × H70–78) / 캡 Φ23(칼라 Ø22–24) × H34(32–36) / 전체 약 108mm / 토출 피펫 (넥 18 mm) · 벌브 내산성 / 캡 스포이드 · 블루 벌브 + 코퍼 칼라, 무광 코퍼 PP 원료 착색 칼라 · 메탈 금지(욕실) / 참고 Ø33 헤비블로우 기성 품번은 회신으로 확정 · 가장 가까운 확인 품번: 럭스팩 HB CU30ml 스포이드 #26776(Ø36×101, 용기 63, 넥 20Ø, 1,270원)
+- 필링밤 20 g [확정] (화장대 · 주 2–3회 · 리브온): 넓고 낮은 원형 자 · 헤비블로우 PETG · 블루 원료 착색 + 무광 AF 코팅 / 20 g / 길이 26mm(Ø50–54 × H36–40 (뚜껑 포함)) / 캡 Φ52 × H12(약 12) / 전체 약 38mm / 토출 — · 내부 디스크, 스패출러 별도 견적 / 캡 스크류 뚜껑 · 코퍼, 새틴 코퍼 알루미늄 쉘 + PP 내캡 · 윗면 심볼 톤온톤 / 참고 헤비블로우 PETG 20g 자 기성 품번은 회신으로 확정 · 참고: 럭스팩 PP C20g 이중용기 #19465(61×36, MOQ 1만)
 
 2. 공통 조건
-- 튜브는 두 종 모두 기성 원터치 캡입니다. 거꾸로 세울 수 있는 평평한 캡이 필요합니다.
-- 바디 컬러: 로열블루 팬톤 1종(확정 후 전달), 무광. 소재가 달라도 같은 칩에 맞춰 주세요.
-- 메탈 컬러: 코퍼 Pantone 876C(피치 톤), 새틴(반무광). 완전 무광 도장, 골드·로즈골드·브론즈 톤은 불가합니다.
-- 로고(워드마크·심볼)만 유광 코퍼 박, 나머지 인쇄는 무광 잉크입니다.
-- 지문·손기름 자국이 남지 않는 마감이 필요합니다(안티핑거프린트 무광 또는 반무광 UV).
-- 앰플·세럼 병은 파손 방지를 위해 헤비블로우 PET로 진행합니다.
+- 튜브는 모두 기성 원터치입니다. 신규 금형은 없고, 캡으로 세울 수 있어야 합니다(캡 지름 ≈ 튜브 지름).
+- 바디: 로열블루 팬톤 1종(샘플로 확정), 무광 안티핑거프린트(AF). 소재가 달라도 같은 칩에 맞춰 주세요.
+- 코퍼: Pantone 876C(피치 톤) 마스터 칩 1개에 맞춥니다. 골드·로즈골드·브론즈 톤은 불가합니다.
+- 장소 코드: 화장대 제품(배리어·필링밤)은 코퍼 캡, 욕실 제품(랩핑·필링 에센스)은 블루 톱 + 코퍼 띠입니다.
+- 욕실 제품의 코퍼는 PP 원료 착색 또는 박만 씁니다. 증착과 메탈은 쓰지 않습니다.
+- 로고(워드마크·심볼)만 유광 코퍼 박이고, 나머지는 무광입니다.
+- 에센스 병과 필링밤 자는 파손 방지를 위해 헤비블로우 PETG/PCTG로 합니다. 유리는 쓰지 않습니다.
 
 3. 회신 요청 사항
-① 배리어 35Φ 50ml 컷 길이(약 93mm) 가능 여부와 기성 길이표
-② 랩핑 40Φ 80ml 길이(약 105mm), 5mm 이상 토출구 + 씰 핀 원터치 재고(6–7mm 가능 여부)
-③ 원터치 캡 코퍼 구현 방법별 견적: (a) 원료 착색 펄 PP (b) 캡 몸통 UV 증착(힌지 제외) (c) 알루미늄 쉘 원터치
-④ 랩핑 캡 측면 코퍼 띠: 박 또는 증착 링 가능 여부, 욕실 습기(40°C/90%RH 72시간) 박리 시험 데이터
-⑤ 스포이드 피펫 길이(약 55mm 희망), 칼라 외경·높이, 벌브 색상 옵션
-⑥ 에센스 펌프 0.25cc 토출량 공차, 오버캡 외경·높이
-⑦ 튜브 PE / PBL 단가 차이, 무광 라미 가능 여부
-⑧ 품목별 MOQ, 단가, 샘플 가능일, 양산 리드타임
+① 배리어 35Φ 50 mL: 길이 90–100 mm 기성 규격, 플러시 원터치(Φ35) 가능 여부, Φ4 토출구 가능 여부(없으면 Φ5)
+② 랩핑 50Φ: 60 mL(길이 73–82)·80 mL(84–93) 기성 튜브 품번, 높이 22 mm 이하(최대 26) 로우 원터치, Φ5 + 씰 핀
+③ 랩핑 40Φ 80 mL 비교 견적: 아크팩 ATVY4018A 같은 기성품, 토출 Φ5 + 씰 핀
+④ 랩핑 캡 측면 코퍼 띠: PP 착색 링 또는 핫스탬핑 박 가능 여부와 공정별 단가, 40°C/90%RH 72시간 박리 데이터
+⑤ 배리어 코퍼 캡 공정별 단가: PP 착색 / 캡 몸통 증착(힌지 제외) / 알루미늄 쉘
+⑥ 에센스 Ø33 헤비블로우 스포이드 병(넥 18 mm), 칼라 Ø22–24, 피펫 길이, 내산성 블루 벌브. Ø33이 없으면 가장 가까운 기성(예: Ø36·넥 20)
+⑦ 필링밤 헤비블로우 PETG 20 g 자(Ø50–54 × H36–40), 알루미늄 쉘 + PP 내캡, 내부 디스크, 스패출러 별도 견적
+⑧ 충전기 최소 튜브 길이(50Φ 60 mL = 77 mm 통과 여부)
+⑨ 품목별 MOQ, 공정별 단가, 샘플 가능일, 양산 리드타임
 
-4. 품질 체크리스트(샘플 승인 기준)
-1) [컬러] 로열블루 팬톤 1종 확정(2728C / 2736C / Reflex Blue 중) 후 튜브·캡·병 코팅·자 모두 같은 칩으로 대조 — 검사: 소재별 드로다운 승인, ΔE ≤ 2.0(제안), 폰 촬영 시 보라로 뜨지 않는지 확인
-2) [바디 마감] 무광. 튜브 = 무광 라미(PBL) 또는 무광 바니시, 병·자 = 무광 코팅 — 검사: 60° 광택 10 GU 이하(제안), 소재 간 광택 차이 육안 비교
-3) [지문] 지문·손기름 자국이 남지 않는 무광(안티핑거프린트). 소프트터치는 오일 내용물에 약하면 반무광 UV로 대체 — 검사: 손 기름 터치 후 육안, 젖은 천으로 닦임성, 내용물(오일) 러빙 20회
-4) [캡 메탈] 코퍼 Pantone 876C(피치 톤) 1색. 새틴(반무광) 질감, 완전 무광 도장 금지. 핑크(로즈골드)·갈색(브론즈)·노랑(골드)은 반려 — 검사: 코퍼 마스터 칩 1개로 튜브 캡·스포이드·펌프·자 뚜껑 4종을 나란히 대조, 증착 크로스컷 박리 시험
-5) [로고] 워드마크·8잎 심볼만 유광 코퍼 포일. 나머지는 코퍼 무광 잉크 — 검사: 포일 선 ≥ 0.15 mm, 잉크 글자 ≥ 1.2 mm, 용량 ≥ 1.6 mm, 박 들뜸·번짐 없음
-6) [파손] 앰플·세럼은 헤비블로우 PET(유리 대신). 스포이드·펌프 체결부 누액 없음 — 검사: 1.2 m 낙하(제안), 체결 토크, 45°C 거꾸로 보관 누액
-7) [원터치] 두 튜브 모두 기성 원터치. 거꾸로 세울 수 있는 평평한 캡(스탠드업) — 검사: 개폐 500회 힌지 파손 없음(제안), 거꾸로 세운 상태 누액 없음, 한 손 개폐
-8) [토출구] 배리어 3 mm(캡슐 통과), 랩핑 5–7 mm + 씰 핀(필름 젤 경화 방지) — 검사: 내용물 충진 후 토출 시험, 입구 경화 7일 관찰
-9) [욕실 내구] 랩핑 튜브·캡·코퍼 띠가 습기에서 변색·박리되지 않음 — 검사: 40°C/90%RH 72시간 후 크로스컷 테이프, 젖은 계면활성제 러빙
-10) [상용성] 처방과 용기(PE/PBL/PET/PP) 상용성 — 검사: 45°C 4주: 무게 감소, 변색, 변형, 냄새
-11) [표시] 제조번호·사용기한 코딩(튜브 실링부, 병·자 바닥), ℮ 숫자 높이(50 mL 초과 3 mm, 이하 2 mm), 분리배출·재질 표시 — 검사: 코딩 위치 시안 확인, 각인 판독성
-12) [수량·납기] MOQ(대부분 1만, 프리팩 튜브 210개~), 리드타임(약 4주), 단가 — 검사: 견적서·샘플 일정 회신
+4. 샘플 승인 체크리스트
+1) [바디 블루 무광 · 전 SKU] 로열블루 팬톤 1종(샘플로 확정), 부품 간 ΔE 2 이하 — 확인: 같은 칩으로 튜브·병·자 대조, D50·3000K 육안 + 아이폰·갤럭시 촬영 시 보라로 뜨지 않는지
+2) [캡 코퍼 · 전 SKU] 코퍼 마스터 칩 1개(Pantone 876C, 피치 톤). 욕실 제품은 PP 사출 착색·박만, 증착·메탈 금지. 골드·로즈골드·브론즈 톤 반려 — 확인: 배리어 캡·랩핑 띠·에센스 칼라·자 뚜껑 4종을 같은 조명에서 나란히 촬영해 승인
+3) [로고만 유광 · 전 SKU] 워드마크·8잎 심볼 외 유광 면 없음. 박 선 0.15 mm 이상, 잉크 글자 1.2 mm 이상 — 확인: 무광 표면 위 로고 크로스컷 밀착, 박 들뜸·번짐
+4) [지문 안 묻어남 · 전 SKU] AF 무광 라미 / AF 코팅 / AF 클리어. 소프트터치는 오일에 약하면 반무광 UV로 — 확인: 핸드크림 바른 손으로 10회 쥔 뒤 사진 비교 + 내용물 러빙 20회
+5) [파손 방지 · 에센스 · 자] 헤비블로우 PETG/PCTG, 유리 사용 안 함 — 확인: 충전 상태 1.2 m 타일 낙하
+6) [튜브 원터치 기성 · 배리어 · 랩핑] 신규 금형 없음, 캡 지름 ≈ 튜브 지름(플러시), 캡으로 세움 — 확인: 세움 안정성, 개폐 500회 힌지 파손 없음, 한 손 개폐
+7) [토출구 · 씰 핀 · 튜브] 배리어 Φ4–5, 랩핑 Φ5 + 씰 핀 — 확인: 캡슐 통과 시험, 젤 토출구 경화 7일 관찰
+8) [욕실 내구 · 랩핑 · 에센스] 인쇄·로고·코퍼 띠 박리·변색 없음 — 확인: 40°C/90%RH 72시간 후 크로스컷 테이프 + 젖은 계면활성제 러빙
+9) [내용물 적합성 · 전 SKU] 변색·팽윤·크랙·감량 없음. 에센스 벌브·피펫은 내산성 — 확인: 처방 충전 45°C 4주 보관
+10) [누액 · 밀폐 · 전 SKU] 누액 없음 — 확인: 거꾸로 24시간(45°C 포함), 스포이드·뚜껑 체결 토크
+11) [충전 · 코딩 · 전 SKU] 충전기 최소 튜브 길이(50Φ 60 mL = 77 mm) 통과, 코딩 위치(튜브 실링부, 병·자 바닥) — 확인: 충전 공장 시험 충전
+12) [표기 공간 · 전 SKU] 제조번호·사용기한, 분리배출·재질, ℮ 숫자 높이(50 mL 초과 3 mm, 이하 2 mm), 필링밤 g 표기 — 확인: 칼선·라벨 시안 확인
+13) [견적 조건 · 구매] MOQ, 공정별 단가(착색·증착·박·알루미늄), 샘플, 리드타임 — 확인: 2027년 1월 입고 가능 여부, 회신 10/24, 샘플 10월 말
 
-샘플은 컬러 칩, 코퍼 마스터 칩과 함께 나란히 비교해 승인하겠습니다. 감사합니다.
+샘플은 블루 칩과 코퍼 마스터 칩을 옆에 두고 비교해 승인하겠습니다. 감사합니다.
 터노바 드림</pre></article>
       <article class="msg"><header><h3>디자이너 작업 요청</h3><button class="copy" type="button" data-t="brief">복사</button></header><pre id="brief">[터노바 TURNOVA] 용기 디자인 작업 요청 (2026-10-13)
 
-안녕하세요. 용기가 기성품 기준으로 정해져서, 아래 치수로 라벨·인쇄 시안을 부탁드립니다. 치수 중 '추정'은 용기사 도면이 오면 바로 업데이트해서 드리겠습니다.
+안녕하세요. 라인업이 4종(배리어 50 mL · 랩핑 60 mL · 필링 에센스 30 mL · 필링밤 20 g)으로 정해졌고, 용기는 기성품으로 진행합니다. 아래 치수로 인쇄 시안을 부탁드립니다. 용기사 도면이 오면(10/24 예정) 치수를 바로 업데이트해 드리겠습니다.
 
 1. 인쇄 영역
-- 배리어크림 50 mL: 정면 약 55 × 70 mm (추정) · 바디 PE 원형 튜브 35Φ (무광 로열블루)
-- 랩핑마스크 80 mL (권장): 정면 약 63 × 80 mm (추정) · 바디 PE 또는 PBL 원형 튜브 40Φ (무광 로열블루)
-- 앰플 30 mL: 정면 약 36 × 45 mm (추정) · 바디 헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)
-- 세럼 30 mL: 정면 약 36 × 45 mm (추정) · 바디 헤비블로우 PET 원형 병 Ø36 (블루 무광 코팅)
-- 필름밤 크림 18 mL: 몸통 둘레 띠 약 20 mm 높이 (추정) · 바디 PP 이중 자 (블루 무광 코팅)
+- 배리어 크림 50 mL [확정]: 정면 약 55 × 70 mm (추정) · 35Φ 튜브 · 라미네이트(PBL) · 블루 무광 AF
+- 랩핑 마스크 60 mL [기준안 A]: 정면 약 79 × 55 mm (추정, 둥근 숄더) · 50Φ 숏 튜브 · 라미네이트(PBL) 역인쇄 · 블루 무광 AF
+- 랩핑 마스크 80 mL [비교안 B]: 정면 약 79 × 66 mm (추정) · 50Φ 튜브 · 라미네이트(PBL) 역인쇄 · 블루 무광 AF
+- 랩핑 마스크 80 mL [비교안 C]: 정면 약 63 × 80 mm (추정) · 40Φ 튜브 · PBL 또는 PE · 블루 무광 AF
+- 필링 에센스 30 mL [확정]: 정면 약 33 × 45 mm (추정, 곡면) · 원형 스포이드 병 · 헤비블로우 PETG/PCTG · 블루 원료 착색 + 무광 AF 코팅
+- 필링밤 20 g [확정]: 몸통 띠 없음 · 표시는 바닥 (가이드 R07) · 넓고 낮은 원형 자 · 헤비블로우 PETG · 블루 원료 착색 + 무광 AF 코팅
 
 2. 꼭 지켜 주실 규칙 (가이드 v5 + 대표 결정 10/13)
 - 컬러: 로열블루 팬톤 1종 + 코퍼 Pantone 876C. 골드·로즈골드·브론즈 금지.
-- 마감: 바디 무광, 로고(워드마크·8잎 심볼)만 유광 코퍼 박. 메탈은 새틴(반무광)이며 완전 무광 금지.
-- 레이아웃: 샤넬식 2단. 워드마크 폭은 패널의 75–92%, 심볼은 15–24%, 비율은 황금비 1:1.618.
-- 최소 크기: 잉크 글자 1.2mm, 용량 표기 1.6mm, 박 선 0.15mm.
-- 장소 코드: 화장대 제품은 코퍼 캡, 화장실(랩핑)은 블루 캡 + 코퍼 띠.
-- 표시: 제조번호·사용기한은 튜브 실링부, 병·자는 바닥. ℮ 숫자 높이는 50mL 초과 3mm, 50mL 이하 2mm.
-- 자(필름밤)는 띠 없음. 색 반전(DUA)은 단상자·키트·한정판에만 씁니다.
+- 마감: 바디 무광 AF, 로고(워드마크·8잎 심볼)만 유광 코퍼 박.
+- 장소 코드: 화장대(배리어·필링밤) = 코퍼 캡, 욕실(랩핑·필링 에센스) = 블루 톱 + 코퍼 띠.
+- 레이아웃: 샤넬식 2단. 워드마크는 패널 폭의 75–92%, 심볼은 15–24%, 여백은 황금비 1:1.618.
+- 최소 크기: 잉크 글자 1.2 mm, 용량 표기 1.6 mm, 박 선 0.15 mm.
+- 표시: 제조번호·사용기한은 튜브 실링부, 병·자는 바닥. ℮ 숫자 높이는 50 mL 초과 3 mm, 이하 2 mm. 필링밤은 g 표기.
+- 필링밤 자는 띠 없음. 색 반전(DUA)은 단상자·키트·한정판에만 씁니다.
+- 랩핑은 역인쇄 라미(PBL)라 인쇄면이 필름 안쪽입니다. 박 위치는 용기사와 확인해 주세요.
 
 3. 납품 파일
 - 품목별 인쇄 칼선(AI), 별색 분판(블루 / 코퍼 잉크 / 코퍼 박), 박 동판용 선 데이터
+- 랩핑은 50Φ 60 mL 기준으로 만들고, 80 mL(50Φ·40Φ) 비교안은 칼선만 함께 주세요.
 - 폰 촬영 기준 목업 1장씩(정면, 45°, 인스타 4:5 썸네일)
 
 4. 확인 부탁
-- 35Φ 실링 폭 약 55mm에서 워드마크 1.2mm 규칙이 지켜지는지
-- Ø36 원통 병 곡면에서 워드마크가 휘어 보이지 않는 최대 폭
-- 4가지 코퍼(PP 캡·증착·알루미늄·박)가 한 사진에서 같은 색으로 보이도록 색 지정 방법
+- 50Φ 숏 튜브(실링 폭 약 79 mm, 길이 77 mm)에서 워드마크 비율 규칙이 지켜지는지
+- Ø33 원통 병 곡면에서 워드마크가 휘어 보이지 않는 최대 폭
+- 코퍼 4종(PP 착색 캡·박 띠·PP 칼라·알루미늄 뚜껑)이 한 사진에서 같은 색으로 보이도록 색 지정 방법
 
 감사합니다.
 터노바 드림</pre></article>
@@ -520,7 +557,7 @@
     </div>
     <div class="tbl"><table>
       <thead><tr><th>심각도</th><th>이슈</th><th>대응</th></tr></thead>
-      <tbody><tr><td><span class="tag bad">높음</span></td><td><b>코퍼가 4가지 공정으로 나뉩니다</b><br><span class="muted">PP 원터치 캡, 증착 자 뚜껑, 알루미늄 스포이드·펌프, 박 로고는 같은 876C라도 색이 다르게 나옵니다. 라인업 사진에서 가장 먼저 티가 납니다.</span></td><td>코퍼 마스터 칩 1개를 정하고, 4종 샘플을 같은 조명에서 나란히 찍어 승인합니다.</td></tr><tr><td><span class="tag bad">높음</span></td><td><b>"무광 코퍼"가 그대로 전달되면 안 됩니다</b><br><span class="muted">가이드 v5는 완전 무광 도장을 금지합니다. 용기사에 "무광"으로 적으면 회색빛 흙색 코퍼가 나올 수 있습니다(추정).</span></td><td>발주서에는 "새틴(반무광) 코퍼"로 통일해서 적습니다.</td></tr><tr><td><span class="tag bad">높음</span></td><td><b>원터치 배리어는 메탈 무게감이 줄어듭니다</b><br><span class="muted">스크류 메탈 캡에서 PP 원터치로 바꾸면 손에 쥐었을 때 가볍고, 가까이 찍으면 플라스틱으로 보입니다.</span></td><td>증착 + 새틴 마감이 1순위, 알루미늄 쉘 원터치 견적을 함께 받습니다. 증착은 힌지에서 갈라질 수 있어 힌지를 빼고 칠합니다.</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>블루가 4가지 소재로 나뉩니다</b><br><span class="muted">PE·PBL 튜브, PET 병 코팅, PP 캡, PP 자는 같은 팬톤이어도 톤이 다르게 나옵니다.</span></td><td>팬톤 1종을 먼저 정하고 소재별 드로다운을 승인합니다(ΔE 2.0 이하, 제안).</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>폰 카메라에서 로열블루가 보라로 뜹니다</b><br><span class="muted">진한 로열블루는 아이폰·갤럭시 자동 보정에서 보라 쪽으로 뜨는 경우가 많습니다(추정). SNS 노출이 핵심이라 실물보다 사진이 기준입니다.</span></td><td>샘플 승인 때 폰 2종으로 찍어 확인하는 단계를 넣습니다.</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>지문 방지와 오일 내성이 부딪힙니다</b><br><span class="muted">소프트터치는 지문에 강하지만 오일 내용물에 끈적이거나 벗겨질 수 있습니다.</span></td><td>반무광 UV 안티핑거프린트를 기본으로, 내용물 러빙 20회 시험을 붙입니다.</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>헤비블로우 PET는 긁힘에 약합니다</b><br><span class="muted">유리처럼 보이고 깨지지 않지만 표면이 쉽게 긁힙니다.</span></td><td>무광 코팅으로 긁힘을 가리고, 출고 때 개별 슬리브를 씁니다.</td></tr><tr><td><span class="tag ok">낮음</span></td><td><b>두 튜브의 SNS 구분은 유지됩니다</b><br><span class="muted">35Φ 코퍼 캡과 40Φ 블루 캡 + 코퍼 띠는 4:5 썸네일에서도 구분됩니다. 랩핑을 50ml로 줄이면 지름이 같아져 캡 색만 남습니다.</span></td><td>랩핑 80ml 40Φ를 권장합니다.</td></tr></tbody>
+      <tbody><tr><td><span class="tag bad">높음</span></td><td><b>코퍼가 4가지 공정으로 나뉩니다</b><br><span class="muted">배리어 PP 착색 캡, 랩핑 박 띠, 에센스 PP 칼라, 필링밤 알루미늄 뚜껑은 같은 876C라도 색이 다르게 나옵니다. 라인업 사진에서 가장 먼저 티가 납니다.</span></td><td>코퍼 마스터 칩 1개를 정하고, 4종 샘플을 같은 조명에서 나란히 찍어 승인합니다.</td></tr><tr><td><span class="tag bad">높음</span></td><td><b>PP 착색 코퍼는 플라스틱처럼 보일 수 있습니다</b><br><span class="muted">엑셀 기준인 무광 코퍼 PP 착색은 내구성은 좋지만, 가까이 찍으면 메탈 느낌이 약합니다. 화장대 배리어가 가장 크게 영향을 받습니다.</span></td><td>배리어만 증착(힌지 제외)·알루미늄 쉘 견적을 같이 받아 샘플로 비교합니다. 욕실 제품은 착색·박만 씁니다.</td></tr><tr><td><span class="tag bad">높음</span></td><td><b>랩핑 지름이 SNS 구분을 좌우합니다</b><br><span class="muted">50Φ(A·B)면 배리어와 15 mm 차이라 썸네일에서도 체형이 갈립니다. 40Φ(C)면 5 mm 차이라 캡 색만 남습니다.</span></td><td>기준안은 50Φ 60 mL(A)입니다. 50Φ 기성 튜브 품번이 회신에서 확인되지 않으면 C로 내립니다.</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>블루가 4가지 소재로 나뉩니다</b><br><span class="muted">PBL 튜브(역인쇄 포함), PETG 원료 착색 병, PP 캡, PETG 자는 같은 팬톤이어도 톤이 다르게 나옵니다.</span></td><td>팬톤 1종을 먼저 정하고 소재별 드로다운을 승인합니다(ΔE 2 이하).</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>폰 카메라에서 로열블루가 보라로 뜹니다</b><br><span class="muted">진한 로열블루는 폰 자동 보정에서 보라 쪽으로 뜨는 경우가 많습니다(추정).</span></td><td>샘플 승인 때 아이폰·갤럭시로 찍어 확인합니다(체크리스트 1번).</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>지문 방지와 오일 내성이 부딪힙니다</b><br><span class="muted">소프트터치는 지문에 강하지만 오일 내용물에 끈적이거나 벗겨질 수 있습니다.</span></td><td>AF 무광을 기본으로, 핸드크림 손 10회 파지와 내용물 러빙 20회를 함께 봅니다.</td></tr><tr><td><span class="tag warn">중간</span></td><td><b>50Φ 숏 튜브는 짧고 넓습니다</b><br><span class="muted">길이 77 mm에 실링 폭 약 79 mm라 정면이 거의 정사각형입니다. 라벨 2단 레이아웃의 세로 여백이 빠듯합니다.</span></td><td>디자이너에게 50Φ 칼선으로 비율 검토를 먼저 요청합니다.</td></tr><tr><td><span class="tag ok">낮음</span></td><td><b>헤비블로우 PETG는 긁힘에 약합니다</b><br><span class="muted">유리처럼 보이고 깨지지 않지만 표면이 쉽게 긁힙니다.</span></td><td>AF 무광 코팅으로 긁힘을 가리고, 출고 때 개별 슬리브를 씁니다.</td></tr></tbody>
     </table></div>
   </div>
 </section>
@@ -528,10 +565,10 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow">06 · 대표 결정 필요</div>
-      <h2>발주 전에 정할 6가지</h2>
+      <h2>회신 전후로 정할 6가지</h2>
     </div>
-    <ol class="decide"><li><b>1. 랩핑마스크 용량</b> → <span class="pick">80ml · 40Φ (권장)</span><span class="muted">40Φ 기성은 70ml부터라 50ml로 가면 35Φ가 되고 배리어와 지름이 같아집니다.</span></li><li><b>2. 배리어 코퍼 원터치 방식</b> → <span class="pick">캡 몸통 증착 + 새틴 (권장)</span><span class="muted">원료 착색 펄 PP는 내구성이 좋지만 고급감이 떨어지고, 알루미늄 쉘은 견적이 오면 비교합니다.</span></li><li><b>3. 랩핑 튜브 재질</b> → <span class="pick">PBL 무광 라미 (권장)</span><span class="muted">욕실 습기에서 인쇄가 덜 벗겨집니다. PE보다 단가가 오릅니다(추정).</span></li><li><b>4. 스포이드 벌브 색</b> → <span class="pick">블루 (권장)</span><span class="muted">블랙은 무거워 보이고, 코퍼 벌브는 실리콘이라 금속 코퍼와 색이 맞기 어렵습니다.</span></li><li><b>5. 로열블루 팬톤</b> → <span class="pick">2736C 계열 (추정 권장)</span><span class="muted">2728C는 밝아 보라로 덜 뜨고, Reflex Blue는 진하지만 폰에서 보라로 뜨기 쉽습니다. 칩 3개를 폰으로 찍어 비교한 뒤 정합니다.</span></li><li><b>6. 필름밤 18ml</b> → <span class="pick">20g 기성 이중 자에 18ml 충진 (권장)</span><span class="muted">18ml 딱 맞는 기성은 없습니다.</span></li></ol>
-    <p class="lede" style="margin-top:18px">출처: 럭스팩·프리팩·아크팩·대지영 공개 카탈로그, 해외 튜브 용량·길이 기준표(Viva, IOO). 단가·MOQ는 카탈로그 게시값이며 견적으로 확정합니다.</p>
+    <ol class="decide"><li><b>1. 랩핑 지름·용량</b> → <span class="pick">50Φ 60 mL (기준안 A)</span><span class="muted">차별화가 가장 큽니다. 회신(10/24)에서 50Φ 기성 품번과 충전기 최소 길이가 확인되면 확정하고, 안 되면 40Φ 80 mL(C)로 갑니다.</span></li><li><b>2. 랩핑 80 mL 운영</b> → <span class="pick">50Φ 같은 캡으로 비교 견적 (B)</span><span class="muted">같은 캡이라 나중에 대용량을 추가해도 부자재가 그대로입니다.</span></li><li><b>3. 배리어 코퍼 캡 공정</b> → <span class="pick">PP 착색 기본, 증착·알루미늄은 비교 견적</span><span class="muted">화장대 제품이라 증착이 가능하지만, 샘플 사진으로 차이가 클 때만 올립니다.</span></li><li><b>4. 로열블루 팬톤</b> → <span class="pick">칩 3개(2728C / 2736C / Reflex Blue)를 폰으로 찍어 비교</span><span class="muted">실물보다 사진이 기준입니다.</span></li><li><b>5. 에센스 병 지름</b> → <span class="pick">Ø33 (엑셀 기준), 없으면 가장 가까운 기성</span><span class="muted">Ø36 기성(럭스팩 HB CU30)은 품번이 확인돼 있습니다.</span></li><li><b>6. 필링밤 부속</b> → <span class="pick">내부 디스크 포함, 스패출러 별도 견적</span><span class="muted">스패출러를 넣으면 단상자 크기가 바뀝니다.</span></li></ol>
+    <p class="lede" style="margin-top:18px">출처: 대표님 견적서 엑셀(10/13), 럭스팩·프리팩·아크팩·대지영 공개 카탈로그, 해외 튜브 용량·길이 기준표(Viva, IOO). 같은 내용을 공급사 회신 칸이 있는 엑셀로도 만들었습니다. 단가·MOQ는 카탈로그 게시값이며 견적으로 확정합니다.</p>
   </div>
 </section>
 </main>

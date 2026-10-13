@@ -1,5 +1,5 @@
 /* TURNOVA 조합 렌더러 — 가이드 v5 문법(무광 로열블루, 브러시드 코퍼, 볼드 워드마크, 8잎 심볼, 샤넬식 2단)으로
-   배리어+랩핑 페어와 필름밤 자를 SVG 문자열로 그린다. 그라데이션·심볼은 페이지의 #tn-defs에 한 번만 정의. */
+   배리어+랩핑 페어와 필링밤 자를 SVG 문자열로 그린다. 그라데이션·심볼은 페이지의 #tn-defs에 한 번만 정의. */
 (function (root) {
   var PHI = 1.618, CU_TXT = '#E8956A', BLUE_TXT = '#1E2AA0';
   var WM = 'font-family="Montserrat, \'Helvetica Neue\', Arial, sans-serif" font-weight="700"';
@@ -24,14 +24,16 @@
   var SHAPES = {
     slim:  { label: '35Φ 슬림', w: 112, bodyH: 280 },
     std:   { label: '38Φ 표준', w: 132, bodyH: 262 },
-    wide:  { label: '40Φ 와이드', w: 156, bodyH: 236 },
+    wide:  { label: '40Φ 와이드 · 80ml', w: 156, bodyH: 236, vol: '80 mL / 2.7 fl oz' },
     oval:  { label: '오벌 플랫', w: 176, bodyH: 214 },
     xslim: { label: '30Φ 롱', w: 98, bodyH: 300 },
-    fat:   { label: '45Φ 숏', w: 182, bodyH: 196 }
+    fat:   { label: '45Φ 숏', w: 182, bodyH: 196 },
+    xwide: { label: '50Φ 숏 · 60ml', w: 195, bodyH: 173, vol: '60 mL / 2.0 fl oz' },
+    xwide80: { label: '50Φ · 80ml', w: 195, bodyH: 198, vol: '80 mL / 2.7 fl oz' }
   };
   var BODIES = { blue: '로열블루', copper: '코퍼(색 반전)' };
   var METALS = { copper: '코퍼', blue: '블루', ringed: '블루 + 코퍼 링' };
-  var BANDS = { none: '없음', printCu: '무광 코퍼 인쇄 띠', foilCu: '유광 금박 띠', metalCollar: '코퍼 메탈 칼라', crimpCu: '코퍼 크림프(끝 실링부)' };
+  var BANDS = { none: '없음', printCu: '무광 코퍼 인쇄 띠', foilCu: '유광 금박 띠', metalCollar: '코퍼 칼라 띠 (PP 착색·박)', crimpCu: '코퍼 크림프(끝 실링부)' };
 
   function f(n) { return (+n).toFixed(1); }
 
@@ -121,7 +123,7 @@
     if (o.lid === 'oct') s += oct(x, ly, w, lidH, 'copper');
     else if (o.lid === 'blueLid' || o.lid === 'blueAll') { s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + f(w) + '" height="' + f(lidH) + '" rx="3" fill="url(#rbF)"/>'; if (o.lid === 'blueLid') s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly + lidH - 4 * k) + '" width="' + f(w) + '" height="' + f(4 * k) + '" fill="url(#cu)"/>'; }
     else s += '<rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + f(w) + '" height="' + f(lidH) + '" rx="3" fill="url(#cu)"/><rect x="' + f(x - w / 2) + '" y="' + f(ly) + '" width="' + f(w) + '" height="2" fill="rgba(255,255,255,.35)"/>';
-    return s + label(x, by + 2 * k, ground, w - 6 * k, 'THE FILM|BALM CREAM', '18 mL', blue ? CU_TXT : BLUE_TXT, blue ? 'url(#cu)' : BLUE_TXT, true);
+    return s + label(x, by + 2 * k, ground, w - 6 * k, 'THE PEELING|BALM', '20 g', blue ? CU_TXT : BLUE_TXT, blue ? 'url(#cu)' : BLUE_TXT, true);
   }
   function jarWarn(j) {
     var w = [];
@@ -137,18 +139,19 @@
     for (var gx = split; gx < W; gx += 40) s += '<line x1="' + gx + '" y1="0" x2="' + gx + '" y2="' + ground + '" stroke="#D3D9E4"/>';
     for (var gy = 0; gy < ground; gy += 40) s += '<line x1="' + split + '" y1="' + gy + '" x2="' + W + '" y2="' + gy + '" stroke="#D3D9E4"/>';
     s += '<rect y="' + ground + '" width="' + split + '" height="' + (H - ground) + '" fill="#D9D1C4"/><rect x="' + split + '" y="' + ground + '" width="' + (W - split) + '" height="' + (H - ground) + '" fill="#CAD2DF"/>';
-    return s + '<text x="14" y="22" ' + SANS + ' font-size="10.5" letter-spacing="2" fill="#7A6E5C">VANITY</text><text x="' + (split + 14) + '" y="22" ' + SANS + ' font-size="10.5" letter-spacing="2" fill="#5C6A82">BATH</text>';
+    return s + (split > 0 ? '<text x="14" y="22" ' + SANS + ' font-size="10.5" letter-spacing="2" fill="#7A6E5C">VANITY</text>' : '') + '<text x="' + (split + 14) + '" y="22" ' + SANS + ' font-size="10.5" letter-spacing="2" fill="#5C6A82">BATH</text>';
   }
 
   var BAR = { name: 'THE BARRIER|CREAM', vol: '50 mL / 1.7 fl oz' };
-  var MSK = { name: 'THE WRAPPING|MASK', vol: '80 mL / 2.7 fl oz' };
+  var MSK = { name: 'THE WRAPPING|MASK', vol: '60 mL / 2.0 fl oz' };
+  function mskFor(m) { var v = SHAPES[m.shape] && SHAPES[m.shape].vol; return v ? { name: MSK.name, vol: v } : MSK; }
   function merge(a, b) { var r = {}, k; for (k in a) r[k] = a[k]; for (k in b) r[k] = b[k]; return r; }
 
   function pair(b, m, opts) {
     opts = opts || {};
     var W = 560, H = 476, G = 420;
     var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || '배리어와 랩핑 조합') + '">' + scene(W, H, 280, G);
-    s += tube(140, G, merge(BAR, b)) + tube(420, G, merge(MSK, m));
+    s += tube(140, G, merge(BAR, b)) + tube(420, G, merge(mskFor(m), m));
     s += cap2(140, G, '배리어 · ' + SHAPES[b.shape].label, capName(b), '#5B5040') + cap2(420, G, '랩핑 · ' + SHAPES[m.shape].label, capName(m), '#3F4C66');
     return s + '</svg>';
   }
@@ -158,9 +161,9 @@
   function trio(j, b, m, opts) {
     opts = opts || {};
     var W = 800, H = 476, G = 420, split = 500;
-    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || '필름밤 자, 배리어, 랩핑 라인업') + '">' + scene(W, H, split, G);
-    s += jar(120, G, j, 0.92) + tube(355, G, merge(BAR, b)) + tube(650, G, merge(MSK, m));
-    s += cap2(120, G, '필름밤 · 18ml', (JAR_SHAPES[j.shape || 'low'].label + ' · ' + JAR_LIDS[j.lid || 'round']).replace(' (확정)', '').replace(' (확정)', ''), '#5B5040');
+    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || '필링밤 자, 배리어, 랩핑 라인업') + '">' + scene(W, H, split, G);
+    s += jar(120, G, j, 0.92) + tube(355, G, merge(BAR, b)) + tube(650, G, merge(mskFor(m), m));
+    s += cap2(120, G, '필링밤 · 20g', (JAR_SHAPES[j.shape || 'low'].label + ' · ' + JAR_LIDS[j.lid || 'round']).replace(' (확정)', '').replace(' (확정)', ''), '#5B5040');
     s += cap2(355, G, '배리어 · ' + SHAPES[b.shape].label, capName(b), '#5B5040') + cap2(650, G, '랩핑 · ' + SHAPES[m.shape].label, capName(m), '#3F4C66');
     return s + '</svg>';
   }
@@ -170,7 +173,7 @@
     return (METALS[o.metal] || '') + ' ' + c.label + (o.body === 'copper' ? ' · 코퍼 바디' : '') + (o.band && o.band !== 'none' ? ' · ' + BANDS[o.band === true ? 'printCu' : o.band] : '');
   }
   function jarCard(lid, caption) {
-    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200" role="img" aria-label="필름밤 자 ' + caption + '"><rect width="260" height="200" fill="#EFECE6"/><rect y="160" width="260" height="40" fill="#D9D1C4"/>';
+    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200" role="img" aria-label="필링밤 자 ' + caption + '"><rect width="260" height="200" fill="#EFECE6"/><rect y="160" width="260" height="40" fill="#D9D1C4"/>';
     return s + jar(130, 160, { lid: lid === 'tall' ? 'tallLid' : lid, shape: 'low' }) + '</svg>';
   }
 
@@ -208,24 +211,30 @@
     return s;
   }
   function bottleWarn(kind, o) {
-    var w = [], who = kind === 'a' ? '앰플' : '세럼', std = kind === 'a' ? 'dropper' : 'pump';
+    var w = [], who = kind === 'a' ? '필링 에센스' : '세럼', std = kind === 'a' ? 'dropper' : 'pump';
     if (o.type !== std) w.push((kind === 'a' ? '[R10] ' : '[R11] ') + who + ' 기준 용기(' + BOTTLE_TYPES[std] + ')와 다름');
     if (o.body === 'copper') w.push('[R12] ' + who + ' 코퍼 바디는 한정판 옵션');
-    if (o.type === 'dropper' && o.bulb === 'blue') w.push('[R08] 앰플은 화장대 제품 · 블루 벌브면 코퍼 메탈 비중이 줄어듦');
-    if (o.type === 'spray' && kind === 'a') w.push('앰플 미스트는 점도 높은 처방에 맞지 않을 수 있음(처방 확인)');
+    if (kind === 'a' && o.type === 'dropper' && o.bulb !== 'blue') w.push('[R08] 필링 에센스는 욕실 제품 · 블루 벌브 + 코퍼 칼라가 기준');
+    if (kind === 'a' && o.finish === 'ribbed') w.push('[R14] 욕실 칼라는 PP 착색 · 리브드 메탈 칼라는 습기에 약함');
+    if (o.type === 'spray' && kind === 'a') w.push('필링 에센스 미스트는 처방 점도 확인 필요');
     return w;
   }
-  var AMP = { name: 'THE|AMPOULE', vol: '30 mL / 1.0 fl oz' }, SER = { name: 'THE|SERUM', vol: '30 mL / 1.0 fl oz' };
+  var AMP = { name: 'THE PEELING|ESSENCE', vol: '30 mL / 1.0 fl oz' }, SER = { name: 'THE|SERUM', vol: '30 mL / 1.0 fl oz' };
   function lineup(j, b, m, a, sv, opts) {
-    opts = opts || {}; a = a || { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' }; sv = sv || { type: 'pump', body: 'blue', finish: 'smooth' };
-    var W = 1000, H = 476, G = 420, split = 760;
-    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || '터노바 5종 라인업') + '">' + scene(W, H, split, G);
-    s += jar(95, G, j, 0.92) + tube(270, G, merge(BAR, b)) + bottle(450, G, a, AMP.name, AMP.vol) + bottle(620, G, sv, SER.name, SER.vol) + tube(880, G, merge(MSK, m));
-    s += cap2(95, G, '필름밤 · 18ml', JAR_LIDS[j.lid || 'round'].replace(' (확정)', ''), '#5B5040');
-    s += cap2(270, G, '배리어 · ' + SHAPES[b.shape].label, capName(b), '#5B5040');
-    s += cap2(450, G, '앰플 · 30ml', BOTTLE_TYPES[a.type] + (a.finish === 'ribbed' ? ' · 리브드' : ''), '#5B5040');
-    s += cap2(620, G, '세럼 · 30ml', BOTTLE_TYPES[sv.type] + (sv.finish === 'ribbed' ? ' · 리브드' : ''), '#5B5040');
-    s += cap2(880, G, '랩핑 · ' + SHAPES[m.shape].label, capName(m), '#3F4C66');
+    opts = opts || {}; a = a || { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'blue' };
+    var W = 1000, H = 476, G = 420, split = 520;
+    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || '터노바 4종 라인업') + '">' + scene(W, H, split, G);
+    s += jar(140, G, j, 0.92) + tube(370, G, merge(BAR, b)) + bottle(650, G, a, AMP.name, AMP.vol) + tube(860, G, merge(mskFor(m), m));
+    s += cap2(140, G, '필링밤 · 20g', JAR_LIDS[j.lid || 'round'].replace(' (확정)', ''), '#5B5040');
+    s += cap2(370, G, '배리어 · ' + SHAPES[b.shape].label, capName(b), '#5B5040');
+    s += cap2(650, G, '필링 에센스 · 30ml', BOTTLE_TYPES[a.type] + (a.type === 'dropper' ? (a.bulb === 'blue' ? ' · 블루 벌브' : ' · 코퍼 벌브') : ''), '#3F4C66');
+    s += cap2(860, G, '랩핑 · ' + SHAPES[m.shape].label, capName(m), '#3F4C66');
+    return s + '</svg>';
+  }
+  function solo(a, opts) {
+    opts = opts || {}; var W = 260, H = 400, G = 344;
+    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || '필링 에센스') + '">' + scene(W, H, 0, G);
+    s += bottle(130, G, a, AMP.name, AMP.vol) + cap2(130, G, '필링 에센스 · 30ml', BOTTLE_TYPES[a.type] + (a.type === 'dropper' ? (a.bulb === 'blue' ? ' · 블루 벌브' : ' · 코퍼 벌브') : ''), '#3F4C66');
     return s + '</svg>';
   }
   function duo(a, sv, opts) {
@@ -262,9 +271,9 @@
     });
     if (cb.mech === 'flip' && b.metal !== 'copper') warn.push('[R08] 화장대 배리어는 코퍼 캡 · 블루 캡이면 장소 코드가 흐려짐');
     if (cb.mech !== 'flip' || cm.mech !== 'flip') warn.push('[R09] 튜브는 모두 기성 원터치(대표 10/13)');
-    if (m.band === 'metalCollar') warn.push('욕실 코퍼 메탈 칼라: 물 얼룩·부식 시험 필요(아노다이징 실링 또는 PP 증착으로 대체 가능)');
+    if (m.band === 'metalCollar') warn.push('[R14] 욕실 코퍼 띠는 PP 착색 또는 박 · 증착·메탈 금지 · 40°C/90%RH 72시간 시험');
     return { axes: res, score: res.filter(function (r) { return r[1]; }).length, warn: warn };
   }
 
-  root.TNC = { BOTTLE_TYPES: BOTTLE_TYPES, FINISHES: FINISHES, BULBS: BULBS, bottleWarn: bottleWarn, lineup: lineup, duo: duo, JAR_SHAPES: JAR_SHAPES, JAR_LIDS: JAR_LIDS, JAR_BODIES: JAR_BODIES, jarWarn: jarWarn, trio: trio, CAPS: CAPS, SHAPES: SHAPES, BODIES: BODIES, METALS: METALS, BANDS: BANDS, oct: oct, pair: pair, jarCard: jarCard, axes: axes };
+  root.TNC = { solo: solo, BOTTLE_TYPES: BOTTLE_TYPES, FINISHES: FINISHES, BULBS: BULBS, bottleWarn: bottleWarn, lineup: lineup, duo: duo, JAR_SHAPES: JAR_SHAPES, JAR_LIDS: JAR_LIDS, JAR_BODIES: JAR_BODIES, jarWarn: jarWarn, trio: trio, CAPS: CAPS, SHAPES: SHAPES, BODIES: BODIES, METALS: METALS, BANDS: BANDS, oct: oct, pair: pair, jarCard: jarCard, axes: axes };
 })(typeof window !== 'undefined' ? window : globalThis);

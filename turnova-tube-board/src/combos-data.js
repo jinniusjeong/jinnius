@@ -1,8 +1,12 @@
-// 이름 붙인 조합 18종 + 필름밤 자 4종. tag: pick | alt | ref | no
+// 이름 붙인 조합 + 필링밤 자 4종 + 필링 에센스 4종. tag: pick | alt | ref | no
 module.exports = {
   stock: [
-    { id: 'S00', tag: 'boss', title: '대표 선택안: 둘 다 기성 원터치 · 화장대는 코퍼, 화장실은 블루 + 코퍼 띠', idea: '(10/13 수정) 배리어 50ml는 35Φ 튜브에 코퍼 원형 원터치를 씌웁니다. 랩핑은 40Φ 와이드 튜브에 블루 원형 원터치를 달고, 캡 위에 코퍼 메탈 칼라를 둘러 블루 캡에도 코퍼 신호를 남깁니다. 전부 기성 부자재입니다.', sns: '화장대 컷은 코퍼 캡, 욕실 컷은 칼라 한 줄로 빛나서 어느 장소 사진이든 블루 + 코퍼 보색이 잡힙니다. 원터치 딸깍 소리는 숏폼 훅이 됩니다.', from: '대표님 조합 빌더 선택 (10/12)',
+    { id: 'S00', tag: 'boss', title: '대표 선택안: 둘 다 기성 원터치 · 화장대는 코퍼, 욕실은 블루 + 코퍼 띠 (랩핑 50Φ 60ml)', idea: '(10/13 확정) 배리어 50ml는 35Φ 튜브에 코퍼 원형 원터치를 씌웁니다. 랩핑 60ml는 50Φ 숏 튜브에 블루 원터치를 달고, 캡 측면에 코퍼 띠(PP 착색 또는 박, 증착 금지)를 둘러 욕실 제품에도 코퍼 신호를 남깁니다. 35Φ 길쭉이와 50Φ 땅딸이라 지름 차이가 15mm입니다. 전부 기성 부자재입니다.', sns: '투샷에서 키 큰 코퍼 기둥과 넓적한 블루가 한눈에 갈립니다. 욕실 컷은 블루 캡의 코퍼 띠 한 줄로 보색이 잡히고, 원터치 딸깍 소리는 숏폼 훅이 됩니다.', from: '대표님 조합 빌더 선택 (10/12) · 견적서 엑셀 (10/13)',
       j: { shape: 'low', lid: 'round', body: 'blue' },
+      b: { shape: 'slim', body: 'blue', cap: 'roundFlip', metal: 'copper', band: 'none' }, m: { shape: 'xwide', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'metalCollar' } },
+    { id: 'S00B', tag: 'alt', title: '비교안 B: 랩핑 50Φ 80ml', idea: '캡과 지름은 S00과 같고 튜브만 88mm로 깁니다. 같은 캡으로 60ml와 80ml를 함께 운영할 수 있어, 용량을 늘려도 부자재가 바뀌지 않습니다.', sns: '실루엣은 S00보다 덜 넓적하지만, 35Φ 배리어와는 여전히 확실히 갈립니다.', from: '견적서 엑셀 비교 행 (10/13)',
+      b: { shape: 'slim', body: 'blue', cap: 'roundFlip', metal: 'copper', band: 'none' }, m: { shape: 'xwide80', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'metalCollar' } },
+    { id: 'S00C', tag: 'alt', title: '비교안 C: 랩핑 40Φ 80ml (기성 품번 확인)', idea: '아크팩 ATVY4018A 같은 40Φ 원터치 기성품을 씁니다(70–160ml). 공급처는 가장 확실하지만 배리어와 지름 차이가 5mm라 실루엣 차이가 작습니다.', sns: '썸네일에서는 캡 색(코퍼/블루)이 주로 구분합니다.', from: '스펙 페이지 1차안 (10/13)',
       b: { shape: 'slim', body: 'blue', cap: 'roundFlip', metal: 'copper', band: 'none' }, m: { shape: 'wide', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'metalCollar' } },
     { id: 'S01', tag: 'pick', title: '체형 대비 (슬림 기둥 × 통통 블루)', idea: '배리어는 35Φ로 길고 슬림하게, 키 큰 코퍼 캡을 씌웁니다. 랩핑은 45Φ로 짧고 통통하게, 블루 원터치를 답니다. 금형 없이 기성 튜브와 기성 캡으로만 구분합니다.', sns: '투샷에서 키 큰 코퍼 기둥과 통통한 블루가 한 쌍으로 읽힙니다. 160px에서도 실루엣만으로 구분됩니다.', from: 'Rhode BRC × Barrier Butter · 바더 코퍼 캡',
       b: { shape: 'slim', body: 'blue', cap: 'tallRound', metal: 'copper', band: 'none' }, m: { shape: 'fat', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'none' } },
@@ -68,12 +72,10 @@ module.exports = {
       b: { shape: 'slim', body: 'blue', cap: 'octFlip', metal: 'blue' }, m: { shape: 'wide', body: 'blue', cap: 'octScrew', metal: 'copper' } }
   ],
   bottles: [
-    { id: 'A01', tag: 'pick', title: '가이드 기준 (대표 레퍼런스 10/13)', note: '앰플은 블루 스포이드 병 + 코퍼 스포이드, 세럼은 블루 원통 병 + 브러시드 코퍼 펌프입니다. 화장대 제품이라 메탈이 모두 코퍼입니다[R08·R10·R11].', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' }, s: { type: 'pump', body: 'blue', finish: 'smooth' } },
-    { id: 'A02', tag: 'alt', title: '리브드 코퍼 (세로 홈)', note: '달바 볼륨필린 라인처럼 메탈에 세로 홈을 넣습니다. 기성 리브드 캡이 있어 금형 없이 고급감과 조명 반사를 키웁니다. 유광 면이 아니라 무광 메탈 질감이라 [R04]와 충돌하지 않습니다.', a: { type: 'dropper', body: 'blue', finish: 'ribbed', bulb: 'copper' }, s: { type: 'pump', body: 'blue', finish: 'ribbed' } },
-    { id: 'A03', tag: 'alt', title: '세럼 슬림 에어리스 + 코퍼 밴드', note: '가이드 v10_1의 슬림 에어리스 + 상단 코퍼 밴드를 세럼에 씁니다. 키가 커서 라인업 사진의 높이 리듬이 생깁니다. 원가는 펌프 병보다 높습니다(추정).', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' }, s: { type: 'airless', body: 'blue', finish: 'smooth' } },
-    { id: 'A04', tag: 'ref', title: '앰플 블루 벌브 + 코퍼 링', note: '스포이드 고무 부분을 블루로 바꿔 앰플과 세럼을 멀리서도 구분합니다. 대신 화장대 제품의 코퍼 비중이 줄어듭니다[R08].', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'blue' }, s: { type: 'pump', body: 'blue', finish: 'smooth' } },
-    { id: 'A05', tag: 'ref', title: '세럼 미스트 스프레이', note: '달바 스프레이 앰플처럼 미스트 + 리브드 오버캡입니다. 메이크업 위에 뿌리는 장면이 SNS 소재가 되지만, 처방 점도를 미스트용으로 맞춰야 합니다.', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' }, s: { type: 'spray', body: 'blue', finish: 'ribbed' } },
-    { id: 'A06', tag: 'ref', title: '색 반전 한정판', note: '세럼만 코퍼 바디 + 블루 글자로 뒤집은 한정판입니다. 상시 SKU는 블루입니다[R12].', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' }, s: { type: 'pump', body: 'copper', finish: 'smooth' } }
+    { id: 'E01', tag: 'pick', title: '스포이드 · 블루 벌브 + 코퍼 PP 칼라 (기준)', note: '필링 에센스는 욕실에서 씻어 내는 제품이라 장소 코드(R08)대로 블루 톱 + 코퍼 띠입니다. 칼라는 PP 원료 착색 코퍼이고 메탈·증착은 쓰지 않습니다. 병은 헤비블로우 PETG/PCTG Ø33입니다.', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'blue' } },
+    { id: 'E02', tag: 'ref', title: '코퍼 벌브', note: '벌브까지 코퍼면 화장대 제품처럼 보입니다. 실리콘 벌브는 코퍼 칼라와 색을 맞추기도 어렵습니다. 비교용입니다.', a: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'copper' } },
+    { id: 'E03', tag: 'no', title: '리브드 메탈 칼라', note: '고급감은 크지만 욕실 습기에서 메탈 칼라가 변색·부식될 수 있어 R14에 걸립니다.', a: { type: 'dropper', body: 'blue', finish: 'ribbed', bulb: 'blue' } },
+    { id: 'E04', tag: 'alt', title: '에센스 펌프', note: '젖은 손으로 한 번에 짜기 쉽습니다. 다만 각질 제거 처방이 스포이드 기준이라 토출량과 처방 점도를 다시 확인해야 합니다.', a: { type: 'pump', body: 'blue', finish: 'smooth' } }
   ],
   jars: [
     { lid: 'round', tag: 'pick', title: '원형 코퍼 뚜껑', note: '가이드 확정 사양(10/6). 윗면에 심볼 톤온톤.' },
