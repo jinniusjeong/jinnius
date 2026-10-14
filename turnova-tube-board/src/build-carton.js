@@ -89,7 +89,7 @@ function right(x, y, w, h, s, k) {
   o += `<text x="${f(x + w / 2)}" y="${f(cy)}" text-anchor="middle" ${SANS} font-size="${f(sm * 0.75)}" fill="${WHITE}" opacity=".75">무보정 · UNRETOUCHED</text>`;
   cy += sm * 0.9;
   const ph = Math.max(0, (y + h - m - 6 * k - cy) / 2 - 2 * k);
-  ['BEFORE', 'AFTER 4W'].forEach((t, i) => {
+  ['BEFORE', 'AFTER*'].forEach((t, i) => {
     const py = cy + i * (ph + 3 * k);
     if (ph > 6) o += `<rect x="${f(x + m)}" y="${f(py)}" width="${f(iw)}" height="${f(ph)}" fill="url(#skin)"/><text x="${f(x + m + 2)}" y="${f(py + ph - 3)}" ${SANS} font-size="${f(Math.max(1.5 * k, 3.2))}" fill="#3A2A20">${t}</text>`;
   });
@@ -108,7 +108,7 @@ function backboard(x, y, w, h, s, k) {
   cy += sm * 0.8;
   const listH = s.check.length * sm * 1.55 + sm * 2.4;
   const ph = Math.max(0, (y + h - m - listH - cy) / 2 - 2 * k);
-  ['BEFORE', 'AFTER 4W'].forEach((t, i) => {
+  ['BEFORE', 'AFTER*'].forEach((t, i) => {
     const py = cy + i * (ph + 3 * k);
     if (ph > 6) o += `<rect x="${f(x + m)}" y="${f(py)}" width="${f(iw)}" height="${f(ph)}" fill="url(#skin)"/><text x="${f(x + m + 2)}" y="${f(py + ph - 3)}" ${SANS} font-size="${f(Math.max(1.5 * k, 3.2))}" fill="#3A2A20">${t}</text>`;
   });
@@ -119,7 +119,7 @@ function backboard(x, y, w, h, s, k) {
     o += `<text x="${f(x + m + bx * 1.5)}" y="${f(cy)}" ${SANS} font-weight="600" font-size="${f(sm * 0.8)}" ${t.length * sm * 0.8 > iw - bx * 1.5 ? `textLength="${f(iw - bx * 1.5)}" lengthAdjust="spacingAndGlyphs"` : ''} fill="${CU}">${t}</text>`;
     cy += sm * 1.55;
   });
-  o += `<text x="${f(x + w / 2)}" y="${f(y + h - m)}" text-anchor="middle" ${SANS} font-size="${f(Math.max(1.5 * k, 3.2))}" fill="${WHITE}" opacity=".7">* 사용감 설문 · 시험 조건</text>`;
+  o += `<text x="${f(x + w / 2)}" y="${f(y + h - m)}" text-anchor="middle" ${SANS} font-size="${f(Math.max(1.5 * k, 3.2))}" fill="${WHITE}" opacity=".7">* 1회 사용 직후 · 무보정 · 개인차 있음</text>`;
   return o;
 }
 // 우측면: 날개를 열면 드러나는 면 — 사용법 · 8 PM 루틴
@@ -264,7 +264,7 @@ function backboardLow(x, y, w, h, s, k) {
   const m = 3 * k, sm = Math.max(1.8 * k, 4), iw = w - 2 * m;
   let o = `<text x="${f(x + w / 2)}" y="${f(y + m + sm)}" text-anchor="middle" ${MONT} font-weight="700" font-size="${f(Math.min(iw / 7, 3.6 * k))}" fill="${CU}">BEFORE · AFTER</text>`;
   const pw = (iw - 3 * k) / 2, ph = h - 2 * m - sm * 2 - s.check.length * sm * 1.2;
-  ['BEFORE', 'AFTER 4W'].forEach((t, i) => { if (ph > 6) o += `<rect x="${f(x + m + i * (pw + 3 * k))}" y="${f(y + m + sm * 1.6)}" width="${f(pw)}" height="${f(ph)}" fill="url(#skin)"/><text x="${f(x + m + i * (pw + 3 * k) + 2)}" y="${f(y + m + sm * 1.6 + ph - 3)}" ${SANS} font-size="${f(Math.max(1.5 * k, 3.2))}" fill="#3A2A20">${t}</text>`; });
+  ['BEFORE', 'AFTER*'].forEach((t, i) => { if (ph > 6) o += `<rect x="${f(x + m + i * (pw + 3 * k))}" y="${f(y + m + sm * 1.6)}" width="${f(pw)}" height="${f(ph)}" fill="url(#skin)"/><text x="${f(x + m + i * (pw + 3 * k) + 2)}" y="${f(y + m + sm * 1.6 + ph - 3)}" ${SANS} font-size="${f(Math.max(1.5 * k, 3.2))}" fill="#3A2A20">${t}</text>`; });
   let cy = y + m + sm * 1.6 + ph + sm * 1.1;
   s.check.forEach(t => { const bx = sm * 0.7; o += `<rect x="${f(x + m)}" y="${f(cy - bx * 0.85)}" width="${f(bx)}" height="${f(bx)}" fill="none" stroke="${CU}"/><text x="${f(x + m + bx * 1.5)}" y="${f(cy)}" ${SANS} font-weight="600" font-size="${f(sm * 0.72)}" fill="${CU}">${t}</text>`; cy += sm * 1.2; });
   return o;
@@ -311,7 +311,7 @@ const ruleRows = C.rules.map(r => `<tr><td class="rid">${r.id}</td><td><b>${esc(
 const visual = [
   ['높음', 'AF 라미 위에 포일이 잘 안 붙을 수 있습니다', '지문 방지·소프트 계열 무광 필름은 표면이 미끄러워 핫포일과 UV 밀착이 떨어지는 경우가 많습니다(추정). 유광 로고가 이 상자의 유일한 광택이라 벗겨지면 치명적입니다.', '포일 적성이 있는 AF 라미 품번을 지정하고, 포일 테이프 시험과 손기름 지문 시험을 샘플 승인 조건으로 겁니다(C02).'],
   ['높음', '에칭 UV와 지문 방지가 부딪힙니다', '가이드 v5(10/4)는 전면 에칭 UV를 확정했지만, 에칭 결 위에는 손기름이 남기 쉬워 AF 효과가 줄어듭니다(추정).', '기본안에서 에칭을 빼고, 넣으려면 지문 시험을 통과하게 합니다(C03). 대표님 결정이 필요합니다.'],
-  ['높음', '우측 USP의 % 수치와 비포/애프터는 근거가 있어야 합니다', 'RoC 94%, 샬롯 틸버리 -52%는 인체적용시험 결과입니다. 터노바는 아직 시험 전이라 그대로 따라 하면 표시·광고 위반입니다.', '인체적용시험은 10/31 발주 시 결과가 1월 말 예상입니다. 1차 생산분 우측면은 사용감 표현(예: 마르면서 조여드는 느낌)과 사용법으로 채우고, 결과가 나오면 슬리브나 2차 인쇄로 % 수치를 넣습니다.'],
+  ['높음', '백보드 B&A는 인쇄 후 고칠 수 없습니다', '대표 결정대로 B&A를 넣습니다. 온라인 이미지는 지적받으면 내리면 되지만, 단상자는 재고 전량 재작업이 됩니다. 사용 전후 비교 사진은 실증 자료를 요구받을 수 있습니다(추정, RA 확인).', '① 칼선 확정(12월) 전에 즉시효과 단기 시험(1회 사용 전후 기기 측정·사진, 2–3주, 수백만 원대 추정)으로 근거를 만듭니다. ② 무보정 원본·초상권 동의서·촬영 조건을 보관합니다. ③ 시점(사용 직후)과 개인차를 각주로 씁니다. ④ 수출판은 국가별로 교체합니다(EU 보정 사진 금지).'],
   ['높음', '포장공간비율 10% 이하(화장품류, 추정)를 지켜야 합니다', '앞 버전 치수(여유 2–3 mm)로는 에센스 18%, 필링밤 17%, 배리어 11%로 기준을 넘었습니다. 상자를 키워 정면을 넓히는 방법은 쓸 수 없습니다.', '내치수를 용기 외곽 + 1 mm(높이 + 2 mm)로 줄여 4종 모두 5–9%로 맞췄습니다(C17). 면적이 더 필요하면 상자 대신 백보드로 늘립니다. 조문·계산법은 RA 확인이 필요합니다.'],
   ['중간', '필링 에센스·필링밤은 후면에 한·영 전성분이 다 안 들어갈 수 있습니다', '에센스 후면 34 × 110 mm, 필링밤 후면 53 × 40 mm입니다. 성분 30개 기준 한·영 5 pt면 각각 약 130 mm·70 mm 높이가 필요합니다(추정).', '필링밤은 후면 + 바닥(53 × 53)으로 이어 싣고, 에센스는 후면 + 우측면 하단을 씁니다. 전성분 확정(12/15) 뒤 칼선으로 다시 계산합니다.'],
   ['중간', '좌측 상품 이미지는 실제 기성 용기 사진이어야 합니다', '렌더와 실물이 다르면 오인 표시가 되고, 리뷰 사진과도 어긋납니다.', '10월 말 샘플이 오면 같은 조명으로 4종을 촬영해 좌측면과 상세페이지에 같이 씁니다.'],
@@ -328,7 +328,7 @@ const decisions = [
   ['날개 적용 범위', '4종 모두 (권장)', '라인업 사진에서 백보드가 같은 높이로 줄지어 보입니다. 비용을 줄이려면 배리어·랩핑 2종만 먼저 적용합니다.'],
   ['1차 생산 USP', '실증 전에는 성분·루틴 면으로 인쇄 (권장)', '시험 결과가 나오면 슬리브 또는 2차 인쇄로 % 수치를 넣습니다.'],
   ['필링밤 백보드', '상단 백보드 (대표 10/14, 권장)', '낮고 넓은 자 상자라 위로 세워야 매대·손샷에서 보입니다. 닫으면 윗면을 덮고, 윗면 턱은 정면 쪽으로 옮깁니다.'],
-  ['1차 생산 백보드 내용', '텍스처 컷 + 사용감 체크리스트 (권장)', '인체적용시험 전이라 비포/애프터 사진을 쓸 수 없습니다. 비어 보이지 않게 제형 스와치 사진을 크게 넣고, 결과가 나오면 비포/애프터로 바꿉니다.'],
+  ['B&A 근거 확보', '즉시효과 단기 시험 (권장)', '1회 사용 직후 변화만 측정해 2–3주 안에 끝냅니다(추정). 랩핑 마스크는 사용 중(필름이 마르는 모습) → 떼어낸 직후 컷이 SNS 훅이 됩니다.'],
   ['윗면 표기', 'TURNOVA + 제품명 소형', '서랍·박스 적재 상태에서 SKU를 찾기 쉽습니다.'],
   ['날개 닫힘 방식', '마찰 턱 (권장) / 투명 원형 씰 / 마이크로 자석', '씰은 첫 개봉 표시가 되지만 매장 테스트 때 다시 닫기 어렵고, 자석은 단가가 오릅니다(추정).']
 ];
