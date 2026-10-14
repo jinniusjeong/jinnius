@@ -141,6 +141,7 @@ function rightUse(x, y, w, h, s, k) {
 // ---------- unfolded dieline: STE + 2겹 우측 날개 ----------
 // 펼친 순서(바깥면): [백보드 B][날개 A][후면][좌측][정면][우측][접착]. B는 A 안쪽으로 접어 붙여 양면 모두 바깥면(AF 라미)이 됩니다.
 function dieline(s, k) {
+  if (s.bb === 'top') return dielineTop(s, k);
   const W = s.W * k, D = s.D * k, H = s.H * k, G = 13 * k, tuck = 15 * k, dust = Math.min(s.D * 0.8, s.W * 0.5) * k, bleed = 3 * k;
   const x0 = 30, top = 34 + D + tuck;
   const xB = x0, xA = x0 + D, xs = [x0 + 2 * D, x0 + 2 * D + W, x0 + 3 * D + W, x0 + 3 * D + 2 * W, x0 + 4 * D + 2 * W];
@@ -182,6 +183,7 @@ function dieline(s, k) {
 // ---------- 3/4 view: closed (날개가 우측면을 덮음) / open (날개 90° = 백보드) ----------
 const A3 = 0.5, B3 = -0.28;
 function box3(s, k, x0, G, open) {
+  if (s.bb === 'top') return box3Top(s, k, x0, G, open);
   const W = s.W * k, D = s.D * k, H = s.H * k, y0 = G - H;
   const hx = x0 + W + D * A3, hy = y0 + D * B3; // 우측-후면 모서리(경첩)
   let o = `<ellipse cx="${f(x0 + (W + (open ? D * 1.6 : D * A3)) / 2)}" cy="${f(G + 3)}" rx="${f((W + (open ? D * 1.4 : D * 0.5)) * 0.6)}" ry="5" fill="rgba(10,14,50,.22)"/>`;
@@ -191,13 +193,82 @@ function box3(s, k, x0, G, open) {
   o += panelBg(x0, y0, W, H) + front(x0, y0, W, H, s, k);
   return o;
 }
-const boxW = (s, k, open) => s.W * k + s.D * k * (open ? A3 + 1 : A3);
+function box3Top(s, k, x0, G, open) {
+  const W = s.W * k, D = s.D * k, H = s.H * k, y0 = G - H, bx = x0 + D * A3, by = y0 + D * B3;
+  let o = `<ellipse cx="${f(x0 + (W + D * A3) / 2)}" cy="${f(G + 3)}" rx="${f((W + D * 0.5) * 0.6)}" ry="5" fill="rgba(10,14,50,.22)"/>`;
+  if (open) o += `${panelBg(bx, by - D, W, D)}${backboardLow(bx, by - D, W, D, s, k)}<rect x="${f(bx)}" y="${f(by - 2)}" width="${f(W)}" height="2" fill="rgba(0,0,30,.35)"/>`;
+  o += `<g transform="matrix(${A3},${B3},0,1,${f(x0 + W)},${f(y0)})">${panelBg(0, 0, D, H)}${rightUse(0, 0, D, H, s, k)}<rect width="${f(D)}" height="${f(H)}" fill="rgba(0,0,30,.22)"/></g>`;
+  if (open) o += `<path d="M${f(x0)} ${f(y0)} L${f(x0 + W)} ${f(y0)} L${f(x0 + W + D * A3)} ${f(by)} L${f(bx)} ${f(by)} Z" fill="${BLUE_D}"/>`;
+  else o += `<g transform="matrix(1,0,${-A3},${-B3},${f(x0 + D * A3)},${f(y0 + D * B3)})">${panelBg(0, 0, W, D)}${wingOuterLow(0, 0, W, D, s, k)}<rect width="${f(W)}" height="${f(D)}" fill="rgba(0,0,30,.12)"/></g>`;
+  o += panelBg(x0, y0, W, H) + front(x0, y0, W, H, s, k);
+  return o;
+}
+const boxW = (s, k, open) => s.W * k + s.D * k * (open && s.bb !== 'top' ? A3 + 1 : A3);
 function lineupSvg(k) {
   const G = 300, gap = 30; let x = 30, o = '';
   C.skus.forEach(s => { o += box3(s, k, x, G, true); o += `<text x="${f(x + s.W * k / 2)}" y="${f(G + 26)}" text-anchor="middle" class="dlab">${esc(s.name)} · ${s.W}×${s.D}×${s.H}</text>`; x += boxW(s, k, true) + gap; });
   return `<svg viewBox="0 0 ${f(x + 10)} 340" width="${f(x + 10)}" height="340" role="img" aria-label="단상자 4종, 우측 날개를 90도 열어 백보드가 보이는 모습, 같은 축척"><rect width="${f(x + 10)}" height="340" fill="var(--well)"/><line x1="0" y1="${G}" x2="${f(x + 10)}" y2="${G}" stroke="var(--line-2)"/>${o}</svg>`;
 }
 
+// ---------- 자 타입: 상단 백보드 (후면 윗선 경첩, 2겹, 닫으면 윗면을 덮음) ----------
+// 펼친 순서(바깥면): 가로 [후면][좌측][정면][우측][접착], 후면 위로 [상단 날개 A][백보드 B], 정면 위로 윗면 턱, 바닥은 후면 아래.
+function dielineTop(s, k) {
+  const W = s.W * k, D = s.D * k, H = s.H * k, G = 13 * k, tuck = 15 * k, dust = Math.min(s.D * 0.8, s.W * 0.5) * k, bleed = 3 * k;
+  const x0 = 30, top = 30 + 2 * D + 10, xs = [x0, x0 + W, x0 + W + D, x0 + 2 * W + D, x0 + 2 * W + 2 * D];
+  const totalW = 2 * W + 2 * D + G, VW = x0 * 2 + totalW + 10, VH = top + H + D + tuck + 40;
+  let o = `<svg viewBox="0 0 ${f(VW)} ${f(VH)}" width="${f(VW)}" height="${f(VH)}" role="img" aria-label="${esc(s.name)} 단상자 펼친 칼선 시안, 상단 백보드 포함, 내치수 ${s.W}×${s.D}×${s.H} mm (추정)">`;
+  o += `<rect x="${f(x0 - bleed)}" y="${f(top - bleed)}" width="${f(totalW - G + bleed * 2)}" height="${f(H + bleed * 2)}" fill="url(#cartonBlue)"/>`;
+  o += panelBg(xs[0], top, W, H) + back(xs[0], top, W, H, s, k);
+  o += panelBg(xs[1], top, D, H) + left(xs[1], top, D, H, s, k);
+  o += panelBg(xs[2], top, W, H) + front(xs[2], top, W, H, s, k);
+  o += panelBg(xs[3], top, D, H) + rightUse(xs[3], top, D, H, s, k);
+  o += `<path d="M${f(xs[4])} ${f(top)} L${f(xs[4] + G)} ${f(top + G * 0.27)} L${f(xs[4] + G)} ${f(top + H - G * 0.27)} L${f(xs[4])} ${f(top + H)} Z" class="ko"/>`;
+  // 상단 날개 A (바깥면 = USP 헤드라인, 윗면을 덮음) + 백보드 B (A 안쪽으로 접어 붙임)
+  const aY = top - D, bY0 = top - 2 * D;
+  o += panelBg(xs[0], aY, W, D) + `<g transform="rotate(180 ${f(xs[0] + W / 2)} ${f(aY + D / 2)})">${wingOuterLow(xs[0], aY, W, D, s, k)}</g>`;
+  o += panelBg(xs[0], bY0, W, D) + `<g transform="rotate(180 ${f(xs[0] + W / 2)} ${f(bY0 + D / 2)})">${backboardLow(xs[0], bY0, W, D, s, k)}</g>`;
+  o += `<path d="M${f(xs[0] + W / 2 - 7 * k)} ${f(bY0)} q${f(7 * k)} ${f(5 * k)} ${f(14 * k)} 0" fill="var(--sheet)" stroke="var(--ink)"/>`;
+  // 윗면 턱: 정면 윗선에 붙음
+  o += `<rect x="${f(xs[2])}" y="${f(top - D)}" width="${f(W)}" height="${f(D)}" fill="url(#cartonBlue)"/>`;
+  o += `<path d="M${f(xs[2] + 2)} ${f(top - D)} Q${f(xs[2] + 2)} ${f(top - D - tuck)} ${f(xs[2] + tuck)} ${f(top - D - tuck)} L${f(xs[2] + W - tuck)} ${f(top - D - tuck)} Q${f(xs[2] + W - 2)} ${f(top - D - tuck)} ${f(xs[2] + W - 2)} ${f(top - D)}" class="flap"/>`;
+  [xs[1], xs[3]].forEach(xx => { o += `<path d="M${f(xx)} ${f(top)} L${f(xx + 2)} ${f(top - dust)} L${f(xx + D - 4 * k)} ${f(top - dust)} L${f(xx + D)} ${f(top - 4 * k)} L${f(xx + D)} ${f(top)}" class="flap"/>`; });
+  // 바닥: 후면 아래
+  const bY = top + H;
+  o += `<rect x="${f(xs[0])}" y="${f(bY)}" width="${f(W)}" height="${f(D)}" fill="url(#cartonBlue)"/>`;
+  const cw = Math.min(40 * k, W - 6 * k), ch = Math.min(15 * k, D * 0.3);
+  o += `<rect x="${f(xs[0] + (W - cw) / 2)}" y="${f(bY + 3 * k)}" width="${f(cw)}" height="${f(ch)}" fill="#ECE7E0"/><text x="${f(xs[0] + W / 2)}" y="${f(bY + 3 * k + ch / 2 + 3)}" text-anchor="middle" ${SANS} font-size="${f(Math.min(2.4 * k, ch / 2.5))}" fill="#333">LOT / MFG / EXP</text>`;
+  o += bars(xs[0] + 3 * k, bY + 6 * k + ch, W - 6 * k, 5, Math.max(1.35 * k, 3), k, 0.5);
+  o += `<text x="${f(xs[0] + 3 * k)}" y="${f(bY + D - 3 * k)}" ${SANS} font-size="${f(Math.max(1.6 * k, 3.4))}" fill="${WHITE}" opacity=".8">전성분 이어짐 · 바코드</text>`;
+  o += `<path d="M${f(xs[0] + 2)} ${f(bY + D)} Q${f(xs[0] + 2)} ${f(bY + D + tuck)} ${f(xs[0] + tuck)} ${f(bY + D + tuck)} L${f(xs[0] + W - tuck)} ${f(bY + D + tuck)} Q${f(xs[0] + W - 2)} ${f(bY + D + tuck)} ${f(xs[0] + W - 2)} ${f(bY + D)}" class="flap"/>`;
+  [xs[1], xs[3]].forEach(xx => { o += `<path d="M${f(xx)} ${f(bY)} L${f(xx + 2)} ${f(bY + dust)} L${f(xx + D - 4 * k)} ${f(bY + dust)} L${f(xx + D)} ${f(bY + 4 * k)} L${f(xx + D)} ${f(bY)}" class="flap"/>`; });
+  o += `<rect x="${f(x0)}" y="${f(top)}" width="${f(totalW - G)}" height="${f(H)}" class="cut"/><rect x="${f(xs[0])}" y="${f(bY0)}" width="${f(W)}" height="${f(2 * D)}" class="cut"/><rect x="${f(xs[2])}" y="${f(top - D)}" width="${f(W)}" height="${f(D)}" class="cut"/><rect x="${f(xs[0])}" y="${f(bY)}" width="${f(W)}" height="${f(D)}" class="cut"/>`;
+  [xs[1], xs[2], xs[3], xs[4]].forEach(xx => { o += `<line x1="${f(xx)}" y1="${f(top)}" x2="${f(xx)}" y2="${f(top + H)}" class="crease"/>`; });
+  o += `<line x1="${f(xs[0])}" y1="${f(aY)}" x2="${f(xs[0] + W)}" y2="${f(aY)}" class="fold"/>`;
+  [top - 1.5, top + 1.5].forEach(yy => { o += `<line x1="${f(xs[0])}" y1="${f(yy)}" x2="${f(xs[0] + W)}" y2="${f(yy)}" class="hinge"/>`; });
+  o += `<line x1="${f(xs[1])}" y1="${f(top)}" x2="${f(x0 + totalW - G)}" y2="${f(top)}" class="crease"/><line x1="${f(x0)}" y1="${f(bY)}" x2="${f(x0 + totalW - G)}" y2="${f(bY)}" class="crease"/>`;
+  const lab = (xx, ww, t) => `<text x="${f(xx + ww / 2)}" y="${f(top + H + D + tuck + 24)}" text-anchor="middle" class="dlab">${t}</text>`;
+  o += lab(xs[0], W, `후면 ${s.W}`) + lab(xs[1], D, `좌 ${s.D}`) + lab(xs[2], W, `정면 ${s.W}`) + lab(xs[3], D, `우 ${s.D}`) + lab(xs[4], G, '접착');
+  o += `<text x="${f(xs[0] - 6)}" y="${f(bY0 + D / 2)}" text-anchor="end" class="dlab">백보드</text><text x="${f(xs[0] - 6)}" y="${f(aY + D / 2)}" text-anchor="end" class="dlab">상단 날개</text>`;
+  return o + '</svg>';
+}
+// 낮고 넓은 면용 레이아웃 (가로형)
+function wingOuterLow(x, y, w, h, s, k) {
+  const m = 3 * k, big = Math.min(h * 0.42, 12 * k), sm = Math.max(1.8 * k, 4);
+  let o = `<text x="${f(x + w * 0.3)}" y="${f(y + h * 0.55)}" text-anchor="middle" ${MONT} font-weight="700" font-size="${f(big)}" fill="${CU}">${s.usp[0]}</text>`;
+  o += `<text x="${f(x + w * 0.3)}" y="${f(y + h * 0.55 + sm * 1.4)}" text-anchor="middle" ${SANS} font-weight="600" font-size="${f(sm * 0.8)}" fill="${CU}">${s.usp[1]}</text>`;
+  const pw = w * 0.36, ph = h - 2 * m;
+  o += `<rect x="${f(x + w - m - pw)}" y="${f(y + m)}" width="${f(pw)}" height="${f(ph)}" fill="url(#skin)"/><text x="${f(x + w - m - pw + 2)}" y="${f(y + m + ph - 3)}" ${SANS} font-size="${f(Math.max(1.5 * k, 3.2))}" fill="#3A2A20">TEXTURE</text>`;
+  return o;
+}
+function backboardLow(x, y, w, h, s, k) {
+  const m = 3 * k, sm = Math.max(1.8 * k, 4), iw = w - 2 * m;
+  let o = `<text x="${f(x + w / 2)}" y="${f(y + m + sm)}" text-anchor="middle" ${MONT} font-weight="700" font-size="${f(Math.min(iw / 7, 3.6 * k))}" fill="${CU}">BEFORE · AFTER</text>`;
+  const pw = (iw - 3 * k) / 2, ph = h - 2 * m - sm * 2 - s.check.length * sm * 1.2;
+  ['BEFORE', 'AFTER 4W'].forEach((t, i) => { if (ph > 6) o += `<rect x="${f(x + m + i * (pw + 3 * k))}" y="${f(y + m + sm * 1.6)}" width="${f(pw)}" height="${f(ph)}" fill="url(#skin)"/><text x="${f(x + m + i * (pw + 3 * k) + 2)}" y="${f(y + m + sm * 1.6 + ph - 3)}" ${SANS} font-size="${f(Math.max(1.5 * k, 3.2))}" fill="#3A2A20">${t}</text>`; });
+  let cy = y + m + sm * 1.6 + ph + sm * 1.1;
+  s.check.forEach(t => { const bx = sm * 0.7; o += `<rect x="${f(x + m)}" y="${f(cy - bx * 0.85)}" width="${f(bx)}" height="${f(bx)}" fill="none" stroke="${CU}"/><text x="${f(x + m + bx * 1.5)}" y="${f(cy)}" ${SANS} font-weight="600" font-size="${f(sm * 0.72)}" fill="${CU}">${t}</text>`; cy += sm * 1.2; });
+  return o;
+}
 // ---------- page ----------
 const defsExtra = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <linearGradient id="cartonBlue" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#2230A3"/><stop offset="1" stop-color="#18208A"/></linearGradient>
@@ -207,10 +278,10 @@ const defsExtra = `<svg width="0" height="0" style="position:absolute" aria-hidd
 const K = 2.6;
 const skuCards = C.skus.map(s => `
   <article class="cart">
-    <header><span class="sid">${s.id}</span><h3>${esc(s.name)}</h3><span class="tag ${s.place === '욕실' ? '' : 'gold'}">${s.place}</span><span class="muted">내치수 ${s.W} × ${s.D} × ${s.H} mm (추정) · ${esc(s.fit)}</span></header>
+    <header><span class="sid">${s.id}</span><h3>${esc(s.name)}</h3><span class="tag ${s.place === '욕실' ? '' : 'gold'}">${s.place}</span><span class="muted">내치수 ${s.W} × ${s.D} × ${s.H} mm (추정) · ${esc(s.fit)} · 포장공간비율 ${(100 * (1 - s.prod[0] * s.prod[1] * s.prod[2] / (s.W * s.D * s.H))).toFixed(1)}% · ${s.bb === 'top' ? '상단 백보드' : '우측 날개 백보드 (깊이:폭 ' + (s.D / s.W).toFixed(2) + ')'}</span></header>
     <div class="cartrow">
-      <figure class="closed">${(() => { const G = s.H * K + 30 + s.D * K * 0.3, w = boxW(s, K, false) + 30; return `<svg viewBox="0 0 ${f(w)} ${f(G + 14)}" width="${f(w)}" height="${f(G + 14)}" role="img" aria-label="${esc(s.name)} 단상자 닫힌 모습">${box3(s, K, 14, G, false)}</svg>`; })()}<figcaption>닫힘 · 날개 바깥면</figcaption></figure>
-      <figure class="closed">${(() => { const G = s.H * K + 30 + s.D * K * 0.3, w = boxW(s, K, true) + 30; return `<svg viewBox="0 0 ${f(w)} ${f(G + 14)}" width="${f(w)}" height="${f(G + 14)}" role="img" aria-label="${esc(s.name)} 단상자 날개를 연 모습, 백보드">${box3(s, K, 14, G, true)}</svg>`; })()}<figcaption>열림 · 날개 90° = 백보드</figcaption></figure>
+      <figure class="closed">${(() => { const G = s.H * K + 30 + s.D * K * 0.3, w = boxW(s, K, false) + 30; return `<svg viewBox="0 0 ${f(w)} ${f(G + 14)}" width="${f(w)}" height="${f(G + 14)}" role="img" aria-label="${esc(s.name)} 단상자 닫힌 모습">${box3(s, K, 14, G, false)}</svg>`; })()}<figcaption>${s.bb === 'top' ? '닫힘 · 상단 날개가 윗면을 덮음' : '닫힘 · 날개 바깥면'}</figcaption></figure>
+      <figure class="closed">${(() => { const G = s.H * K + 30 + s.D * K * 0.3 + (s.bb === 'top' ? s.D * K : 0), w = boxW(s, K, true) + 30; return `<svg viewBox="0 0 ${f(w)} ${f(G + 14)}" width="${f(w)}" height="${f(G + 14)}" role="img" aria-label="${esc(s.name)} 단상자 날개를 연 모습, 백보드">${box3(s, K, 14, G, true)}</svg>`; })()}<figcaption>${s.bb === 'top' ? '열림 · 상단 날개 90° = 백보드' : '열림 · 날개 90° = 백보드'}</figcaption></figure>
       <figure class="dl">${dieline(s, K)}<figcaption>펼친 칼선 (백보드 | 날개 | 후면 | 좌측 | 정면 | 우측 | 접착) · 실선 = 재단, 점선 = 괘선, 이중선 = 날개 경첩, 굵은 점선 = 2겹 접어 붙임</figcaption></figure>
     </div>
   </article>`).join('');
@@ -241,7 +312,8 @@ const visual = [
   ['높음', 'AF 라미 위에 포일이 잘 안 붙을 수 있습니다', '지문 방지·소프트 계열 무광 필름은 표면이 미끄러워 핫포일과 UV 밀착이 떨어지는 경우가 많습니다(추정). 유광 로고가 이 상자의 유일한 광택이라 벗겨지면 치명적입니다.', '포일 적성이 있는 AF 라미 품번을 지정하고, 포일 테이프 시험과 손기름 지문 시험을 샘플 승인 조건으로 겁니다(C02).'],
   ['높음', '에칭 UV와 지문 방지가 부딪힙니다', '가이드 v5(10/4)는 전면 에칭 UV를 확정했지만, 에칭 결 위에는 손기름이 남기 쉬워 AF 효과가 줄어듭니다(추정).', '기본안에서 에칭을 빼고, 넣으려면 지문 시험을 통과하게 합니다(C03). 대표님 결정이 필요합니다.'],
   ['높음', '우측 USP의 % 수치와 비포/애프터는 근거가 있어야 합니다', 'RoC 94%, 샬롯 틸버리 -52%는 인체적용시험 결과입니다. 터노바는 아직 시험 전이라 그대로 따라 하면 표시·광고 위반입니다.', '인체적용시험은 10/31 발주 시 결과가 1월 말 예상입니다. 1차 생산분 우측면은 사용감 표현(예: 마르면서 조여드는 느낌)과 사용법으로 채우고, 결과가 나오면 슬리브나 2차 인쇄로 % 수치를 넣습니다.'],
-  ['중간', '필링 에센스·필링밤 상자는 후면에 한·영 전성분이 다 안 들어갈 수 있습니다', '에센스 후면 36 × 111 mm, 필링밤 후면 55 × 41 mm입니다. 성분 30개 기준 한·영 전성분을 5 pt로 넣으면 각각 약 130 mm·70 mm 높이가 필요합니다(추정).', '필링밤은 상자를 키우고 안에 받침을 넣는 안을 권장합니다(정면도 커져 SNS에 유리). 에센스는 바닥·윗면 일부를 쓰거나 우측 하단을 함께 씁니다.'],
+  ['높음', '포장공간비율 10% 이하(화장품류, 추정)를 지켜야 합니다', '앞 버전 치수(여유 2–3 mm)로는 에센스 18%, 필링밤 17%, 배리어 11%로 기준을 넘었습니다. 상자를 키워 정면을 넓히는 방법은 쓸 수 없습니다.', '내치수를 용기 외곽 + 1 mm(높이 + 2 mm)로 줄여 4종 모두 5–9%로 맞췄습니다(C17). 면적이 더 필요하면 상자 대신 백보드로 늘립니다. 조문·계산법은 RA 확인이 필요합니다.'],
+  ['중간', '필링 에센스·필링밤은 후면에 한·영 전성분이 다 안 들어갈 수 있습니다', '에센스 후면 34 × 110 mm, 필링밤 후면 53 × 40 mm입니다. 성분 30개 기준 한·영 5 pt면 각각 약 130 mm·70 mm 높이가 필요합니다(추정).', '필링밤은 후면 + 바닥(53 × 53)으로 이어 싣고, 에센스는 후면 + 우측면 하단을 씁니다. 전성분 확정(12/15) 뒤 칼선으로 다시 계산합니다.'],
   ['중간', '좌측 상품 이미지는 실제 기성 용기 사진이어야 합니다', '렌더와 실물이 다르면 오인 표시가 되고, 리뷰 사진과도 어긋납니다.', '10월 말 샘플이 오면 같은 조명으로 4종을 촬영해 좌측면과 상세페이지에 같이 씁니다.'],
   ['중간', '종이 블루와 용기 블루가 다르게 나옵니다', 'SBS 원지 인쇄 블루와 PBL 튜브·PETG 병·PP 캡 블루는 같은 팬톤이어도 톤이 다릅니다.', '용기와 같은 칩 1개로 상자 드로다운을 승인하고, 상자와 용기를 나란히 폰 촬영합니다(C12).'],
   ['중간', '4종 상자가 매대에서 비슷해 보입니다', '전부 같은 블루라 정면 제품명과 크기로만 구분됩니다.', '좌측 상품 이미지와 윗면을 활용합니다. 윗면에 제품명을 작게 추가할지 결정이 필요합니다.'],
@@ -255,7 +327,8 @@ const decisions = [
   ['에칭 UV', '빼기 (권장)', '지문 방지와 포일 밀착을 우선합니다. 유지하려면 지문 시험 통과 조건을 겁니다.'],
   ['날개 적용 범위', '4종 모두 (권장)', '라인업 사진에서 백보드가 같은 높이로 줄지어 보입니다. 비용을 줄이려면 배리어·랩핑 2종만 먼저 적용합니다.'],
   ['1차 생산 USP', '실증 전에는 성분·루틴 면으로 인쇄 (권장)', '시험 결과가 나오면 슬리브 또는 2차 인쇄로 % 수치를 넣습니다.'],
-  ['필링밤 상자 크기', '상자를 키우고 받침 넣기 (권장)', '전성분 공간과 정면 로고 크기를 같이 확보합니다.'],
+  ['필링밤 백보드', '상단 백보드 (대표 10/14, 권장)', '낮고 넓은 자 상자라 위로 세워야 매대·손샷에서 보입니다. 닫으면 윗면을 덮고, 윗면 턱은 정면 쪽으로 옮깁니다.'],
+  ['1차 생산 백보드 내용', '텍스처 컷 + 사용감 체크리스트 (권장)', '인체적용시험 전이라 비포/애프터 사진을 쓸 수 없습니다. 비어 보이지 않게 제형 스와치 사진을 크게 넣고, 결과가 나오면 비포/애프터로 바꿉니다.'],
   ['윗면 표기', 'TURNOVA + 제품명 소형', '서랍·박스 적재 상태에서 SKU를 찾기 쉽습니다.'],
   ['날개 닫힘 방식', '마찰 턱 (권장) / 투명 원형 씰 / 마이크로 자석', '씰은 첫 개봉 표시가 되지만 매장 테스트 때 다시 닫기 어렵고, 자석은 단가가 오릅니다(추정).']
 ];
@@ -332,7 +405,7 @@ const body = `
 <header class="hero">
   <div class="wrap">
     <div class="eyebrow">TURNOVA · 단상자 시안 · 2026-10-14 · 우측 날개 백보드 · 대표 지시 + 가이드 v5 + 지니어스 비주얼팀</div>
-    <h1>오른쪽 날개를 열면 <span class="oct">백보드</span>가 섭니다.<br>무광 블루에 로고만 유광.</h1>
+    <h1>날개를 열면 <span class="oct">백보드</span>가 섭니다.<br>튜브·병은 오른쪽, 자는 위쪽.</h1>
     <p class="lede">대표님이 정하신 면 배치(정면 브랜드 · 좌측 상품 이미지 · 후면 한·영 전성분 · 우측 날개 USP)를 가이드 v5의 단상자 규칙(무광 라미, 샤넬식 정면 비율, 칼선·수출 표시 부록)과 합쳤습니다. 가이드의 "좌측면 = 성분 스토리"는 대표님 지시대로 상품 이미지로 바꿨습니다. 치수는 <span class="tag warn">추정</span>이고 용기 도면 회신(10/24) 뒤 다시 계산합니다.</p>
     <div class="verdict" role="list">
       <div role="listitem"><div class="k">마감</div><div class="v">무광 로열블루 + 지문 방지 AF 라미 · 로고만 유광 코퍼 포일</div><div class="s">포일 적성 AF 필름 지정 · 에칭 UV는 기본안에서 제외 권장</div></div>
@@ -347,7 +420,7 @@ const body = `
 </header>
 <main>
 <section><div class="wrap">
-  <div class="sec-head"><div class="eyebrow">01 · 라인업</div><h2>4종 날개를 연 모습 (같은 축척)</h2><p class="lede">샬롯 틸버리처럼 우측 날개를 90° 열면 정면 오른쪽에 백보드가 섭니다. 매장 진열과 릴스 손샷에서 브랜드(정면)와 근거(백보드)가 한 컷에 잡힙니다.</p></div>
+  <div class="sec-head"><div class="eyebrow">01 · 라인업</div><h2>4종 백보드를 연 모습 (같은 축척)</h2><p class="lede">튜브·병 상자는 샬롯 틸버리처럼 우측 날개를 90° 열면 정면 오른쪽에, 필링밤 자 상자는 상단 날개를 세우면 위쪽에 백보드가 섭니다. 매장 진열과 릴스 손샷에서 브랜드(정면)와 근거(백보드)가 한 컷에 잡힙니다.</p></div>
   <div class="lineup">${lineupSvg(2.2)}</div>
 </div></section>
 <section><div class="wrap">

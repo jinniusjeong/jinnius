@@ -1,17 +1,17 @@
 // TURNOVA 단상자 기준 (2026-10-13). 대표 지시(10/13) + 가이드 v5 4·8·9-1·9-4·9-5장·부록 A/B 통합.
-// 치수 단위 mm. 내치수 = 용기 최대 치수 + 여유(폭·깊이 +2, 높이 +3). 용기 도면 회신(10/24) 후 다시 계산 — 전부 추정값.
+// 치수 단위 mm. 내치수 = 용기 최대 치수 + 여유(폭·깊이 +1, 높이 +2), 포장공간비율 10% 이하(화장품류, 추정)에 맞춤. prod = 용기 외곽 직육면체. 용기 도면 회신(10/24) 후 다시 계산.
 module.exports = {
   skus: [
-    { id: 'BAR', name: '배리어 크림', place: '화장대', L1: 'DAILY BARRIER', L2: 'CREAM', kr: '터노바 데일리 배리어 크림', vol: '50 mL ℮ | 1.69 FL. OZ.', claim: 'Daily Moisture Barrier Cream', W: 57, D: 37, H: 118,
+    { id: 'BAR', name: '배리어 크림', place: '화장대', L1: 'DAILY BARRIER', L2: 'CREAM', kr: '터노바 데일리 배리어 크림', vol: '50 mL ℮ | 1.69 FL. OZ.', claim: 'Daily Moisture Barrier Cream', W: 56, D: 36, H: 117, bb: 'side', prod: [55, 35, 115],
       fit: '35Φ 튜브, 실링 폭 55 · 전체 115', product: { kind: 'tube', o: { shape: 'slim', body: 'blue', cap: 'roundFlip', metal: 'copper', band: 'none' } },
       check: ['촉촉함이 오래감', '당김 없는 마무리', '부드러운 결 느낌'], usp: ['00%', '사용감 문구 · 실증 후 수치*'] },
-    { id: 'MSK', name: '랩핑 마스크', place: '욕실', L1: 'LIFTING WRAPPING', L2: 'MASK', kr: '터노바 리프팅 랩핑 마스크', vol: '60 mL ℮ | 2.02 FL. OZ.', claim: 'Rinse-off Wrapping Mask · 10 min', W: 81, D: 52, H: 102,
+    { id: 'MSK', name: '랩핑 마스크', place: '욕실', L1: 'LIFTING WRAPPING', L2: 'MASK', kr: '터노바 리프팅 랩핑 마스크', vol: '60 mL ℮ | 2.02 FL. OZ.', claim: 'Rinse-off Wrapping Mask · 10 min', W: 80, D: 51, H: 101, bb: 'side', prod: [79, 50, 99],
       fit: '50Φ 숏 튜브, 실링 폭 79 · 전체 99', product: { kind: 'tube', o: { shape: 'xwide', body: 'blue', cap: 'roundFlip', metal: 'blue', band: 'metalCollar' } },
       check: ['마르면서 조여드는 느낌', '10분이면 마르는 필름', '깔끔하게 씻김'], usp: ['00%', '마르면서 조여드는 느낌*'] },
-    { id: 'ESS', name: '필링 에센스', place: '욕실', L1: 'PEELING BOOSTING', L2: 'ESSENCE', kr: '터노바 필링 부스팅 에센스', vol: '30 mL ℮ | 1.01 FL. OZ.', claim: 'Rinse-off · 1–3 min', W: 36, D: 36, H: 111,
+    { id: 'ESS', name: '필링 에센스', place: '욕실', L1: 'PEELING BOOSTING', L2: 'ESSENCE', kr: '터노바 필링 부스팅 에센스', vol: '30 mL ℮ | 1.01 FL. OZ.', claim: 'Rinse-off · 1–3 min', W: 34, D: 34, H: 110, bb: 'side', prod: [33, 33, 108],
       fit: '헤비블로우 Ø33 스포이드 병 · 전체 108', product: { kind: 'bottle', o: { type: 'dropper', body: 'blue', finish: 'smooth', bulb: 'blue' } },
       check: ['1–3분 뒤 씻어 냄', '매끈한 결 느낌', '산뜻한 마무리'], usp: ['00%', '사용감 문구 · 실증 후 수치*'] },
-    { id: 'BLM', name: '필링밤', place: '화장대', L1: 'PEELING BALM', L2: 'CREAM', kr: '터노바 필링밤 크림', vol: '20 g ℮ | NET WT. 0.7 OZ.', claim: 'Leave-on Night Peeling Cream', W: 55, D: 55, H: 41,
+    { id: 'BLM', name: '필링밤', place: '화장대', L1: 'PEELING BALM', L2: 'CREAM', kr: '터노바 필링밤 크림', vol: '20 g ℮ | NET WT. 0.7 OZ.', claim: 'Leave-on Night Peeling Cream', W: 53, D: 53, H: 40, bb: 'top', prod: [52, 52, 38],
       fit: '헤비블로우 PETG 자 Ø52×38', product: { kind: 'jar', o: { shape: 'low', lid: 'round', body: 'blue' } },
       check: ['바르고 자는 필링밤', '부드러운 결 느낌', '끈적임 없는 마무리'], usp: ['00%', '사용감 문구 · 실증 후 수치*'] }
   ],
@@ -20,7 +20,7 @@ module.exports = {
     { face: '좌측면', owner: '상품 이미지', what: '실제 용기 사진 또는 렌더(정면 그대로, 블루 + 코퍼). 아래 25–30%는 수입국 스티커 존(에칭 제외)', rule: '용기 기성품 샘플 촬영본으로 교체. 사진 위 글자 없음', src: '대표 10/13 (가이드 부록 A의 "좌측면 성분 스토리"를 대체)' },
     { face: '후면', owner: '전성분 · 한글 + 영어', what: '전성분(한글 / 영문 INCI, 1:1 대조), 사용법·주의사항 KO/EN(시행규칙 별표3 문안 · AHA 조건부 문구), 화장품책임판매업자·제조업자, 제조국 대한민국 · Made in Korea, 고객상담·홈페이지, 재질·분리배출, PAO, QR', rule: '함량 순, INCI 통일, 화이트 소자 5 pt 이상(한국)·1/16 inch(미국), 바코드는 바닥으로', src: '대표 10/13 · 가이드 부록 A·9-1' },
     { face: '우측 날개 · 바깥면', owner: 'USP 헤드라인 (닫힘)', what: '배지 → 큰 % 수치 + 클레임 → "무보정" → 비포/애프터 2컷 → 각주. 날개가 우측면을 덮고 있을 때 보이는 면', rule: '코퍼 무광 잉크(포일 금지). 인체적용시험 결과(1월 말 예상) 전에는 사용감 표현만, 수치는 "00%"', src: '대표 10/14 (샬롯 틸버리식 우측 날개) · 가이드 9-2' },
-    { face: '우측 날개 · 백보드', owner: 'USP 증거 (열림)', what: '날개를 90° 열면 정면과 같은 방향으로 서는 면. BEFORE · AFTER 2컷 + 체크리스트 3줄 + 각주', rule: '2겹 날개(접어 붙임)라 이 면도 바깥면 AF 라미. 매대·손샷에서 정면과 한 컷에 보임', src: '대표 10/14' },
+    { face: '우측 날개 · 백보드 (자는 상단)', owner: 'USP 증거 (열림)', what: '날개를 90° 열면 정면과 같은 방향으로 서는 면. BEFORE · AFTER 2컷 + 체크리스트 3줄 + 각주. 필링밤 자 상자는 후면 윗선에 붙은 상단 날개가 위로 서서 백보드가 됩니다', rule: '2겹 날개(접어 붙임)라 이 면도 바깥면 AF 라미. 매대·손샷에서 정면과 한 컷에 보임', src: '대표 10/14' },
     { face: '우측면', owner: '사용법 (열림)', what: '날개를 열면 드러나는 면. 8 PM · YOUR TURN + STEP 1–3 사용법 KO/EN', rule: '법정 필수 표시는 넣지 않음(날개에 가려지므로 후면에)', src: '대표 10/14 · 가이드 9-2'},
     { face: '윗면', owner: '브랜드', what: 'TURNOVA 소형 워드마크', rule: '정면에서 내려다볼 때 읽히는 방향', src: '가이드 부록 A' },
     { face: '바닥', owner: '코딩', what: 'LOT / MFG / EXP + PAO 코딩창 약 40 × 15 mm(무코팅 밝은 창), EAN-13 바코드', rule: '라미 위 잉크젯 금지 → 레이저 코딩 또는 라벨', src: '가이드 부록 A·9-4' },
@@ -42,6 +42,9 @@ module.exports = {
     { id: 'C13', area: '라인 통일', rule: '4종 상자는 같은 배치·같은 서체·같은 비율이고, 크기와 좌측 상품 이미지만 다릅니다. 색 반전(코퍼 바디)은 세트·한정판만입니다.', src: 'R12 · 가이드 AD-7' },
     { id: 'C15', area: '제품명', rule: '제품명은 THE 없이 영문 + 국문을 함께 씁니다. 성분 코드는 "with TERN-8™"(등록 전 ™)이고 TRX-8은 쓰지 않습니다. 국문 브랜드는 "터노바"만 씁니다.', src: '대표 10/13 (제품명·표기 세션 v4)' },
     { id: 'C16', area: '클레임', rule: '정면에는 효능 문구·안티에이징·노화 방지·성분 %를 넣지 않습니다. 측면은 사용감 표현(예: 마르면서 조여드는 느낌)만 쓰고, 즉시 리프팅·시술급·재생·박피·주름은 금지입니다.', src: '디자인 의뢰서 10/11 · 제품명·표기 세션 10/13' },
+    { id: 'C17', area: '포장공간비율', rule: '상자 내치수는 용기 외곽 + 폭·깊이 1 mm, 높이 2 mm 여유로 잡아 포장공간비율 10% 이하(화장품류, 추정)를 지킵니다. 상자를 키워 정면을 넓히는 방식은 쓰지 않고, 면적은 백보드로 늘립니다.', src: '제품의 포장재질·포장방법 기준 규칙(조문 확인 필요) · 비주얼팀 10/14' },
+    { id: 'C18', area: '백보드 방향', rule: '높이가 폭보다 큰 상자(튜브·병)는 우측 날개 백보드, 낮고 넓은 상자(자)는 상단 백보드입니다. 상단 백보드는 후면 윗선에 붙고, 닫으면 윗면을 덮습니다. 윗면 턱은 정면 쪽으로 옮깁니다.', src: '대표 10/14' },
+    { id: 'C19', area: '비율', rule: '튜브 상자는 깊이 : 폭 ≈ 1 : 1.618(실측 0.64)이라 날개 백보드가 정면의 약 0.62배로 황금비가 맞습니다. 정사각 단면(에센스·자)은 백보드 = 정면 폭입니다. 1차 생산 백보드는 비포/애프터 대신 텍스처 컷 + 사용감 체크리스트를 씁니다.', src: '가이드 8장 황금비 · 비주얼팀 10/14' },
     { id: 'C14', area: '수출', rule: '바닥에 LOT/EXP 창, 좌측 하단 스티커 존, 후면에 Made in Korea·Distributed by·EU RP 자리를 미리 비워 둡니다.', src: '가이드 9-1·부록 B' }
   ]
 };
