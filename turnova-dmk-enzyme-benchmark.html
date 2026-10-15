@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: 보고서형 단일 칼럼(본문 68ch) + 넓은 표·비교 블록. 터노바 시스템(로열블루+코퍼)을 축으로, DMK는 포레스트·세이지 그린으로 구분 */
+/* v4 지니어스팀 검토판. Layout: 보고서형 단일 칼럼(본문 68ch) + 넓은 표·비교 블록. 터노바 시스템(로열블루+코퍼)을 축으로, DMK는 포레스트·세이지 그린으로 구분 */
 :root{
   --bg:#F4F5F9; --surface:#FFFFFF; --panel:#E9ECF4;
   --ink:#121A33; --ink-2:#3A4562; --muted:#69718A;
@@ -195,117 +195,131 @@ html{scroll-behavior:smooth}
 
 <div class="wrap">
 <header class="mast">
-  <div class="docmeta"><span><b>TURNOVA</b> · 주식회사 리버스에이징</span><span>지니어스팀 보고 v3</span><span class="num">2026-10-15</span></div>
+  <div class="docmeta"><span><b>TURNOVA</b> · 주식회사 리버스에이징</span><span>지니어스팀 보고 v4 · 6인 전수 검토판</span><span class="num">2026-10-15</span></div>
   <h1 class="title">DMK 엔자임 마스크 해부<span class="x">×</span>터노바 STEP 3 전략</h1>
-  <p class="lede">벤치마크 대상 DMK(Danné Montague-King)의 브랜드 스토리, 슬로건, 엔자임 팩 USP와 효능 주장, 마케팅·브랜드 관리 구조를 공식 원문으로 해부했습니다. 그다음 실제 매대 경쟁자(좀비팩·Hanacure·메디큐브), 국내외 소비자 리뷰, 식약처 광고 지침, 필름 마스크 논문으로 터노바 STEP 3의 이름·처방·사용법·가격·카피를 점검했습니다. v1·v2에서 틀렸던 권고는 이 버전에서 바로잡았습니다.</p>
+  <p class="lede">DMK(Danné Montague-King)의 브랜드 스토리·슬로건·엔자임 팩 USP·마케팅 구조를 해부하고, 터노바 STEP 3(워시오프 크랙 마스크)의 이름·처방·사용법·가격·카피·론칭 계획으로 옮겼습니다. 이 판은 지니어스팀 6명(브랜드 전략, 마케팅·그로스, 규제·법무, 처방·R&amp;D, 가격·수익성, 레드팀·팩트체크)이 v3를 전수 검토한 결과를 반영했습니다. 주장 약 90개 중 약 60개를 1차 출처로 다시 확인했고, 틀린 것은 고치고 근거가 없는 것은 뺐습니다.</p>
   <div class="legend">
     <span class="tag o">DMK 공식 원문 확인</span>
     <span class="tag p">제3자·언론·리뷰</span>
-    <span class="tag u">미확인·추정</span>
+    <span class="tag u">미확인·추정·가정</span>
     <span class="tag t">터노바 내부 자료</span>
   </div>
 </header>
 
 <nav class="toc" aria-label="목차"><div class="row">
-  <a href="#bottom"><span>00</span>결론·결정사항</a>
+  <a href="#verdict"><span>00</span>지니어스팀 판정</a>
   <a href="#brand"><span>01</span>DMK 브랜드</a>
-  <a href="#masque"><span>02</span>엔자임 팩 해부</a>
+  <a href="#masque"><span>02</span>엔자임 팩</a>
   <a href="#machine"><span>03</span>마케팅 머신</a>
   <a href="#voc"><span>04</span>고객의 목소리</a>
   <a href="#market"><span>05</span>시장 현실</a>
-  <a href="#strategy"><span>06</span>터노바 연계 전략</a>
-  <a href="#claims"><span>07</span>광고 가드레일</a>
-  <a href="#redteam"><span>08</span>레드팀</a>
-  <a href="#plan"><span>09</span>지니어스팀 업무</a>
-  <a href="#sources"><span>10</span>정정·출처</a>
+  <a href="#strategy"><span>06</span>STEP 3 전략</a>
+  <a href="#gtm"><span>07</span>론칭 GTM</a>
+  <a href="#price"><span>08</span>가격</a>
+  <a href="#claims"><span>09</span>광고·규제</a>
+  <a href="#rnd"><span>10</span>처방·4차 요청서</a>
+  <a href="#redteam"><span>11</span>레드팀</a>
+  <a href="#plan"><span>12</span>업무 계획</a>
+  <a href="#log"><span>13</span>검토 기록·출처</a>
 </div></nav>
 
 <!-- 00 -->
-<section id="bottom">
-  <div class="sec-head"><span class="sec-no">00 · BOTTOM LINE</span><h2>결론부터: DMK에서 가져올 것은 제품이 아니라 '장면을 소유하는 법'입니다</h2></div>
+<section id="verdict">
+  <div class="sec-head"><span class="sec-no">00 · GENIUS TEAM VERDICT</span><h2>지니어스팀 판정: v3의 큰 줄기는 유지, 결론 다섯 개는 뒤집혔습니다</h2></div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>검토자</th><th>발견</th><th>가장 큰 지적</th><th>반영</th></tr></thead>
+    <tbody>
+      <tr><td class="k">브랜드 전략</td><td class="num">치명 1 · 높음 4 · 중간 5 · 낮음 2</td><td>STEP 3를 '그날 아침' 제품으로 만들면 '밤 브랜드' 첫인상이 무너짐. 'NOVA'를 제품명으로 쓰면 세계관 단어를 한 SKU가 가져감</td><td>반영 (06장)</td></tr>
+      <tr><td class="k">마케팅·그로스</td><td class="num">치명 3 · 높음 5 · 중간 6 · 낮음 3</td><td>실행 가능한 론칭 계획(GTM)이 없음. 일본이 빠짐. 시딩할 실물이 일정상 없음</td><td>반영 (07장 신설)</td></tr>
+      <tr><td class="k">규제·법무</td><td class="num">높음 3 · 중간 5 · 낮음 2</td><td>'리버스에이징' 카테고리 선언이 한국·일본·대만·중국·아세안·미국 모두에서 효능 표현으로 금지·고위험. FAQ "당겨 펴는 방향"은 주름 개선 오인</td><td>반영 (09장)</td></tr>
+      <tr><td class="k">처방·R&amp;D</td><td class="num">치명 1 · 높음 5 · 중간 4 · 낮음 2</td><td>4차 요청서에 3차 미달 항목 '건조 중 크랙'이 빠짐. '수축 최소치' 권고는 제품 핵심과 충돌</td><td>반영 (10장 요청서 수정본)</td></tr>
+      <tr><td class="k">가격·수익성</td><td class="num">치명 2 · 높음 3 · 중간 4 · 낮음 2</td><td>1회 사용량 미정으로 회당 가격이 4배 범위에서 흔들림. '목표 공급률 10~15%'가 원가율인지 채널 공급률인지 문서마다 다름</td><td>반영 (08장)</td></tr>
+      <tr><td class="k">레드팀·팩트체크</td><td class="num">주장 약 90개 · 원문 확인 약 60개 · 치명 2 · 높음 10</td><td>핵심 차별점(무계란·무향)을 Hanacure가 이미 가짐. 숫자 오류 6건, 출처 오귀속 5건</td><td>전부 정정 (13장 기록)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sub">v3에서 뒤집힌 결론</h3>
   <ol class="findings">
-    <li><div><b>DMK 엔자임 팩의 실체는 알부민 피막 마스크에 의식(儀式)과 언어를 입힌 것입니다.</b><p>홈용 Foamy Lift 공식 전성분 1번은 Albumen(난백), 2번은 옥수수전분입니다. 차별점은 성분이 아니라 45분간 굳어 못 움직이는 경험, 떼어낸 뒤 붉은 혈관 망(Plasmatic Effect®), 그리고 이를 설명하는 고유 용어 체계입니다.</p></div></li>
-    <li><div><b>DMK의 힘은 마케팅 예산이 아니라 닫힌 유통 구조에서 나옵니다.</b><p>소비자 직판 금지 → 교육 이수자만 구매 → 연 매입액 등급(Bronze $12k~Emerald $100k)이 곧 클리닉 지도 노출 순위 → 코스(6~16회)+홈케어 의무 구매. 소셜 규모는 크지 않고(인스타 8.7만, 유튜브 3천), 바이럴은 클리닉과 셀럽이 만들어 줍니다.</p></div></li>
-    <li><div><b>터노바가 실제로 싸울 상대는 DMK가 아니라 좀비팩과 다이소입니다.</b><p>"10분 동안 마르고, 조이고, 갈라지고, 씻는다"는 좀비팩이 2014년부터 팔았고, 지금은 다이소 500원 캡슐팩까지 '일명 좀비팩'으로 불리는 원자재 시장입니다. 이 장면만으로는 프리미엄 가격을 받을 수 없습니다.</p></div></li>
-    <li><div><b>좀비팩 리뷰 1위 불만은 계란 비린내입니다. 터노바는 이미 그 답을 갖고 있습니다.</b><p>국내외 리뷰어 약 30명 중 13명이 냄새를 불만으로 꼽았습니다. 터노바는 알부민·향료를 빼고 처방 중이라 "계란 없이 조이는, 냄새 없는 팩"이 가장 강한 차별점입니다.</p></div></li>
-    <li><div><b>STEP 3 이름은 "엔자임 리프팅 팩"도 "랩핑 마스크"도 아닙니다.</b><p>'리프팅'은 식약처가 2025년 기능성 오인으로 적발한 표현이고, '랩핑 마스크'는 국내에서 필오프(떼어내는) 마스크를 뜻합니다(네이버 블로그 제목 91건 중 워시오프 크랙형을 랩핑으로 부른 사례 0건). 메디큐브·메디필 검색량에도 묻힙니다.</p></div></li>
-    <li><div><b>수축 피막이 영구 주름을 만든다는 근거는 없습니다. 다만 효과도 몇 시간짜리입니다.</b><p>논문은 피막이 잔주름을 일시적으로 편다는 쪽을 지지합니다. 그래서 "매일 밤 8시 루틴"보다 "중요한 날 아침 10분"이 효과를 보여주기에 맞고, 이는 시술 대응맵의 '그날 앞 인터셉트 SKU' 포지션, 브랜드북의 STEP 3 = 아침(NOVA)과도 일치합니다.</p></div></li>
+    <li><div><b>사용 시점: "그날 아침 10분" → "밤 8시, 필링밤을 쉬는 밤, 주 2회"</b><p>브랜드·가격 검토 모두 반대했습니다. 이기는 근거가 '밤을 가진 브랜드가 없음' 하나인데 첫 히어로를 아침으로 보내면 그 근거를 버리게 되고, 불규칙한 아침 사용은 28일 재구매 구조에서 빠집니다. 아침은 콘텐츠 훅과 FAQ 보조로 둡니다. 효과 지속 시간은 아직 측정되지 않았습니다(반례 리뷰도 있음).</p></div></li>
+    <li><div><b>수축 강도: "체감되는 최소치" → "3차 수준 이상, 자극은 측정 상한 이하"</b><p>수축력은 크랙을 만드는 힘이라 줄이면 핵심 장면도 약해집니다. 사용 중 불편은 수축력 하나가 아니라 고pH·과건조·에탄올·향료가 섞인 결과라 따로 낮출 수 있습니다(R&amp;D).</p></div></li>
+    <li><div><b>차별점: "계란도 향도 없이" 단독 → 상대별로 쪼갠 차별점</b><p>Hanacure는 이미 비건·무향·무알코올이고 "Pain-Free"를 내세웁니다. 좀비팩·다이소 대비로는 무알부민·무향, Hanacure 대비로는 원스텝(혼합 없음)과 가격, 셋 모두 대비로는 루틴 연결이 차별점입니다.</p></div></li>
+    <li><div><b>크랙 명칭: "크랙 순간에 이름" → "씻은 뒤 도착 장면에 이름, 크랙은 이름 없이 연출"</b><p>DMK·Hanacure가 이름 붙인 것도 결국 결과 장면입니다. 크랙은 좀비팩·다이소도 만드는 장면이라 그 이름이 저가품 검색을 키울 수 있습니다.</p></div></li>
+    <li><div><b>STEP 3 이름: "NOVA 마스크 + 기능 부제" → "TURNOVA + 형태 일반명"</b><p>확정 품명 체계(TURNOVA PEELING BALM CREAM 등)와 같은 형식으로, 효능 단어 없이 형태만 말합니다. NOVA는 세계관 단어로 보존합니다.</p></div></li>
   </ol>
+
+  <h3 class="sub">대표 결정이 필요한 것</h3>
   <div class="decide">
-    <div><span class="k">결정 1 · 이번 주</span><span class="q">STEP 3 이름 방향</span><span class="r">엔자임·리프팅·랩핑을 모두 빼고 "워시오프 + 조임 + 크랙"이 드러나는 새 이름으로. 후보는 06장.</span></div>
-    <div><span class="k">결정 2 · 10/24 전</span><span class="q">수축 강도</span><span class="r">"더 강하게"(3차 품평 요청)보다 "체감되는 최소치". 30~50대 건성 타깃에서 당김·따가움 불만이 두 번째로 많습니다.</span></div>
-    <div><span class="k">결정 3 · 상세페이지 전</span><span class="q">사용 시점</span><span class="r">"밤 8시 리추얼"과 "그날 아침 10분" 중 무엇을 메인으로 할지. 효과 지속 시간을 시험으로 재고 결정.</span></div>
+    <div><span class="k">결정 1 · 이번 주</span><span class="q">STEP 3 제품명</span><span class="r">팀 권고: <b>TURNOVA WASH-OFF FILM MASK (터노바 워시오프 필름 마스크)</b>. 상표·광고자문 후 확정. '텐션'은 자문 통과 시에만 부제 후보.</span></div>
+    <div><span class="k">결정 2 · 10/24 전</span><span class="q">4차 샘플 요청서 발송</span><span class="r">10장 수정본(건조 중 크랙 포함, 측정 가능한 합격 기준 12개)으로 발송. 시안은 '3차 수준 텐션+크랙'과 '강화 텐션+크랙' 2안.</span></div>
+    <div><span class="k">결정 3 · 11월 전</span><span class="q">'리버스에이징' 소비자 노출</span><span class="r">법인명 표기는 문제없음. 다만 용기·상세페이지·광고에서 카테고리 선언으로 쓰는 것은 수출국 대부분에서 금지·고위험. 'Reverse your story'는 효능 문장과 떨어진 브랜드 서사에만.</span></div>
   </div>
 </section>
 
 <!-- 01 -->
 <section id="brand">
-  <div class="sec-head"><span class="sec-no">01 · BRAND</span><h2>DMK 브랜드 해부</h2><p class="sec-sub">설립 연도와 진출 국가 수는 출처마다 다릅니다. 확인된 범위만 적었습니다.</p></div>
+  <div class="sec-head"><span class="sec-no">01 · BRAND</span><h2>DMK 브랜드 해부</h2><p class="sec-sub">공식 원문으로 확인한 것과 제3자 출처를 구분했습니다. v3의 '공식' 태그 중 실제로 제3자 출처였던 것은 고쳤습니다.</p></div>
   <dl class="facts">
-    <div><dt>정식 명칭</dt><dd>DMK · Danné Montague-King Co.<small>USPTO 상표 등록 2건</small></dd></div>
-    <div><dt>본사</dt><dd>미국 LA 카운티<small>10420 Pioneer Blvd, CA 90670</small></dd></div>
-    <div><dt>시작</dt><dd>1970년대 엔자임 테라피<small>법인화 1996년(DMK) · 1986년설(Dermascope) <span class="tag u">불일치</span></small></dd></div>
-    <div><dt>진출</dt><dd class="num">30개국 이상<small>공식 홈 "over 30 countries"</small></dd></div>
+    <div><dt>정식 명칭</dt><dd>DMK · Danné Montague-King Co.<small>본사 미국 LA 카운티(CA 90670)</small></dd></div>
+    <div><dt>시작</dt><dd>1970년대 엔자임 테라피<small>공식 연혁 "Enzyme Therapy as we know it today". 법인 설립 연도는 출처 간 불일치</small></dd></div>
+    <div><dt>진출</dt><dd class="num">30개국 이상<small>공식 홈 "for over 50 years in over 30 countries"</small></dd></div>
     <div><dt>규모</dt><dd class="num">매출 $20M–50M (2021)<small>ICIC Inner City 100, 2022년 29위 <span class="tag p">제3자</span></small></dd></div>
     <div><dt>유통</dt><dd>전문가 전용<small>"We do not sell directly to the end-consumer, and we never will."</small></dd></div>
-    <div><dt>한국</dt><dd>진출 흔적 없음<small>네이버 블로그·카페 검색 결과 0, 직구 리스팅만</small></dd></div>
-    <div><dt>소셜</dt><dd class="num">IG 8.7만 · TikTok 2.5만<small>TikTok 좋아요 400만, 유튜브 구독 3천</small></dd></div>
+    <div><dt>한국</dt><dd>공식 진출 확인 안 됨<small>네이버 블로그·카페 검색 시 관련 결과 없음(무관 결과만), 직구 리스팅만</small></dd></div>
+    <div><dt>소셜 (2026.10 수집)</dt><dd class="num">IG 8.7만 · TikTok 2.5만<small>TikTok 좋아요 약 400만, 유튜브 구독 3천·최근 영상 조회 53–871회</small></dd></div>
+    <div><dt>홈케어</dt><dd class="num">55개 SKU<small>미국 사이트맵 기준. 엔자임 마스크 #1·#2·#3는 프로 전용</small></dd></div>
   </dl>
 
-  <h3 class="sub">브랜드 스토리: 창업자 서사가 곧 근거</h3>
+  <h3 class="sub">브랜드 스토리</h3>
   <div class="prose">
-    <p>창업자 Danné Montague-King는 10대 시절 심한 여드름을 유명 피부과에서도 고치지 못해 스스로 실험을 시작했고, 1960년대 비타민 C 요법을 첫 돌파구로 소개합니다. 1970년대 시카고 클리닉 뒤편에 첫 연구소(Aesthetic Research International)를 차려 "Enzyme Therapy as we know it today"를 만들었다는 것이 공식 연혁입니다. <span class="tag o">공식</span></p>
-    <p>메이블린 창업 가문의 Evelyn F. Williams와의 관계를 다룬 회고록 <i>The Maybelline Prince</i>(2014)와 동명 영화, Harvey Milk Foundation 글로벌 앰배서더, "LGBTQ+ Owned and Operated" 메시지까지, 창업자 개인사가 브랜드의 권위이자 코즈 마케팅의 축입니다. 유튜브 시리즈 "What Does Danné Say?"도 창업자 중심입니다. <span class="tag p">제3자</span> <span class="tag o">공식</span></p>
-    <p>톤은 반(反)퀵픽스입니다. "Stop chasing quick fixes", "no gimmicks, no false claims", "Not just a 'facial'". 동시에 "the only company in the world", "true oxygenation" 같은 배타적 주장을 함께 씁니다. 이 모순은 DMK의 약점입니다.</p>
+    <p><b>창업자 서사.</b> 10대 시절 심한 여드름을 스스로 실험해 고쳤다는 기원 서사는 업계지 Dermascope 프로필에 나옵니다 <span class="tag p">제3자</span>. 공식 연혁은 1960년대 비타민 C 요법, 1970년대 시카고 클리닉 뒤편의 첫 연구소(Aesthetic Research International)와 엔자임 테라피 개발을 적습니다 <span class="tag o">공식</span>. 회고록 <i>The Maybelline Prince</i>, Harvey Milk Foundation 앰배서더, "LGBTQ+ Owned and Operated" 메시지까지 창업자 개인사가 권위와 코즈 마케팅의 축입니다.</p>
+    <p><b>톤.</b> 반(反)퀵픽스입니다. "Stop chasing quick fixes", "no gimmicks, no false claims", "Not just a 'facial'" <span class="tag o">공식</span>. 한편 남아공·영국 유통사 페이지는 "the ONLY company in the world to utilize… transfer messenger enzymes"라는 배타적 주장을 씁니다 <span class="tag p">유통사</span>.</p>
   </div>
 
-  <h3 class="sub">슬로건·언어 체계 (공식 원문 대조 완료)</h3>
+  <h3 class="sub">슬로건·언어 체계 (공식 원문)</h3>
   <div class="slogans">
-    <div class="slogan"><q>Creating Confidence from the Outside—In®</q><span class="role"><b>Creed(신념)</b> · 미국 홈 상단 바, who-we-are "Our creed is…"</span></div>
-    <div class="slogan"><q>Rebuilding Skin…Rebuilding Lives®</q><span class="role"><b>미션</b> · "for over 50 years in over 30 countries"</span></div>
-    <div class="slogan"><q>Remove. Rebuild. Protect. and Maintain.®</q><span class="role"><b>방법론(RRPM)</b> · 모든 시술·홈케어를 이 4단계로 설명</span></div>
-    <div class="slogan"><q>The Plasmatic Effect®</q><span class="role"><b>증거 장면의 이름</b> · "true oxygenation of the bloodstream"</span></div>
-    <div class="slogan"><q>DMK Skin Revision® · Home Prescriptives™ · bioadaptable™</q><span class="role"><b>카테고리 언어</b> · 관리를 '교정', 홈케어를 '처방'으로 부름</span></div>
-    <div class="slogan"><q>Treat the Cause. Not Just the Symptoms</q><span class="role"><b>고민별 페이지 공통 헤드라인</b> · 원인 치료 프레임</span></div>
+    <div class="slogan"><q>Creating Confidence from the Outside—In®</q><span class="role"><b>Creed</b> · 미국 홈 상단 바, who-we-are "Our creed is…"</span></div>
+    <div class="slogan"><q>Rebuilding Skin…Rebuilding Lives®</q><span class="role"><b>미션</b> · 공식 홈</span></div>
+    <div class="slogan"><q>Remove. Rebuild. Protect. and Maintain.®</q><span class="role"><b>방법론(RRPM)</b> · who-we-are 표기. 인증 페이지는 "Protect. Maintain."</span></div>
+    <div class="slogan"><q>The Plasmatic Effect®</q><span class="role"><b>결과 장면의 이름</b> · 영국 공식 "true oxygenation of the bloodstream"</span></div>
+    <div class="slogan"><q>Treat the Cause. Not Just the Symptoms</q><span class="role"><b>고민별 페이지 공통 헤드라인</b></span></div>
   </div>
-  <div class="callout warn"><b>인용 금지.</b> 흔히 도는 "Changing skins, changing lives", "the father of paramedical skincare", "work with the skin, not against it"는 공식·언론 어디에서도 확인되지 않았습니다.</div>
+  <div class="callout warn"><b>인용 금지.</b> "Changing skins, changing lives", "the father of paramedical skincare", "work with the skin, not against it"는 확인되지 않았습니다. v3에 실었던 "the only true oxygenation treatment"도 공식 문구가 아니라 살롱 문구로만 확인돼 뺐습니다.</div>
 
   <h3 class="sub">브랜드 아키텍처와 비주얼</h3>
   <div class="tbl"><table>
     <thead><tr><th>층</th><th>이름</th><th>역할</th></tr></thead>
     <tbody>
-      <tr><td class="k">마스터브랜드</td><td>DMK · "Danné Montague-King®" 필기체 서명</td><td>창업자 이름이 곧 브랜드</td></tr>
-      <tr><td class="k">프로 시술</td><td>Enzyme Therapy(#1·#2·#3), Muscle Banding, Pro Alpha, Prozyme, Quick Peel, Alkaline Wash, Body Enzyme</td><td>클리닉 전용. 모든 시술의 중심은 엔자임 테라피</td></tr>
-      <tr><td class="k">홈케어</td><td>Home Prescriptives™ (미국 사이트맵 기준 55개 SKU), ACU 여드름 라인</td><td>"처방" 언어. 구매는 클리닉 상담 후에만</td></tr>
-      <tr><td class="k">상위 티어</td><td>DMK MD™ · StemZyme®(50일, 약 $5,000), Enbioment™, TransGenesis®, FirMatrix®</td><td>초대제 MD 인증 클리닉 전용</td></tr>
-      <tr><td class="k">파생</td><td>DMK LIMITED™(럭셔리), DMKC COSMETICS™(메이크업)</td><td>확장 라인</td></tr>
+      <tr><td class="k">마스터브랜드</td><td>DMK · "Danné Montague-King®" 서명</td><td>창업자 이름이 곧 브랜드</td></tr>
+      <tr><td class="k">프로 시술</td><td>Enzyme Therapy(#1·#2·#3), Muscle Banding, Pro Alpha, Prozyme, Quick Peel, Alkaline Wash, Body Enzyme</td><td>클리닉 전용. 모든 시술의 중심은 엔자임</td></tr>
+      <tr><td class="k">홈케어</td><td>Home Prescriptives™ (55 SKU), ACU 여드름 라인</td><td>'처방' 언어</td></tr>
+      <tr><td class="k">상위 티어</td><td>DMK MD™ · StemZyme®(50일), Enbioment™, TransGenesis®, FirMatrix®</td><td>초대제 MD 인증 클리닉 전용</td></tr>
     </tbody>
   </table></div>
-  <p class="cap">비주얼: 포레스트 그린(#245C4E)·세이지(#779E94)·블랙그린, 헤드라인 Proxima Nova 대문자. 패키지는 흰 원통 에어리스 펌프에 크롬 밴드 2줄, 녹색 DMK 블록 로고. 클리니컬·제약 톤. <span class="tag o">공식 사이트 CSS·제품 이미지</span></p>
+  <p class="cap">비주얼: 포레스트 그린(#245C4E)·세이지(#779E94), 헤드라인 Proxima Nova 대문자, 흰 원통 에어리스 펌프에 크롬 밴드 2줄. 클리니컬·제약 톤 <span class="tag o">공식 사이트</span>.</p>
 </section>
 
 <!-- 02 -->
 <section id="masque">
-  <div class="sec-head"><span class="sec-no">02 · ENZYME MASQUE</span><h2>엔자임 팩 해부: 성분, 프로토콜, USP, 근거</h2></div>
-
+  <div class="sec-head"><span class="sec-no">02 · ENZYME MASQUE</span><h2>엔자임 팩 해부</h2><p class="sec-sub">프로용 #1은 전성분이 공개되지 않아 '알부민 피막'이라고 단정할 수 없습니다. 공개된 홈용 Foamy Lift가 알부민 피막이고, #1은 Lipase·아미노산만 공식 확인됩니다.</p></div>
   <div class="inci">
     <div class="box">
       <h3>Foamy Lift (홈용) 전성분 <span class="tag o">공식 전문</span></h3>
       <p class="list"><mark>Albumen</mark>, <mark>Zea Mays (Corn) Starch</mark>, Amylodextrin, <mark>Sodium Bicarbonate</mark>, Citric Acid, Aspartic Acid, Glutamic Acid, <mark>Cinnamomum Cassia (Cinnamon) Oil</mark> (Cinnamyl Alcohol, Eugenol, Cinnamal, Benzyl Cinnamate, Limonene), Glycine Soja Protein, Proline, Lysine HCl, Glycine, Potassium Sorbate, Sodium Benzoate, Chlorphenesin</p>
-      <p class="note">피막 = 알부민+전분, 거품 = 중탄산나트륨+구연산, 열감·홍조 = 시나몬 오일(향 알레르겐 5종). Exoderma Peel(물·HPMC·켈프 추출물)과 1:1로 섞어 30–40분, 주 1회.</p>
+      <p class="note">Exoderma Peel(물·HPMC·켈프 추출물·Chloroxylenol)과 1:1로 섞어 30–40분, 주 1회. 아일랜드 소매가 기준 두 제품 합계 약 €105.</p>
     </div>
     <div class="box">
       <h3>Enzyme Masque #1 (프로용) <span class="tag u">전성분 비공개</span></h3>
-      <p class="list">공식 확인: <mark>Lipase</mark>, Proline, Lysine, Glycine<br>제3자 DB: Albumen, Zea Mays Starch, Sodium Bicarbonate, Glycine Soja Protein, Avena Sativa Kernel Flour, Superoxide Dismutase</p>
-      <p class="note">"you won't find a full ingredients list… anywhere publicly"(Marie Claire 2025). #2는 Muscle Banding용, #3는 시나몬·나이아신 계열 증폭제.</p>
+      <p class="list">공식 확인: <mark>Lipase</mark>, Proline, Lysine, Glycine</p>
+      <p class="note">"you won't find a full ingredients list… anywhere publicly"(Marie Claire 2025). #2는 Muscle Banding용, #3는 증폭제.</p>
     </div>
   </div>
 
   <h3 class="sub">사용 시간 비교 (0–60분 동일 척도)</h3>
-  <div class="tl" role="img" aria-label="DMK 살롱 시술 약 60분, DMK 홈 30–40분, Hanacure 15–20분, 다이소 에그 캡슐팩 20분, 좀비팩 10–15분, 터노바 목표 10분">
+  <div class="tl" role="img" aria-label="DMK 살롱 45분 도포와 제거, DMK 홈 30–40분, Hanacure 15–20분, 다이소 에그 캡슐팩 20분, 좀비팩 10–15분, 터노바 목표 약 10분">
     <div class="tl-inner">
-      <div class="tl-row"><div class="tl-label">DMK 살롱 #1<small>사전 각질 처리 별도</small></div>
-        <div class="tl-track"><div class="seg d1" style="left:0;width:33.3%">도포·활성 0–20</div><div class="seg d2" style="left:33.3%;width:41.7%">조임·pulse 20–45</div><div class="seg d3" style="left:75%;width:25%">제거 ~15</div></div></div>
+      <div class="tl-row"><div class="tl-label">DMK 살롱 #1<small>45분 유지 + 제거</small></div>
+        <div class="tl-track"><div class="seg d1" style="left:0;width:58.3%">도포·유지 45분 (마지막 10–15분 불편)</div><div class="seg d2" style="left:58.3%;width:16.7%">~45</div><div class="seg d3" style="left:75%;width:25%">제거</div></div></div>
       <div class="tl-row"><div class="tl-label">DMK Foamy Lift<small>홈 · 주 1회</small></div>
         <div class="tl-track"><div class="seg d1" style="left:0;width:50%">30분</div><div class="seg d3" style="left:50%;width:16.7%">~40</div></div></div>
       <div class="tl-row"><div class="tl-label">Hanacure<small>"20분 넘기지 말 것"</small></div>
@@ -314,327 +328,495 @@ html{scroll-behavior:smooth}
         <div class="tl-track"><div class="seg d1" style="left:0;width:33.3%">20분</div></div></div>
       <div class="tl-row"><div class="tl-label">SKIN1004 좀비팩<small>10–15분</small></div>
         <div class="tl-track"><div class="seg d1" style="left:0;width:16.7%">10분</div><div class="seg d3" style="left:16.7%;width:8.3%">15</div></div></div>
-      <div class="tl-row"><div class="tl-label">터노바 STEP 3<small>목표 스펙 · 3차 미달성</small></div>
-        <div class="tl-track"><div class="seg t1" style="left:0;width:16.7%">건조 10</div><div class="seg t2" style="left:16.7%;width:2.5%"></div></div></div>
+      <div class="tl-row"><div class="tl-label">터노바 STEP 3<small>목표 · 표준 조건 · 미달성</small></div>
+        <div class="tl-track"><div class="seg t1" style="left:0;width:16.7%">약 10분</div><div class="seg t2" style="left:11.7%;width:5%"></div></div></div>
       <div class="tl-axis"><div></div><div class="tl-ticks num"><span style="left:0">0분</span><span style="left:16.67%">10</span><span style="left:33.33%">20</span><span style="left:50%">30</span><span style="left:66.67%">40</span><span style="left:83.33%">50</span><span style="left:100%">60분</span></div></div>
     </div>
   </div>
-  <p class="cap">10분은 DMK 대비로는 짧지만 좀비팩과는 같은 시간대입니다. 시간은 차별점이 되지 못합니다. 코퍼 구간은 크랙이 보이는 순간입니다.</p>
+  <p class="cap">터노바 막대의 코퍼 구간은 목표 크랙 시점(7분 이내, 완전 건조 2분 전)입니다. 23°C·45%RH 기준이며 습한 환경에서는 15–20분 걸릴 수 있습니다(R&amp;D 추정). 10분은 좀비팩과 같은 시간대라 차별점이 아닙니다.</p>
 
-  <h3 class="sub">시술 장면 4단계</h3>
+  <h3 class="sub">시술 장면</h3>
   <div class="prose">
-    <p><b>준비.</b> #1을 Aqua D'Herbs·Exoderma Peel Plus 등과 휘핑해 데콜테→목→얼굴 순서로 바릅니다. 사전에 Prozyme 등으로 각질을 연화합니다.</p>
-    <p><b>체감.</b> 20분 무렵부터 굳으며 당기고 맥박처럼 뜁니다("pulse"). 말하거나 움직일 수 없고 가렵거나 욱신거릴 수 있다고 안내합니다. 이 '못 움직이는 45분'이 리뷰에서 가장 많이 언급되는 기억입니다.</p>
-    <p><b>리빌.</b> 제거 후 붉은 혈관 망이 보이고 15–20분 안에 사라집니다. DMK는 Plasmatic Effect®라 부르고, 클리닉 SNS는 이 장면을 'proof'로 마지막 컷에 씁니다. 전문가는 압박·밀폐에 따른 일시적 표재 혈류 증가로 설명합니다.</p>
-    <p><b>코스.</b> 주 1회~격주 6–12회, 이후 4–6주 유지 관리, 홈케어 병행. 2주 자외선 차단. 혈관 질환·피부 감염·심한 습진 악화 시 부적합.</p>
+    <p><b>체감.</b> 굳으면서 당기고 맥박처럼 뛰는 느낌("pulse"), 말하거나 움직일 수 없음, 가려움·욱신거림. 불편은 "particularly in the last 10-15 minutes"(Marie Claire 2025, 에스테티션 인용).</p>
+    <p><b>리빌.</b> 제거 후 붉은 혈관 망. DMK는 Plasmatic Effect®라 부르고 클리닉 SNS는 'proof'로 씁니다. 언론·클리닉 안내는 홍조가 "within 24 hours" 가라앉는다고 씁니다(v3의 '15–20분'은 출처가 없어 정정). 전문가는 압박·밀폐에 따른 일시적 표재 혈류 증가로 설명합니다.</p>
+    <p><b>코스.</b> 호주 클리닉 1곳 기준 주 1회~격주 6–12회, 이후 4–6주 유지. 혈관 질환·피부 감염·심한 습진 악화 시 부적합(Marie Claire, 의사 인용).</p>
   </div>
 
   <h3 class="sub">USP·효능 주장 vs 근거</h3>
   <div class="claims">
-    <div class="claim"><span class="c">즉각적인 조임·당김 체감</span><span class="e">알부민·전분 피막이 마르며 수축하는 물리 현상. 피막이 피부 강성을 높이고 잔주름을 일시적으로 편다는 연구 있음(Jachowicz 2008, Pensalfini 2020, Maidhof 2019)</span><span class="pill ok">근거 있음</span></div>
-    <div class="claim"><span class="c">즉시 광채·피부결 개선</span><span class="e">피막 제거 시 각질 탈락, 혈류 증가. 리뷰 10건 중 6건이 광채 언급. 효과는 "temporary and cosmetic"(Dr Ashley)</span><span class="pill ok">일시적 근거</span></div>
-    <div class="claim"><span class="c">Plasmatic Effect = 혈액 산소화</span><span class="e">동료심사 근거 없음. 압박·밀폐(와 시나몬 오일)에 따른 일시 혈류 증가로 설명됨</span><span class="pill warn">해석 과장</span></div>
-    <div class="claim"><span class="c">콜라겐 생성·진피 재건·림프 배출·reverse osmosis</span><span class="e">공개 임상 데이터 없음. DMK 고유 용어</span><span class="pill no">근거 없음</span></div>
-    <div class="claim"><span class="c">"the only company in the world", "only true oxygenation treatment"</span><span class="e">배타적 최상급 주장. 국내 화장품 광고에서는 금지 유형(시행규칙 별표5)</span><span class="pill no">국내 사용 불가</span></div>
+    <div class="claim"><span class="c">즉각적인 조임·당김 체감</span><span class="e">피막이 마르며 수축하는 물리 현상. 필름이 피부 강성을 높이고 잔주름 진폭을 줄인다는 연구 있음(Pensalfini 2020, 로레알 지원; Maidhof 2019, 에이본)</span><span class="pill ok">근거 있음</span></div>
+    <div class="claim"><span class="c">즉시 광채·피부결</span><span class="e">리뷰 10건 중 6건이 광채 언급. "temporary and cosmetic"(Dr Ashley). 반면 Beaut.ie는 "effects… for weeks"</span><span class="pill warn">지속은 엇갈림</span></div>
+    <div class="claim"><span class="c">Plasmatic Effect = 혈액 산소화</span><span class="e">동료심사 근거 없음</span><span class="pill warn">해석 과장</span></div>
+    <div class="claim"><span class="c">콜라겐·진피 재건·림프·reverse osmosis</span><span class="e">공개 임상 없음. DMK 고유 용어</span><span class="pill no">근거 없음</span></div>
   </div>
 </section>
 
 <!-- 03 -->
 <section id="machine">
-  <div class="sec-head"><span class="sec-no">03 · MARKETING MACHINE</span><h2>DMK 마케팅·브랜드 관리의 10개 장치</h2><p class="sec-sub">광고비보다 구조로 관리합니다. 근거 강도는 오른쪽 위 표기입니다.</p></div>
+  <div class="sec-head"><span class="sec-no">03 · MARKETING MACHINE</span><h2>DMK 마케팅·브랜드 관리 장치</h2><p class="sec-sub">아래는 '장치가 존재한다'는 확인이지 매출 기여의 근거는 아닙니다. 리워드 제도는 미국 도매 클리닉 한정입니다.</p></div>
   <div class="levers">
-    <div class="lever"><span class="lk"><span>1 · 희소성</span><span>강</span></span><h3>직판 금지와 처방 게이트</h3><p>공식몰에 결제 기능이 없습니다. "To purchase DMK Products, please contact your local DMK Certified Esthetician." 영국·아일랜드 판매처도 상담 양식이나 비밀번호 뒤에 가격을 숨깁니다.</p></div>
-    <div class="lever"><span class="lk"><span>2 · 전환</span><span>강</span></span><h3>모든 길은 클리닉 지도로</h3><p>모든 페이지가 "Find a DMK Clinic … free consultation"으로 끝납니다. 지도 노출은 연 매입 $12k(Bronze) 이상만, 마커는 Emerald(상위 1%)~Bronze(상위 5%) 등급으로 표시됩니다.</p></div>
-    <div class="lever"><span class="lk"><span>3 · 채널 인센티브</span><span>강</span></span><h3>매입 등급이 곧 공동 마케팅</h3><p>Bronze $12k~Emerald $100k. 마케팅 물품 크레딧 최대 $500, Platinum 이상은 DMK 공식 SNS·전시회 노출, 어카운트 매니저 동행 인클리닉 이벤트, 리테일 판매 포인트. 주문 최소액 $500.</p></div>
-    <div class="lever"><span class="lk"><span>4 · 코스 묶음</span><span>중강</span></span><h3>1회 관리를 6–16회 프로그램으로</h3><p>RRPM과 Home Prescriptives 언어가 한 번의 페이셜을 코스+홈케어로 바꿉니다. 미국 클리닉 예: 6회 프로그램 $1,130(홈케어 구매 필수), 머슬밴딩 12+1회 $3,500.</p></div>
-    <div class="lever"><span class="lk"><span>5 · 장면 바이럴</span><span>강</span></span><h3>굳은 얼굴과 붉은 리빌</h3><p>"Grandma / Game of Thrones / Night King Facial"(2018–19), 배우 Madelyn Cline 영상의 Allure TikTok 확산과 "skin workout"(2025). 유료 셀럽 프로그램 없이 언론·셀럽 자발 게시로 퍼졌습니다.</p></div>
-    <div class="lever"><span class="lk"><span>6 · 교육=마케팅</span><span>강</span></span><h3>인증 사다리</h3><p>2.5시간 웨비나 → 2일 Program One($2,999, 제품 크레딧 포함, 환불 불가) → 초대제 MD → StemZyme. 소비자 홈 히어로 2번째 슬라이드가 "DMK 인증 에스테티션이 되세요"입니다.</p></div>
-    <div class="lever"><span class="lk"><span>7 · 증거 규칙</span><span>강</span></span><h3>Before & After Challenge</h3><p>비포·애프터 각 3장(정면·좌·우), 무보정, 타사 제품·필러·실리프팅 병행 시 탈락, 상금은 제품 크레딧 $1,500, 이미지 사용권 DMK. 증거 콘텐츠를 규칙으로 생산합니다.</p></div>
-    <div class="lever"><span class="lk"><span>8 · 창업자·코즈</span><span>강(도달 약)</span></span><h3>사람과 대의</h3><p>"What Does Danné Say?", #PrideInMySkin, #BlackSkinMatters, PINKzyme(10월 매출 10% 기부). 메시지는 일관되지만 유튜브 조회수는 수백 회 수준입니다.</p></div>
-    <div class="lever"><span class="lk"><span>9 · 반퀵픽스</span><span>강</span></span><h3>"Stop chasing quick fixes"</h3><p>"DMK clinics don't make bold claims or unattainable promises"(영국). 장기 코스를 정당화하는 언어입니다.</p></div>
-    <div class="lever"><span class="lk"><span>10 · 지역 유통사</span><span>중</span></span><h3>나라마다 투자 편차</h3><p>남아공 IG 2.1만, 영국 9천. 호주는 광고 규제로 클리닉이 브랜드명·가격을 공개 못 합니다. 호주·아일랜드·캐나다 공식 계정은 확인되지 않았습니다.</p></div>
+    <div class="lever"><span class="lk"><span>1 · 희소성</span><span>강</span></span><h3>직판 금지</h3><p>공식몰에 결제가 없고 "contact your local DMK Certified Esthetician"으로 보냅니다. 아일랜드 일부 판매처는 비밀번호·문의 뒤에 가격을 둡니다(영국 판매처는 공개가 판매).</p></div>
+    <div class="lever"><span class="lk"><span>2 · 단일 전환</span><span>강</span></span><h3>모든 페이지 끝은 클리닉 지도</h3><p>"visit our DMK Clinic Locator page and book a consultation appointment." 미국은 연 매입 Bronze($12k) 이상만 지도에 등재되고, 등급 마커(Emerald 상위 1% ~ Bronze 상위 5%)가 붙습니다.</p></div>
+    <div class="lever"><span class="lk"><span>3 · 채널 인센티브</span><span>강 · 미국</span></span><h3>매입 등급 = 공동 마케팅</h3><p>마케팅 물품 크레딧 최대 $500, Platinum 이상 공식 SNS·전시회 노출, 어카운트 매니저 동행 이벤트, 리테일 포인트. $500는 무료배송 기준이며 Gold 이상 면제입니다.</p></div>
+    <div class="lever"><span class="lk"><span>4 · 코스 묶음</span><span>중</span></span><h3>1회를 프로그램으로</h3><p>RRPM과 Home Prescriptives 언어. 미국 클리닉 1곳 예: 6회(+1회 무료) $1,130에 홈케어 구매 조건, 머슬밴딩 12+1회 $3,500.</p></div>
+    <div class="lever"><span class="lk"><span>5 · 장면 바이럴</span><span>강</span></span><h3>굳은 얼굴과 붉은 리빌</h3><p>"Grandma / Game of Thrones / Night King Facial"(2018–19), 배우 Madelyn Cline 영상의 Allure TikTok 확산과 "skin workout"(2025).</p></div>
+    <div class="lever"><span class="lk"><span>6 · 교육=마케팅</span><span>강</span></span><h3>인증 사다리</h3><p>2.5시간 웨비나 → 2일 Program One($2,999, 제품 크레딧 포함, 환불 불가, 2024.10 기준) → 초대제 MD → StemZyme. 소비자 홈 히어로 2번째가 인증 모집입니다.</p></div>
+    <div class="lever"><span class="lk"><span>7 · 증거 규칙</span><span>강</span></span><h3>Before &amp; After Challenge</h3><p>비포·애프터 각 3장(정면·좌·우), 무보정, 타사 제품·필러·실리프팅 병행 시 탈락, 상금은 제품 크레딧 $1,500.</p></div>
+    <div class="lever"><span class="lk"><span>8 · 창업자·코즈</span><span>강 · 도달 약</span></span><h3>사람과 대의</h3><p>"What Does Danné Say?", #PrideInMySkin, #BlackSkinMatters, 2021년 아일랜드 PINKzyme(매출 10% 기부).</p></div>
   </div>
-
-  <h3 class="sub">웹사이트 퍼널 (미국 공식, 2026 원문)</h3>
-  <div class="tbl"><table>
-    <thead><tr><th>순서</th><th>메시지 (원문)</th><th>목적</th></tr></thead>
-    <tbody>
-      <tr><td class="k">상단 바</td><td>CREATING CONFIDENCE FROM THE OUTSIDE—IN® · FIND A DMK CLINIC · GET DMK-CERTIFIED</td><td>소비자와 에스테티션 두 개의 퍼널</td></tr>
-      <tr><td class="k">히어로 1</td><td>"We believe that everyone deserves the confidence that comes from having great skin."</td><td>감정 약속</td></tr>
-      <tr><td class="k">히어로 2</td><td>"Want to become DMK certified esthetician?"</td><td>B2B 모집</td></tr>
-      <tr><td class="k">히어로 3</td><td>"Paramedical grade products designed to match the skin's chemistry."</td><td>홈케어 권위</td></tr>
-      <tr><td class="k">히어로 4</td><td>"50+ years of sheer dedication to achieving real results backed by science."</td><td>역사·과학</td></tr>
-      <tr><td class="k">고민 페이지</td><td>Treat the Cause → Professional Enzyme Therapy → 5단계 여정(상담·분석·시술·홈케어·장기 관리) → 10문항 2분 퀴즈 → "Tap to See Results"</td><td>진단형 전환</td></tr>
-      <tr><td class="k">모든 페이지 끝</td><td>"visit our DMK Clinic Locator page and book a consultation appointment."</td><td>단일 전환점</td></tr>
-    </tbody>
-  </table></div>
 
   <h3 class="sub">가격 사다리</h3>
   <div class="tbl"><table>
     <thead><tr><th>단계</th><th>예시 가격</th><th>출처</th></tr></thead>
     <tbody>
-      <tr><td class="k">상담</td><td>무료(미국 공식 문구) · 호주 A$50(시술 시 차감)</td><td><span class="tag o">공식</span> <span class="tag p">클리닉</span></td></tr>
-      <tr><td class="k">엔자임 1회</td><td>영국 £100–200 · 호주 A$290–310 · 뉴질랜드 NZ$205 · 미국 $169–350</td><td><span class="tag p">언론·클리닉</span></td></tr>
-      <tr><td class="k">코스</td><td>6회 $1,130 · 머슬밴딩 12+1회 $3,500 · StemZyme 프로그램 약 $5,000</td><td><span class="tag p">클리닉·Who What Wear</span></td></tr>
-      <tr><td class="k">홈케어</td><td>Beta Gel £87 · 비타민C 세럼 £99.95 · MD TransGenesis 크림 £174 · Foamy Lift 키트 약 $100(6–8회)</td><td><span class="tag p">영국 판매처</span></td></tr>
+      <tr><td class="k">상담</td><td>무료(미국 공식) · 호주 A$50(시술 시 차감)</td><td><span class="tag o">공식</span> <span class="tag p">클리닉</span></td></tr>
+      <tr><td class="k">엔자임 1회</td><td>영국 £100–200 · 호주 A$169(2017)~A$310 · 미국 약 $350(Refinery29 영상 제목)</td><td><span class="tag p">언론·클리닉</span></td></tr>
+      <tr><td class="k">코스</td><td>6+1회 $1,130 · 머슬밴딩 12+1회 $3,500 · StemZyme 프로그램 약 $5,000(한 시술자)</td><td><span class="tag p">클리닉·Who What Wear</span></td></tr>
+      <tr><td class="k">홈케어</td><td>Beta Gel £87 · 비타민C 세럼 £99.95 · TransGenesis 크림 £174</td><td><span class="tag p">영국 판매처</span></td></tr>
     </tbody>
   </table></div>
 </section>
 
 <!-- 04 -->
 <section id="voc">
-  <div class="sec-head"><span class="sec-no">04 · VOICE OF CUSTOMER</span><h2>고객이 실제로 하는 말</h2><p class="sec-sub">DMK는 뷰티 기자·블로거 체험기 10건(협찬 포함, 긍정 편향 있음), 좀비팩은 국내 네이버 블로그와 해외 리뷰어 약 30명을 테마별로 셌습니다. 한 리뷰가 여러 테마에 들어갈 수 있습니다. 레딧·화해·올리브영 원문은 접근이 막혀 빠져 있습니다.</p></div>
+  <div class="sec-head"><span class="sec-no">04 · VOICE OF CUSTOMER</span><h2>고객이 실제로 하는 말</h2><p class="sec-sub">표본 한계: DMK는 기자·블로거 체험기 10건(협찬 포함, 긍정 편향). 좀비팩은 약 30명의 블로그·해외 리뷰로 2014–2020년 구버전 글이 다수이고 협찬 의심 글이 섞였습니다. 레딧·화해·올리브영 원문은 접근이 막혀 빠졌습니다. 방향 판단용이지 순위를 단정할 데이터는 아닙니다.</p></div>
   <div class="split">
     <div class="panel">
       <h3>DMK 엔자임 시술 <span class="tag p">n=10</span></h3>
       <div class="bars">
-        <div class="bar"><span class="lab">굳어서 말 못 함·45분 부동</span><span class="trk"><span class="fill neg" style="width:70%"></span></span><span class="v">7</span></div>
+        <div class="bar"><span class="lab">굳어서 말 못 함·장시간 부동</span><span class="trk"><span class="fill neg" style="width:70%"></span></span><span class="v">7</span></div>
         <div class="bar"><span class="lab">시술 후 붉음·혈관·부기</span><span class="trk"><span class="fill neg" style="width:60%"></span></span><span class="v">6</span></div>
         <div class="bar"><span class="lab">코스 필요·효과 일시적</span><span class="trk"><span class="fill neg" style="width:50%"></span></span><span class="v">5</span></div>
         <div class="bar"><span class="lab">가격 부담 명시</span><span class="trk"><span class="fill neg" style="width:40%"></span></span><span class="v">4</span></div>
-        <div class="bar"><span class="lab">각질 일어남·트러블</span><span class="trk"><span class="fill neg" style="width:30%"></span></span><span class="v">3</span></div>
         <div class="bar"><span class="lab">즉시 광채</span><span class="trk"><span class="fill pos" style="width:60%"></span></span><span class="v">6</span></div>
-        <div class="bar"><span class="lab">탄탄·매끈·잔주름 감소</span><span class="trk"><span class="fill pos" style="width:60%"></span></span><span class="v">6</span></div>
-        <div class="bar"><span class="lab">"그만한 가치" 평가</span><span class="trk"><span class="fill pos" style="width:50%"></span></span><span class="v">5</span></div>
+        <div class="bar"><span class="lab">탄탄·매끈·잔주름 감소 체감</span><span class="trk"><span class="fill pos" style="width:60%"></span></span><span class="v">6</span></div>
       </div>
-      <p class="cap">"The experience was extremely intense, but I can't deny the amazing results"(ABC7). 셀럽은 "instant glow… great for pre-events" 용도로 씁니다(Marie Claire).</p>
     </div>
     <div class="panel">
       <h3>SKIN1004 좀비팩 <span class="tag p">약 30명</span></h3>
       <div class="bars">
-        <div class="bar"><span class="lab">계란·비린내 냄새</span><span class="trk"><span class="fill neg" style="width:100%"></span></span><span class="v">13</span></div>
-        <div class="bar"><span class="lab">바르는 동안 강한 당김</span><span class="trk"><span class="fill neg" style="width:69%"></span></span><span class="v">9</span></div>
-        <div class="bar"><span class="lab">효과 일시적·체감 미미</span><span class="trk"><span class="fill neg" style="width:62%"></span></span><span class="v">8</span></div>
-        <div class="bar"><span class="lab">가루+액티베이터 혼합 번거로움</span><span class="trk"><span class="fill neg" style="width:54%"></span></span><span class="v">7</span></div>
-        <div class="bar"><span class="lab">따가움·가려움·붉어짐</span><span class="trk"><span class="fill neg" style="width:46%"></span></span><span class="v">6</span></div>
-        <div class="bar"><span class="lab">헹군 뒤 건조·당김</span><span class="trk"><span class="fill neg" style="width:23%"></span></span><span class="v">3</span></div>
-        <div class="bar"><span class="lab">즉시 부드러움·화장 잘 먹음</span><span class="trk"><span class="fill pos" style="width:77%"></span></span><span class="v">10+</span></div>
-        <div class="bar"><span class="lab">좀비 얼굴의 재미</span><span class="trk"><span class="fill pos" style="width:62%"></span></span><span class="v">8</span></div>
-        <div class="bar"><span class="lab">헹군 뒤 촉촉·당김 없음</span><span class="trk"><span class="fill pos" style="width:38%"></span></span><span class="v">5</span></div>
+        <div class="bar"><span class="lab">사용 중 당김·따가움 (합계)</span><span class="trk"><span class="fill neg" style="width:100%"></span></span><span class="v">15</span></div>
+        <div class="bar"><span class="lab">계란·비린내 냄새</span><span class="trk"><span class="fill neg" style="width:87%"></span></span><span class="v">13</span></div>
+        <div class="bar"><span class="lab">효과 일시적·체감 미미</span><span class="trk"><span class="fill neg" style="width:53%"></span></span><span class="v">8</span></div>
+        <div class="bar"><span class="lab">가루+액티베이터 혼합 번거로움</span><span class="trk"><span class="fill neg" style="width:47%"></span></span><span class="v">7</span></div>
+        <div class="bar"><span class="lab">즉시 부드러움·화장 잘 먹음</span><span class="trk"><span class="fill pos" style="width:67%"></span></span><span class="v">10+</span></div>
+        <div class="bar"><span class="lab">좀비 얼굴의 재미</span><span class="trk"><span class="fill pos" style="width:53%"></span></span><span class="v">8</span></div>
+        <div class="bar"><span class="lab">헹군 뒤 촉촉·당김 없음</span><span class="trk"><span class="fill pos" style="width:33%"></span></span><span class="v">5</span></div>
       </div>
-      <p class="cap">"냄새는 정말 안좋아요… 팩하면서 냄새 참는게 제일 힘들었어요", "신랑은 다시는 안한답니다 너무 괴롭대요 냄새가". 화해 평점 3.85로 같은 브랜드 다른 팩(4.27~4.31)보다 낮습니다.</p>
     </div>
   </div>
-  <div class="callout blue"><b>두 리뷰가 같은 말을 합니다.</b> 고통은 '사용 중'(굳음·냄새·당김·따가움)에 몰려 있고, 만족은 '사용 직후'(광채·부드러움)에 있습니다. 터노바가 줄여야 할 것은 사용 중의 고통이고, 보여줘야 할 것은 씻은 직후의 결과입니다. 수축을 더 세게 만드는 방향은 고통을 늘리는 쪽입니다.</div>
+  <div class="callout blue"><b>읽는 법.</b> 고통은 '사용 중'(굳음·당김·따가움·냄새)에, 만족은 '씻은 직후'(부드러움·화장 밀착)에 있습니다. v3는 냄새를 1위로 적었지만 당김(9)과 따가움(6)을 합치면 사용 중 불편이 더 많습니다. 연령·피부 타입별로 나뉜 데이터는 없습니다.</div>
 </section>
 
 <!-- 05 -->
 <section id="market">
-  <div class="sec-head"><span class="sec-no">05 · MARKET REALITY</span><h2>매대에서 실제로 부딪히는 상대</h2><p class="sec-sub">DMK는 관리실 전용이라 소비자가 터노바 옆에서 비교하지 않습니다. 3차 품평 시트에도 Hanacure와 좀비팩이 경쟁 제품으로 적혀 있습니다.</p></div>
+  <div class="sec-head"><span class="sec-no">05 · MARKET REALITY</span><h2>매대에서 실제로 부딪히는 상대</h2><p class="sec-sub">DMK는 관리실 전용이라 소비자가 터노바 옆에서 비교하지 않습니다. 3차 품평 시트의 경쟁 제품도 Hanacure와 좀비팩입니다.</p></div>
   <div class="tbl"><table>
-    <thead><tr><th>제품</th><th>형태</th><th>가격 · 회당</th><th>핵심 장면·카피</th><th>규모</th></tr></thead>
+    <thead><tr><th>제품</th><th>형태</th><th>가격 · 회당</th><th>무계란 · 무향</th><th>핵심 장면·규모</th></tr></thead>
     <tbody>
-      <tr><td class="k">DMK Foamy Lift</td><td>워시오프 · 2제 혼합 · 30–40분</td><td>약 $100 / 6–8회 · 회당 $12–17</td><td>tightens and tones</td><td>관리실 채널</td></tr>
-      <tr><td class="k">Hanacure</td><td>바르고 굳힘 · 2제 · 15–20분</td><td>$118 / 4회 · 회당 약 $30</td><td>"Hanacure Effect" 늙은 얼굴 셀카를 브랜드가 직접 밀어줌</td><td>2017 셀카 바이럴, 카다시안 게시</td></tr>
-      <tr><td class="k">SKIN1004 좀비팩</td><td>워시오프 · 가루+액티베이터 · 10–15분</td><td>8회 23,000원(화해) · 할인 시 회당 990~2,900원</td><td>"계란 8개 분량의 알부민", 주름·미백 2중 기능성, "4주 후 안면 리프팅 개선"</td><td>2014 출시 3일 3만 개, 2020 누적 100만 개</td></tr>
-      <tr><td class="k">다이소 에그 캡슐팩</td><td>워시오프 · 1회용 캡슐 · 20분</td><td>500원</td><td>"일명 좀비팩"</td><td>가격 기준선을 무너뜨림</td></tr>
-      <tr><td class="k">아미셀 리프트업팩</td><td>워시오프 · 단일 제형(혼합 불필요)</td><td>미확인</td><td>"일명 '좀비팩'다운 비주얼"</td><td>2026 출시</td></tr>
-      <tr><td class="k">메디큐브 나이트 랩핑</td><td>필오프 · 오버나이트</td><td>75 ml 37,900원</td><td>"2주 후 탄력 34.1% 개선"</td><td>2026.4 글로벌 누적 1,000만 개</td></tr>
-      <tr><td class="k">메디필 랩핑 4종</td><td>필오프 · 다이소 전용 포함</td><td>4개입 3,000원</td><td>즉각적인 물광</td><td>출고 1천만 개(포), 1인 5개 구매 제한</td></tr>
-      <tr><td class="k tnv">터노바 STEP 3</td><td class="tnv">워시오프 · 단일 튜브 60 mL · 목표 10분</td><td class="tnv">미정</td><td class="tnv">무알부민·무향, 루틴 연결</td><td class="tnv">—</td></tr>
+      <tr><td class="k">Hanacure</td><td>바르고 굳힘 · 2제 혼합 · 15–20분</td><td>$118 / 4회</td><td>비건 · 무향 · 무알코올 · "Pain-Free"</td><td>"Hanacure Effect" 셀카(2017), 카다시안 게시</td></tr>
+      <tr><td class="k">SKIN1004 좀비팩</td><td>워시오프 · 가루+액티베이터 · 10–15분</td><td>8회 23,000원(화해) · 회당 약 2,875원</td><td>알부민 · 냄새 불만 다수</td><td>누적 100만 개(2019–20 보도), 2023년 상반기 158만 개 보도 <span class="tag u">원문 미확인</span></td></tr>
+      <tr><td class="k">다이소 에그 캡슐팩</td><td>워시오프 · 1회용 · 20분</td><td>500원</td><td>계란</td><td>블로그에서 '좀비팩'으로 불림(상품 카피 아님)</td></tr>
+      <tr><td class="k">메디큐브 나이트 랩핑</td><td>필오프 · 오버나이트</td><td>75 mL <span class="tag u">국내가 미확인</span></td><td>—</td><td>글로벌 누적 1,000만 개(2026.4, 미국 300만)</td></tr>
+      <tr><td class="k">메디필 다이소 랩핑 4종</td><td>필오프</td><td>—</td><td>—</td><td>출고 1천만 개(포), 1인 1일 5개 제한(2025.2)</td></tr>
+      <tr><td class="k tnv">터노바 STEP 3</td><td class="tnv">워시오프 · 단일 튜브(혼합 없음)</td><td class="tnv">08장</td><td class="tnv">무알부민 · 무향(시험 분석 후 표기)</td><td class="tnv">필링밤·배리어와 묶인 루틴</td></tr>
     </tbody>
   </table></div>
+  <div class="callout"><b>차별점 재정의 (팩트체크 치명 지적 반영).</b> 좀비팩·다이소 대비: 무알부민·무향. Hanacure 대비: 원스텝(혼합 없음)과 접근 가능한 가격. 셋 모두 대비: 밤 루틴과의 연결과 28일 사이클. 어느 하나만으로는 프리미엄 근거가 안 됩니다.</div>
   <div class="prose" style="margin-top:1.2em">
-    <p><b>카테고리 흐름.</b> 성장하는 쪽은 필오프 랩핑입니다(메디큐브 누적 62만 개 → 1,000만 개, 2024.3Q → 2026.4). 워시오프 크랙팩은 다이소와 할인가 중심의 성숙한 시장입니다. 다만 미국에서는 "egg white facial"이 2024년 4분기 TikTok 트렌드 1위로 올라 계란·타이트닝 장면에 대한 관심이 아직 살아 있습니다.</p>
-    <p><b>좀비팩이 '리프팅'을 쓰는 이유.</b> 좀비팩은 주름·미백 2중 기능성과 "4주 후 안면 리프팅 개선" 임상 문구를 내세웁니다(일부 미확인). 터노바는 STEP 3에서 주름 기능성을 진행하지 않으므로 같은 카피를 쓸 근거가 없습니다.</p>
+    <p><b>카테고리 흐름.</b> 필오프 랩핑은 메디큐브 1,000만 개, 메디필 다이소 1천만 개로 크게 팔렸습니다. 워시오프 크랙팩도 좀비팩 판매가 늘었다는 보도가 있어 '성숙·정체'로 단정하지 않습니다(v3의 '62만 개' 근거는 출처가 없어 삭제). 미국에서는 "egg white facial"이 2024년 4분기 TikTok 트렌드 성장률 1위였습니다. 계란 팩 관심이 살아 있다는 신호인 동시에, '무계란'을 미국에서 내세울 때의 긴장 요인입니다.</p>
+    <p><b>이름 '랩핑'.</b> 네이버 블로그 표본(관련도순 첫 페이지 91건)에서 워시오프 크랙형을 '랩핑'으로 부른 사례는 없었고, 랩핑은 대체로 필오프·오버나이트로 쓰였습니다. 표본 한계와 '아침에 씻어내도 되는' 랩핑 제품도 있다는 점을 감안해도, STEP 3 이름으로는 쓰지 않는 쪽이 안전합니다.</p>
   </div>
 </section>
 
 <!-- 06 -->
 <section id="strategy">
-  <div class="sec-head"><span class="sec-no">06 · TURNOVA STRATEGY</span><h2>터노바 연계 전략</h2><p class="sec-sub">바더에서 성분 코드와 SKU 절제를 가져왔듯, DMK에서는 '증거 장면에 이름을 붙여 소유하는 법', '처방 문법', '증거를 규칙으로 만드는 법'을 가져옵니다.</p></div>
+  <div class="sec-head"><span class="sec-no">06 · STEP 3 STRATEGY</span><h2>터노바 STEP 3 전략 (지니어스팀 합의안)</h2></div>
 
-  <h3>포지셔닝 한 문장 (안)</h3>
-  <div class="callout blue" style="margin-top:.4em"><b>계란도 향도 없이, 10분 동안 조이고 갈라진 뒤 씻어내면 결이 돌아오는 워시오프 마스크.</b> 중요한 날 아침, 혹은 필링밤을 쉬는 밤에 쓰는 터노바 루틴의 마지막 단계(NOVA).</div>
-
-  <h3 class="sub">STEP 3 이름: 세 번째 정정</h3>
-  <div class="tbl"><table>
-    <thead><tr><th>이름</th><th>문제</th><th>판정</th></tr></thead>
-    <tbody>
-      <tr><td class="k">엔자임 리프팅 팩 (브랜드북)</td><td>'리프팅'은 2025.3 식약처 기능성 오인 적발 표현. 별표5는 명칭으로 기능성 오인 금지. '효소'를 이름에 쓰면 성분명·함량 표시 의무 가능성. 국내에서 '효소테라피'는 효소찜질로 읽힘</td><td><span class="pill no">쓰지 않음</span></td></tr>
-      <tr><td class="k">랩핑 마스크 (10/13 RFQ)</td><td>국내에서 '바르고 굳혀 떼어내는 필오프'로 굳은 말. 네이버 블로그 제목 91건 중 워시오프 크랙형을 랩핑으로 부른 사례 0건. 메디큐브·메디필 검색에 묻히고 "안 떼어진다", "갈라져서 실패한 줄" 같은 기대 불일치 리뷰 위험</td><td><span class="pill no">쓰지 않음</span></td></tr>
-      <tr><td class="k">좀비팩 계열</td><td>좀비뷰티 브랜드와 직결, 30~50대 타깃에 혐오감</td><td><span class="pill no">쓰지 않음</span></td></tr>
-      <tr><td class="k">방향 A · 기능 직설형</td><td>예: 텐션 워시오프 마스크, 10분 텐션 마스크. 무엇을 하는 제품인지 바로 읽힘. '텐션·타이트닝'은 지침에 명시가 없어 광고 자문 필요</td><td><span class="pill warn">후보 · 자문 필요</span></td></tr>
-      <tr><td class="k">방향 B · 세계관형</td><td>예: NOVA 마스크. 3막 구조(TURN OFF → TURN OVER → NOVA)와 STEP 3 = 아침에 맞음. 기능은 부제로 설명 필요</td><td><span class="pill warn">후보 · 선행조사 필요</span></td></tr>
-      <tr><td class="k">방향 C · 장면 소유형</td><td>예: 크랙 마스크. 장면을 이름으로 가져감. '크랙'이 '갈라진 피부'로 읽힐 위험</td><td><span class="pill warn">후보 · 소비자 테스트</span></td></tr>
-    </tbody>
-  </table></div>
-  <p class="cap">권고: B를 제품명, A를 부제(용기 정면 기능 표기)로 쓰는 조합. 상표 선행조사(KIPRIS·J-PlatPat·USPTO)는 아직 하지 않았습니다.</p>
-
-  <h3 class="sub">가져올 것 · 바꿔 쓸 것 · 버릴 것</h3>
-  <div class="board">
-    <div class="col take"><h3>가져올 것</h3>
-      <div class="item"><span class="from">DMK · Plasmatic Effect® / Hanacure Effect</span><span class="to">크랙 순간에 이름을 붙여 소유</span><p>두 브랜드 모두 '이상해 보이는 장면'에 이름을 붙여 바이럴 단어로 만들었습니다. 터노바도 크랙 순간의 명칭을 TNV-8 코드와 함께 출원합니다. UGC가 그 단어로 모입니다.</p></div>
-      <div class="item"><span class="from">DMK · B&A Challenge 규칙</span><span class="to">28일 챌린지 인증 규정</span><p>정면·좌·우 3장씩, 무보정, 타 시술 병행 표기, 이미지 사용권 동의. 그대로 이식하면 28일 데이터가 상세페이지와 IR 근거가 됩니다.</p></div>
-      <div class="item"><span class="from">DMK · Home Prescriptives™, 5단계 여정</span><span class="to">단상자 속 프로토콜 카드 + 2분 피부 퀴즈</span><p>처방전 문법의 카드(요일 배치, 사용 시간 상한, 크랙 체크 칸, 캘린더 QR)와 자사몰 10문항 퀴즈. 인스허브 '처방전 인증'과도 같은 문법입니다.</p></div>
-      <div class="item"><span class="from">DMK · 모든 페이지의 단일 CTA</span><span class="to">하나의 전환점</span><p>DMK의 모든 길이 클리닉 지도로 끝나듯, 터노바는 모든 콘텐츠를 "첫 사이클(28일) 시작"으로 끝냅니다.</p></div>
-    </div>
-    <div class="col bend"><h3>바꿔 쓸 것</h3>
-      <div class="item"><span class="from">알부민 피막 + 시나몬 열감</span><span class="to">"계란도 향도 없이 조이는 팩"</span><p>좀비팩 1위 불만(냄새 13건)과 계란 알레르기 경고를 동시에 지웁니다. 수출 서류(일본·중동·동남아)에서도 유리합니다. '무(無)OO' 표현은 시험 분석 자료가 필요합니다.</p></div>
-      <div class="item"><span class="from">45분 고통 = 효과의 증거</span><span class="to">"조이지만 아프지 않게"</span><p>DMK·좀비팩 모두 사용 중 고통이 최대 불만입니다. 터노바는 반대로 갑니다. 원스텝 튜브(혼합 없음), 잘 씻김, 따가움 최소화.</p></div>
-      <div class="item"><span class="from">'pre-event' 셀럽 용도</span><span class="to">"중요한 날 아침 10분"</span><p>효과가 몇 시간짜리라는 한계를 용도로 바꿉니다. 시술 대응맵의 '그날 앞 인터셉트 SKU', 브랜드북의 STEP 3 = 아침(NOVA)과 일치합니다.</p></div>
-      <div class="item"><span class="from">전문가 전용 채널</span><span class="to">관리실 '홈케어 처방' 파일럿 (Phase 2 옵션)</span><p>약국·온라인이 본 채널이므로 직판 금지는 가져오지 않습니다. 피부관리실 3–5곳에서 관리 사이 홈케어로 시험합니다.</p></div>
-    </div>
-    <div class="col drop"><h3>버릴 것</h3>
-      <div class="item"><span class="from">oxygenation · reverse osmosis · only</span><span class="to">근거 없는 원리와 최상급 표현</span><p>국내 광고에서 의약품 오인·절대 표현 금지에 걸립니다.</p></div>
-      <div class="item"><span class="from">붉은 얼굴 리빌</span><span class="to">자극을 증거로 쓰는 연출</span><p>민감 피부 타깃과 '자극 대신 리듬' 포지션에 맞지 않습니다.</p></div>
-      <div class="item"><span class="from">창업자 개인 신화</span><span class="to">사람 중심 권위</span><p>DMK의 최대 자산이자 승계 리스크. 터노바는 하우스(법인명)가 세계관을 갖는 구조를 유지합니다.</p></div>
-      <div class="item"><span class="from">10분 크랙 자체를 차별점으로</span><span class="to">시간·장면 경쟁</span><p>좀비팩·다이소가 이미 가진 장면입니다. 장면은 '해석과 이름'으로만 차별화합니다.</p></div>
-    </div>
+  <h3>포트폴리오 안의 역할</h3>
+  <div class="prose">
+    <p>STEP 3는 <b>발견·트래픽 SKU</b>입니다. 숏폼·시딩·광고 소재의 주인공으로 신규 고객을 데려옵니다. 수익과 재구매는 <b>필링밤(LTV SKU)과 번들</b>에서 냅니다. 예산과 가격 결정은 이 역할 분담에서 출발합니다(마케팅 H5).</p>
   </div>
 
-  <h3 class="sub">가격 기준선</h3>
+  <h3 class="sub">3막 × 3R × 출시 4종 매핑 (브랜드북 v2 반영안)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>3막 (말하는 층)</th><th>3R (숨은 층)</th><th>출시 SKU</th><th>쓰는 시점</th></tr></thead>
+    <tbody>
+      <tr><td class="k">TURN OFF</td><td>Reset</td><td>필링밤(리브온, 주 2~3회) · 필링 에센스(워시오프, 입문·민감·일본용으로 역할 분리)</td><td>밤 8시</td></tr>
+      <tr><td class="k">TURN OVER</td><td>Refill</td><td>배리어 크림(매일, 모든 밤의 마지막 단계)</td><td>잠들기 전</td></tr>
+      <tr><td class="k">NOVA</td><td>Reverse → "결·탄력의 되돌림"으로 재정의</td><td>STEP 3 마스크(필링밤을 쉬는 밤, 주 2회)</td><td>바르는 건 밤, 결과 확인은 아침</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">브랜드북이 '2 SKU·확장 절제' 전제였던 만큼 4종 확정에 맞춰 바뀌어야 할 곳: VI장 2 SKU 논리, IX장 '빈칸 밖 제품 금지', XI #6 방어("4종이지만 하룻밤 3막에 모두 자리가 있다"로), Reverse 정의(눈가·목선 → 결·탄력, 눈가는 확장 SKU로), 패키지 STEP 숫자는 바르는 순서가 아니라 3막이라고 명시, 골드→코퍼 변경에 따른 NOVA 상징 재서술.</p>
+
+  <h3 class="sub">이름</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>후보</th><th>브랜드 검토</th><th>규제 검토</th><th>판정</th></tr></thead>
+    <tbody>
+      <tr><td class="k">엔자임 리프팅 팩</td><td>—</td><td>'이중턱 리프팅 개선' 적발 사례, 명칭 기능성 오인 금지(별표5), 성분명 사용 시 함량 표시</td><td><span class="pill no">제외</span></td></tr>
+      <tr><td class="k">랩핑 마스크</td><td>—</td><td>필오프로 오인, 메디큐브·메디필 검색에 묻힘</td><td><span class="pill no">제외</span></td></tr>
+      <tr><td class="k">NOVA 마스크</td><td>"터노바 노바" 중복, 세계관 단어를 한 SKU가 가져감, 품명 체계 이탈, 상표 식별력 약함(추정)</td><td>효능 암시 없어 최저 위험</td><td><span class="pill warn">제품명 제외 · 세계관 단어로 보존</span></td></tr>
+      <tr><td class="k">TENSION WASH-OFF MASK</td><td>품명 체계와 같은 형식, 매대 가독성</td><td>'텐션'은 한국 소비자 언어에서 탄력·리프팅 은어라 명칭 기능성 오인 소지, 중국 紧致 효능 평가 대상 가능</td><td><span class="pill warn">자문 통과 시에만</span></td></tr>
+      <tr><td class="k">WASH-OFF FILM MASK</td><td>품명 체계(TURNOVA + 기능 일반명)와 같은 형식</td><td>형태 서술이라 수출국 공통 저위험</td><td><span class="pill ok">팀 권고</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">권고: <b>TURNOVA WASH-OFF FILM MASK (터노바 워시오프 필름 마스크)</b> + 3막 표기 + with [원료코드]-8™. 원료코드는 TNV-8·RVS 8·TRV-8·TERN8 사이에서 미확정이라 플레이스홀더로 둡니다. KIPRIS·J-PlatPat·USPTO 선행조사와 광고자문 후 확정합니다.</p>
+
+  <h3 class="sub">사용 시점과 숫자 8</h3>
   <div class="prose">
-    <p>국내 회당 기준선은 다이소 500원, 좀비팩 할인가 990~2,900원, 정가 약 4,400원입니다. 위로는 DMK 홈키트 회당 $12–17, Hanacure 회당 약 $30이 있습니다. 노션 가격표의 ₩49,000(옛 필름팩 8회 64 g)은 단일 튜브 60 mL 스펙과 맞지 않으므로, 1회 사용량을 정해 회당 단가부터 다시 계산해야 합니다. 좀비팩 대비 2배 이상을 받으려면 무알부민·무향·원스텝·루틴 연결 네 가지가 상세페이지 첫 화면에서 증명돼야 합니다.</p>
+    <p><b>메인: 밤 8시, 필링밤을 쉬는 밤, 주 2회(28일 8회).</b> 중요한 날이 있으면 그날로부터 사이클을 거꾸로 세어 마지막 회차를 전날 밤에 씁니다. 시술 대응맵의 'D-14 인터셉트'가 원래 이 뜻입니다. '그날 아침 10분'은 GRWM 콘텐츠 훅과 FAQ 보조로 둡니다.</p>
+    <p><b>'10분'은 법정 사용법 표기에만.</b> 브랜드북 규칙("8이 아닌 숫자를 브랜드 장치에 쓰지 않는다")에 따라 브랜드 장치는 '28일 8회'로 말하고, 10분은 "표준 조건에서 약 10분, 습한 날엔 더 걸릴 수 있음"으로 사용법에만 씁니다.</p>
+  </div>
+
+  <h3 class="sub">장면 소유</h3>
+  <div class="prose">
+    <p>DMK의 Plasmatic Effect®와 Hanacure Effect가 이름 붙인 것은 결국 '결과' 장면입니다. 터노바는 <b>씻은 뒤·아침의 도착 장면</b>에 이름을 붙이고, 그 이름이 NOVA 세계관과 이어지게 합니다. 크랙은 이름 없이 연출로만 씁니다. 출원은 원료코드 확정 후 함께 진행합니다.</p>
+  </div>
+
+  <h3 class="sub">포지셔닝 문장 (규제 검토 반영)</h3>
+  <div class="callout blue" style="margin-top:.4em"><b>필링밤을 쉬는 밤 8시, 조이는 느낌으로 굳었다가 갈라지면 씻어내는 터노바의 워시오프 마스크. 씻은 뒤 매끈하게 정돈된 결을 아침에 확인합니다.</b><br>v3 문장에서 뺀 것: "결이 돌아오는"(회복·즉시 효과 표현), "계란도 향도 없이"를 첫머리에(부정 비교로 '비싼 좀비팩' 프레임을 엶, 무(無) 표현은 시험 분석 전), 사용 시점 두 개 병기.</div>
+
+  <h3 class="sub">DMK에서 가져올 것 · 바꿀 것 · 버릴 것</h3>
+  <div class="board">
+    <div class="col take"><h3>가져올 것</h3>
+      <div class="item"><span class="from">Plasmatic Effect® · Hanacure Effect</span><span class="to">결과 장면에 이름</span><p>씻은 뒤·아침의 도착 장면. 크랙은 이름 없이.</p></div>
+      <div class="item"><span class="from">B&amp;A Challenge 규칙</span><span class="to">28일 인증 규정 (루틴 단위)</span><p>정면·좌·우 3장씩, 무보정, 타 시술 병행 시 비교군 제외(DMK처럼 탈락 기준), 이미지 사용권 동의. STEP 3 단독 증거는 '세안 직후 / 2시간 후' 같은 조명 컷으로.</p></div>
+      <div class="item"><span class="from">5단계 여정 · 단일 CTA</span><span class="to">피부 퀴즈 → 프로토콜 카드 → 첫 사이클</span><p>'처방' 대신 브랜드 언어인 '프로토콜'과 '티켓'으로 통일합니다(의약품 오인 회피).</p></div>
+      <div class="item"><span class="from">교육 게이트 · 등급 지도</span><span class="to">파트너 약국 등급제</span><p>07장 참조.</p></div>
+    </div>
+    <div class="col bend"><h3>바꿔 쓸 것</h3>
+      <div class="item"><span class="from">45분 고통 = 효과의 증거</span><span class="to">조이지만 덜 괴롭게</span><p>수축은 유지하고 자극 원인(고pH·과건조·향료·에탄올)을 뺍니다. 원스텝 튜브, 잘 씻김.</p></div>
+      <div class="item"><span class="from">'pre-event' 셀럽 용도</span><span class="to">'그날' 역산 사이클</span><p>당일 아침이 아니라 D-day에서 거꾸로 센 밤 사이클. 아침은 콘텐츠 훅.</p></div>
+      <div class="item"><span class="from">관리실 전용</span><span class="to">관리실 파일럿 (Phase 2 옵션)</span><p>의료기관 연계 광고는 의료법 리스크라 하지 않습니다.</p></div>
+    </div>
+    <div class="col drop"><h3>버릴 것</h3>
+      <div class="item"><span class="from">oxygenation · reverse osmosis · only</span><span class="to">근거 없는 원리·최상급</span><p>국내외 광고 금지 유형.</p></div>
+      <div class="item"><span class="from">붉은 얼굴 리빌</span><span class="to">자극을 증거로 쓰는 연출</span><p>'자극 대신 리듬' 포지션과 충돌.</p></div>
+      <div class="item"><span class="from">창업자 개인 신화</span><span class="to">사람 중심 권위</span><p>하우스(법인) 구조 유지.</p></div>
+      <div class="item"><span class="from">10분 크랙 자체</span><span class="to">시간·장면 경쟁</span><p>좀비팩·다이소가 가진 장면.</p></div>
+    </div>
   </div>
 </section>
 
 <!-- 07 -->
-<section id="claims">
-  <div class="sec-head"><span class="sec-no">07 · CLAIM GUARDRAILS</span><h2>광고 가드레일</h2><p class="sec-sub">식약처 「화장품 표시·광고 관리 지침」(2025.8.14 개정)과 대한화장품협회 「광고자문 기준 및 해설서 2025」 원문 기준. 법률 자문이 아니므로 최종 문구는 광고 사전 자문으로 확정합니다.</p></div>
+<section id="gtm">
+  <div class="sec-head"><span class="sec-no">07 · LAUNCH GTM</span><h2>STEP 3 론칭 실행안 (마케팅 검토 신설)</h2><p class="sec-sub">일정·목표치는 모두 가정입니다. 론칭일은 2027년 2월 8일(메종의 날), 큐텐 메가와리는 2026년 패턴(2/27–3/11)대로 2월 말 시작으로 가정했습니다.</p></div>
+
+  <h3>채널별 역할</h3>
   <div class="tbl"><table>
-    <thead><tr><th class="dmk">DMK식 표현</th><th class="tnv">터노바 표현 (방향)</th><th>판정과 근거</th></tr></thead>
+    <thead><tr><th>채널</th><th>역할</th></tr></thead>
     <tbody>
-      <tr><td class="dmk">Tightens and tones</td><td class="tnv">마르는 동안 피부를 감싸 조이는 느낌 · 씻어내면 매끈한 피부결</td><td><span class="pill ok">사용감 표현</span><br>효능이 아니라 감각 묘사</td></tr>
-      <tr><td class="dmk">Removing redundant cuticle</td><td class="tnv">묵은 각질 정돈 · 피부결 정리</td><td><span class="pill ok">일반 화장품 범위</span></td></tr>
-      <tr><td class="dmk">Firming</td><td class="tnv">"탄력 있는 피부로 가꿔줍니다"</td><td><span class="pill ok">일반 화장품 가능</span><br>해설서 예시 문장. 수치를 붙이면 인체적용시험 필요(별표2)</td></tr>
-      <tr><td class="dmk">Anti-aging</td><td class="tnv">"피부 노화 징후 완화"</td><td><span class="pill warn">실증 시 가능</span><br>별표2: 인체적용시험 또는 인체 외 시험</td></tr>
-      <tr><td class="dmk">계란 없음 · 향 없음</td><td class="tnv">"무알부민 · 무향료"</td><td><span class="pill warn">실증 시 가능</span><br>별표2: '무(無) OO' 표현은 시험 분석 자료</td></tr>
-      <tr><td class="dmk">Lifts sagging tissue · 즉각 리프팅</td><td class="tnv">사용하지 않음. v1의 "즉각 당김감"도 철회</td><td><span class="pill no">고위험</span><br>2025.3 "이중턱 리프팅 개선" 적발, 별표1 "얼굴 윤곽개선, V라인" 금지, "효능·효과가 즉각적으로 적용되는 표현은 할 수 없다"</td></tr>
-      <tr><td class="dmk">Collagen · 효소 활성화</td><td class="tnv">사용하지 않음</td><td><span class="pill no">사용 금지</span><br>별표1 "피부구성 물질(효소, 콜라겐 등)을 증가, 감소 또는 활성화" 금지</td></tr>
-      <tr><td class="dmk">Reduces wrinkles</td><td class="tnv">사용하지 않음</td><td><span class="pill no">사용 금지</span><br>심사받지 않은 제품의 "주름(링클) 개선" 금지, 원료 설명도 금지</td></tr>
-      <tr><td class="dmk">True oxygenation · the only</td><td class="tnv">사용하지 않음</td><td><span class="pill no">사용 금지</span><br>의약품 오인, 별표5 바목 절대적 표현 금지(영문도 같은 기준)</td></tr>
-      <tr><td class="dmk">시술 효과 · 시술급 · 필러</td><td class="tnv">사용하지 않음. "관리실 리프팅 관리 1회 정가로 집에서 한 사이클"은 가격 비교로만</td><td><span class="pill no">사용 금지</span><br>별표1 "레이저, 카복시 등 시술 관련 표현", "필러" 금지</td></tr>
+      <tr><td class="k">관광지 약국</td><td>일본·중화권 관광객의 발견과 첫 구매. 손등 크랙 데모(건조 시간 시험 필요), 다국어 POP, 단상자 QR로 큐텐 재구매 연결. "약국 전용·약사 추천" 문구는 쓰지 않음</td></tr>
+      <tr><td class="k">클리닉가 약국</td><td>국내 3050 신뢰 접점. 직원 15분 교육 키트, 1회분 파우치, 필링밤 세트</td></tr>
+      <tr><td class="k">큐텐 재팬</td><td>일본 매출 본진. 메가와리 전 리뷰 축적, 단품 할인 대신 큐텐 전용 세트로 참가, 毛穴·ひきしめ 키워드</td></tr>
+      <tr><td class="k">자사몰</td><td>데이터·멤버십·쿠폰 독점 허브. 피부 퀴즈 → 프로토콜 카드 → 첫 사이클</td></tr>
+      <tr><td class="k">쇼피</td><td>Phase 2 테스트 마켓. 국가별 등록(태국 FDA, 인니 BPOM 등) 필요, 회당 990원 시장이라 가격 탄력성만 확인</td></tr>
+      <tr><td class="k">TikTok · IG · Google</td><td>TikTok은 훅 발견(무취·GRWM·침묵 포맷 A/B 후 Spark Ads), IG는 국내 3050 루틴 증거, Google은 '턴오버' 검색에 묻히는 문제 방어</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sub">약국판 'DMK 구조': 파트너 약국 등급제</h3>
+  <div class="prose">
+    <p>① 교육 게이트: 직원 15분 교육과 파우치를 받은 매장만 '프로토콜 스토어'로 인정. ② 지도 노출: 자사몰 '파는 곳 지도'를 월 판매 등급순으로, 상위 등급에 POP·집기·장려금 차등. ③ 희소성은 구매 제한이 아니라 '첫 사이클 멤버십'(대기 등록 → 퀴즈 → 프로토콜 카드). ④ 코스 묶음: 필링밤 + 배리어 + STEP 3 첫 사이클 키트.</p>
+  </div>
+
+  <h3 class="sub">훅 설계: 크랙만으로는 안 됩니다</h3>
+  <div class="claims">
+    <div class="claim"><span class="c">무취 리액션</span><span class="e">가족·파트너 블라인드 냄새 테스트. 경쟁사 실명 금지. 일본 큐텐 좀비팩 리뷰에도 냄새 불만("生ゴミっぽい")이 있어 해외에서도 통함</span><span class="pill ok">1순위</span></div>
+    <div class="claim"><span class="c">'그날' 준비 GRWM</span><span class="e">마스크 → 세안 → 메이크업 밀착 컷. 좀비팩 만족 1위(화장 잘 먹음)를 가져옴. 일본 키워드 化粧ノリ. 효능 자막 금지</span><span class="pill ok">2순위</span></div>
+    <div class="claim"><span class="c">10분 침묵 챌린지</span><span class="e">"굳는 동안 말하지 말 것"을 게임으로. 해외 2040 대상, 국내 3050에는 늙어 보이는 컷 대신 애프터 먼저</span><span class="pill warn">해외 한정</span></div>
+  </div>
+
+  <h3 class="sub">론칭 전 8주</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>주차</th><th>할 일</th></tr></thead>
+    <tbody>
+      <tr><td class="k num">W-8 (12/14)</td><td>시딩 로트 300~500개 확보(무지 패키지), 큐텐·자사몰 입점 심사, 픽셀·CAPI·UTM, 대기 등록 랜딩, 크리에이터 150명 리스트(국내 50 · 일본 60 · 동남아 40)</td></tr>
+      <tr><td class="k num">W-7</td><td>블라인드 패널 50명(냄새·크랙 시점·화장 밀착), 훅 3종 촬영</td></tr>
+      <tr><td class="k num">W-6</td><td>제품 비노출 공감 티저, Spark Ads 소액 훅 선별</td></tr>
+      <tr><td class="k num">W-5</td><td>1차 시딩(국내 30 · 일본 30, 론칭 주까지 엠바고), 체험단 100명. 체험 후기는 '#광고' 표기</td></tr>
+      <tr><td class="k num">W-4</td><td>약국 30곳 입점 확정, 다국어 POP·교육 키트 생산</td></tr>
+      <tr><td class="k num">W-3</td><td>메가와리 참가 신청과 큐텐 전용 세트 확정, 상세페이지 최종화(실증된 문구만)</td></tr>
+      <tr><td class="k num">W-2 ~ W0</td><td>입고·진열, 2차 시딩, 유료 광고 세팅(시딩 35% · 숏폼 광고 30% · 큐텐 20% · 약국 POP 15%, 가정), CS FAQ, 동시 오픈과 엠바고 해제</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sub">핵심 KPI (가정 목표치)</h3>
+  <div class="claims">
+    <div class="claim"><span class="c">리뷰</span><span class="e">메가와리 시작 전 큐텐 리뷰 50건 이상·평점 4.5 이상, 자사몰 포토리뷰 론칭 4주 내 100건</span><span class="pill warn">가정</span></div>
+    <div class="claim"><span class="c">사용 중 불만 비율</span><span class="e">리뷰 중 냄새 언급 3% 미만, 따가움·당김 10% 미만. 제품 약속이 지켜지는지 보는 지표</span><span class="pill warn">가정</span></div>
+    <div class="claim"><span class="c">숏폼 훅</span><span class="e">3초 시청률 30% 이상, 저장+공유 2% 이상으로 승리 훅 선별</span><span class="pill warn">가정</span></div>
+    <div class="claim"><span class="c">약국 회전</span><span class="e">30개점, 점당 주 4개 이상, 단상자 QR 스캔율 3% 이상</span><span class="pill warn">가정</span></div>
+    <div class="claim"><span class="c">교차구매</span><span class="e">STEP 3 첫 구매자 중 60일 내 필링밤·배리어 구매 20% 이상</span><span class="pill warn">가정</span></div>
+  </div>
+
+  <h3 class="sub">일본 진입 메모</h3>
+  <div class="prose">
+    <p>일본 화장품 효능 56항목에 (20) 「肌のキメを整える」, (23) 「肌をひきしめる」, (30) 「肌にはりを与える」가 있어 'ひきしめ'를 적법하게 쓸 수 있습니다. 「リフトアップ」·ファーミング·エイジングケア의 과장 사용은 피합니다. (56) 「乾燥による小ジワを目立たなくする」는 JCIA 가이드라인 시험을 거치면 쓸 수 있어 시험 1회로 클레임 하나가 열립니다. '크랙'은 일본어 ひび割れ로 부정적이라 「乾くとパリッと」 계열로 표현합니다. 키워드: 洗い流すパック · 毛穴 引き締めパック · キメ · 無香料 · 卵白不使用 · 化粧ノリ. 진입 순서는 큐텐 월경 판매 → LIPS·@cosme 리뷰 → 드럭스토어(현지 제조판매업자·일본어 라벨·JAN 필요, 2028년 과제).</p>
+  </div>
+</section>
+
+<!-- 08 -->
+<section id="price">
+  <div class="sec-head"><span class="sec-no">08 · PRICING</span><h2>가격: 1회 사용량부터 정해야 합니다</h2><p class="sec-sub">모든 수치는 가정입니다. 계산은 python으로 검증했습니다.</p></div>
+  <div class="prose">
+    <p><b>1회 사용량.</b> 얼굴 약 450–565 cm² 기준 2~4 g이 현실 범위입니다(R&amp;D: 10분 건조를 위해서는 약 5 mg/cm² 이하, 얼굴 기준 약 2.3 g). 노션 옛 스펙(64 g/8회 = 회당 8 g)과 브랜드 검토의 '60 mL = 8회(회당 7.5 mL)'는 10분 건조가 안 되는 두께라 기각합니다. 4 mL 기준 60 mL 튜브는 약 14회, 주 2회면 약 7주(약 1.7사이클)를 씁니다. 4차 패널에서 튜브 무게로 실측해 60 mL·80 mL 중 고릅니다.</p>
+    <p><b>용어 정리.</b> 3차 품평 시트의 '목표 공급률 10~15%'는 개발의뢰서 수치(공급가 3,000~5,000원 / 소비자가 25,000~38,000원)로 보면 <b>제조 원가율</b>입니다. 바이어는 '공급률'을 채널 납품가 비율(약국 정가의 약 40%, 수출 26~35%)로 읽으므로 '목표 원가율(순매출 기준)'로 이름을 바꿉니다.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>시나리오</th><th>상시가</th><th>회당 (3 mL / 4 mL)</th><th>원가율</th><th>자사몰 마진</th><th>큐텐 평시 / 메가와리</th><th>약국 공급가 → 마진</th></tr></thead>
+    <tbody>
+      <tr><td class="k">A 좀비팩 근접</td><td class="num">29,900원</td><td class="num">1,608 / 2,143원</td><td class="num">14.0%</td><td class="num">18,937원</td><td class="num">18,012 / 15,380원</td><td class="num">12,109 → 6,718원</td></tr>
+      <tr><td class="k tnv">B 중간 (권고)</td><td class="num tnv">38,900원</td><td class="num tnv">2,091 / 2,789원</td><td class="num tnv">10.7%</td><td class="num tnv">26,195원</td><td class="num tnv">25,932 / 22,508원</td><td class="num tnv">15,754 → 10,032원</td></tr>
+      <tr><td class="k">B' 히어로 동일</td><td class="num">43,900원</td><td class="num">2,360 / 3,147원</td><td class="num">9.5%</td><td class="num">30,227원</td><td class="num">30,332 / 26,468원</td><td class="num">17,779 → 11,873원</td></tr>
+      <tr><td class="k">C 프리미엄</td><td class="num">54,000원</td><td class="num">2,903 / 3,871원</td><td class="num">7.7%</td><td class="num">35,644원</td><td class="num">39,220 / 34,468원</td><td class="num">21,870 → 15,591원</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">가정: 원가 3,800원, 회원 첫구매 5%·적립 5% 중 60% 사용·PG 3.3%·배송 실비, 큐텐 수수료 12%·국제배송 4,500원·메가와리 브랜드 부담 10%, 약국 정가 40.5% 공급. 60 mL는 양이 많아 54,000원에도 회당가는 좀비팩 정가(약 2,875원)와 비슷하거나 낮습니다. 차별은 회당가가 아니라 객단가와 사용 경험에서 나옵니다.</p>
+
+  <h3 class="sub">번들 (풀스택 = 구간쿠폰 + 적립 2,000원)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>번들</th><th>구성</th><th>정가 합계 → 세트가</th><th>풀스택 (총할인율)</th></tr></thead>
+    <tbody>
+      <tr><td class="k">듀오</td><td>배리어 + STEP 3</td><td class="num">85,900 → 79,000원</td><td class="num">74,000원 (13.9%)</td></tr>
+      <tr><td class="k tnv">첫 사이클 키트</td><td>필링밤 + 배리어 + STEP 3</td><td class="num">140,900 → 119,000원</td><td class="num">112,000원 (20.5%, 바닥선)</td></tr>
+      <tr><td class="k">풀 루틴</td><td>4종</td><td class="num">189,900 → 159,000원</td><td class="num">152,000원 (20.0%)</td></tr>
+      <tr><td class="k">STEP 3 2개</td><td>STEP 3 × 2</td><td class="num">77,800 → 72,000원</td><td class="num">67,000원 (개당 33,500원)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b>현행 쿠폰 규칙과의 충돌.</b> 공구 34,900·행사 하한 39,900·3개 112,000원은 상시가 43,900원 단일 히어로 전제입니다. STEP 3를 38,900원으로 두면 행사가 불가능해지므로 하한을 비율로 바꿉니다(행사 = 상시가 × 0.909, 공구 = 상시가 × 0.795, 번들 총할인율 20.5% 이하). 매월 8일 8,000 크레딧을 적립금과 겹치면 히어로 재구매가가 31,705원까지 내려가 바닥을 깨므로 현물(미니·굿즈)로 바꾸거나 구간쿠폰과 중복 불가로 합니다. '좀비팩 대비 2배' 같은 주장은 지불의사 근거가 없어 뺐고, Van Westendorp 조사(200명 이상)와 사전예약 가격 A/B로 확인합니다.</div>
+</section>
+
+<!-- 09 -->
+<section id="claims">
+  <div class="sec-head"><span class="sec-no">09 · CLAIMS &amp; REGULATION</span><h2>광고·규제 (수출국 전체)</h2><p class="sec-sub">리스크 스크리닝이며 법률 자문이 아닙니다. 한국은 식약처 지침(2025.8.14)과 대한화장품협회 해설서(2025) 원문, 해외는 각국 원문(일부 2차 출처) 기준입니다.</p></div>
+
+  <div class="callout warn" style="margin-top:0"><b>가장 큰 리스크: '리버스에이징'.</b> 한국 지침 별표1은 "피부 나이… 감소 또는 어려진다는 표현"을 금지하고, 아세안 클레임 가이드는 "reverses the physiological changes… brought about by aging"을 수용 불가 예시로, 일본 粧工会 가이드는 「若返り」 등을 효능 범위 일탈로 봅니다. 미국은 drug claim 위험입니다. 법인명 표기(책임판매업자 등)는 문제가 없지만, 용기·상세페이지·광고에서 '리버스에이징'을 카테고리 선언으로 쓰지 않습니다. 'Reverse your story'는 효능 문장과 떨어진 브랜드 서사 영역에만 둡니다.</div>
+
+  <h3 class="sub">국가 × 표현 매트릭스</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>표현</th><th>한국</th><th>일본</th><th>대만</th><th>중국</th><th>아세안</th><th>미국</th><th>EU</th></tr></thead>
+    <tbody>
+      <tr><td class="k">조이는 느낌 (감각)</td><td>조건부</td><td>허용 (ひきしめる)</td><td>미확인</td><td>조건부 (紧致 평가)</td><td>조건부</td><td>허용 (외관·일시)</td><td>조건부</td></tr>
+      <tr><td class="k">피부결 정돈</td><td>허용</td><td>허용 (キメ)</td><td>미확인</td><td>조건부</td><td>조건부</td><td>허용</td><td>조건부</td></tr>
+      <tr><td class="k">결이 '돌아온다'</td><td>수정 필요</td><td>금지 (よみがえる)</td><td>미확인</td><td>조건부 (修护 인체시험)</td><td>조건부</td><td>조건부</td><td>조건부</td></tr>
+      <tr><td class="k">탄력 / firming</td><td>허용 (실증 자료 보유)</td><td>はり 허용 · ファーミング 불가</td><td>미확인</td><td>조건부</td><td>조건부</td><td>외관만</td><td>조건부</td></tr>
+      <tr><td class="k">리프팅 / lifting</td><td>고위험</td><td>금지</td><td>금지 (拉提)</td><td>고위험</td><td>조건부</td><td>"visibly"만</td><td>조건부</td></tr>
+      <tr><td class="k">무알부민 · 무향료</td><td>시험 분석 자료</td><td>성분 명시, 강조 금지</td><td>검출한계 표시</td><td>미확인</td><td>미확인</td><td>정의 없음</td><td>Annex III 조건</td></tr>
+      <tr><td class="k">anti-aging</td><td>실증 시</td><td>금지</td><td>미확인</td><td>조건부 (抗皱 평가)</td><td>조건부</td><td>고위험</td><td>조건부</td></tr>
+      <tr><td class="k">reverse aging</td><td>금지</td><td>금지</td><td>금지 (回春)</td><td>금지</td><td>금지</td><td>금지 (drug)</td><td>고위험</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">중동(GCC)·중앙아시아(EAEU)는 원문 미확보로 미확인. 대만 열 전체는 확신도 중간.</p>
+
+  <h3 class="sub">한국 문구 판정 (v3 오류 정정 포함)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>표현</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td class="k">마르는 동안 조이는 느낌 · 씻으면 매끈한 피부결</td><td><span class="pill ok">사용감</span></td><td>감각 묘사. 효과로 서술하지 않음</td></tr>
+      <tr><td class="k">"탄력 있는 피부로 가꿔줍니다"</td><td><span class="pill ok">일반 화장품 가능</span></td><td>해설서 예시. 숫자가 없어도 화장품법 제14조 실증 자료는 갖춤</td></tr>
+      <tr><td class="k">무알부민 · 무향료</td><td><span class="pill warn">조건부</span></td><td>별표2 '무(無) OO'는 시험 분석 자료. '향료'는 분석으로 부재 입증이 어려워 광고자문으로 예외 확인. 식물 추출물·마스킹제가 향 기능을 하면 EU 기준 '무향료' 불가. '계란 없이'는 무알부민보다 넓어 난 유래 원료 전부 없어야 함. '알레르기 걱정 없음'류는 금지</td></tr>
+      <tr><td class="k">피부 노화 징후 완화 (anti-aging)</td><td><span class="pill warn">한국 한정</span></td><td>별표2 실증 대상이나, 몇 시간짜리 피막 효과로는 '전체적으로 오인' 위험(별표5 사목). 글로벌 카피에서 제외</td></tr>
+      <tr><td class="k">콜라겐 · 효소 활성화</td><td><span class="pill warn">실증 시 가능 (고난도)</span></td><td>v3 '사용 금지'를 정정. 별표2: 주름 기능성 심사 자료 또는 별도 실증 자료. 미국에서는 drug claim이라 사용하지 않음</td></tr>
+      <tr><td class="k">즉각 리프팅 · 즉시 효과</td><td><span class="pill no">고위험</span></td><td>'이중턱 리프팅 개선'이 2025.3 기능성 오인으로 적발(단어 '리프팅' 단독 판단은 없음). '즉각 적용' 표현 금지는 식약처 지침이 아니라 해설서 기준: "화장품의 효능·효과가 인체에 즉각적으로 적용되는 것을 의미하는 표현은 할 수 없다"</td></tr>
+      <tr><td class="k">주름 개선 · 주름을 편다</td><td><span class="pill no">금지</span></td><td>별표1: 심사받지 않은 제품의 '주름(링클) 개선' 표현 금지</td></tr>
+      <tr><td class="k">"관리실 리프팅 관리 1회 정가로 집에서 한 사이클"</td><td><span class="pill no">소비자 카피 보류</span></td><td>시술 동등 인상, 비교광고 요건. 광고자문 전까지 내부 가격 논리로만</td></tr>
+      <tr><td class="k">눈 주위를 피하여 사용할 것</td><td><span class="pill ok">법정 표시</span></td><td>팩 개별 주의사항. 자율 안내가 아니라 표시 의무</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">그 밖에: pH 3.0~9.0 기준은 사용 후 물로 씻어내는 제품을 제외(10–20분 두는 팩의 해당 여부는 식약처 질의로 확정), 식물 추출물의 알레르기 유발성분 25종은 씻어내는 제품 0.01% 초과 시 표시, 사용시간 상한은 법정 의무는 아니나 EU CPSR·미국 MoCRA 안전성 평가 조건과 맞추기 위해 라벨 표기, 중국은 중문 명칭에 영문자 제한(등록상표만 가능).</p>
+</section>
+
+<!-- 10 -->
+<section id="rnd">
+  <div class="sec-head"><span class="sec-no">10 · FORMULATION</span><h2>처방 검토와 4차 요청서 수정본</h2></div>
+  <div class="prose">
+    <p><b>3차가 '다 마른 뒤에만' 갈라진 이유.</b> 점증제(고분자 용액) 필름은 거의 다 마를 때까지 말랑한 상태라 갈라지지 않습니다. 입자(클레이·실리카)가 든 필름은 입자층이 굳는 단계의 모세관 응력으로 '마르는 중'에 갈라집니다. 그래서 크랙 엔진은 입자 네트워크입니다.</p>
+    <p><b>보습을 마스크 안에 넣지 않습니다.</b> 글리세린 같은 보습제는 완전 건조를 늦추고 가소제로 작용해 크랙과 수축을 둘 다 줄입니다. 보습은 세안 후 배리어 크림으로 옮기고, 마스크 안 폴리올은 상한(예: 3% 이하에서 시작)을 둡니다.</p>
+    <p><b>소듐 실리케이트는 주 필름포머에서 뺍니다.</b> pH 11 이상에서만 액상으로 안정하고, 중국 면막 업계표준(QB/T 2872, pH 4.0~8.5)과 충돌하며, 알칼리 pH는 장벽 회복을 늦춥니다. 밀 가수분해단백은 일본 알레르기 사건(2,111명) 때문에 배제합니다.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>후보</th><th>건조 중 크랙</th><th>텐션</th><th>pH·자극</th><th>판정</th></tr></thead>
+    <tbody>
+      <tr><td class="k">카올린 (+MAS·실리카)</td><td>강</td><td>중</td><td>약산~중성, 중금속 성적서 필요</td><td><span class="pill ok">크랙 엔진 주력</span></td></tr>
+      <tr><td class="k">풀루란</td><td>중</td><td>중~강</td><td>중성</td><td><span class="pill ok">주 필름포머 1순위</span></td></tr>
+      <tr><td class="k">가수분해 쌀·완두 단백</td><td>중</td><td>중</td><td>중성, 냄새·보존 관리</td><td><span class="pill warn">조건부 (밀 배제)</span></td></tr>
+      <tr><td class="k">PVA (부분검화) · 아크릴레이트</td><td>약 / Tg로 조절</td><td>중~강 / 강</td><td>중성</td><td><span class="pill warn">저농도 보조, 씻김 시험 필수</span></td></tr>
+      <tr><td class="k">다당 텐서 원료</td><td>약</td><td>중</td><td>중성</td><td><span class="pill warn">텐션 보강·클레임 근거용</span></td></tr>
+      <tr><td class="k">잔탄·HEC·HPMC</td><td>약 (3차 현상)</td><td>약</td><td>중성</td><td><span class="pill warn">유변 조절 1% 이하</span></td></tr>
+      <tr><td class="k">소듐 실리케이트</td><td>강</td><td>강</td><td>pH 11 이상</td><td><span class="pill no">주 필름포머 배제</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">권장 골격(가설, 비율은 제조사 결정): 풀루란 + 쌀·완두 단백으로 수축, 카올린으로 건조 중 크랙, 소량 PVA 또는 아크릴레이트로 텐션 보강, 폴리올 낮게, pH 5~7.</p>
+
+  <h3 class="sub">피에프네이처 4차 요청서 (수정본)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>항목</th><th>합격 기준</th></tr></thead>
+    <tbody>
+      <tr><td class="k">시험 조건</td><td>23±2°C · 45±5%RH 기본, 30°C/75%RH와 23°C/25%RH 참고. 도포량 4 mg/cm²·8 mg/cm² 두 수준. 권장 1회 사용량(g)과 60 mL당 횟수 제시</td></tr>
+      <tr><td class="k">시안</td><td>A안 3차 수준 텐션 + 크랙 엔진 / B안 강화 텐션 + 크랙 엔진. 두 안 모두 입자 크랙 메커니즘 포함</td></tr>
+      <tr><td class="k">① 건조</td><td>지촉 건조 8분 이하(ASTM D1640), 완전 건조(무게 변화 0.05 mg/cm²/분 이하) 4 mg/cm² 기준 10분 이하</td></tr>
+      <tr><td class="k">② 크랙</td><td>D65 조명·30 cm 육안, 길이 2 mm 이상 균열이 cm²당 3개 이상 보이는 시점이 7분 이하, 완전 건조보다 2분 이상 앞섬. 10분 시점 표준 사진(좀비팩 대조)</td></tr>
+      <tr><td class="k">③ 수축</td><td>체외 수축률 A안은 3차 이상, B안은 3차 대비 30% 이상. 패널 12명 이상 체감 VAS에서 B안 7 이상</td></tr>
+      <tr><td class="k">④ 자극</td><td>pH 5.0~8.0, 따가움·당김 불쾌 VAS 3 이하·호소 10% 이하, 48시간 폐쇄 첩포 30명 이상 무자극</td></tr>
+      <tr><td class="k">⑤ 씻김</td><td>32°C 물, 손 세안 10회 이내 잔막·조각 없음</td></tr>
+      <tr><td class="k">⑥ 세안 후</td><td>15분 후 수분량 기저 대비 -10% 이내, TEWL 유의 증가 없음. 폴리올 총량 기재</td></tr>
+      <tr><td class="k">⑦ 무첨가 증빙</td><td>알부민·난 유래, 에탄올(추출 용매 포함), 착향제·마스킹 향, 밀 단백 없음. 전 원료 INCI 함량·캐리오버 성분표</td></tr>
+      <tr><td class="k">⑧ 규제</td><td>원료별 KR·JP·CN IECIC·TW·ASEAN·US·GCC 사용 가능 매트릭스, 클레이 중금속 성적서</td></tr>
+      <tr><td class="k">⑨ 보존</td><td>ISO 11930 기준 A, 전 수출국 공통 허용 체계(MIT·CMIT·포름알데하이드 방출체 제외)</td></tr>
+      <tr><td class="k">⑩ 안정성</td><td>5·25·40·45°C, -10↔45°C 사이클 12주. 점도·pH·외관·침강, 건조 시간·크랙 시점 초기 대비 ±20% 이내</td></tr>
+      <tr><td class="k">⑪ 용기 적합성</td><td>실제 튜브 40°C 12주 중량 감소 2% 이하, 30회 개폐 후 노즐 막힘·첫 토출 덩어리 없음(EVOH·알루미늄 배리어 라미 검토)</td></tr>
+      <tr><td class="k">⑫ 사용시간 상한</td><td>크랙 후 5분·총 15분 시점 자극 VAS로 라벨 상한 결정</td></tr>
+      <tr><td class="k">추가</td><td>2차(실리케이트) 시제품 실측 pH, 국내 워시오프 pH 예외 적용에 대한 제조사 의견, 시딩용 무지 로트 300~500개 12월 중순 납품 가능 여부</td></tr>
     </tbody>
   </table></div>
 </section>
 
-<!-- 08 -->
+<!-- 11 -->
 <section id="redteam">
-  <div class="sec-head"><span class="sec-no">08 · RED TEAM</span><h2>"수축하면 주름이 더 생기는 거 아니야?"</h2><p class="sec-sub">공격을 쪼개서 근거, 판정, 대응으로 답합니다.</p></div>
-  <div class="prose">
-    <p><b>원리.</b> 주름은 피부가 같은 자리에서 반복해 <b>접히는</b> 것이고, 피막의 수축은 피부를 옆으로 <b>당겨 펴는</b> 방향입니다. 피부는 점탄성 조직이라 장력이 사라지면 돌아옵니다. 그래서 "수축 = 주름 생성"은 성립하기 어렵습니다.</p>
-  </div>
+  <div class="sec-head"><span class="sec-no">11 · RED TEAM</span><h2>"수축하면 주름이 더 생기는 거 아니야?"</h2></div>
   <div class="claims">
-    <div class="claim"><span class="c">피막이 잔주름을 일시적으로 편다</span><span class="e">Jachowicz 외 2008(단백질·다당류 필름이 피부 강성 증가, 5명), Pensalfini 외 2020(강성 48–107% 증가·주름 진폭 감소, 로레알 지원), Maidhof 외 2019(건조 수축 필름이 15분 후 눈가 주름 완화, 에이본)</span><span class="pill ok">근거 중간</span></div>
-    <div class="claim"><span class="c">효과는 몇 시간짜리다</span><span class="e">알부민+소듐실리케이트 조성물 특허(Kligman) 2–3시간~24시간 주장, 습도가 높으면 강성 효과 소실(Jachowicz). 좀비팩 리뷰 8건이 "일시적"이라고 지적</span><span class="pill ok">일관됨</span></div>
-    <div class="claim"><span class="c">건조하면 잔주름이 더 보인다</span><span class="e">저습 30분 만에 눈가 잔주름 증가(Tsukahara 2007), 저습 3–6시간 각질층 수분 감소(Egawa 2002). 마스크 직접 시험은 아니므로 적용은 추론</span><span class="pill warn">근거 중간</span></div>
-    <div class="claim"><span class="c">바르는 동안 얼굴이 늙어 보인다</span><span class="e">"makes you look like a grandma", "작은 표정에도 주름처럼 보이는 잔금"(Today.com 2017). 딱딱한 막이 부드러운 피부 위에서 접히는 좌굴 현상(Limbert & Kuhl 2018 모델)</span><span class="pill warn">현상은 확실</span></div>
-    <div class="claim"><span class="c">수축 마스크가 영구 주름을 만든다</span><span class="e">근거를 찾지 못함. 영구 주름 관련 기계적 변형 연구는 수년간 매일 밤 수면 압박(Anson 2016)으로 주 2–3회 10분과 다름. 이를 주장한 피부과 의사도 찾지 못함</span><span class="pill ok">근거 없음</span></div>
+    <div class="claim"><span class="c">필름이 잔주름을 일시적으로 편다</span><span class="e">Pensalfini 2020(강성 48–107% 증가·주름 진폭 감소, 로레알 지원), Maidhof 2019(건조 수축 필름 15분 후 눈가 완화, 에이본). v3가 인용한 Jachowicz 2008은 합성 고분자 필름의 팔 피부 강성만 측정(n=5)해 주름 근거에서 뺐습니다</span><span class="pill ok">근거 중간</span></div>
+    <div class="claim"><span class="c">효과 지속 시간</span><span class="e">근거는 인간 혈청 알부민+실리케이트 특허(철회, 2–3시간~24시간 주장), 흡습성 고분자의 고습 강성 소실, 리뷰. 반례(Beaut.ie "for weeks")도 있음. 측정 전까지 미확정</span><span class="pill warn">미확정</span></div>
+    <div class="claim"><span class="c">건조하면 잔주름이 더 보인다</span><span class="e">저습 30분에 눈꺼풀 잔주름 증가(Tsukahara 2007, n=20), 저습 3–6시간 각질층 수분 감소(Egawa 2002). 마스크 직접 시험 아님</span><span class="pill warn">근거 중간</span></div>
+    <div class="claim"><span class="c">바르는 동안 늙어 보인다</span><span class="e">"makes you look like a grandma", "small facial movements create tiny cracks that look remarkably like wrinkles"(Today.com 2017). 기전은 피부 좌굴 모델에서의 유추</span><span class="pill warn">현상 확실</span></div>
+    <div class="claim"><span class="c">수축 마스크가 영구 주름을 만든다</span><span class="e">근거를 찾지 못함. 영구 주름 관련 기계적 변형 연구는 수년간 매일 밤 수면 압박(Anson 2016)</span><span class="pill ok">근거 없음</span></div>
   </div>
 
   <h3 class="sub">공격이 맞는 지점과 대응</h3>
   <div class="tbl"><table>
-    <thead><tr><th>공격</th><th>판정</th><th>제품·사용법 대응</th><th>검증</th></tr></thead>
+    <thead><tr><th>공격</th><th>대응</th><th>검증</th></tr></thead>
     <tbody>
-      <tr><td class="k">더 강한 수축이 더 좋다 (3차 품평 요청)</td><td><span class="pill warn">트레이드오프</span><br>강할수록 더 늙어 보이고 당김·따가움 불만(좀비팩 9건·6건)이 늘어납니다. Hanacure는 "20분 넘기지 말 것"을 사용법에 박아 두었습니다.</td><td>강도는 '체감되는 최소치'. 4차 샘플에서 강도별 2안을 받아 자극·건조와 함께 비교. 사용 시간 상한 라벨 표기</td><td>강도별 2안 패널 테스트</td></tr>
-      <tr><td class="k">씻고 나니 잔주름이 더 보인다</td><td><span class="pill warn">일어날 수 있음</span><br>건조로 보이는 것이지 주름이 생긴 게 아닙니다. 좀비팩은 오히려 '헹군 뒤 촉촉'(5) 쪽이 '건조'(3)보다 많았습니다.</td><td>보습 보강 유지, 알칼리 발포제·에탄올 배제. 사용법에 "씻은 뒤 바로 데일리 배리어 크림" 고정</td><td>사용 전·직후·2시간 후 수분량, TEWL</td></tr>
-      <tr><td class="k">굳은 상태로 웃거나 말하면 자국이 남는다</td><td><span class="pill warn">일어날 수 있음</span><br>DMK·좀비팩 모두 "말할 수 없음"을 안내합니다.</td><td>사용법 1순위 문구 "굳는 10분 동안 말하지도 웃지도 않기". 콘텐츠에서 굳은 얼굴로 말하는 장면 금지</td><td>사용 후 30분 3D 피부 측정</td></tr>
-      <tr><td class="k">눈가·입가가 위험하다</td><td><span class="pill warn">부분적으로 맞음</span></td><td>눈가 1 cm·입술 주변 도포 금지 명시. 출시 4종에 눈가 전용이 없으므로 안내만</td><td>안자극·1차 자극 시험</td></tr>
-      <tr><td class="k">필링밤 쓰는 날 같이 쓰면 자극이 쌓인다</td><td><span class="pill warn">맞음</span></td><td>프로토콜 카드에서 필링밤과 STEP 3는 다른 날로 배치. 민감 피부는 주 1회부터</td><td>반복 첩포·누적 자극 시험</td></tr>
-      <tr><td class="k">밤에 쓰면 아침엔 효과가 없다</td><td><span class="pill warn">가능성 높음</span><br>효과가 몇 시간이면 밤 8시 사용 후 아침에는 남지 않을 수 있습니다.</td><td>메인 용도를 "그날 아침 10분"으로, 밤 사용은 결 정돈 목적으로 설명</td><td>0·2·8·12시간 피부 거칠기 측정</td></tr>
-      <tr><td class="k">크랙 장면이 늙은 피부처럼 보인다</td><td><span class="pill warn">사실, 그러나 무기가 될 수 있음</span><br>Hanacure는 "20분은 악마, 그 뒤엔 천사"로 키웠습니다. 다만 30~50대에게는 혐오감 리스크(좀비팩 3건).</td><td>크랙 컷은 반드시 씻은 뒤 피부결 컷과 한 쌍. "늙어 보이는 10분 뒤에 돌아온다"는 대비를 장면으로만 보여주고 효능으로 말하지 않음</td><td>숏폼 A/B 테스트</td></tr>
+      <tr><td class="k">씻고 나니 잔주름이 더 보인다</td><td>보습은 마스크 안이 아니라 세안 후 배리어 크림으로. 사용법에 순서 고정</td><td>세안 15분 후 수분량·TEWL</td></tr>
+      <tr><td class="k">굳은 상태로 표정을 지으면 자국</td><td>사용법 1순위 "굳는 동안 말하지도 웃지도 않기"</td><td>사용 후 30분 3D 측정</td></tr>
+      <tr><td class="k">눈가·입가</td><td>"눈 주위를 피하여 사용할 것" 법정 표시 + 입술 주변 제외</td><td>안자극·1차 자극</td></tr>
+      <tr><td class="k">필링밤과 같은 밤 사용</td><td>프로토콜 카드에서 다른 밤 배치, 민감 피부 주 1회부터</td><td>누적 자극 시험</td></tr>
+      <tr><td class="k">수축이 세면 더 아프다</td><td>수축은 3차 이상 유지, 자극 원인(고pH·과건조·향료·에탄올)을 따로 제거. 사용시간 상한 라벨</td><td>A·B안 VAS 비교</td></tr>
+      <tr><td class="k">밤에 쓰면 아침엔 효과가 없다</td><td>밤 사용의 약속은 '결 정돈'. 조임 지속을 약속하지 않음</td><td>0·2·8·12시간 거칠기 측정</td></tr>
     </tbody>
   </table></div>
 
-  <h3 class="sub">현장 답변 (상세페이지 FAQ · 바이어 미팅)</h3>
+  <h3 class="sub">현장 답변 (규제 검토 반영)</h3>
   <div class="claims">
-    <div class="claim"><span class="c">Q. 팩이 수축하면 주름이 더 생기지 않나요?</span><span class="e">주름은 피부가 반복해서 접히면서 생깁니다. 이 팩은 마르면서 피부를 옆으로 당겨 펴는 방향으로 작용합니다. 대신 굳는 10분 동안은 말하거나 웃지 마세요. 굳은 막을 접으면 자국이 남을 수 있습니다.</span><span class="pill ok">소비자용</span></div>
-    <div class="claim"><span class="c">Q. 씻고 나서 당기고 잔주름이 보여요.</span><span class="e">팩이 마르면서 수분을 함께 가져가 생기는 건조감입니다. 씻은 뒤 바로 데일리 배리어 크림을 바르세요. 건조한 피부는 주 1회부터 시작하세요.</span><span class="pill ok">소비자용</span></div>
-    <div class="claim"><span class="c">바이어: 장기 안전성은?</span><span class="e">알부민·에탄올·향료 없이 처방했고, 사용 직후·2시간 후 수분·TEWL·주름 파라미터를 인체적용시험으로 측정합니다(시험 완료 후 수치로 답변).</span><span class="pill warn">시험 후 확정</span></div>
+    <div class="claim"><span class="c">Q. 팩이 수축하면 주름이 더 생기지 않나요?</span><span class="e">굳는 동안 표정을 움직이면 막이 접혀 자국이 남을 수 있어요. 굳는 동안은 말하거나 웃지 말고, 씻은 뒤 바로 배리어 크림을 발라 주세요. (v3의 "당겨 펴는 방향으로 작용" 설명은 주름 개선 오인이라 삭제)</span><span class="pill ok">소비자용</span></div>
+    <div class="claim"><span class="c">Q. 씻고 나서 당겨요.</span><span class="e">팩이 마르면서 수분을 함께 가져가 생기는 건조감입니다. 씻은 뒤 바로 데일리 배리어 크림을 바르세요. 건조한 피부는 주 1회부터 시작하세요.</span><span class="pill ok">소비자용</span></div>
+    <div class="claim"><span class="c">바이어: 안전성은?</span><span class="e">1차 자극·반복 첩포 시험 결과로만 답합니다. 성분이 '없다'는 것을 안전 보증으로 쓰지 않고(EU Annex III, 일본 F7), 주름 측정치는 내부 R&amp;D 자료로 둡니다.</span><span class="pill warn">시험 후</span></div>
   </div>
 </section>
 
-<!-- 09 -->
+<!-- 12 -->
 <section id="plan">
-  <div class="sec-head"><span class="sec-no">09 · GENIUS TEAM WORK PLAN</span><h2>지니어스팀 업무</h2><p class="sec-sub">2027년 2월 론칭 역산. 용기 도면 회신 10/24, 샘플 10월 말, 입고 2027년 1월 일정에 맞췄습니다. 담당은 역할 기준입니다.</p></div>
+  <div class="sec-head"><span class="sec-no">12 · WORK PLAN</span><h2>업무 계획 (순서 재배열)</h2><p class="sec-sub">마케팅 검토 지적대로 상세페이지는 시험·상표·가격 확정 뒤로, 인체적용시험은 11월 둘째 주까지 착수하도록 앞당겼습니다.</p></div>
 
   <div class="sprint">
-    <h3>1주차 <span class="when">10/15 – 10/21</span></h3>
-    <div class="task"><span class="who">브랜드</span><div class="what"><b>STEP 3 이름 방향 결정 (결정 1)</b><p>엔자임·리프팅·랩핑 제외. 방향 A·B·C 중 선택해 후보 3개 확정. 용기 디자인 시안의 "랩핑 마스크" 표기는 보류 요청(10/24 도면 전)</p></div><div class="out"><b>산출물</b> 이름 후보 3개 · 디자이너 보류 공지</div></div>
-    <div class="task"><span class="who">제품</span><div class="what"><b>4차 샘플 요청서</b><p>① 10분 내 완전 건조 우선 ② 수축 강도 2안(체감 최소치 / 강함)과 각 안의 자극·건조 데이터 ③ 원스텝 유지, 잘 씻김 ④ 보습 보강안 ⑤ 알부민·에탄올·향료 무첨가 유지 ⑥ 권장 사용 시간 상한</p></div><div class="out"><b>산출물</b> 피에프네이처 요청서 · 회신 10/24</div></div>
-    <div class="task"><span class="who">브랜드</span><div class="what"><b>브랜드북 동기화</b><p>① STEP 3 이름 ② VII장 "블루+골드" → 10/13 결정 "로열블루+코퍼, 골드 금지" ③ "2 SKU 론칭" → 10/13 확정 4종(배리어·STEP 3·필링 에센스·필링밤) ④ 가격표 옛 필름팩 스펙 삭제</p></div><div class="out"><b>산출물</b> 브랜드북 v2 · 변경 이력</div></div>
+    <h3>이번 주 <span class="when">10/15 – 10/21</span></h3>
+    <div class="task"><span class="who">제품</span><div class="what"><b>4차 요청서 발송</b><p>10장 수정본 그대로. 시딩 로트 12월 중순 납품 가능 여부 포함</p></div><div class="out"><b>회신</b> 10/24</div></div>
+    <div class="task"><span class="who">브랜드</span><div class="what"><b>STEP 3 제품명 1차 결정 · 디자이너 '랩핑' 표기 보류</b><p>팀 권고 WASH-OFF FILM MASK. 대안은 자문 통과 시 TENSION</p></div><div class="out"><b>산출물</b> 결정 메모</div></div>
+    <div class="task"><span class="who">브랜드</span><div class="what"><b>'리버스에이징' 소비자 노출 방침 결정</b><p>09장 매트릭스 기준. 용기·상세페이지·광고에서 카테고리 선언 사용 중지 여부</p></div><div class="out"><b>산출물</b> 대표 결정</div></div>
+    <div class="task"><span class="who">가격</span><div class="what"><b>용어 정리</b><p>'목표 공급률' → '목표 원가율(순매출 기준)', 채널 공급률 표 별도</p></div><div class="out"><b>산출물</b> 용어표</div></div>
   </div>
 
   <div class="sprint">
-    <h3>2–3주차 <span class="when">10/22 – 11/4</span></h3>
-    <div class="task"><span class="who">리서치</span><div class="what"><b>좀비팩·Hanacure·다이소 블라인드 비교 패널</b><p>4차 샘플 도착 후 내부 패널 5명 이상, 반쪽 얼굴 비교. 항목: 냄새, 건조 시간, 수축 체감, 크랙 시점, 따가움, 씻김, 씻은 뒤 당김. "비싼 좀비팩이 아니다"는 근거를 출시 전 확보</p></div><div class="out"><b>산출물</b> 비교 평가표 · 차별점 3줄</div></div>
-    <div class="task"><span class="who">클레임</span><div class="what"><b>인체적용시험 항목 확정</b><p>사용 직후·2·8·12시간 피부 거칠기·주름 파라미터, 수분량, TEWL, 탄력. 무알부민·무향 표시를 위한 시험 분석. 결과 범위가 곧 광고 문구 상한이자 사용 시점(결정 3)의 근거</p></div><div class="out"><b>산출물</b> 시험기관 견적 · 일정</div></div>
-    <div class="task"><span class="who">법무</span><div class="what"><b>이름·크랙 명칭 선행조사 + 광고 사전 자문</b><p>이름 후보와 크랙 순간 명칭을 TNV-8 코드와 한 번에 KIPRIS·J-PlatPat·USPTO 조사. 07장 문구와 '텐션·타이트닝' 사용 가능 여부를 대한화장품협회 광고자문으로 확인</p></div><div class="out"><b>산출물</b> 조사 결과 · 자문 회신</div></div>
-    <div class="task"><span class="who">콘텐츠</span><div class="what"><b>"10분" 숏폼 포맷 브리프</b><p>도포 → 굳어가는 얼굴(타이머) → 크랙 → 세안 후 피부결. 늙어 보이는 컷은 반드시 애프터와 한 쌍. 홍조 연출·효능 자막 금지, 감각어만 사용. 크랙 단독 vs 크랙+애프터 A/B</p></div><div class="out"><b>산출물</b> 크리에이터 브리프 · 자막 감각어 사전</div></div>
-    <div class="task"><span class="who">리추얼</span><div class="what"><b>28일 챌린지 인증 규정</b><p>정면·좌·우 3장씩, 같은 조명, 무보정, 타 시술 병행 표기, 이미지 사용권 동의, 크레딧 보상(부채 계상)</p></div><div class="out"><b>산출물</b> 참여 약관 · 인증 템플릿</div></div>
+    <h3>2–4주차 <span class="when">10/22 – 11/11</span></h3>
+    <div class="task"><span class="who">클레임</span><div class="what"><b>인체적용시험 착수 (11/11까지)</b><p>사용 직후·2·8·12시간 거칠기, 수분량, TEWL, 탄력, 1차 자극·반복 첩포. 일본 JCIA 小ジワ 시험 추가 검토. 무알부민·무향 시험 분석</p></div><div class="out"><b>산출물</b> 계약·일정</div></div>
+    <div class="task"><span class="who">법무</span><div class="what"><b>상표 선행조사 · 광고자문 · 식약처 질의</b><p>제품명·원료코드·도착 장면 명칭 한 번에 KIPRIS·J-PlatPat·USPTO. 09장 문구 광고자문. 워시오프 팩 pH 예외 해당 여부 민원 질의</p></div><div class="out"><b>산출물</b> 조사·자문 회신</div></div>
+    <div class="task"><span class="who">리서치</span><div class="what"><b>4차 샘플 비교 패널 (12명 이상)</b><p>좀비팩·Hanacure·다이소 대조, 반쪽 얼굴, 같은 환경. 1회 사용량 튜브 무게 실측</p></div><div class="out"><b>산출물</b> 평가표 · 1회 사용량 · 용량(60/80 mL) 결정</div></div>
+    <div class="task"><span class="who">가격</span><div class="what"><b>지불의사 조사 · 쿠폰 규칙 개정</b><p>Van Westendorp 200명 이상, 하한 비율화, 8일 크레딧 현물화, 노션 가격 블록 4종 기준 재작성</p></div><div class="out"><b>산출물</b> 가격 시트 v1</div></div>
+    <div class="task"><span class="who">브랜드</span><div class="what"><b>브랜드북 v2</b><p>06장 매핑표, 2 SKU 논리 교체, Reverse 재정의, 골드→코퍼 NOVA 상징 재서술, 원료코드 표기 통일, '처방' → '프로토콜·티켓'</p></div><div class="out"><b>산출물</b> 브랜드북 v2</div></div>
   </div>
 
   <div class="sprint">
-    <h3>11월 <span class="when">11/5 – 11/30</span></h3>
-    <div class="task"><span class="who">디자인</span><div class="what"><b>프로토콜 카드</b><p>요일 배치(필링밤과 STEP 3는 다른 날), 사용 시간 상한, "굳는 동안 말하지 않기", 눈가·입술 제외, 씻은 뒤 배리어 크림, 크랙 체크 칸, 28일 캘린더 QR. 3R 문장은 카드 안쪽에만</p></div><div class="out"><b>산출물</b> 카드 문안 · 디자인 발주</div></div>
-    <div class="task"><span class="who">상세페이지</span><div class="what"><b>STEP 3 상세페이지 시나리오</b><p>첫 화면: 계란도 향도 없이 조이는 팩 → 크랙 장면과 씻은 뒤 피부결 → 원스텝·잘 씻김 → 사용법·주의 → 필링밤·배리어와 묶은 루틴 → 첫 사이클 시작 CTA</p></div><div class="out"><b>산출물</b> 와이어프레임 · 카피 1차안</div></div>
-    <div class="task"><span class="who">가격</span><div class="what"><b>회당 단가와 판매가</b><p>1회 사용량 확정 → 60 mL당 사용 횟수 → 회당 원가·판매가. 좀비팩(회당 990~4,400원) 대비 프리미엄 폭과 근거 정리</p></div><div class="out"><b>산출물</b> 가격 시트</div></div>
-    <div class="task"><span class="who">영업</span><div class="what"><b>관리실 홈케어 처방 파일럿 검토 (선택)</b><p>피부관리실 3–5곳. 가격 하한(₩39,900) 원칙과 채널 충돌 점검</p></div><div class="out"><b>산출물</b> 제안서 초안</div></div>
+    <h3>11월 중순 – 12월 중순</h3>
+    <div class="task"><span class="who">마케팅</span><div class="what"><b>GTM 준비</b><p>크리에이터 150명 리스트, 파트너 약국 등급제 설계·교육 키트, 큐텐 전용 세트, 측정 인프라(픽셀·CAPI·UTM·QR 추적·Spark Ads 권리)</p></div><div class="out"><b>산출물</b> 론칭 플랜 v1</div></div>
+    <div class="task"><span class="who">콘텐츠</span><div class="what"><b>훅 3종 브리프</b><p>무취 리액션 · '그날' GRWM · 10분 침묵. 크랙 시점 확정 후 작성. 효능 자막 금지</p></div><div class="out"><b>산출물</b> 브리프</div></div>
+    <div class="task"><span class="who">디자인</span><div class="what"><b>프로토콜 카드</b><p>요일 배치, 사용시간 상한, 눈 주위 주의(법정), 굳는 동안 말하지 않기, 세안 후 배리어 크림, 28일 캘린더 QR</p></div><div class="out"><b>산출물</b> 카드 문안</div></div>
   </div>
 
   <div class="sprint">
-    <h3>완료</h3>
-    <div class="task"><span class="who done">완료</span><div class="what"><b>관리실 1회 가격 실측</b><p>서울 9곳 블로그 기준 리프팅·윤곽 관리 정가 12~18만원, 첫 방문 체험가 5.9~12만원, 기기 결합 30~45만원. 브랜드북 앵커 "1회 10~20만원"은 정가 기준으로 맞습니다.</p></div><div class="out"><b>반영</b> "관리실 리프팅 관리 1회 정가"로 표현, 효과 동등 암시 금지</div></div>
+    <h3>12월 중순 이후 (시험·상표·가격 확정 뒤)</h3>
+    <div class="task"><span class="who">상세페이지</span><div class="what"><b>STEP 3 상세페이지</b><p>실증된 문구만. 06장 포지셔닝 → 씻은 뒤 결 → 원스텝·잘 씻김 → 사용법·주의 → 루틴 번들 → 첫 사이클 CTA</p></div><div class="out"><b>산출물</b> 최종안</div></div>
+    <div class="task"><span class="who">마케팅</span><div class="what"><b>W-8 ~ W0 실행</b><p>07장 시퀀스</p></div><div class="out"><b>목표</b> 07장 KPI</div></div>
   </div>
 </section>
 
-<!-- 10 -->
-<section id="sources" style="border-bottom:0">
-  <div class="sec-head"><span class="sec-no">10 · CORRECTIONS & SOURCES</span><h2>정정 이력, 남은 공백, 출처</h2></div>
+<!-- 13 -->
+<section id="log" style="border-bottom:0">
+  <div class="sec-head"><span class="sec-no">13 · REVIEW LOG &amp; SOURCES</span><h2>검토 기록, 상충 정리, 출처</h2></div>
+
+  <h3>검토자 간 상충과 정리</h3>
   <div class="tbl"><table>
-    <thead><tr><th>버전</th><th>권고</th><th>바뀐 이유</th></tr></thead>
+    <thead><tr><th>쟁점</th><th>의견</th><th>정리</th></tr></thead>
     <tbody>
-      <tr><td class="k">v1</td><td>"효소를 넣으면 '엔자임' 이름 유지", "즉각 당김감", "8분 크랙", "눈가는 아이크림이 담당"</td><td>광고 지침·라인업 미확인</td></tr>
-      <tr><td class="k">v2</td><td>"랩핑 마스크 유지"</td><td>국내에서 랩핑 = 필오프임을 확인 못 함</td></tr>
-      <tr><td class="k">v3</td><td>엔자임·리프팅·랩핑 모두 제외, 새 이름 방향 · 수축 강도 최소치 · 사용 시점 재검토 · 무알부민·무향 중심 차별화</td><td>식약처 지침 원문, 네이버 블로그 91건, 좀비팩·DMK 리뷰, 논문 대조</td></tr>
+      <tr><td class="k">사용 시점</td><td>브랜드: 밤 메인 · 마케팅: 아침 GRWM 훅 · 가격: 아침은 재구매 구조 이탈 · 팩트체크: 지속 시간 미확정</td><td>밤 메인, 아침은 콘텐츠 훅. 측정 후 재확인</td></tr>
+      <tr><td class="k">제품명</td><td>브랜드: TENSION WASH-OFF, NOVA 제외 · 규제: NOVA 최저 위험, '텐션' 중위험</td><td>둘 다 만족하는 형태 일반명 WASH-OFF FILM MASK. NOVA는 세계관 단어</td></tr>
+      <tr><td class="k">수축 강도</td><td>v3: 최소치 · R&amp;D·3차 품평: 강하게</td><td>R&amp;D 채택: 3차 이상, 자극은 따로 제거</td></tr>
+      <tr><td class="k">1회 사용량</td><td>브랜드: 7.5 mL(8회) · 가격: 4 mL 기준 · R&amp;D: 약 2.3 g</td><td>2~4 g 범위, 실측으로 확정. 7.5 mL는 10분 건조 불가로 기각</td></tr>
+      <tr><td class="k">관리실 가격 앵커</td><td>가격: 번들에만 · 규제: 삭제</td><td>광고자문 전까지 소비자 카피에서 보류</td></tr>
+      <tr><td class="k">메가와리</td><td>경쟁구도: 단품 할인 불참 · 마케팅: 참가 · 가격: 비율 하한</td><td>단품 할인 불참 유지, 큐텐 전용 세트로 참가</td></tr>
+      <tr><td class="k">28일 B&amp;A</td><td>v3: STEP 3 증거 · 마케팅: 몇 시간 효과와 모순</td><td>루틴 단위로 이동, STEP 3는 세안 직후·2시간 후 컷</td></tr>
     </tbody>
   </table></div>
-  <div class="callout warn"><b>아직 채우지 못한 것.</b> 레딧·화해·올리브영·쿠팡 리뷰 원문(접근 차단), DMK 인스타그램 게시물 단위 데이터, '리프팅·텐션·타이트닝·유일'에 대한 식약처 명시 판단, 좀비팩 기능성 보고 여부와 공식 전성분, 상표 선행조사. 이 공백은 09장의 법무·리서치 업무로 메웁니다.</div>
+
+  <h3 class="sub">팩트체크 정정 목록</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>v3 서술</th><th>정정</th></tr></thead>
+    <tbody>
+      <tr><td>주문 최소액 $500</td><td>무료배송 기준 $500(Gold 이상 면제), 미국 도매 한정</td></tr>
+      <tr><td>매입 등급 = 지도 노출 순위</td><td>Bronze 이상만 등재, 등급 마커 표시(순위 개념 없음)</td></tr>
+      <tr><td>영국·아일랜드 판매처 가격 숨김</td><td>아일랜드 일부만. 영국 판매처는 공개가 판매</td></tr>
+      <tr><td>호주 클리닉 브랜드명·가격 공개 불가</td><td>삭제(같은 클리닉이 가격 공개)</td></tr>
+      <tr><td>미국 $169–350</td><td>A$169는 호주(2017), 미국은 약 $350</td></tr>
+      <tr><td>리빌 15–20분 내 소실</td><td>"within 24 hours"(언론·클리닉)</td></tr>
+      <tr><td>"only true oxygenation treatment"</td><td>살롱 문구로만 확인, 삭제</td></tr>
+      <tr><td>창업자 여드름 서사 [공식]</td><td>Dermascope [제3자]</td></tr>
+      <tr><td>좀비팩 정가 회당 약 4,400원</td><td>23,000원 ÷ 8 = 약 2,875원</td></tr>
+      <tr><td>메디큐브 62만 개(2024.3Q), 37,900원·34.1%</td><td>출처 없음, 삭제·미확인 표기</td></tr>
+      <tr><td>다이소 "일명 좀비팩" 카피</td><td>블로거 표기</td></tr>
+      <tr><td>egg white facial TikTok 1위(미국)</td><td>Q4 트렌드 성장률 1위, 미국 한정 언급 없음</td></tr>
+      <tr><td>'리프팅'은 식약처 적발 표현</td><td>적발된 것은 '이중턱 리프팅 개선'</td></tr>
+      <tr><td>콜라겐·효소 활성화 사용 금지</td><td>별표2 실증 시 가능(고난도)</td></tr>
+      <tr><td>'즉각' 금지 = 식약처 지침</td><td>대한화장품협회 해설서 기준</td></tr>
+      <tr><td>Jachowicz 2008 = 단백질 필름 주름 근거</td><td>합성 고분자, 강성만 측정. 주름 근거에서 제외</td></tr>
+      <tr><td>Hanacure "20분은 악마, 그 뒤엔 천사"</td><td>스폰서 기사 제목 의역. 브랜드 공식 문구로 쓰지 않음</td></tr>
+      <tr><td>좀비팩 주름·미백 2중 기능성</td><td>미확인 표기</td></tr>
+      <tr><td>PINKzyme 상시 프로그램</td><td>2021년 아일랜드 캠페인</td></tr>
+      <tr><td>USPTO 상표 2건</td><td>근거 불충분, 삭제</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><b>남은 공백.</b> 레딧·화해·올리브영·쿠팡 리뷰 원문, DMK 인스타 게시물 단위 데이터, GCC·EAEU·대만 부속서 원문, 일본 'リフトアップ' 명시 원문, 식약처 2025.3 보도자료 원문, 좀비팩 기능성 보고 여부, 상표 선행조사, 효과 지속 시간 측정. 12장 업무로 메웁니다.</div>
 
   <h3 class="srch">DMK 공식</h3>
   <ol class="sources">
-    <li><a href="https://dmkskincare.com/">dmkskincare.com</a> · 슬로건, 히어로, 50+년·30개국</li>
-    <li><a href="https://dmkskincare.com/who-we-are/">/who-we-are</a> · 연혁, RRPM, "We NEVER allow treatments in the hands of untrained estheticians."</li>
-    <li><a href="https://dmkskincare.com/the-dmk-difference/">/the-dmk-difference</a> · Enzyme Therapy, StemZyme, RRPM 정의</li>
-    <li><a href="https://dmkskincare.com/product/foamy-lift/">/product/foamy-lift</a> · 전성분·사용법</li>
-    <li><a href="https://dmkskincare.com/skin-care-professional/dmk-certified/">/dmk-certified</a> · 직판 금지</li>
-    <li><a href="https://dmkskincare.com/clinic-locator/">/clinic-locator</a> · 등급 마커</li>
-    <li><a href="https://dmkskincare.com/dmk-rewards/">/dmk-rewards</a> · 매입 등급·마케팅 크레딧</li>
-    <li><a href="https://dmkskincare.com/dmk-before-after-challenge/">/dmk-before-after-challenge</a> · 인증 규칙</li>
-    <li><a href="https://dmkskincare.com/skin-conditions/">/skin-conditions</a> · 고민별 퍼널</li>
-    <li><a href="https://mydmk.dannemking.com/event_detail/2022">myDMK Program One</a> · $2,999 교육</li>
-    <li><a href="https://dmkuk.com/treatments/enzyme-therapy/">dmkuk.com/treatments/enzyme-therapy</a> · Lipase·Plasmatic Effect</li>
-    <li><a href="https://www.dmkuk.com/media">dmkuk.com/media</a> · 반퀵픽스 콘텐츠</li>
-    <li><a href="https://www.dmkskincare.co.za/">dmkskincare.co.za</a> · 남아공 유통사</li>
-    <li><a href="https://www.instagram.com/dmkinternational/">IG @dmkinternational</a> · <a href="https://www.tiktok.com/@dmkinternational">TikTok</a> · <a href="https://www.youtube.com/c/DMKSkincare/videos">YouTube</a></li>
+    <li><a href="https://dmkskincare.com/">dmkskincare.com</a> · <a href="https://dmkskincare.com/who-we-are/">/who-we-are</a> · <a href="https://dmkskincare.com/the-dmk-difference/">/the-dmk-difference</a></li>
+    <li><a href="https://dmkskincare.com/product/foamy-lift/">/product/foamy-lift</a> · <a href="https://dmkskincare.com/skin-care-professional/dmk-certified/">/dmk-certified</a></li>
+    <li><a href="https://dmkskincare.com/clinic-locator/">/clinic-locator</a> · <a href="https://dmkskincare.com/dmk-rewards/">/dmk-rewards</a> · <a href="https://dmkskincare.com/dmk-before-after-challenge/">/dmk-before-after-challenge</a></li>
+    <li><a href="https://mydmk.dannemking.com/event_detail/2022">myDMK Program One (2024.10)</a> · <a href="https://dmkuk.com/treatments/enzyme-therapy/">dmkuk.com enzyme therapy</a> · <a href="https://www.dmkskincare.co.za/">dmkskincare.co.za</a></li>
+    <li><a href="https://www.instagram.com/dmkinternational/">Instagram</a> · <a href="https://www.tiktok.com/@dmkinternational">TikTok</a> · <a href="https://www.youtube.com/c/DMKSkincare/videos">YouTube</a></li>
   </ol>
-  <h3 class="srch">언론·리뷰·클리닉</h3>
+  <h3 class="srch">언론·리뷰·시장</h3>
   <ol class="sources">
-    <li><a href="https://www.marieclaire.co.uk/beauty/dmk-enzyme-treatment">Marie Claire UK (2025)</a> · 가격, 전문가 코멘트, pre-events</li>
-    <li><a href="https://abc7ny.com/enzyme-facial-grandma-game-of-thrones-dragon/3269268/">ABC7 (2018)</a> · <a href="https://www.pedestrian.tv/style/dmk-enzyme-facial-night-king/">Pedestrian (2019)</a></li>
-    <li><a href="https://www.mamamia.com.au/enzyme-treatment-review/">Mamamia</a> · <a href="https://www.beaut.ie/beauty/dmk-enzyme-therapy-facial-results-385922">Beaut.ie</a> · <a href="https://www.whowhatwear.com/beauty/skin/dmk-stemzyme-review">Who What Wear</a></li>
-    <li><a href="https://icic.org/inner-city-100/dmk-danne-montague-king-co/">ICIC Inner City 100</a></li>
-    <li><a href="https://pocketsuite.io/book/amberdawnesthetics/items/bundle-and-save">미국 클리닉 패키지</a> · <a href="https://elevateaestheticsau.gettimely.com/">호주 클리닉</a> · <a href="https://thebeautybistro.co.uk/product-category/dmk-skincare/age-management/">영국 판매처</a></li>
-    <li><a href="https://www.today.com/today/amp/tdna110632">Today.com (2017) · Hanacure</a> · <a href="https://refinery29.com/2017/04/149313/hanacure-mask-effect-review">Refinery29 · Hanacure Effect</a> · <a href="https://www.hanacure.com/products/the-all-in-one-facial-set">Hanacure 공식</a></li>
-    <li><a href="https://www.refinery29.com/2017/10/178738/zombie-pack-face-mask-review">Refinery29 · 좀비팩</a> · <a href="https://www.hankyung.com/economy/article/2020010771891">한국경제 (2020) 100만 개</a> · <a href="https://www.newbeauty.com/view/egg-white-facial-amazon">NewBeauty · egg white facial</a></li>
-    <li>좀비팩 국내 리뷰: <a href="https://blog.naver.com/xodnloves/220374279521">xodnloves</a>, <a href="https://blog.naver.com/dacujs1029/220191173128">dacujs1029</a>, <a href="https://blog.naver.com/pandhys_busan/221698738703">pandhys_busan</a>, <a href="https://blog.naver.com/jjarori/221227423038">jjarori</a>, <a href="https://blog.naver.com/shinetox4/221782656083">shinetox4</a>, <a href="https://blog.naver.com/d_ay_light/222020538417">d_ay_light</a>, <a href="https://blog.naver.com/mjailove/222095416930">mjailove</a> 외</li>
-    <li><a href="https://www.cosinkorea.com/news/article.html?no=57304">코스인코리아 (2026.4) · 메디큐브 1,000만 개</a> · <a href="https://economist.co.kr/article/view/ecn202502180011">이코노미스트 (2025.2) · 메디필 다이소</a></li>
-    <li><a href="https://blog.naver.com/alljoy_nofun/224417549934">"랩핑마스크 = 필오프" 정의 예시</a> · <a href="https://blog.naver.com/0116sora/224068504459">다이소 에그 캡슐팩</a></li>
+    <li><a href="https://www.marieclaire.co.uk/beauty/dmk-enzyme-treatment">Marie Claire UK (2025.8.18)</a> · <a href="https://abc7ny.com/enzyme-facial-grandma-game-of-thrones-dragon/3269268/">ABC7 (2018)</a> · <a href="https://www.pedestrian.tv/style/dmk-enzyme-facial-night-king/">Pedestrian (2019)</a> · <a href="https://www.beaut.ie/beauty/dmk-enzyme-therapy-facial-results-385922">Beaut.ie</a></li>
+    <li><a href="https://www.mamamia.com.au/enzyme-treatment-review/">Mamamia (2017)</a> · <a href="https://www.whowhatwear.com/beauty/skin/dmk-stemzyme-review">Who What Wear</a> · <a href="https://icic.org/inner-city-100/dmk-danne-montague-king-co/">ICIC</a></li>
+    <li><a href="https://pocketsuite.io/book/amberdawnesthetics/items/bundle-and-save">미국 클리닉 패키지</a> · <a href="https://elevateaestheticsau.gettimely.com/">호주 클리닉</a> · <a href="https://thebeautybistro.co.uk/product-category/dmk-skincare/age-management/">영국 판매처</a> · <a href="https://irishbeauty.ie/Support-breast-cancer-month-with-DMK-PINKzyme.html">PINKzyme 2021</a></li>
+    <li><a href="https://www.hanacure.com/products/the-all-in-one-facial-set">Hanacure 공식</a> · <a href="https://www.today.com/today/amp/tdna110632">Today.com (2017)</a> · <a href="https://refinery29.com/2017/04/149313/hanacure-mask-effect-review">Refinery29 (2017)</a></li>
+    <li><a href="https://www.refinery29.com/2017/10/178738/zombie-pack-face-mask-review">Refinery29 · 좀비팩</a> · <a href="https://www.hwahae.co.kr/search?q=좀비팩">화해 검색</a> · <a href="https://www.newbeauty.com/view/egg-white-facial-amazon">NewBeauty (2024.11)</a></li>
+    <li><a href="https://www.cosinkorea.com/news/article.html?no=57304">코스인코리아 · 메디큐브</a> · <a href="https://economist.co.kr/article/view/ecn202502180011">이코노미스트 · 메디필 다이소</a></li>
+    <li>좀비팩 국내 리뷰: <a href="https://blog.naver.com/xodnloves/220374279521">xodnloves (2015)</a>, <a href="https://blog.naver.com/dacujs1029/220191173128">dacujs1029 (2014)</a>, <a href="https://blog.naver.com/jjarori/221227423038">jjarori (2018)</a>, <a href="https://blog.naver.com/pandhys_busan/221698738703">pandhys_busan (2019)</a>, <a href="https://blog.naver.com/shinetox4/221782656083">shinetox4 (2020)</a> 외</li>
+    <li><a href="https://netshop.impress.co.jp/n/2026/03/02/15668">Impress · Qoo10 2026 메가와리</a></li>
   </ol>
-  <h3 class="srch">규정·논문</h3>
+  <h3 class="srch">규제·논문</h3>
   <ol class="sources">
-    <li><a href="https://kcia.or.kr/inc/down.php?dir=BOARD&amp;file_name=202508_175547601592435_2.pdf">식약처 「화장품 표시·광고 관리 지침」 2025.8.14 개정</a></li>
-    <li><a href="https://kcia.or.kr/inc/down.php?dir=BOARD&amp;file_name=202511_176274028203592_1.pdf">대한화장품협회 「광고자문 기준 및 해설서 2025」</a></li>
-    <li><a href="https://kcia.or.kr/cid/cs/law.php">화장품법 시행규칙 제19조·별표5 (KCIA 법령)</a></li>
-    <li><a href="https://m.dailypharm.com/user/news/7712">데일리팜 (2025.3) · "이중턱 리프팅 개선" 적발</a></li>
-    <li><a href="https://pubmed.ncbi.nlm.nih.gov/19159377/">Jachowicz 2008</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/32853810/">Pensalfini 2020</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/30874339/">Maidhof 2019</a></li>
-    <li><a href="https://pubmed.ncbi.nlm.nih.gov/17374060/">Tsukahara 2007</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/12423539/">Egawa 2002</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/29319711/">Limbert &amp; Kuhl 2018</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/27329660/">Anson 2016</a></li>
-    <li><a href="https://patents.google.com/patent/EP0244859A2">EP0244859A2 (Kligman) · 알부민+소듐실리케이트</a></li>
-    <li><a href="https://www.eurannallergyimm.com/hen-egg-hair-mask-induced-food-allergy-a-case-report/">계란흰자 헤어마스크 유발 식품 알레르기 증례 (2011)</a></li>
-    <li>터노바 내부: 노션 브랜드스토리·경쟁구도·시술 대응맵·마케팅 방법론·피에프네이처 피드백, 드라이브 제품 피드백 시트(3차 품평 10/12, 용기 RFQ·디자인 요청 10/13)</li>
+    <li><a href="https://kcia.or.kr/inc/down.php?dir=BOARD&amp;file_name=202508_175547601592435_2.pdf">식약처 「화장품 표시·광고 관리 지침」 2025.8.14</a> · <a href="https://kcia.or.kr/inc/down.php?dir=BOARD&amp;file_name=202511_176274028203592_1.pdf">KCIA 「광고자문 기준 및 해설서 2025」</a> · <a href="https://kcia.or.kr/cid/cs/law.php">KCIA 법령</a></li>
+    <li><a href="https://m.dailypharm.com/user/news/7712">데일리팜 (2025.3) · '이중턱 리프팅 개선' 적발</a> · <a href="https://ktr.or.kr/test-evaluation/cosmetic/contentsid/308/index.do">KTR · pH 기준과 씻어내는 제품 제외</a></li>
+    <li><a href="https://www.pref.fukuoka.lg.jp/contents/kesyouhinnkounoukouka.html">일본 화장품 효능 56항목</a> · <a href="https://www.pref.kyoto.jp/yakumu/documents/kesyouhinkougyoukai.pdf">粧工会 적정광고 가이드라인</a> · <a href="https://www.pref.shizuoka.jp/_res/projects/default_project/_page_/001/025/361/ihanjirei66.pdf">시즈오카현 위반 사례집</a></li>
+    <li><a href="https://www.nmpa.gov.cn/directory/web/nmpa/images/1628750777458012079.doc">중국 化妆品功效宣称评价规范</a> · <a href="https://www.gov.cn/gongbao/content/2021/content_5631831.htm">化妆品标签管理办法</a></li>
+    <li><a href="https://asc.com.ph/rules_by_category/cosmetics/asean-cosmetic-claim-guidelines/">ASEAN 클레임 가이드</a> · <a href="https://ec.europa.eu/docsroom/documents/24847">EU 클레임 기술문서</a> · <a href="https://www.fda.gov/cosmetics/cosmetic-products/wrinkle-treatments-and-other-anti-aging-products">FDA 주름·안티에이징</a> · <a href="https://www.fda.gov/cosmetics/cosmetics-laws-regulations/modernization-cosmetics-regulation-act-2022-mocra">MoCRA</a></li>
+    <li><a href="https://pubmed.ncbi.nlm.nih.gov/32853810/">Pensalfini 2020</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/30874339/">Maidhof 2019</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/19159377/">Jachowicz 2008</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/17374060/">Tsukahara 2007</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/12423539/">Egawa 2002</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/27329660/">Anson 2016</a></li>
+    <li><a href="https://patents.google.com/patent/EP0244859A2">EP0244859A2 (Kligman)</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/12851164/">CIR 소듐 실리케이트</a> · <a href="https://tsukuba.repo.nii.ac.jp/record/45918/files/JACI_140-3.pdf">일본 가수분해 밀 알레르기</a> · <a href="https://cosmetic.chemlinked.com/news/cosmetic-news/analysis-amendments-chinas-new-cosmetic-mask-industry-standard-qbt-2872">중국 QB/T 2872</a></li>
+    <li>터노바 내부: 노션 브랜드스토리·경쟁구도·시술 대응맵·메인 성분명·마케팅 방법론·터노바 메인(가격·쿠폰), 드라이브 제품 피드백 시트(3차 품평 10/12, 용기 RFQ 10/13), 제품 개발의뢰서</li>
   </ol>
 </section>
 
-<footer>TURNOVA × DMK 벤치마킹 보고서 v3 · 지니어스팀. DMK 효능 주장은 DMK의 주장을 옮긴 것이며 사실 확인을 뜻하지 않습니다. 리뷰 집계는 접근 가능한 공개 글 기준이고 협찬 글이 섞여 있을 수 있습니다. 광고 판정은 법률 자문이 아닙니다.</footer>
+<footer>TURNOVA × DMK 벤치마킹 보고서 v4 · 지니어스팀 6인 전수 검토판. 일정·목표치·가격·원가는 가정이며 실측으로 교체해야 합니다. 효능 주장은 각 브랜드의 주장을 옮긴 것이고, 광고·규제 판정은 리스크 스크리닝이지 법률 자문이 아닙니다.</footer>
 </div>
