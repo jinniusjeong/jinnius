@@ -1,0 +1,525 @@
+<title>터노바 시술 대응맵 v2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 보고서형 단일 칼럼(본문 68ch) + 넓은 표·비교 블록. 터노바 시스템(로열블루+코퍼)을 축으로, DMK는 포레스트·세이지 그린으로 구분 */
+:root{
+  --bg:#F4F5F9; --surface:#FFFFFF; --panel:#E9ECF4;
+  --ink:#121A33; --ink-2:#3A4562; --muted:#69718A;
+  --line:rgba(18,26,51,.12); --line-2:rgba(18,26,51,.22);
+  --blue:#1F3A93; --blue-tint:#E3E8F7;
+  --copper:#9C5F3B; --copper-tint:#F4E9E1;
+  --dmk:#2F6B5C; --dmk-tint:#E1EEEA;
+  --ok:#2E7A4F; --ok-tint:#E2F2E8; --warn:#9A6A12; --warn-tint:#F7EEDB; --no:#B03A2E; --no-tint:#F8E5E2;
+  --display:'Hahmlet','Nanum Myeongjo','AppleMyungjo',serif;
+  --sans:'IBM Plex Sans KR','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --radius:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1022; --surface:#121931; --panel:#18213D;
+    --ink:#E6E9F3; --ink-2:#C1C8DC; --muted:#8E97B2;
+    --line:rgba(230,233,243,.12); --line-2:rgba(230,233,243,.24);
+    --blue:#93A9F2; --blue-tint:#1B2650;
+    --copper:#DDA07A; --copper-tint:#2E2118;
+    --dmk:#8CC2B3; --dmk-tint:#16302A;
+    --ok:#77C99A; --ok-tint:#14301F; --warn:#E0B866; --warn-tint:#2D2410; --no:#EE8E80; --no-tint:#341A16;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1022; --surface:#121931; --panel:#18213D;
+  --ink:#E6E9F3; --ink-2:#C1C8DC; --muted:#8E97B2;
+  --line:rgba(230,233,243,.12); --line-2:rgba(230,233,243,.24);
+  --blue:#93A9F2; --blue-tint:#1B2650;
+  --copper:#DDA07A; --copper-tint:#2E2118;
+  --dmk:#8CC2B3; --dmk-tint:#16302A;
+  --ok:#77C99A; --ok-tint:#14301F; --warn:#E0B866; --warn-tint:#2D2410; --no:#EE8E80; --no-tint:#341A16;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;word-break:keep-all;overflow-wrap:break-word;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;letter-spacing:-.01em;line-height:1.25;margin:0}
+p{margin:0}
+a{color:var(--blue);text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-radius:3px}
+.num{font-variant-numeric:tabular-nums}
+header.mast{padding-block:clamp(36px,6vw,64px) clamp(22px,3vw,32px);border-bottom:1px solid var(--line-2)}
+.docmeta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.78rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.docmeta b{color:var(--copper);font-weight:700}
+h1.title{font-size:clamp(1.9rem,4.6vw,3.05rem);font-weight:800;margin-top:.55em;max-width:22ch}
+h1.title .x{color:var(--copper);font-weight:500;padding-inline:.18em}
+.lede{margin-top:1em;max-width:70ch;color:var(--ink-2);font-size:1.04rem}
+.legend{margin-top:1.4em;display:flex;flex-wrap:wrap;gap:8px}
+.tag{display:inline-flex;align-items:center;gap:.4em;font-size:.72rem;font-weight:700;padding:.16em .55em;border-radius:6px;border:1px solid var(--line-2);color:var(--ink-2);white-space:nowrap;vertical-align:1px}
+.tag.o{background:var(--dmk-tint);border-color:transparent;color:var(--dmk)}
+.tag.p{background:var(--panel);border-color:transparent}
+.tag.u{background:var(--warn-tint);border-color:transparent;color:var(--warn)}
+.tag.t{background:var(--blue-tint);border-color:transparent;color:var(--blue)}
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)))}
+nav.toc .row{display:flex;gap:2px;overflow-x:auto;max-width:1080px;margin:0 auto;padding:8px max(16px,env(safe-area-inset-left,0px));scrollbar-width:none}
+nav.toc .row::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:.8rem;font-weight:600;color:var(--muted);text-decoration:none;padding:.42em .75em;border-radius:8px}
+nav.toc a:hover{background:var(--panel);color:var(--ink)}
+nav.toc a span{color:var(--copper);font-family:var(--mono);margin-right:.35em}
+section{padding-block:clamp(36px,5vw,56px);border-bottom:1px solid var(--line);scroll-margin-top:52px}
+.sec-head{display:grid;gap:.35em;margin-bottom:1.4em}
+.sec-no{font-family:var(--mono);font-size:.78rem;color:var(--copper);letter-spacing:.08em}
+h2{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700}
+.sec-sub{color:var(--muted);max-width:70ch}
+h3{font-size:1.08rem;font-weight:700;margin-bottom:.5em}
+h3.sub{margin-top:1.9em}
+.prose{max-width:70ch;display:grid;gap:.9em}
+ol.findings{list-style:none;margin:0;padding:0;display:grid;counter-reset:f;border-top:1px solid var(--line-2)}
+ol.findings li{counter-increment:f;display:grid;grid-template-columns:2.4rem 1fr;gap:.2em 1em;padding:1em 0;border-bottom:1px solid var(--line)}
+ol.findings li::before{content:counter(f);font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--copper);line-height:1.2}
+ol.findings b{display:block;font-size:1.02rem;margin-bottom:.15em}
+ol.findings p{color:var(--ink-2)}
+.decide{margin-top:1.6em;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.decide div{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:14px 16px;display:grid;gap:.35em;align-content:start;min-width:0}
+.decide .q{font-weight:700}
+.decide .r{font-size:.9rem;color:var(--ink-2)}
+.decide .k{font-size:.72rem;font-weight:700;letter-spacing:.06em;color:var(--copper);text-transform:uppercase}
+dl.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:0;border:1px solid var(--line-2);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+dl.facts div{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+dl.facts dt{font-size:.74rem;font-weight:700;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+dl.facts dd{margin:.25em 0 0;font-weight:600}
+dl.facts dd small{display:block;font-weight:400;color:var(--muted);font-size:.84rem;margin-top:.2em}
+.slogans{display:grid;border-top:1px solid var(--line-2);margin-top:1em}
+.slogan{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:.4em 1.6em;padding:.9em 0;border-bottom:1px solid var(--line);align-items:baseline}
+@media(max-width:720px){.slogan{grid-template-columns:1fr}}
+.slogan q{font-family:var(--display);font-weight:700;font-size:1.1rem;quotes:"“" "”"}
+.slogan .role{font-size:.9rem;color:var(--ink-2)}
+.slogan .role b{color:var(--dmk)}
+.tbl{overflow-x:auto;border:1px solid var(--line-2);border-radius:var(--radius);background:var(--surface);margin-top:1em}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:.89rem}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+thead th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--panel);font-weight:700}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-weight:700}
+th.dmk,td.dmk{background:color-mix(in srgb,var(--dmk-tint) 55%,transparent)}
+th.tnv,td.tnv{background:color-mix(in srgb,var(--blue-tint) 55%,transparent)}
+.inci{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:1em}
+.inci .box{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:16px 18px;min-width:0}
+.inci .box h3{font-family:var(--sans);font-size:.95rem;display:flex;flex-wrap:wrap;gap:.5em;align-items:center}
+.inci p.list{font-family:var(--mono);font-size:.8rem;line-height:1.65;color:var(--ink-2);overflow-wrap:anywhere}
+.inci p.list mark{background:var(--copper-tint);color:var(--copper);padding:0 .2em;border-radius:3px}
+.inci .note{font-size:.84rem;color:var(--muted);margin-top:.6em}
+.tl{margin-top:1em;background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:18px 18px 14px;overflow-x:auto}
+.tl-inner{min-width:620px}
+.tl-row{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin-bottom:12px}
+.tl-label{font-weight:700;font-size:.86rem;line-height:1.3}
+.tl-label small{display:block;font-weight:400;color:var(--muted);font-size:.76rem}
+.tl-track{position:relative;height:30px;background:var(--panel);border-radius:6px}
+.seg{position:absolute;top:0;bottom:0;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:.73rem;font-weight:600;white-space:nowrap;overflow:hidden}
+.seg.d1{background:color-mix(in srgb,var(--dmk) 30%,var(--surface));color:var(--ink)}
+.seg.d2{background:var(--dmk);color:var(--surface)}
+.seg.d3{background:color-mix(in srgb,var(--dmk) 55%,var(--surface));color:var(--ink)}
+.seg.t1{background:var(--blue);color:var(--surface)}
+.seg.t2{background:var(--copper)}
+.tl-axis{display:grid;grid-template-columns:150px 1fr;gap:12px}
+.tl-ticks{position:relative;height:20px;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.tl-ticks span{position:absolute;transform:translateX(-50%)}
+.tl-ticks span:first-child{transform:none}
+.tl-ticks span:last-child{transform:translateX(-100%)}
+.cap{font-size:.84rem;color:var(--muted);margin-top:.5em}
+.claims{display:grid;border-top:1px solid var(--line-2);margin-top:1em}
+.claim{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.3fr) 8rem;gap:.4em 1.4em;padding:.85em 0;border-bottom:1px solid var(--line);align-items:start}
+@media(max-width:760px){.claim{grid-template-columns:1fr}}
+.claim .c{font-weight:600}
+.claim .e{color:var(--ink-2);font-size:.9rem}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;padding:.2em .6em;border-radius:100px;white-space:nowrap;justify-self:start}
+.claim .pill{white-space:normal;max-width:100%}
+.pill.ok{background:var(--ok-tint);color:var(--ok)}
+.pill.warn{background:var(--warn-tint);color:var(--warn)}
+.pill.no{background:var(--no-tint);color:var(--no)}
+.levers{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-top:1em}
+.lever{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;display:grid;gap:.45em;align-content:start;min-width:0}
+.lever .lk{display:flex;justify-content:space-between;gap:.5em;font-size:.72rem;font-weight:700;color:var(--dmk);letter-spacing:.06em;text-transform:uppercase}
+.lever h3{margin:0;font-size:1rem}
+.lever p{font-size:.9rem;color:var(--ink-2)}
+.bars{display:grid;gap:7px;margin-top:.8em}
+.bar{display:grid;grid-template-columns:minmax(0,12rem) 1fr 2.2rem;gap:10px;align-items:center;font-size:.86rem}
+@media(max-width:560px){.bar{grid-template-columns:minmax(0,8.5rem) 1fr 2rem}}
+.bar .lab{color:var(--ink-2);overflow-wrap:anywhere}
+.bar .trk{height:14px;background:var(--panel);border-radius:4px;position:relative}
+.bar .fill{position:absolute;inset:0 auto 0 0;border-radius:4px}
+.bar .fill.neg{background:var(--no)}
+.bar .fill.pos{background:var(--ok)}
+.bar .v{font-family:var(--mono);font-size:.8rem;color:var(--ink-2);text-align:right}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-top:1em}
+.panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:16px 18px;min-width:0}
+.panel h3{font-family:var(--sans);font-size:.95rem;display:flex;flex-wrap:wrap;gap:.5em;align-items:center}
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:1em}
+@media(max-width:900px){.board{grid-template-columns:1fr}}
+.col{border-radius:var(--radius);padding:16px 16px 6px;border:1px solid var(--line-2);background:var(--surface);min-width:0}
+.col > h3{font-family:var(--sans);font-size:.95rem;padding-bottom:.6em;border-bottom:2px solid var(--line-2)}
+.col.take > h3{border-color:var(--ok)}
+.col.bend > h3{border-color:var(--copper)}
+.col.drop > h3{border-color:var(--no)}
+.item{padding:.8em 0;border-bottom:1px solid var(--line);display:grid;gap:.3em}
+.item:last-child{border-bottom:0}
+.item .from{font-size:.76rem;color:var(--dmk);font-weight:700}
+.item .to{font-weight:700;font-size:.95rem}
+.item p{font-size:.87rem;color:var(--ink-2)}
+.callout{margin-top:1.4em;padding:16px 18px;border-radius:var(--radius);background:var(--copper-tint);max-width:84ch}
+.callout b{color:var(--copper)}
+.callout.blue{background:var(--blue-tint)}
+.callout.blue b{color:var(--blue)}
+.callout.warn{background:var(--warn-tint)}
+.callout.warn b{color:var(--warn)}
+.sprint{margin-top:1.4em}
+.sprint h3{display:flex;flex-wrap:wrap;gap:.6em;align-items:baseline;font-family:var(--sans);font-size:1rem}
+.sprint h3 .when{font-family:var(--mono);font-size:.8rem;color:var(--copper);font-weight:500}
+.task{display:grid;grid-template-columns:5.6rem minmax(0,1fr) minmax(0,.85fr);gap:.3em 1.2em;padding:.85em 0;border-bottom:1px solid var(--line);align-items:start}
+@media(max-width:760px){.task{grid-template-columns:1fr}}
+.task .who{font-size:.72rem;font-weight:700;color:var(--blue);background:var(--blue-tint);padding:.2em .55em;border-radius:6px;justify-self:start;white-space:nowrap}
+.task .who.done{color:var(--ok);background:var(--ok-tint)}
+.task .what b{display:block}
+.task .what p{font-size:.89rem;color:var(--ink-2)}
+.task .out{font-size:.85rem;color:var(--muted)}
+.task .out b{color:var(--ink-2);font-weight:600}
+.sources{columns:2 320px;column-gap:28px;font-size:.82rem;color:var(--ink-2);margin:0;padding-left:1.1em}
+.sources li{break-inside:avoid;margin-bottom:.35em;overflow-wrap:anywhere}
+.srch{font-family:var(--sans);font-size:.9rem;margin:1.4em 0 .5em;color:var(--ink)}
+footer{padding-block:28px 48px;color:var(--muted);font-size:.84rem;max-width:84ch}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="docmeta"><span><b>TURNOVA</b> · 내부 전략 전용</span><span>지니어스팀 보고 · 시술 대응맵 v2 (검증 반영)</span><span class="num">2026-10-17</span></div>
+  <h1 class="title">DMK·엠페이스 프로그램 해부<span class="x">×</span>터노바 시술 대응맵 v2</h1>
+  <p class="lede">DMK 관리실 프로그램을 제품·단계별로 해부해 "왜 그렇게 운영하는가"를 근거로 정리하고, 엠페이스(EMFACE)가 무엇인지 확인했습니다. 이어 피부과 시술군별 원리·주기·전후 관리와 홈케어 근거를 대조해 기존 시술 대응맵을 행별로 검증하고, 10/13 확정 4종 기준 v2로 다시 짰습니다. 초안은 팩트체크(주장 43개, 1차 출처 대조)와 규제·전략 검토를 거쳐 고쳤습니다. 원칙은 그대로입니다: 대체재 선언 금지, 보완재.</p>
+  <div class="legend">
+    <span class="tag o">1차 원문 확인</span>
+    <span class="tag p">제3자·클리닉·언론</span>
+    <span class="tag u">추정·미확인</span>
+    <span class="tag t">터노바 내부 자료</span>
+  </div>
+</header>
+
+<nav class="toc" aria-label="목차"><div class="row">
+  <a href="#bottom"><span>00</span>결론</a>
+  <a href="#dmk"><span>01</span>DMK 프로그램</a>
+  <a href="#emface"><span>02</span>엠페이스</a>
+  <a href="#compare"><span>03</span>세 프로그램 비교</a>
+  <a href="#procedures"><span>04</span>시술군</a>
+  <a href="#evidence"><span>05</span>겹침과 보완</a>
+  <a href="#feedback"><span>06</span>기존 맵 피드백</a>
+  <a href="#mapv2"><span>07</span>대응맵 v2</a>
+  <a href="#pause"><span>08</span>쉬는 기간 원칙</a>
+  <a href="#apply"><span>09</span>터노바 적용</a>
+  <a href="#review"><span>10</span>검증 기록·출처</a>
+</div></nav>
+
+<!-- 00 -->
+<section id="bottom">
+  <div class="sec-head"><span class="sec-no">00 · BOTTOM LINE</span><h2>결론: 대응맵의 방향은 맞지만, '시술 사이'라는 자리는 생각보다 좁습니다</h2></div>
+  <ol class="findings">
+    <li><div><b>"대체는 각질·결 하나, 나머지는 보완"은 방향만 맞습니다.</b><p>근거는 글리콜릭 5% 크림 12주 위약 대조 RCT(결·색소 유의, 주름은 경향만)와 소규모 전후 비교 1건이 전부입니다. 홈케어와 오피스 필을 직접 비교한 연구는 없습니다. 그래서 '대체'가 아니라 "결 영역에서 일부 겹치지만, 보완으로만 말한다"가 근거에 맞는 표현입니다. 내부 문서에서도 '대체'를 지웁니다.</p></div></li>
+    <li><div><b>기존 맵에서 틀린 것은 다섯 군데입니다.</b><p>① 필링 에센스 가격 앵커(아쿠아필 이벤트 중앙값 약 2.6만원) ② 필름팩 '시술 직전 인터셉트'(시술 전 각질제 중단 관행과 충돌) ③ '아데노신 0.04% = 국내 유일 슬롯'(고시 원료 4종, 기능성 보고 필요) ④ 배리어의 '재생'·'남의 TEWL 그래프' ⑤ 시술 가격을 제품 가격 앵커로 쓰는 것 자체(대체 프레임, 소비자 카피 금지).</p></div></li>
+    <li><div><b>'시술 사이'는 시술 간격에 따라 사라집니다.</b><p>2026 국제 컨센서스는 산 성분·레티노이드를 시술 당일 부적합, 회복기(D+1~7)는 시술군에 따라 부적합으로 봤습니다. 회복기와 병원별 사전 중단(관행 2~7일)을 합치면, 1주 간격 토닝이나 2~3주 간격 필에서는 산 성분을 쓸 날이 거의 남지 않습니다. 반면 3~4주 간격 스킨부스터나 연 1회 HIFU 고객에게는 2주 이상 남습니다. 필링밤의 자리는 '필과 필 사이'가 아니라 "시술 일정이 없는 기간"입니다.</p></div></li>
+    <li><div><b>엠페이스는 관리실 모델이 아니라 피부과 의료기기 시술입니다.</b><p>BTL EMFACE®(고주파 + 안면 근육 자극, 허가 사용목적 "안면 주름의 일시적 개선"). 주 1회 4회 코스가 일반적이고 4회 패키지는 200~300만원대(강남 병원 기준)입니다. 고객 불만(비싸다·체감이 약하다·유지가 짧다)을 화장품·EMS 기기가 "엠페이스 원리", "시술급"으로 파고드는데, 터노바는 시술명·상표를 소비자 자료에 쓰지 않습니다.</p></div></li>
+    <li><div><b>DMK에서 가져올 것은 '프로그램 설계'입니다.</b><p>모든 메뉴를 "각질 1종 + 엔자임 + 영양 공급 + 자외선 차단 + 홈 처방"으로 짜고, 단계를 밟아 강도를 올리고, 홈케어를 프로토콜 안에 넣습니다. 터노바판은 필링밤 단계 진입(주 1회 → 주 2~3회)과, 사용자가 '쉬는 기간'을 입력하면 8시 알림이 배리어 루틴으로 바뀌는 캘린더입니다. 시술별 일수표를 소비자에게 주는 방식은 규제상 쓰지 않습니다.</p></div></li>
+  </ol>
+  <div class="decide">
+    <div><span class="k">결정 1</span><span class="q">대응맵 v2 채택</span><span class="r">07장 표로 노션 대응맵 교체. '대체' 삭제, 보류 SKU 분리, 시술 매칭 열은 내부 전용.</span></div>
+    <div><span class="k">결정 2</span><span class="q">세그먼트별 진입</span><span class="r">브랜드 히어로는 필링밤 유지. 시술 시리즈 중인 고객만 배리어 크림으로 진입(브랜드북 2모드의 Recover → Reset 순서). STEP 3 트래픽은 시술 계획이 없는 고객에서.</span></div>
+    <div><span class="k">결정 3</span><span class="q">소비자 커뮤니케이션 범위</span><span class="r">시술명·시술 가격·시술별 일수는 소비자 자료(용기·카드·상세페이지·교육 키트)에 쓰지 않음. 일반 안내 3문장(08장)만 사용.</span></div>
+  </div>
+</section>
+
+<!-- 01 -->
+<section id="dmk">
+  <div class="sec-head"><span class="sec-no">01 · DMK PROGRAM</span><h2>DMK 시술 프로그램 해부</h2><p class="sec-sub">DMK 공식·교육 페이지, Dermascope 게재 DMK 프로토콜·기고(일부는 저자 미표기), 클리닉 메뉴·동의서를 구분했습니다. "plasmatic effect", "reverse osmosis", "57개 근육 밴딩"은 회사 주장이며 독립 연구는 없습니다.</p></div>
+
+  <h3>시술별 구성</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>시술</th><th>목적</th><th>순서와 제품</th><th>시간</th><th>주장 (원문)</th><th>출처</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Enzyme Therapy #1</td><td>노폐물 배출·순환·콜라겐</td><td>Deep Pore Cleanser Plus → 피부 분석 → Dermatox → 마스크 #1(믹서: Aqua D'Herbs 기본 / Exoderma Peel Plus / 두껍고 지성인 피부는 Desquamate) 데콜테→목→얼굴 → 핫타월 제거 → 영양 주입(Beta Gel·비타민C 세럼·Seba-E·Herb &amp; Mineral·크림)</td><td>45분</td><td>"uses reverse osmosis to 'back flush' fluids… induces a 'plasmatic effect'"</td><td><span class="tag p">Dermascope 게재 DMK 프로토콜</span></td></tr>
+      <tr><td class="k">Muscle Banding (#2 + #3)</td><td>리프팅·근육 톤</td><td>세안 → Pro Alpha #1 밀폐 약 5분 → #2 밴딩 기법 → #3 덧발라 열감 증폭 → 45분 → 제거 → 비타민C·Beta Gel 밀폐 → 자외선 차단</td><td>약 50분+</td><td>"strengthen and tighten the 57 muscles of the face"</td><td><span class="tag p">Dermascope 시그니처 트리트먼트(저자 미표기)</span></td></tr>
+      <tr><td class="k">Pro Alpha Six Layer Peel</td><td>딥 리서페이싱</td><td>피부색·상태에 맞춰 층수 조절</td><td>14일</td><td>"similar to laser or medical peels without the risk of trauma"</td><td><span class="tag o">DMK UK</span></td></tr>
+      <tr><td class="k">Alkaline Wash</td><td>각질·피지·연모·흉터</td><td>pH 12 용액 → 시간 측정 → 반드시 중화</td><td>약 4분</td><td>"one must not consider alkalizing as a peel… not recommended… as a primary treatment by itself"</td><td><span class="tag p">DMK 기고</span></td></tr>
+      <tr><td class="k">Prozyme · Bhiaku</td><td>여드름 / 과색소</td><td>효소 워시 → 엔자임 / Super Bright 먼저 → 엔자임</td><td>105분 코스(고급)</td><td>"For the treatment and management of acne", "break up excess melanin"</td><td><span class="tag p">클리닉 메뉴</span></td></tr>
+      <tr><td class="k">Micro Peel</td><td>각질</td><td>세안 후 도포(글리콜산·젖산)</td><td>3–5분</td><td>"loosen corneocyte connections"</td><td><span class="tag o">공식</span></td></tr>
+      <tr><td class="k">StemZyme (MD 전용)</td><td>노화 관리</td><td>50일, 전문 시술 5회 + 홈 처방</td><td>50일</td><td>"exclusively available to MD-level DMK Skin Therapists"</td><td><span class="tag o">DMK UK</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sub">백바·홈 제품의 역할과 주장 (발췌, 공식 제품 페이지)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>제품</th><th>역할</th><th>주장 (원문)</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Exoderma Peel</td><td>각질 · 믹서</td><td>"multipurpose exfoliating liquid gel with a neutral pH… as an Enzyme mixer, or to activate Foamy Lift"</td></tr>
+      <tr><td class="k">Foamy Lift</td><td>홈 유지</td><td>"necessary for the ongoing support of in-clinic professional DMK Enzyme Treatments and recommended for weekly use"</td></tr>
+      <tr><td class="k">Beta Gel</td><td>영양 공급</td><td>"recommended for… pre- and post-surgery, and for individuals undergoing a Skin Revision treatment program"</td></tr>
+      <tr><td class="k">Contraderm</td><td>박피 후 진정</td><td>"short-term use after ablative treatments"</td></tr>
+      <tr><td class="k">Revise A</td><td>홈 유지</td><td>"for clients who have undergone… Skin Revision programs… prevent pigmentation from resurfacing"</td></tr>
+      <tr><td class="k">FirMatrix · Eye Tone</td><td>볼륨 · 눈가</td><td>"works like a dermal filler without the needles", "touted as the topical alternative to BOTOX®" (국내 금지 유형)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sub">왜 이렇게 운영하는가</h3>
+  <div class="levers">
+    <div class="lever"><span class="lk"><span>메뉴 공식</span><span>DMK 기고·공식</span></span><h3>벗기기는 1단계일 뿐</h3><p>"removal of dead and dying skin cells is only step one"(DMK 기고). 그래서 메뉴가 각질 1종 → 엔자임 + 영양 주입 → 자외선 차단 → 홈 처방 순서로 짜입니다. 공식: "Enzyme Therapy is at the heart of all DMK skin revision treatments".</p></div>
+    <div class="lever"><span class="lk"><span>코스 ①</span><span>DMK 기고</span></span><h3>세게 한 번보다 약하게 여러 번</h3><p>"When the skin is attacked too aggressively… The result is usually more of a controlled scar."</p></div>
+    <div class="lever"><span class="lk"><span>코스 ②</span><span>DMK 기고</span></span><h3>세포 주기와 시간 제한</h3><p>"Live cells ascend to the epidermis every two weeks." 여드름은 1·3·6개월처럼 기한을 정해 주 1회 3개월 이상("The secret is to put them on a time limit").</p></div>
+    <div class="lever"><span class="lk"><span>코스 ③</span><span>기고·클리닉</span></span><h3>누적되는 근육 자극</h3><p>바디 엔자임 리프트 "usually takes four treatments… to get a discernable effect". 머슬밴딩 12회 패키지 "build cumulative results"(클리닉). 흉터는 월 1회(DMK UK).</p></div>
+    <div class="lever"><span class="lk"><span>진입 단계</span><span>클리닉</span></span><h3>밟아서 올라간다</h3><p>딥 필은 "never be performed on the first treatment, it is a treatment the client must work up to"(클리닉 동의서). 1단계 엔자임을 받아야 2단계로 간다는 클리닉 안내도 있으나 원문 캡처는 보관하지 못했습니다.</p></div>
+    <div class="lever"><span class="lk"><span>홈 처방 의무</span><span>공식</span></span><h3>프로토콜의 일부이자 매출 구조</h3><p>공식 FAQ "Do I need to use home care products? Yes." 교육 크레딧은 "50% backbar/50% retail", MD 초대 조건은 "utilizing DMK products for at least six months".</p></div>
+  </div>
+  <div class="callout"><b>회수는 공식이 아닙니다.</b> "6~12회, 주 1회~격주, 이후 4~6주 유지", "시술 전 2주 홈 준비", "48~72시간 운동 금지"는 클리닉 문구입니다. DMK 공식은 "continued results achieved through a customized treatment program"까지만 말합니다. 공식 코스 단위로 확인된 것은 여드름 Bootcamp 6~8주와 StemZyme 50일·5회입니다.</div>
+
+  <h3 class="sub">피부과 시술에 대한 DMK의 두 얼굴</h3>
+  <div class="split">
+    <div class="panel"><h3>대체·우월 프레임</h3><p class="cap" style="margin-top:0">"similar to laser or medical peels without the risk of trauma" · "like a dermal filler without the needles" · "topical alternative to BOTOX®" · 언론 "a facial that's like an alternative to Botox"</p></div>
+    <div class="panel"><h3>보완·병행 프레임</h3><p class="cap" style="margin-top:0">"Paramedical, meaning we follow alongside medical practices" · 재건수술 환자 "all pre- and postoperative work" · "in conjunction with their aesthetic procedures" · "work very well with fillers, Botox, and cosmetic or reconstructive surgery"</p></div>
+  </div>
+  <p class="cap">터노바는 오른쪽의 '정신'만 가져오고 표현은 가져오지 않습니다. 왼쪽은 국내외 금지 유형이고, 오른쪽도 '수술 전후용·시술 후 전용' 같은 포지셔닝은 한국 해설서상 의료기관 연상 표현이라 쓰지 않습니다. 시술 간 대기 기간에 대한 DMK 공식 가이드는 없습니다.</p>
+</section>
+
+<!-- 02 -->
+<section id="emface">
+  <div class="sec-head"><span class="sec-no">02 · EMFACE</span><h2>엠페이스(EMFACE) 해부</h2><p class="sec-sub">네이버에서 '엠페이스 피부관리실·프랜차이즈·화장품'을 검색해도 동명의 관리실·화장품·가맹 브랜드는 나오지 않았습니다(상표 DB 미조회). 상위 결과는 모두 BTL 기기 시술입니다.</p></div>
+  <dl class="facts">
+    <div><dt>정체</dt><dd>BTL EMFACE® 의료기기<small>고주파 + HIFES(안면 근육 자극), 품목 '범용전기수술기'</small></dd></div>
+    <div><dt>허가 사용목적</dt><dd>안면 주름의 일시적 개선<small>수입 허가 '수허 23-392호', 의사 시술</small></dd></div>
+    <div><dt>국내</dt><dd>비티엘메디컬테크놀로지코리아<small>2024년 초 론칭 추정, 2026.2.28 2주년 심포지엄</small></dd></div>
+    <div><dt>정품 병의원</dt><dd class="num">198곳<small>서울 139(강남구 약 83) · 2026.10.17 공식 데이터</small></dd></div>
+    <div><dt>시술</dt><dd>패치 부착 후 약 20~45분<small>공식 표기. 마취·회복기간 없음, 1회용 애플리케이터</small></dd></div>
+    <div><dt>코스</dt><dd>주 1회 × 4회 + 유지<small>병원별 4~6회, 9~12개월 재시술. 공식은 "전문의 상담"</small></dd></div>
+    <div><dt>가격</dt><dd class="num">4회 200~300만원(강남)<small>블로그 공개가 4회 160~180만원, 1회 정가 사례 110만원 <span class="tag u">표본 소수</span></small></dd></div>
+    <div><dt>마케팅</dt><dd>박규영 모델, "피부, 엠페이스를 만나다"<small>숏폼 누적 3천만 뷰(2025.11 기준), 의사 심포지엄</small></dd></div>
+  </dl>
+
+  <h3 class="sub">왜 코스로 운영하는가: '근육 운동' 논리</h3>
+  <div class="prose">
+    <p>"근육을 다루는 시술인 만큼 관리를 멈추면… 탄력이 다시 저하될 수 있어"(병원), 소비자 표현 "페이셜 필라테스", "PT하듯". DMK의 '누적' 논리와 같은 구조입니다. 수익은 패키지 선결제, 다른 리프팅과의 결합 패키지, 주기 재시술에서 나옵니다. 근거 쪽에서는 태국인 15명 대상 연구가 4회 후 1개월 이마 리프팅 2.14mm, 6개월 0.67mm로 줄었지만 6개월에도 통계적으로 유의했다고 보고합니다(병원 블로그가 인용한 1차 논문).</p>
+  </div>
+
+  <h3 class="sub">고객의 말과 그 틈을 파고드는 홈케어</h3>
+  <div class="split">
+    <div class="panel"><h3>반복되는 칭찬·불만 <span class="tag p">블로그 125건 중 대표 16건</span></h3>
+      <p class="cap" style="margin-top:0">칭찬: 통증 거의 없음, 다운타임 없음, 티 안 나는 자연스러움, 울쎄라·써마지보다 덜 아파 루틴화, 웨딩 전 관리.<br>불만: 비싸다, 체감이 약하다(의사 데모 후기 "드라마틱한 효과는 없다"), 유지가 짧다, 묶음 결제, 시술 직후 붉은기·패치 자국 1~2시간. 상당수가 병원 마케팅 글로 의심됩니다.</p></div>
+    <div class="panel"><h3>이미 존재하는 홈케어 시장</h3>
+      <p class="cap" style="margin-top:0">병원 자체 애프터케어 키트, "효과가 한 달 만에 빠졌다 → 집에서 관리 안 해서 콜라겐이 분해된다 → 장벽크림" 서사의 바이럴(광고 표기 미확인), "엠페이스 원리를 홈케어로", "시술급 효과"를 내건 EMS 기기. BTL은 모방 기기 제조사를 유럽통합특허법원에 제소(2025.10)했습니다. 화장품법상 의학적 효능 암시, 표시광고법상 비교·기만, 상표 리스크가 겹칩니다.</p></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section id="compare">
+  <div class="sec-head"><span class="sec-no">03 · THREE PROGRAMS</span><h2>세 프로그램은 같은 구조로 반복 매출을 만듭니다</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>구조</th><th class="dmk">DMK (관리실)</th><th>엠페이스 (피부과 기기)</th><th class="tnv">터노바가 할 수 있는 것</th></tr></thead>
+    <tbody>
+      <tr><td class="k">무엇을 파나</td><td class="dmk">화장품 프로그램 + 홈 처방</td><td>장비 시술 + 1회용 소모품</td><td class="tnv">화장품 루틴 + 사용·쉬기 안내</td></tr>
+      <tr><td class="k">반복의 이유</td><td class="dmk">비외상 누적, 세포 주기, 시간 제한</td><td>근육 운동, 멈추면 돌아감</td><td class="tnv">28일 사이클(효능 주장 아닌 사용 단위)</td></tr>
+      <tr><td class="k">진입 단계</td><td class="dmk">딥 필은 첫 회 금지</td><td>체험가 1회 → 4회 패키지</td><td class="tnv">필링밤 주 1회 → 주 2~3회</td></tr>
+      <tr><td class="k">홈케어 연결</td><td class="dmk">의무("Yes")</td><td>없음(제3자가 채움)</td><td class="tnv">시술 일정이 있는 고객에게 '쉬는 기간' 배리어 루틴</td></tr>
+      <tr><td class="k">고객 불만</td><td class="dmk">45분 부동·가려움, 가격, 코스</td><td>가격, 체감 약함, 유지 짧음</td><td class="tnv">약속은 시술 효과가 아니라 피부의 보습·결·장벽</td></tr>
+      <tr><td class="k">광고 위치</td><td class="dmk">대체·보완 혼용</td><td>허가 범위 + 광고심의번호</td><td class="tnv">화장품 효능 범위 안에서, 시술명 없이</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 04 -->
+<section id="procedures">
+  <div class="sec-head"><span class="sec-no">04 · PROCEDURES</span><h2>피부과 시술군: 원리·주기·전후 관리 (내부 참고)</h2><p class="sec-sub">가격은 강남언니 이벤트 대표가(2026-10-17 수집, 체험가 위주라 실제보다 낮음, 동적 페이지라 재현 불가)와 한 의원 정가표(2026.5, 부가세 별도)입니다. 시장 규모 판단용이며 소비자 가격 앵커로 쓰지 않습니다.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>시술</th><th>원리</th><th>다운타임 · 주기</th><th class="num">2026 국내 1회</th><th>시술 후 관리 (출처 성격)</th></tr></thead>
+    <tbody>
+      <tr><td class="k">케미컬 필 (라이트)</td><td>산으로 통제된 손상 → 재생</td><td>1~7일 · 2~5주 간격 3~5회(AAD)</td><td>대표가 4.4만~7.9만, 5회 33만</td><td>보습·자외선 차단(AAD). 시술 전 AHA·BHA 2~7일, 레티노이드 5~10일 중단은 병원 관행</td></tr>
+      <tr><td class="k">스케일링 · 아쿠아필</td><td>흡입 + 산성 용액 클렌징</td><td>거의 없음 · 2~4주(추정)</td><td>아쿠아필 중앙 2.6만, 스케일링 3.3만~5.5만</td><td>당일 각질제거 성분 중복 피하기(추정)</td></tr>
+      <tr><td class="k">레이저토닝 · 피코토닝</td><td>저출력 레이저 색소 분해</td><td>거의 없음 · 1~2주 간격 5~10회+</td><td>대표가 1만~5만, 10회권 22만~32만 (정가 15만~20만~)</td><td>진정·보습·자외선 차단</td></tr>
+      <tr><td class="k">HIFU · 고주파</td><td>진피·SMAS 열 응고</td><td>즉시 일상 · 연 1회 내외</td><td>울쎄라 23만~69만, 써마지 600샷 119만~169만, 슈링크 300샷 6만~10만</td><td>1~2주 SPF50+·보습, 1주 마사지·진동·필링·스크럽 피하기(병원 안내)</td></tr>
+      <tr><td class="k">근육 자극 + 고주파 기기</td><td>RF + 안면 근육 자극</td><td>없음(붉은기 1~2시간) · 주 1회 4회</td><td>4회 200~300만원(강남)</td><td>공식 사후 관리 가이드 미확인</td></tr>
+      <tr><td class="k">스킨부스터</td><td>진피 주입</td><td>엠보 수일 · 3~4주 간격 2~4회</td><td>2cc 8만~25만</td><td>다음 날부터 세안, 스크럽·필링·사우나 1~2주 피하기(병원 안내)</td></tr>
+      <tr><td class="k">보톡스</td><td>신경근 차단</td><td>없음 · 3~4개월</td><td>1부위 0.1만~2만, 목 패키지 8.8만~55만</td><td>문지르기·마사지 금지(AAD, 기간은 병원 관행 24시간 내외)</td></tr>
+      <tr><td class="k">LDM</td><td>이중 주파수 초음파</td><td>없음 · 시술 동반</td><td>중앙 4.65만</td><td>특별한 금기 없음</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 05 -->
+<section id="evidence">
+  <div class="sec-head"><span class="sec-no">05 · OVERLAP &amp; COMPLEMENT</span><h2>홈케어가 겹치는 영역과 보완만 가능한 영역</h2></div>
+  <div class="claims">
+    <div class="claim"><span class="c">결 (저농도 AHA 홈케어)</span><span class="e">글리콜릭 5% 크림 12주 위약 대조 RCT(n=75, 얼굴·목): 결·색소 유의, 주름은 경향만. 가정용 글리콜릭 + 오피스 필 병행군(10명)에서 미세주름 지표 일부 감소(군내 전후 비교, 병행의 추가 효과는 미검증). 3.5%·pH 4.5 필링밤에 그대로 옮길 수 없고, 오피스 필과의 직접 비교 연구는 없음</span><span class="pill warn">일부 겹침 · 보완으로만</span></div>
+    <div class="claim"><span class="c">색소 (토닝)</span><span class="e">홈케어가 토닝을 대체한다는 근거 없음</span><span class="pill no">보완만</span></div>
+    <div class="claim"><span class="c">시술 후 장벽·홍반</span><span class="e">70% 글리콜릭 필 후 보습제 14일 → TEWL·보습 개선(2차 평가변수, 업체 연구). 비박피 프랙셔널 후 판테놀·마데카소사이드 마스크 vs 식염수(n=60) → 홍반·TEWL 감소. 마이크로니들링 후 세라마이드 크림 vs 보습 기제(n=30) → 차이 없음(기제도 보습제). 2026 컨센서스는 세라마이드를 시술 전·당일·회복기 상위 추천으로 꼽음</span><span class="pill warn">보완 · 보습 자체의 근거는 있음, 특정 성분 우월성은 미확인</span></div>
+    <div class="claim"><span class="c">시술 후 유지기</span><span class="e">컨센서스의 유지기(D+7~28) 상위 추천은 레티노이드·페룰산. AHA는 당일·회복기 회피만 합의. CO2 레이저 전 글리콜릭 10% 사전 사용은 색소침착을 줄이지 못함(피부타입 I–III)</span><span class="pill warn">AHA 유지 효과는 근거 약함 · 사전 프라이밍 근거 없음</span></div>
+    <div class="claim"><span class="c">타이트닝 (필름 마스크 vs HIFU·RF)</span><span class="e">PVA 필오프 마스크 3시간 텐서 효과는 일반 에멀전과 차이 없고 보습만 우위. 필름 마스크와 HIFU·RF 비교 연구 없음</span><span class="pill no">대응 근거 없음</span></div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section id="feedback">
+  <div class="sec-head"><span class="sec-no">06 · FEEDBACK</span><h2>기존 대응맵 행별 피드백</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>행</th><th>판정</th><th>무엇이 문제이고 어떻게 고치나</th></tr></thead>
+    <tbody>
+      <tr><td class="k">공통: 시술가 열</td><td><span class="pill no">소비자 사용 금지</span></td><td>시술 가격에 제품 가격을 대는 것 자체가 "시술 대신" 프레임이고 부당 비교 소지가 있습니다. 시장 규모 판단용 내부 열로만 두고, 브랜드북 IX장 "관리실 한 번 값으로, 집에서 한 달"도 소비자 카피에서 뺍니다. 대신 '28일 = 한 사이클' 단위를 씁니다.</td></tr>
+      <tr><td class="k">필링밤 ↔ 케미컬 필 5~15만</td><td><span class="pill warn">가격 범위 넓음 · 포지션 수정</span></td><td>이벤트 대표가 4.4만~7.9만, 5회 패키지 33만. "필의 주기를 이식"과 "필과 필 사이"는 둘 다 맞지 않습니다. 2~3주 간격 필에서는 쉬는 기간에 걸려 쓸 날이 거의 없습니다. 자리는 "시술 일정이 없는 기간의 밤". AHA 0.5% 초과 리브온은 '자외선 차단제 병용·패치 테스트' 문구 의무, 최종 pH 3.5 이상 유지(현 3차 pH 4.5)</td></tr>
+      <tr><td class="k">필링 에센스 ↔ 스케일링·아쿠아필 5~10만</td><td><span class="pill no">부정확</span></td><td>아쿠아필 중앙 2.6만, 스케일링 3.3만~5.5만. "관리실 필의 홈 압축본"은 대체 표현. 워시오프는 자외선 차단 문구가 면제되지만 AHA 0.5% 초과면 패치 테스트 문구는 의무(현 처방 글리콜릭 2.8%로 해당). 일본 축은 유지하되 일본 업계 가이드는 'ピーリング' 표현을 제한</td></tr>
+      <tr><td class="k">필름팩 ↔ 이벤트 타이트닝 10~30만, 시술 직전</td><td><span class="pill no">부정확 · 위험</span></td><td>가격대가 서로 다른 시술(슈링크 6만~10만, 울쎄라 23만~69만, 써마지 100만+)을 섞었고 타이트닝 근거가 없습니다. 시술 직전 사용은 병원의 사전 중단 관행과 충돌합니다. '2제·8회'는 옛 스펙. → "시술 일정과 겹치지 않는 날의 이벤트 컨디셔닝"</td></tr>
+      <tr><td class="k">배리어 ↔ 재생·LDM·진정 3~8만</td><td><span class="pill warn">표현 위험</span></td><td>'재생'은 과대광고 표현. TEWL 그래프는 자사 완제품 인체적용시험이어야 함. '시술 전후 진정·보습'은 해설서가 허용하는 범위(해설서는 비구속 자문 기준)이나, 시술 직후 손상 부위 사용 권장은 '상처 부위 사용 자제' 주의사항과 충돌하므로 사용 시점은 "담당 의사 안내에 따르세요"로</td></tr>
+      <tr><td class="k">넥스틱</td><td><span class="pill ok">출시 제외</span></td><td>목주름 패키지 8.8만~55만. 보류 SKU</td></tr>
+      <tr><td class="k">아이크림 '국내 유일 슬롯'</td><td><span class="pill no">부정확</span></td><td>주름개선 고시 원료는 4종(레티놀·레티닐팔미테이트·아데노신·폴리에톡실레이티드레틴아마이드, 함량은 2차 자료 확인)이고, 어느 경우든 기능성 보고·심사 후에만 '주름개선' 표기. 보류 SKU, 배리어 기능성 확장 시 선택지</td></tr>
+      <tr><td class="k">오일롤러 · 하이드로겔</td><td><span class="pill ok">판단 유지</span></td><td>'볼륨 케어' 금지 판단은 맞음. 출시 제외</td></tr>
+      <tr><td class="k">결론 "대체는 각질·결 하나"</td><td><span class="pill warn">문구 교체</span></td><td>"결 영역에서 일부 겹치지만 직접 비교 근거는 없어 보완으로만 말한다"</td></tr>
+      <tr><td class="k">빠진 것</td><td><span class="pill warn">추가</span></td><td>국내 최다 시술인 토닝, 근육 자극 기기·HIFU·RF, 스킨부스터 행. 그리고 '시술 일정 중 쉬는 기간' 원칙</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 07 -->
+<section id="mapv2">
+  <div class="sec-head"><span class="sec-no">07 · MAP v2</span><h2>터노바 시술 대응맵 v2 (내부 전략 전용)</h2><p class="sec-sub">10/13 확정 4종 기준. '관련 시술' 열은 내부 전용이며 교육 키트를 포함한 외부 자료로 옮기지 않습니다. 매칭은 기능적 유사성이고 효능 동등성 주장이 아닙니다.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>SKU (3막·모드)</th><th>관련 시술 (내부)</th><th>역할</th><th>시술 일정이 있을 때</th><th>말할 수 있는 것 (시술명 없이)</th><th>말하면 안 되는 것</th></tr></thead>
+    <tbody>
+      <tr><td class="k tnv">필링밤<br><small>TURN OFF · Reset · 히어로</small></td><td>라이트 케미컬 필(결 영역 일부 겹침)</td><td>시술 일정이 없는 기간의 밤 결 정돈. 브랜드 히어로</td><td>쉬는 기간에는 쉼. 재개 첫 주는 주 1회</td><td>"자는 동안 각질 케어, 아침의 매끈한 피부결", "피부 턴오버 주기 관리·유지" + AHA 주의 문구</td><td>필링 효과, 필과 필 사이, 턴오버 단축·촉진, 세포 재생</td></tr>
+      <tr><td class="k tnv">필링 에센스<br><small>TURN OFF · Reset</small></td><td>스케일링·아쿠아필(일부 겹침)</td><td>가벼운 결 정돈. 입문·일본용</td><td>쉬는 기간에는 쉼</td><td>"묵은 각질을 씻어내 매끈한 피부결", "피부결 정돈" + 패치 테스트 문구</td><td>관리실·시술 가격 비교, 홈 필링 시술</td></tr>
+      <tr><td class="k tnv">배리어 크림<br><small>TURN OVER · Recover</small></td><td>모든 시술의 전후, 진정관리</td><td>매일 쓰는 마지막 단계. 시술 시리즈 중인 고객의 진입 SKU</td><td>쉬는 기간에도 사용. 시술 직후 사용 시점은 담당 의사 안내 우선</td><td>"피부 시술 전후 피부의 일반적인 진정·보습", "건조한 피부에 수분", "피부장벽 손상의 개선에 도움"(자사 시험 후, 시술 맥락과 분리)</td><td>재생, 손상 회복, 시술 후 전용·피부과용, 홍반 개선, 장벽+가려움 결합</td></tr>
+      <tr><td class="k tnv">STEP 3 워시오프 필름 마스크<br><small>NOVA · Reverse</small></td><td>대응 시술 없음</td><td>시술 일정과 겹치지 않는 날, 이벤트 전 컨디셔닝. 트래픽은 시술 계획이 없는 고객에서</td><td>쉬는 기간에는 쉼(시술 세그먼트와 가장 많이 충돌)</td><td>"마르는 동안 피부가 당겨지는 듯한 일시적 사용감", "씻어낸 뒤 매끈한 피부결", "탄력 있는 피부로 가꿔줍니다"(정량은 실증 후)</td><td>리프팅(제품명 포함), 윤곽·V라인, 타이트닝 시술·기기 원리</td></tr>
+      <tr><td class="k">보류: 넥스틱 · 아이크림 · 오일롤러 · 하이드로겔</td><td>넥·아이 톡신, 부스터, 진정 시트</td><td>확장 로드맵</td><td>—</td><td>주름개선은 기능성 심사(보고) 후에만</td><td>볼륨, 필러·톡신 연상</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout blue"><b>한 줄로.</b> 결 영역에서 일부 겹치지만 보완으로만 말합니다. 시술 일정이 있는 고객에게는 산 성분 제품을 쉬게 하고 배리어 크림으로 루틴을 이어 주는 것, 그 안내를 정직하게 주는 것이 '보완재'의 증거입니다.</div>
+</section>
+
+<!-- 08 -->
+<section id="pause">
+  <div class="sec-head"><span class="sec-no">08 · PAUSE PRINCIPLES</span><h2>시술 일정과 쉬는 기간: 원칙 (내부) · 안내 문구 (소비자)</h2><p class="sec-sub">초안의 시술별 일수표는 두 가지 이유로 폐기했습니다. 첫째, 일수 대부분이 컨센서스가 아니라 병원 관행이라 근거가 약했습니다. 둘째, 그대로 적용하면 짧은 간격 시리즈에서 쓸 날이 0일이 되어 '시술 사이' 포지셔닝 자체가 성립하지 않았습니다. 시술명과 일수를 첨부문서·카드에 쓰는 것은 한국 해설서와 대만 부적당 문구 예시("레이저 시술 후 사용 가능")에 걸립니다.</p></div>
+
+  <h3>내부 원칙</h3>
+  <div class="claims">
+    <div class="claim"><span class="c">시술 당일</span><span class="e">산 성분·레티노이드 부적합(2026 컨센서스, 4개 시술군 모두). 필링밤·필링 에센스·STEP 3는 쓰지 않음</span><span class="pill ok">합의</span></div>
+    <div class="claim"><span class="c">회복기 (붉음·벗겨짐·따가움이 있는 동안, 대략 D+1~7)</span><span class="e">산 성분은 시술군에 따라 부적합(컨센서스 "in some cases"). 피부가 평소 상태로 돌아온 뒤 재개, 재개 첫 주는 주 1회</span><span class="pill warn">부분 합의</span></div>
+    <div class="claim"><span class="c">시술 전</span><span class="e">산 성분 중단 일수는 컨센서스 근거가 아니라 병원 관행(대개 2~7일). 담당 의사 지시를 따름. 컨센서스는 오히려 시술 전 레티노이드를 권장해 관행과 다름</span><span class="pill warn">관행</span></div>
+    <div class="claim"><span class="c">전 구간</span><span class="e">세라마이드·콜레스테롤·히알루론산·나이아신아마이드·펩타이드·판테놀 등은 전 구간 적합(컨센서스). 배리어 크림의 자리</span><span class="pill ok">합의</span></div>
+  </div>
+
+  <h3 class="sub">시술 간격별 '산 성분을 쓸 수 있는 날' (원칙 적용 시 대략)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>시술 일정</th><th>산 성분 사용 가능 구간</th><th>상업적 함의</th></tr></thead>
+    <tbody>
+      <tr><td class="k">토닝 1주 간격 · 근육 자극 기기 주 1회 코스</td><td>거의 없음</td><td>시리즈 기간은 배리어 단독. 종료 후 필링밤 재개 시점이 재구매 계기</td></tr>
+      <tr><td class="k">토닝 2주 간격 · 라이트 필 2~3주 간격</td><td>회차 사이 수일 내외</td><td>필링밤을 주력으로 팔기 어려움. 배리어 중심</td></tr>
+      <tr><td class="k">스킨부스터 3~4주 간격 · 필 4~5주 간격</td><td>회차 사이 약 2주</td><td>4종 루틴이 성립. 쉬기·재개 안내가 신뢰 장치</td></tr>
+      <tr><td class="k">HIFU·RF 연 1회 · 보톡스 3~4개월</td><td>대부분의 기간</td><td>시술 전후 짧은 쉼만 안내</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">'몇 달 매출 0'이 아니라 '쉬었다가 다시 쓰는 시점'이 생기는 구조입니다. 다만 짧은 간격 시리즈 고객에게 필링밤을 메인으로 권하는 것은 맞지 않습니다.</p>
+
+  <h3 class="sub">소비자 안내 문구 (용기·카드·캘린더)</h3>
+  <div class="claims">
+    <div class="claim"><span class="c">카드·첨부문서 주의 블록</span><span class="e">"피부과 시술을 앞두고 있거나 받은 뒤라면 담당 의사의 안내를 먼저 따르세요. 별도 안내가 없다면 시술 전후 며칠은 필링밤·필링 에센스·STEP 3을 쉬고, 피부가 평소 상태로 돌아온 뒤 다시 시작하세요."</span><span class="pill ok">일반 안내</span></div>
+    <div class="claim"><span class="c">8시 캘린더 '쉬는 밤'</span><span class="e">"각질 케어를 쉬어야 하는 기간이 있나요? 안내받은 시작일과 끝나는 날을 입력하세요. 그동안 8시 알림은 배리어 크림 보습 루틴으로 바뀝니다." (시술 종류를 고르게 하지 않음)</span><span class="pill ok">사용자 입력형</span></div>
+    <div class="claim"><span class="c">재개 안내</span><span class="e">"다시 시작하는 첫 주는 주 1회부터. 따가움·붉어짐 등 이상이 있으면 사용을 멈추고 전문의 등과 상담하세요."</span><span class="pill ok">주의사항 문법</span></div>
+  </div>
+</section>
+
+<!-- 09 -->
+<section id="apply">
+  <div class="sec-head"><span class="sec-no">09 · APPLY TO TURNOVA</span><h2>DMK·엠페이스의 운영 로직을 터노바로 옮기는 법</h2></div>
+  <div class="board">
+    <div class="col take"><h3>가져올 것</h3>
+      <div class="item"><span class="from">DMK · 홈케어가 프로토콜의 일부</span><span class="to">'쉬는 밤' 캘린더</span><p>사용자가 입력한 쉬는 기간 동안 8시 알림이 배리어 루틴으로 바뀝니다. 28일 티켓북은 그대로 두고, 그 기간은 '쉬는 밤 티켓'으로 채웁니다.</p></div>
+      <div class="item"><span class="from">DMK · 딥 필은 밟아서</span><span class="to">필링밤 단계 진입</span><p>첫 2주 주 1회 → 이후 주 2~3회. 4차 요청의 강도 2안을 '입문/정규'로. AHA 패치 테스트 문구와 맞물립니다.</p></div>
+      <div class="item"><span class="from">DMK · 메뉴 공식(각질 → 공급 → 보호 → 유지)</span><span class="to">하룻밤 3막</span><p>필링밤·에센스(각질) → 배리어(공급·보호) → 28일 사이클(유지). 브랜드북 3막과 같은 구조입니다.</p></div>
+    </div>
+    <div class="col bend"><h3>바꿔 쓸 것</h3>
+      <div class="item"><span class="from">엠페이스 · "멈추면 돌아감"</span><span class="to">"피부의 보습·결·장벽"</span><p>시술 효과 '유지'를 말하면 의학적 효능 암시입니다.</p></div>
+      <div class="item"><span class="from">DMK · "put them on a time limit"</span><span class="to">28일은 사용 단위로만</span><p>"28일 코스로 개선"처럼 쓰면 의약품 오인 소지. 사이클은 '사용 리듬'으로만 말합니다.</p></div>
+      <div class="item"><span class="from">DMK · 교육 게이트</span><span class="to">약국 직원 교육은 일반 안내만</span><p>교육 키트에 시술 매칭표를 넣으면 사실상 추천·대체 설명이 됩니다. 08장 안내 문구만 넣습니다.</p></div>
+    </div>
+    <div class="col drop"><h3>버릴 것</h3>
+      <div class="item"><span class="from">"alternative to BOTOX", "filler without needles"</span><span class="to">대체·우월 프레임</span><p>국내외 금지 유형.</p></div>
+      <div class="item"><span class="from">"엠페이스 원리", "시술급", 시술 가격 앵커</span><span class="to">시술명·상표·가격 차용</span><p>화장품법·표시광고법·상표·의료광고 리스크.</p></div>
+      <div class="item"><span class="from">'시술 후 전용', '피부과 감수'</span><span class="to">의료기관 연상</span><p>해설서상 의사·의료기관 추천·지도·사용 표현은 사실이어도 금지. 피부과 의사 인플루언서 광고 불가(일본도 금지).</p></div>
+      <div class="item"><span class="from">"콜라겐이 분해된다" 공포 서사</span><span class="to">위장 후기</span><p>의학적 효능 암시, 광고 미표기.</p></div>
+    </div>
+  </div>
+
+  <h3 class="sub">세그먼트별 진입</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>고객</th><th>첫 SKU</th><th>이유</th></tr></thead>
+    <tbody>
+      <tr><td class="k">짧은 간격 시술 시리즈 진행 중</td><td>배리어 크림 (Recover)</td><td>쉬는 기간에도 쓸 수 있는 유일한 출시 SKU</td></tr>
+      <tr><td class="k">시술 일정이 없는 기간 · 연 1회 시술</td><td>필링밤 (Reset) + 배리어</td><td>브랜드 히어로, 결 정돈의 밤</td></tr>
+      <tr><td class="k">각질·결 고민, 시술 계획 없음</td><td>필링 에센스 · STEP 3</td><td>가벼운 결 정돈, 이벤트 컨디셔닝. STEP 3 트래픽의 주 무대</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sub">다음 업무</h3>
+  <div class="sprint">
+    <div class="task"><span class="who">브랜드</span><div class="what"><b>노션 대응맵을 07장 v2로 교체, 브랜드북 IX장 가격 앵커 삭제</b><p>'대체' 문구 삭제, 보류 SKU 분리, 관련 시술 열은 내부 전용 표시. STEP 3 이름에서 '리프팅' 삭제</p></div><div class="out"><b>산출물</b> 대응맵 v2 · 브랜드북 수정</div></div>
+    <div class="task"><span class="who">제품</span><div class="what"><b>라벨 주의 문구</b><p>필링밤(리브온): 자외선 차단제 병용·패치 테스트. 필링 에센스(워시오프, 글리콜릭 2.8%): 패치 테스트. 최종 pH 3.5 이상. 08장 일반 안내 블록 추가</p></div><div class="out"><b>산출물</b> 라벨 문안</div></div>
+    <div class="task"><span class="who">클레임</span><div class="what"><b>배리어 크림 장벽 클레임 시험</b><p>테이프 스트리핑·건조 모델로 "피부장벽 손상의 개선에 도움" 일반 클레임 확보. '시술 후' 데이터는 시술 예정자 대상 관찰형 부가 연구(IRB 필요)로 내부·B2B 전용</p></div><div class="out"><b>산출물</b> 시험 설계안</div></div>
+    <div class="task"><span class="who">리추얼</span><div class="what"><b>'쉬는 밤' 캘린더 기획</b><p>사용자 입력형 쉬는 기간, 배리어 루틴 전환, 재개 알림(주 1회부터)</p></div><div class="out"><b>산출물</b> 기획서</div></div>
+    <div class="task"><span class="who">법무</span><div class="what"><b>시술 언급 범위 자문</b><p>08장 안내 문구, '시술 전후 진정·보습' 표현, 의료광고·환자 유인 리스크, 대만·일본·중국판 문구</p></div><div class="out"><b>산출물</b> 자문 회신</div></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section id="review" style="border-bottom:0">
+  <div class="sec-head"><span class="sec-no">10 · REVIEW LOG &amp; SOURCES</span><h2>검증 기록과 출처</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>초안 서술</th><th>검증 결과</th><th>반영</th></tr></thead>
+    <tbody>
+      <tr><td>시술별 사용·중단 일수표(소비자 카드 인쇄)</td><td>일수 대부분이 병원 관행, 짧은 간격에서 사용일 0일, 시술명+일수는 규제 위험</td><td>원칙 + 간격별 함의 + 일반 안내 문구로 교체</td></tr>
+      <tr><td>컨센서스: 산 성분 회복기 부적합, 유지기 적합</td><td>회복기는 "in some cases", 유지기 상위 추천은 레티노이드·페룰산</td><td>정정</td></tr>
+      <tr><td>판테놀·시카 근거가 세라마이드보다 강함</td><td>설계가 다른 연구 비교(식염수 대조 vs 보습 기제 대조)</td><td>"특정 성분 우월성 미확인"으로</td></tr>
+      <tr><td>가정용 글리콜릭 + 오피스 필 병행 시 미세주름 감소</td><td>군당 10명 군내 비교, 병행 추가 효과 미검증</td><td>정정</td></tr>
+      <tr><td>시술 1일차 자외선 차단 → 색소침착 감소(토닝 행)</td><td>박피 CO2 레이저 연구</td><td>토닝 행에서 삭제</td></tr>
+      <tr><td>강남구 88곳 · 시술 약 20분</td><td>약 83곳 · 공식 20~45분</td><td>정정</td></tr>
+      <tr><td>엠페이스 1회 70~110만, 4회 160~300만</td><td>표본 소수, 재현 불가</td><td>"4회 200~300만원(강남)" + 표본 표시</td></tr>
+      <tr><td>"removal… is only step one" = 메뉴 공식 원문</td><td>DMK 기고문</td><td>귀속 정정</td></tr>
+      <tr><td>"57 muscles" = DMK 기고</td><td>저자 미표기 Dermascope 페이지</td><td>귀속 정정</td></tr>
+      <tr><td>Solar Damage 인용, StemZyme 보충제 하루 2회, Level 2 클리닉 인용</td><td>확인 불가</td><td>삭제 또는 완화</td></tr>
+      <tr><td>보톡스 24시간(AAD)</td><td>AAD는 기간 없음</td><td>"기간은 병원 관행"</td></tr>
+      <tr><td>워시오프는 AHA 문구 면제</td><td>자외선 차단 문구만 면제, 패치 테스트는 의무</td><td>정정</td></tr>
+      <tr><td>시술 가격 앵커(필링 에센스 2~5만 등)</td><td>앵커 자체가 대체 프레임</td><td>소비자 사용 금지</td></tr>
+      <tr><td>'대체' 표현 9곳</td><td>내부 원칙 위반</td><td>전부 교체</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b>남은 미확인.</b> DMK 공식 회수·간격·금기 목록, 프로 전용 제품 공식 페이지, 엠페이스 상표 DB·공식 사후 관리 가이드·FDA 510(k) 번호, 식약처 주름개선 고시 원문, 대한피부과학회 시술 전후 관리 지침, 3.5% 리브온 AHA와 오피스 필 직접 비교, 필름 마스크와 HIFU·RF 비교, 강남언니 가격 원자료(재현 불가). 컨센서스(S1, SkinCeuticals 초청 Delphi 14명)와 일부 연구는 업체 후원이며, KCIA 해설서는 스스로 법률적 판단 기준이 아니라고 밝힙니다.</div>
+
+  <h3 class="srch">DMK</h3>
+  <ol class="sources">
+    <li><a href="https://dmkskincare.com/the-dmk-difference/">the DMK difference</a> · <a href="https://dmkskincare.com/who-we-are/">who we are</a> · <a href="https://dmkskincare.com/age-management/">age management FAQ</a> · <a href="https://dmkskincare.com/skin-care-professional/dmk-certified/">DMK certified</a></li>
+    <li>제품: <a href="https://dmkskincare.com/product/exoderma-peel/">Exoderma Peel</a> · <a href="https://dmkskincare.com/product/foamy-lift/">Foamy Lift</a> · <a href="https://dmkskincare.com/product/beta-gel/">Beta Gel</a> · <a href="https://dmkskincare.com/product/contraderm/">Contraderm</a> · <a href="https://dmkskincare.com/product/revise-a/">Revise A</a> · <a href="https://dmkskincare.com/product/firmatrix/">FirMatrix</a> · <a href="https://dmkskincare.com/product/eye-tone/">Eye Tone</a> · <a href="https://dmkskincare.com/product/micro-peel/">Micro Peel</a></li>
+    <li>교육: <a href="https://mydmk.dannemking.com/event_detail/2035">Acne Bootcamp·Beyond the Basics</a> · DMK UK: <a href="https://dmkuk.com/stemzyme-stem-cell-skin-treatment/">StemZyme</a> · <a href="https://www.dmkuk.com/treatments/scarring/">Scarring</a></li>
+    <li>Dermascope: <a href="https://www.dermascope.com/enzyme-therapy-skin-revision-treatment-by-danne-montague-king-dmk/">Enzyme Therapy</a> · <a href="https://www.dermascope.com/signature-treatment-december-2008/">Signature Treatment 2008</a> · <a href="https://www.dermascope.com/skin-revision/">Skin Revision</a> · <a href="https://www.dermascope.com/myths-and-realities-of-acne/">Acne</a> · <a href="https://www.dermascope.com/the-ruse-behind-wrinkles-addressing-myths-about-aging-and-its-treatment/">Wrinkles</a> · <a href="https://www.dermascope.com/playing-the-piano-on-the-ph-scale-and-other-exfoliants/">pH</a> · <a href="https://www.dermascope.com/face-lifts-and-stem-cells/">Face lifts</a></li>
+    <li>클리닉: <a href="https://cdn.shopify.com/s/files/1/1164/3606/files/DMK_services_menu.pdf">메뉴 PDF</a> · <a href="https://form.jotform.com/210614946311146">동의서</a> · <a href="https://www.beaut.ie/beauty/dmk-enzyme-therapy-facial-results-385922">Beaut.ie</a> · <a href="https://www.buzzfeed.com/kristatorres/i-got-a-game-of-thrones-anti-aging-facial-and-th">BuzzFeed</a></li>
+  </ol>
+  <h3 class="srch">엠페이스</h3>
+  <ol class="sources">
+    <li><a href="https://www.btlaesthetic.co.kr/emface/">BTL 공식 EMFACE</a> · <a href="https://blog.naver.com/btlaesthetics_korea/223403462801">BTL 공식 블로그</a> · <a href="https://www.btlaesthetic.co.kr/assets/data/hospitals.json?ver=19.0">정품 병의원 데이터</a></li>
+    <li><a href="http://www.beyondpost.co.kr/view.php?ud=2026030317560818319aeda69934_30">2주년 심포지엄 (2026.3)</a> · <a href="https://www.epnc.co.kr/news/articleView.html?idxno=324771">테크월드 (2025.11)</a> · <a href="https://www.prnewswire.com/apac/zh/news-releases/btl--wonderface--302578450.html">BTL 특허 소송 (2025.10)</a></li>
+    <li>병원: <a href="https://gangnamodeclinic.com/blog/?mod=document&amp;uid=106">오드의원</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/39800907/">1차 논문 n=15</a> · <a href="https://healhouseskin.com/ko/antiaging/emface/">힐하우스</a> · <a href="https://beautyleader.co.kr/network/landing_emface.php">리더스피부과</a></li>
+    <li>후기: <a href="https://blog.naver.com/pureflow_/223756103278">pureflow_</a> · <a href="https://blog.naver.com/annaae/224271319989">annaae</a> · <a href="https://blog.naver.com/lwk6969/224088489067">lwk6969</a> · <a href="https://blog.naver.com/young-healty/224077037148">young-healty</a> · <a href="https://blog.naver.com/teamj2511/224193426978">teamj2511</a></li>
+  </ol>
+  <h3 class="srch">시술·근거·규제</h3>
+  <ol class="sources">
+    <li><a href="https://pubmed.ncbi.nlm.nih.gov/42087526/">2026 국제 컨센서스(S1)</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/9598014/">글리콜릭 5% RCT</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/15793459/">홈+오피스 필</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/31322804/">필 후 보습제</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/40613435/">판테놀 마스크</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/40099382/">세라마이드 vs 기제</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/9935086/">사전 처치</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/24750029/">필오프 마스크</a></li>
+    <li><a href="https://www.aad.org/public/cosmetic/younger-looking/chemical-peels-faqs">AAD 케미컬 필</a> · <a href="https://www.aad.org/public/cosmetic/wrinkles/botulinum-toxin-faqs">AAD 보톡스</a></li>
+    <li><a href="https://kcia.or.kr/cid/search/ingd_view.php?no=5453">KCIA AHA 주의사항</a> · <a href="https://kcia.or.kr/inc/down.php?dir=BOARD&amp;file_name=202511_176274028203592_1.pdf">KCIA 광고자문 해설서 2025</a> · <a href="https://kcia.or.kr/inc/down.php?dir=BOARD&amp;file_name=202508_175547601592435_2.pdf">식약처 표시·광고 관리 지침</a></li>
+    <li>가격: <a href="https://www.gangnamunni.com/events?q=리쥬란">강남언니 이벤트(2026.10.17 수집, 재현 불가)</a> · <a href="https://reberryclinic.com/?p=3997">리베리의원 가격표</a></li>
+    <li>터노바 내부: 노션 '터노바 시술 대응맵', 브랜드스토리, 3차 품평 시트</li>
+  </ol>
+</section>
+
+<footer>터노바 시술 대응맵 v2 · 내부 전략 전용. 시술 매칭은 기능적 유사성이며 효능 동등성 주장이 아닙니다. 가격은 수집 시점 공개가이며 시장 규모 판단용입니다. 규제 판단은 리스크 스크리닝이며 법률 자문이 아닙니다.</footer>
+</div>
